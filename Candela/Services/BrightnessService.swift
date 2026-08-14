@@ -691,7 +691,11 @@ final class BrightnessService: @unchecked Sendable {
     /// If GammaService has an active adjustment for this display, it delegates to GammaService
     /// so the two do not overwrite each other's CGSetDisplayTransfer* call.
     func setSoftwareBrightness(_ brightness: Double, for displayID: CGDirectDisplayID) {
-        let factor = max(0.05, brightness / 100.0)
+        // Not `brightness / 100`: the table emits signal, the panel applies its EOTF
+        // on top, so a linear scale darkens roughly as the 2.2 power and a
+        // software-dimmed display races ahead of a DDC one on the combined slider.
+        // See SoftwareDimming.
+        let factor = SoftwareDimming.transferFactor(forPercent: brightness)
         softwareBrightnessLock.withLock { softwareBrightnessFactors[displayID] = factor }
         saveSoftwareBrightness(factor: factor, for: displayID)
 

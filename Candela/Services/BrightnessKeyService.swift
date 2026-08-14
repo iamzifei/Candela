@@ -1,6 +1,7 @@
 import AppKit
 import CoreGraphics
 import ApplicationServices
+import os.log
 
 // MARK: - C Event Tap Callback
 
@@ -29,6 +30,15 @@ private func brightnessKeyEventCallback(
 final class BrightnessKeyService: @unchecked Sendable {
     static let shared = BrightnessKeyService()
     private init() {}
+
+    /// Arming is the one part of this service with no visible symptom when it fails:
+    /// the keys simply keep doing what macOS does with them, which is indistinguishable
+    /// from the app not being installed. Log the decisions so a report of "the keys
+    /// don't work" can be answered from
+    ///   log show --predicate 'subsystem == "com.candela.app"' --last 10m
+    /// instead of guessing between "not trusted", "trusted but tapCreate refused" and
+    /// "armed but the events go elsewhere".
+    nonisolated static let log = Logger(subsystem: "com.candela.app", category: "brightnesskeys")
 
     // MARK: - Private State
 
@@ -93,6 +103,7 @@ final class BrightnessKeyService: @unchecked Sendable {
         )
 
         guard let tap else {
+            Self.log.error("start: tapCreate refused (AXIsProcessTrusted=\(AXIsProcessTrusted()))")
             retained.release()
             selfRetained = nil
             retryUntilArmed()
@@ -107,6 +118,7 @@ final class BrightnessKeyService: @unchecked Sendable {
         self.runLoopSource = source
         stopRetrying()
         startTrustWatchdog()
+        Self.log.info("start: tap armed")
     }
 
     /// Removes the event tap and releases the retained self reference.
@@ -192,11 +204,16 @@ final class BrightnessKeyService: @unchecked Sendable {
     /// TCC entry dies on every rebuild. This path has to stay quiet until trust is
     /// real, so it owns its own timer.
     func armWhenTrusted() {
-        guard eventTap == nil, trustWatchTimer == nil else { return }
+        guard eventTap == nil, trustWatchTimer == nil else {
+            Self.log.info("armWhenTrusted: already armed or already watching")
+            return
+        }
         if AXIsProcessTrusted() {
+            Self.log.info("armWhenTrusted: trusted at launch, arming now")
             start()
             return
         }
+        Self.log.info("armWhenTrusted: not trusted, polling until it is")
         // Cheap TCC lookup; the trust watchdog below already polls twice a second
         // while armed, so once every two seconds while idle is nothing.
         trustWatchTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] timer in
