@@ -16,17 +16,14 @@ final class PanelSectionState: ObservableObject {
     /// animating a reveal, so the panel's height follows the page it is on
     /// instead of the sum of everything anyone has ever expanded.
     @Published var route: PanelRoute = .root
-    @Published var showTools = false
-    @Published var showVirtualDisplays = false
-    @Published var showSidecar = false
-    @Published var showArrangement = false
-    @Published var showSettings = false
-    @Published var expandedDisplayIDs: Set<CGDirectDisplayID> = []
-    // Per-display dropdown sections inside the expanded detail, lifted here
-    // (out of view @State) so each reveal is its own canvas block: the clip
-    // animates, the content renders once, nothing re-renders per frame.
+    // The sections that remain inside a display's page. Lifted out of view @State
+    // so each reveal is its own canvas block: the clip animates, the content
+    // renders once, nothing re-renders per frame.
+    //
+    // The flags for Tools, its three sub-sections, Settings, the display detail
+    // and the full resolution list are gone — those are pages now, and a flag for
+    // a section that no longer collapses is a lie about how the panel works.
     @Published var resolutionOpenIDs: Set<CGDirectDisplayID> = []
-    @Published var allResolutionsOpenIDs: Set<CGDirectDisplayID> = []
     @Published var refreshOpenIDs: Set<CGDirectDisplayID> = []
     @Published var profileOpenIDs: Set<CGDirectDisplayID> = []
     @Published var imageOpenIDs: Set<CGDirectDisplayID> = []
@@ -42,13 +39,7 @@ final class PanelSectionState: ObservableObject {
     /// Reopen collapsed, like a native menu (called once the panel finished hiding).
     func collapseAll() {
         route = .root
-        showTools = false
-        showVirtualDisplays = false
-        showArrangement = false
-        showSettings = false
-        expandedDisplayIDs.removeAll()
         resolutionOpenIDs.removeAll()
-        allResolutionsOpenIDs.removeAll()
         refreshOpenIDs.removeAll()
         profileOpenIDs.removeAll()
         imageOpenIDs.removeAll()
@@ -59,9 +50,7 @@ final class PanelSectionState: ObservableObject {
         // A page for a display that just vanished has nothing to show, and its back
         // arrow would be the only way out of a blank panel.
         if let id = route.displayID, !valid.contains(id) { route = .root }
-        expandedDisplayIDs.formIntersection(valid)
         resolutionOpenIDs.formIntersection(valid)
-        allResolutionsOpenIDs.formIntersection(valid)
         refreshOpenIDs.formIntersection(valid)
         profileOpenIDs.formIntersection(valid)
         imageOpenIDs.formIntersection(valid)

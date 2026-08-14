@@ -602,13 +602,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] uuid in
-                // A smooth-scaling reconnect rebuilt this display's row collapsed;
-                // re-expand its detail and reopen its Resolution section, so the
-                // user lands back where they were.
+                // A smooth-scaling reconnect rebuilt the panel at the root; put the
+                // user back where they were, which is now this display's page with
+                // its Resolution section open rather than a re-expanded row.
                 guard let self,
                       let d = self.displayManager.displays.first(where: { $0.displayUUID == uuid })
                 else { return }
-                self.sectionState.expandedDisplayIDs.insert(d.displayID)
+                self.sectionState.route = .display(d.displayID)
                 self.sectionState.resolutionOpenIDs.insert(d.displayID)
                 // Consume the request (the compactMap above ignores the nil).
                 DispatchQueue.main.async { self.displayManager.pendingResolutionExpandUUID = nil }
@@ -965,6 +965,16 @@ private struct PanelBlockFactory {
             guard let display = visible.first(where: { $0.displayID == id })
             else { return rootBlocks(visible: visible) }
             return allResolutionsPageBlocks(for: display)
+        case .tools:
+            return toolsPageBlocks()
+        case .virtualDisplays:
+            return simplePageBlocks(.virtualDisplays, id: "vdrows") { VirtualDisplayView() }
+        case .sidecar:
+            return simplePageBlocks(.sidecar, id: "sidecarrows") { SidecarView() }
+        case .arrangement:
+            return simplePageBlocks(.arrangement, id: "arrangerows") { ArrangementView() }
+        case .settings:
+            return simplePageBlocks(.settings, id: "settingsrows") { SettingsView() }
         }
     }
 
@@ -1122,16 +1132,11 @@ private struct PanelBlockFactory {
 
         blocks += toolsBlocks()
 
-        let settingsHeader = block("settingshead") {
-            ExpandableRowStateful(icon: "gearshape.fill", iconActive: false,
-                                  label: "Settings", state: state, key: \.showSettings)
-        }
-        settingsHeader.liveInFlight = true
-        blocks.append(settingsHeader)
-
-        blocks.append(block("settingsrows", isOpen: { state.showSettings }) {
-            SettingsView()
-                .padding(.leading, 8)
+        blocks.append(block("settingshead") {
+            PanelPushRow(icon: "gearshape.fill",
+                         label: String(localized: "Settings")) {
+                withAnimation(.panelResize) { state.route = .settings }
+            }
         })
         blocks.append(block("update") { UpdateBlockView() })
 
@@ -1144,69 +1149,73 @@ private struct PanelBlockFactory {
     /// Arrange Displays only exists with more than one display, and reads the
     /// count through a weak reference so a block outliving a rebuild can't pin
     /// the display manager.
+    /// The Tools row on the root page. Everything under it is its own page now.
     private func toolsBlocks() -> [PanelBlock] {
         let state = self.state
-        let displayManager = self.displayManager
-
-        let header = block("toolshead") {
-            VStack(alignment: .leading, spacing: 0) {
-                SectionDivider()
-                ExpandableRowStateful(icon: "wrench.and.screwdriver.fill", iconActive: false,
-                                      label: "Tools", state: state, key: \.showTools)
-            }
-        }
-        header.liveInFlight = true
-
-        let top = block("toolsA", isOpen: { state.showTools }) {
-            VStack(alignment: .leading, spacing: 0) {
-                KeepAwakeRow()
-                ExpandableRowStateful(icon: "display.2", iconActive: false,
-                                      label: "Virtual Displays", state: state, key: \.showVirtualDisplays)
-            }
-            .padding(.leading, 8)
-        }
-        top.liveInFlight = true   // Virtual Displays chevron
-
-        // Only when this Mac can do Sidecar at all, so a Mac that cannot never shows
-        // a section it can do nothing with.
-        let sidecarAvailable = SidecarService.shared.isAvailable
-        let sidecarHeader = block("sidecarhead", isOpen: { state.showTools && sidecarAvailable }) {
-            ExpandableRowStateful(icon: "ipad.landscape", iconActive: false,
-                                  label: "iPad Display", state: state, key: \.showSidecar)
-                .padding(.leading, 8)
-        }
-        sidecarHeader.liveInFlight = true   // iPad Display chevron
-
-        let arrangeHeader = block("toolsB", isOpen: { [weak displayManager] in
-            state.showTools && (displayManager?.displays.count ?? 0) > 1
-        }) {
-            ExpandableRowStateful(icon: "rectangle.3.offgrid", iconActive: false,
-                                  label: "Arrange Displays", state: state, key: \.showArrangement)
-                .padding(.leading, 8)
-        }
-        arrangeHeader.liveInFlight = true
-
         return [
-            header,
-            top,
-            block("vdrows", isOpen: { state.showTools && state.showVirtualDisplays }) {
-                VirtualDisplayView()
-                    .padding(.leading, 16)
-            },
-            sidecarHeader,
-            block("sidecarrows", isOpen: {
-                state.showTools && sidecarAvailable && state.showSidecar
-            }) {
-                SidecarView()
-                    .padding(.leading, 16)
-            },
-            arrangeHeader,
-            block("arrangerows", isOpen: { [weak displayManager] in
-                state.showTools && state.showArrangement && (displayManager?.displays.count ?? 0) > 1
-            }) {
-                ArrangementView()
-                    .padding(.leading, 8)
+            block("toolshead") {
+                VStack(alignment: .leading, spacing: 0) {
+                    SectionDivider()
+                    PanelPushRow(icon: "wrench.and.screwdriver.fill",
+                                 label: String(localized: "Tools")) {
+                        withAnimation(.panelResize) { state.route = .tools }
+                    }
+                }
             }
+        ]
+    }
+
+    /// The Tools page: Keep Awake, then the three things that manage displays
+    /// rather than adjust one. Each of those opens its own page, because each is a
+    /// list that used to be the third level of an accordion.
+    private func toolsPageBlocks() -> [PanelBlock] {
+        let state = self.state
+        let displayManager = self.displayManager
+        var blocks: [PanelBlock] = [
+            block("tools-page-head") {
+                PanelBackHeader(title: PanelRoute.tools.title ?? "") {
+                    withAnimation(.panelResize) { _ = state.goBack() }
+                }
+            },
+            block("tools-keepawake") { KeepAwakeRow() },
+            block("tools-vd") {
+                PanelPushRow(icon: "display.2",
+                             label: String(localized: "Virtual Displays")) {
+                    withAnimation(.panelResize) { state.route = .virtualDisplays }
+                }
+            }
+        ]
+        if SidecarService.shared.isAvailable {
+            blocks.append(block("tools-sidecar") {
+                PanelPushRow(icon: "ipad.landscape",
+                             label: String(localized: "iPad Display")) {
+                    withAnimation(.panelResize) { state.route = .sidecar }
+                }
+            })
+        }
+        // Arranging needs something to arrange.
+        if displayManager.displays.count > 1 {
+            blocks.append(block("tools-arrange") {
+                PanelPushRow(icon: "rectangle.3.offgrid",
+                             label: String(localized: "Arrange Displays")) {
+                    withAnimation(.panelResize) { state.route = .arrangement }
+                }
+            })
+        }
+        return blocks
+    }
+
+    /// A page that is a back header and one view.
+    private func simplePageBlocks<V: View>(_ route: PanelRoute, id: String,
+                                           @ViewBuilder _ content: () -> V) -> [PanelBlock] {
+        let state = self.state
+        return [
+            block("\(id)-head") {
+                PanelBackHeader(title: route.title ?? "") {
+                    withAnimation(.panelResize) { _ = state.goBack() }
+                }
+            },
+            block(id, content)
         ]
     }
 }

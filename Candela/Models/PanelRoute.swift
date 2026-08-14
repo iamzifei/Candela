@@ -15,6 +15,12 @@ enum PanelRoute: Equatable {
     case display(CGDirectDisplayID)
     /// The full mode list for a display, the one page long enough to earn its own.
     case allResolutions(CGDirectDisplayID)
+    /// Keep Awake plus the three things that manage displays rather than adjust one.
+    case tools
+    case virtualDisplays
+    case sidecar
+    case arrangement
+    case settings
 
     /// The page this one goes back to.
     var parent: PanelRoute? {
@@ -22,14 +28,31 @@ enum PanelRoute: Equatable {
         case .root: nil
         case .display: .root
         case .allResolutions(let id): .display(id)
+        case .tools, .settings: .root
+        case .virtualDisplays, .sidecar, .arrangement: .tools
         }
     }
 
     /// The display this page belongs to, so a disconnect can pop back to root.
     var displayID: CGDirectDisplayID? {
         switch self {
-        case .root: nil
         case .display(let id), .allResolutions(let id): id
+        case .root, .tools, .virtualDisplays, .sidecar, .arrangement, .settings: nil
+        }
+    }
+
+    /// The page's own title, shown next to the back arrow.
+    ///
+    /// Display pages are absent: their title is the display's name, which only the
+    /// caller has.
+    var title: String? {
+        switch self {
+        case .root, .display, .allResolutions: nil
+        case .tools: String(localized: "Tools")
+        case .virtualDisplays: String(localized: "Virtual Displays")
+        case .sidecar: String(localized: "iPad Display")
+        case .arrangement: String(localized: "Arrange Displays")
+        case .settings: String(localized: "Settings")
         }
     }
 }

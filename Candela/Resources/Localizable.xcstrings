@@ -322,7 +322,6 @@
       }
     },
     "Arrange Displays" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -1775,7 +1774,6 @@
       }
     },
     "iPad Display" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -2739,7 +2737,6 @@
       }
     },
     "Settings" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3014,7 +3011,6 @@
       }
     },
     "Tools" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
@@ -3229,7 +3225,6 @@
       }
     },
     "Virtual Displays" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
