@@ -309,19 +309,54 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 
 ---
 
-## Phase 4 — App Icon（macOS 26 规范）
+## Phase 4 — App Icon ✅ 主体完成 2026-08-14（commit 52d799e）
 
-**做什么**
-- [ ] 用 **Icon Composer**（Xcode 26 内置）做分层 `.icon`，而非 Crisp 的扁平 `.icns`
-- [ ] 视觉母题：Candela = 亮度单位 → 发光体 / 光强刻度。需支持 Liquid Glass 的
-      分层折射、高光、深色/浅色/单色/明晰四种外观
-- [ ] 弃用 `scripts/generate-icon.swift`（或改造为生成 .icon 的源素材）
-- [ ] 菜单栏图标（template image）单独设计，16pt 下必须可读
+**选定方案：B「亮度弧」** —— 刻度弧从暗扫到亮，环绕中心光源。Candela 是亮度单位，
+所以画的是「测量」而不是「屏幕」。轮廓恰好是个 C。
+
+5 个候选（三外观 × 512/64/32）留在 `/Users/james/Dev/candela/design/icon-candidates/`。
+**小尺寸那两列决定了结果**：
+- A 光锥在大尺寸读成「山 + 太阳」
+- D 光度极坐标大尺寸最独特，**32pt 糊成一团**——这正是加小尺寸列的原因
+- C 发光屏能用但与 BetterDisplay / Lunar / MonitorControl 撞脸
+- E 烛焰词源对、产品错（读成冥想 app，暖橙与界面冷色调打架）
+
+- [x] `scripts/generate-icon.py` 取代 `generate-icon.swift`，**输出 SVG**
+      （macOS 26 分层 `.icon` 的图层就是 SVG，将来直接复用不用重画）
+- [x] 三种外观：light 饱和靛蓝 / dark 近黑 / mono 代表 `ISAppearanceTintable`
+- [x] 菜单栏 template 图标换成同一个弧，AppKit 按 18pt 自有网格绘制
+- [x] Dock / Finder 实测：四角透明、无白卡
+
+### ⚠️ 两个必须记住的坑
+
+1. **几何按实测，不按 Big Sur 规格**。量了 macOS 26 的 Notes.app（256pt）：
+   形状占画布 **0.836**（Big Sur 是 0.805），圆角 ≈ 0.225×边长，且**上留白比下多 4pt**
+   （给系统投影让位）
+2. **`qlmanage -t` 会把 SVG 合成到不透明白底**。第一版 iconset 每张四角都是纯白，
+   Dock 直接画成一张白卡垫在图案后面。改用 `scripts/rasterize-svg.swift`
+   （NSImage 原生读 SVG，保留矢量与 alpha，逐尺寸原生渲染而非从 1024 缩放）。
+   重复生成字节一致
+
+### ⏳ 剩余：分层 `.icon` 打包（低优先级，不阻塞发布）
+
+已查清格式：`.icon` conforms to `com.apple.package`，是**目录包**；清单键为
+`groups` / `layers` / `fill` / `image-name` / `glass` / `specular` / `translucency` /
+`blur-material` / `shadow` / `supported-platforms`，资源放 `assets/`，图层是 SVG。
+编译产物是 `Assets.car` 里的 `IconImageStack`（三外观：`NSAppearanceNameAqua` /
+`NSAppearanceNameDarkAqua` / `ISAppearanceTintable`）+ `IconGroup`。
+⚠️ **系统 app 仍然只 ship `.icns`，`.icon` 是创作源格式** —— 我之前说「做 .icon
+而不是 .icns」是错的，已更正。
+
+**当前发布路径 ship 的是扁平 `.icns`（light 外观），完全可用。** 要拿到 Liquid Glass
+的分层折射与高光，需用 Icon Composer（GUI，无法无头驱动）导入
+`/Users/james/Dev/candela/design/candela-icon-{light,dark,mono}.svg`。
+→ HUMAN QUEUE #9
 
 **验收标准**
-- Dock、Launchpad、Finder、系统设置四处显示正常
-- 浅色/深色/单色/明晰四种外观各截一张图确认
-- 菜单栏图标在浅色和深色菜单栏下都清晰
+- [x] Dock / Finder 显示正常，无白卡
+- [x] 菜单栏图标浅色/深色菜单栏都清晰（template 反色正常）
+- [ ] Launchpad、系统设置两处未逐一确认
+- [ ] 「明晰（clear）」外观未做（需分层 .icon）
 
 ---
 
@@ -364,7 +399,8 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 | 3 | 创建 GitHub 仓库（public），决定仓库名 `candela` 还是 `Candela` | Phase 5 | ⏳ 待做 |
 | 4 | `xcrun notarytool store-credentials` —— 需要 Apple ID + app-specific password，交互式 | Phase 5 公证 | ⏳ 待做 |
 | 5 | 建 Homebrew tap 仓库 `homebrew-tap` | Phase 5 分发 | ⏳ 待做 |
-| 6 | App icon 视觉方向拍板（我出候选，你选） | Phase 4 | ⏳ 待做 |
+| 6 | App icon 视觉方向拍板 | Phase 4 | ✅ 2026-08-14 选定 B 亮度弧 |
+| 9 | **（可选）用 Icon Composer 做分层 `.icon`** —— GUI 无法无头驱动。打开 Icon Composer（在 Xcode 里：`/Applications/Xcode.app/Contents/Applications/Icon Composer.app`），导入 `/Users/james/Dev/candela/design/candela-icon-{light,dark,mono}.svg` 作为三个外观的图层，导出 `.icon` 放进仓库。收益＝Liquid Glass 的分层折射/高光/「明晰」外观。**不做也能发布**，现在 ship 的扁平 icns 完全可用 | Phase 4 收尾 | ⏳ 可选 |
 | 7 | **面板 UI 回归**：点菜单栏 Candela 图标（在 Ice 隐藏区里），确认两台屏都列出、拖亮度滑块 VX1622 会变、切分辨率正常 | Phase 1 收尾 | ⏳ 待做，2 分钟 |
 | 8 | **M28U 的 OSD 菜单里找 DDC/CI 并打开**（Gigabyte M 系列一般在 Settings → Other Settings）。若菜单里本来就是开的，那问题在 Anker Prime Dock 不透传 DDC，需换直连 Mac 的线再测 | 主屏硬件亮度控制 | ⏳ 待做 |
 
