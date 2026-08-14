@@ -14,6 +14,7 @@ import AppKit
 final class PanelSectionState: ObservableObject {
     @Published var showTools = false
     @Published var showVirtualDisplays = false
+    @Published var showSidecar = false
     @Published var showArrangement = false
     @Published var showSettings = false
     @Published var expandedDisplayIDs: Set<CGDirectDisplayID> = []

@@ -106,6 +106,84 @@ extern CGError SLSGetDisplayList(uint32_t maxDisplays,
                                  CGDirectDisplayID *displays,
                                  uint32_t *displayCount);
 
+// MARK: - SidecarCore Private API (iPad as a display)
+
+// SidecarCore is not in the public SDK and is not linked; its classes are resolved
+// at runtime after dlopen (see SidecarService).
+//
+// Declared as PROTOCOLS, not @interface. An @interface makes the compiler emit a
+// reference to `_OBJC_CLASS_$_SidecarDevice` and friends, and even marked for
+// dynamic lookup dyld resolves those at launch — before anything has had a chance
+// to dlopen the framework — so the app aborts on start with "symbol not found in
+// flat namespace". A protocol emits no class reference at all: the Swift side gets
+// the same typed API, and the objects are obtained by name and bit-cast onto these
+// protocols, which is sound because ObjC dispatch is by selector.
+//
+// Verified against the live runtime on macOS 26.6, which is also where the
+// surprises came from: the config's flags are boxed NSNumbers rather than BOOLs,
+// with nil meaning "leave at the system default", and `configForDevice:` returns
+// nil for any device that is not already connected.
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol CandelaSidecarDevice <NSObject>
+@property (nonatomic, readonly, copy) NSString *name;
+/// An NSUUID, not a string — reading it as NSString crashes in
+/// `-[__NSConcreteUUID length]`. Its `description` looks like a UUID string, which
+/// is exactly why dumping it through KVC made it look like one.
+@property (nonatomic, readonly, copy) NSUUID *identifier;
+@property (nonatomic, readonly, copy) NSString *localizedDeviceType;
+/// Whether this device can act as an additional display at all, as opposed to only
+/// receiving drawing input.
+@property (nonatomic, readonly) BOOL offersAdditionalDisplay;
+@end
+
+@protocol CandelaSidecarDisplayConfig <NSObject>
+/// YES = the iPad gets its own desktop (extend); NO = it mirrors.
+///
+/// The meaning is inferred from the name and from how Sidecar behaves, not from any
+/// documentation: "exclusive mode" is the iPad owning a display space rather than
+/// sharing the Mac's. If a build ever mirrors when it should extend, this flag is
+/// the first thing to invert.
+@property (nonatomic, copy, nullable) NSNumber *configureDisplayExclusiveMode;
+/// The iPad-side sidebar with the modifier keys.
+@property (nonatomic, copy, nullable) NSNumber *showSideBar;
+/// The iPad-side Touch Bar strip.
+@property (nonatomic, copy, nullable) NSNumber *showTouchBar;
+@end
+
+@protocol CandelaSidecarDisplayManager <NSObject>
+/// Devices that could be connected right now.
+@property (nonatomic, readonly, copy) NSArray *devices;
+/// Devices currently serving as a display.
+@property (nonatomic, readonly, copy) NSArray *connectedDevices;
+- (void)connectToDevice:(id)device
+             withConfig:(id)config
+             completion:(void (^)(NSError *_Nullable error))completion;
+- (void)disconnectFromDevice:(id)device
+                  completion:(void (^)(NSError *_Nullable error))completion;
+@end
+
+/// The class object of SidecarDisplayManager, addressed as an instance.
+///
+/// A class method is an instance method of the metaclass, so sending these to the
+/// class object works — and unlike a `+` declaration on a protocol it needs no
+/// metatype gymnastics on the Swift side.
+@protocol CandelaSidecarManagerClass <NSObject>
+/// Typed as the protocol, not `id`. Under NS_ASSUME_NONNULL a bare `id` imports as
+/// Swift's `Any`, and returning the object through that bridging path traps —
+/// `id<Protocol>` imports as a class-constrained existential and returns cleanly.
+- (id<CandelaSidecarDisplayManager>)sharedManager;
+- (BOOL)isSupported;
+@end
+
+/// A metatype cannot be bit-cast onto these protocols — Swift's representation of
+/// `AnyClass` is not the bare class pointer, and doing so segfaults inside
+/// objc_msgSend. Bind the class to `AnyObject` first (`anyClass as AnyObject`),
+/// which does yield the class object, then cast that.
+
+NS_ASSUME_NONNULL_END
+
 // MARK: - IOAVService Private API (Apple Silicon DDC)
 
 typedef void * IOAVServiceRef;

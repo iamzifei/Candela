@@ -420,6 +420,7 @@ struct SettingsView: View {
         switch target {
         case .underCursor: return String(localized: "Follow the pointer")
         case .allDisplays: return String(localized: "All connected displays")
+        case .combined:    return String(localized: "All displays together")
         case .selected:    return String(localized: "Selected displays only")
         }
     }

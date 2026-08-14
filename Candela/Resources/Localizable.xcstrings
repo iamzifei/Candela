@@ -272,6 +272,22 @@
         }
       }
     },
+    "All displays together" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有显示器一起"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有顯示器一起"
+          }
+        }
+      }
+    },
     "All Profiles" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -551,6 +567,25 @@
         }
       }
     },
+    "Candela v%@" : {
+      "shouldTranslate" : false
+    },
+    "Candela Virtual" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Candela 虚拟显示器"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Candela 虛擬顯示器"
+          }
+        }
+      }
+    },
     "Captures" : {
       "localizations" : {
         "zh-Hans" : {
@@ -777,6 +812,22 @@
         }
       }
     },
+    "Connected" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已连接"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已連接"
+          }
+        }
+      }
+    },
     "Contrast" : {
       "localizations" : {
         "zh-Hans" : {
@@ -904,25 +955,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在建立…"
-          }
-        }
-      }
-    },
-    "Candela v%@" : {
-      "shouldTranslate" : false
-    },
-    "Candela Virtual" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Candela 虚拟显示器"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Candela 虛擬顯示器"
           }
         }
       }
@@ -1723,6 +1755,23 @@
         }
       }
     },
+    "iPad Display" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPad 显示器"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPad 顯示器"
+          }
+        }
+      }
+    },
     "Keep Awake" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2001,6 +2050,22 @@
         }
       }
     },
+    "No iPad nearby" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "附近没有 iPad"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "附近沒有 iPad"
+          }
+        }
+      }
+    },
     "No virtual displays yet" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2033,6 +2098,9 @@
         }
       }
     },
+    "Not connected" : {
+
+    },
     "Notch" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2062,6 +2130,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "關"
+          }
+        }
+      }
+    },
+    "Off mirrors this Mac instead" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭则改为镜像此 Mac"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關閉則改為鏡像此 Mac"
           }
         }
       }
@@ -2684,6 +2768,38 @@
         }
       }
     },
+    "Show sidebar" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示边栏"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示側邊欄"
+          }
+        }
+      }
+    },
+    "Show Touch Bar" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示触控栏"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示觸控列"
+          }
+        }
+      }
+    },
     "Show Volume Sliders" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2972,6 +3088,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更新為目前數值"
+          }
+        }
+      }
+    },
+    "Use as separate display" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作为独立显示器"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作為獨立顯示器"
           }
         }
       }

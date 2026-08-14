@@ -6,7 +6,8 @@ import Combine
 /// Persisted (raw value) via `SettingsService.brightnessKeyTarget`.
 enum BrightnessKeyTarget: String, CaseIterable, Codable {
     case underCursor   // only the display under the pointer (current behaviour)
-    case allDisplays   // every connected display
+    case allDisplays   // every connected display, each stepped by the same amount
+    case combined      // every display driven to one shared level, like the Combined slider
     case selected      // only a user-chosen subset (see brightnessKeySelectedDisplays)
 }
 

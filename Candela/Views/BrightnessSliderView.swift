@@ -265,11 +265,12 @@ struct CombinedBrightnessView: View {
     @State private var clickGliding: Bool = false
 
     private var averageBrightness: Double {
-        guard !displays.isEmpty else { return 50 }
         // Proportional: each display contributes its position within its own
         // range, so a boosted display at 160/160 and a plain one at 100/100
-        // both read as 100%.
-        return displays.map { $0.brightness / $0.maxBrightness * 100.0 }.reduce(0, +) / Double(displays.count)
+        // both read as 100%. Shared with the `.combined` brightness-key mode so
+        // the handle and the keys agree on what the current level is.
+        CombinedBrightnessLevel.level(
+            ofPositions: displays.map { $0.brightness / $0.maxBrightness * 100.0 })
     }
 
     var body: some View {

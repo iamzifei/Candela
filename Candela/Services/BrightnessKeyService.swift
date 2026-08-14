@@ -377,6 +377,9 @@ final class BrightnessKeyService: @unchecked Sendable {
             // Consume: we adjust every display (built-in included) ourselves, so
             // macOS must not also bump the built-in on top.
             return nil
+        case .combined:
+            Task { @MainActor in self.adjustCombined(step: step) }
+            return nil
         case .selected:
             // Adjust only the chosen displays that are currently attached. If none
             // are attached, fall through to the under-cursor path so the key still
@@ -486,6 +489,39 @@ final class BrightnessKeyService: @unchecked Sendable {
     /// through BrightnessService's smooth fade (reusing its DDC/gamma/IOKit paths +
     /// coalescing), and shows the brightness HUD on each display's own screen.
     /// Backs the `.allDisplays` and `.selected` brightness-key modes.
+    /// Drives every display to one shared level, the way the Combined slider does.
+    ///
+    /// Differs from `adjustDisplays` in where the clamp happens. That one steps each
+    /// display inside its own 0...max, so a display already at the bottom stops while
+    /// the others keep going, and once they have diverged nothing brings them back
+    /// together. Here the combined level is what moves and what clamps, and every
+    /// display is set to that level as a proportion of its own maximum — so they stay
+    /// locked at both ends, and a boosted display's extra headroom scales with it
+    /// instead of being stepped in absolute units it does not share.
+    ///
+    /// The cost, which is the whole reason `.allDisplays` stays: any deliberate
+    /// per-display offset is flattened by the first press.
+    @MainActor
+    private func adjustCombined(step: Double) {
+        let displays = DisplayManagerAccessor.shared.displays
+        guard !displays.isEmpty else { return }
+
+        let positions = displays.map { $0.brightness / $0.maxBrightness * 100.0 }
+        let target = CombinedBrightnessLevel.stepped(
+            from: CombinedBrightnessLevel.level(ofPositions: positions), by: step)
+
+        let screens = NSScreen.screens
+        for display in displays {
+            BrightnessService.shared.setBrightnessSmooth(
+                target / 100.0 * display.maxBrightness, for: display)
+            if let screen = screens.first(where: {
+                ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID) == display.displayID
+            }) {
+                BrightnessHUDService.shared.show(brightness: target, on: screen)
+            }
+        }
+    }
+
     @MainActor
     private func adjustDisplays(_ displays: [DisplayInfo], step: Double) {
         let screens = NSScreen.screens

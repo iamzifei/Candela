@@ -1107,6 +1107,16 @@ private struct PanelBlockFactory {
         }
         top.liveInFlight = true   // Virtual Displays chevron
 
+        // Only when this Mac can do Sidecar at all, so a Mac that cannot never shows
+        // a section it can do nothing with.
+        let sidecarAvailable = SidecarService.shared.isAvailable
+        let sidecarHeader = block("sidecarhead", isOpen: { state.showTools && sidecarAvailable }) {
+            ExpandableRowStateful(icon: "ipad.landscape", iconActive: false,
+                                  label: "iPad Display", state: state, key: \.showSidecar)
+                .padding(.leading, 8)
+        }
+        sidecarHeader.liveInFlight = true   // iPad Display chevron
+
         let arrangeHeader = block("toolsB", isOpen: { [weak displayManager] in
             state.showTools && (displayManager?.displays.count ?? 0) > 1
         }) {
@@ -1121,6 +1131,13 @@ private struct PanelBlockFactory {
             top,
             block("vdrows", isOpen: { state.showTools && state.showVirtualDisplays }) {
                 VirtualDisplayView()
+                    .padding(.leading, 16)
+            },
+            sidecarHeader,
+            block("sidecarrows", isOpen: {
+                state.showTools && sidecarAvailable && state.showSidecar
+            }) {
+                SidecarView()
                     .padding(.leading, 16)
             },
             arrangeHeader,
