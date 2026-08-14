@@ -230,19 +230,28 @@ James 的 CLAUDE.md 里那条 78 文件批量加类型、炸出 126 个 TS 错�
       玻璃动画）· 大字体
 - [ ] 无障碍：VoiceOver 能读出每个滑条的标签与当前值
 
-### 🔴 已发现的无障碍问题（2026-08-14 实测，待修）
+### ✅ 无障碍：折叠区块被 VoiceOver 读出 — 已修（commit cefefd5）
 
-**折叠区块的内容仍在 AX 树里。** 面板收起状态下遍历 accessibility 树，能读到
-「Contrast / Gamma / Gain / Color Temp / Quantization / Gamma R·G·B」这些
-**属于已折叠的显示器详情**的标签与值。
+**现象**：面板「先渲染再裁剪」（那正是 120Hz 不掉帧的原因），所以折叠区块虽然看不见
+但完整存在。VoiceOver 会念出整个图像调整组、分辨率列表、平滑缩放说明等。
 
-- **推断**：VoiceOver 会念出用户看不见的内容。根因是这个面板「先渲染再裁剪」
-  （`PanelCanvas` 把内容按自然高度渲染一次，再用 clip 层做动画——那正是它
-  120Hz 不掉帧的原因），不是条件渲染，所以块一直存在
-- **如果我错了，最可能错在**：clip 层可能已设 `accessibilityElementsHidden`，
-  而 System Events 的遍历绕过了它。**修之前先用真 VoiceOver 验一遍**
-- 修法方向：给 clip 的 host view 设 `accessibilityElementsHidden = !isOpen`，
-  在 `PanelCanvas` 更新 target 时同步。⚠️ 不要改成条件渲染，那会毁掉整个动画方案
+**修法**：在 `layoutNow()` 里按块的显示高度，在 `[]` 和 `[host]` 之间切换
+clip 的 accessibility children，且只在状态变化时写（那是每帧跑的热路径）。
+
+**⚠️ 三个都试过才找到唯一可行的写法，不要重走**：
+| 写法 | 结果 |
+|---|---|
+| clip 上 `setAccessibilityHidden` | **无效**——内部宿主视图是独立元素，仍可达 |
+| host 上 `setAccessibilityHidden` / `setAccessibilityElement` | **也无效**，SwiftUI 自己的元素还在树里（实测滑条从 4 条变 8 条） |
+| clip 的 children 在 `[]` / `[host]` 间切换 | ✅ 唯一有效 |
+
+**⚠️ 恢复必须显式写 `[host]`，不能用 `nil`**：实测 `setAccessibilityChildren(nil)`
+是把 nil 存成覆盖值，不是恢复默认（一个有 2 个可访问子视图的 view：2 → 0 → nil）。
+**用 nil 恢复的话，任何折叠过一次的区块整个会话都不再可读**——差点就这么发出去。
+显式 `[host]` 的往返实测为 1 → 0 → 1 → 0 → 1。
+
+**验收**：折叠内容从 AX 树消失；4 条可见滑条仍在。
+⏳ 真 VoiceOver 的逐控件走查仍未做。
 
 **验收标准**
 - 四种辅助功能设置各一张截图，均不塌陷
