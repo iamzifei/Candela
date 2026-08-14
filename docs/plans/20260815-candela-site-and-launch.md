@@ -1,0 +1,91 @@
+# Candela 站点与发布素材
+
+**目标**：把 `docs/` 从「Crisp 的站点」改造成 Candela 自己的双语站点，配齐 SEO 文章与真实素材，
+并让 README 有 banner / demo。
+
+**非目标**：不做自定义域名（`candela.app` 未注册，先用 GitHub Pages）；不做 blog 系统；
+不为 SEO 写凑数的长尾页。
+
+---
+
+## 起点事实（2026-08-15 实测）
+
+- `docs/` 下 6 个 HTML **全部 100% Crisp 品牌，0 处 Candela**。Phase 1 的改名从未触及 `docs/*.html`。
+- 站点本身质量不低：OG tags、JSON-LD（SoftwareApplication + VideoObject）、hreflang、canonical 都齐。
+  **结构可以学，正文必须重写。**
+- `docs/` 里的 `screenshot.png`、`demo.mp4`、`demo-*.gif` 是 **Crisp 的旧界面**，
+  和 Candela 现在的卡片式面板完全不同，全部作废重拍。
+- JSON-LD 里 `author` 是 Didrik Galteland。MIT 允许 fork 修改，但**不得冒名**，
+  且上游署名要保留在 README。
+
+## 三条已定的判断（不再重开）
+
+1. **下载链接用 Candela 自己的**：`https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg`。
+   用户原话给的是 Crisp 的 DMG，是笔误——放上去会把用户送去另一个 app。
+2. **文章重写，不做查找替换**。Crisp 的站点已被索引，改名版构成近似重复内容，
+   是 SEO 上最坏的结果（两个站互相稀释，且新站没有权重打不过老站）。
+3. **每种语言独立 URL**（`/` 与 `/zh/`），配 hreflang。
+   单页 JS 切换会让搜索引擎只看到一种语言，等于放弃另一半流量。
+
+## 阶段
+
+### S1 — 基建（✅ 2026-08-15 完成）
+- [x] `gh repo create Candela --public` → https://github.com/iamzifei/Candela
+- [x] `gh repo create homebrew-tap --public`
+- [x] `notarytool store-credentials candela-notary`（**实测** Credentials validated）
+- [x] 代码推送 main
+
+### S2 — 素材（截图 / 录屏）
+合成点击进不了面板的 SwiftUI 命中区（本项目已多次实测），所以：
+- [ ] 加一个调试用的初始路由环境变量，让每个页面都能被无头截图
+- [ ] 逐页截图：根面板、显示器详情页、全部分辨率、Tools、Settings、Sidecar
+- [ ] banner 图（README 顶部）
+- [ ] demo GIF：由路由切换序列合成（能表现下钻导航；**滑条拖动这类需要真人**）
+- [ ] OG card（1200×630）英文 + 中文
+
+**验收**：每张图里出现的是 Candela 当前的卡片式面板，不是 Crisp 旧界面。
+
+### S3 — 站点骨架
+- [ ] `docs/styles.css` 沿用（它是通用的，无品牌字样）→ 核对后决定
+- [ ] `docs/index.html` 重写（EN）
+- [ ] `docs/zh/index.html`（简中）
+- [ ] 语言切换：顶部切换链接 + 首访 `navigator.language` 自动跳转（**默认英文**；
+      跳转结果写 localStorage，手动选择后不再自动跳，否则用户永远回不到英文页）
+- [ ] 顶部固定：下载按钮 + Ko-fi（https://ko-fi.com/iamzifei）
+- [ ] `sitemap.xml`、`robots.txt`、canonical、hreflang 全部指向 iamzifei/Candela
+
+### S4 — 文章（每篇 EN + 中文，共 5 篇 × 2）
+| # | slug | 目标关键词 |
+|---|---|---|
+| 1 | `candela-vs-betterdisplay.html` | betterdisplay alternative / lunar alternative / free |
+| 2 | `fix-blurry-external-monitor-macos.html` | blurry external monitor mac |
+| 3 | `enable-hidpi-mac.html` | enable hidpi mac / mac hidpi scaling |
+| 4 | `mac-brightness-keys-external-monitor.html` | brightness keys external monitor mac |
+| 5 | `sync-brightness-multiple-monitors-mac.html` | sync brightness multiple monitors mac |
+
+**每篇的验收标准**（不满足不算完成）：
+- 单一主关键词，出现在 title / H1 / URL / 首段 / 至少一个 H2
+- title ≤ 60 字符，meta description 120–158 字符
+- 有 H2/H3 层级，可被摘要成 featured snippet 的直答段落
+- 至少 2 张真实截图，`alt` 描述内容而非堆关键词
+- 内链到其他文章与首页；外链到权威来源（Apple 文档、VESA DDC/CI 规范）
+- 不写 Candela 做不到的事；**竞品对比只写可验证的事实**（价格、许可、是否开源）
+
+### S5 — README
+- [ ] banner 图 / demo
+- [ ] 中英切换（`README.md` + `README.zh-Hans.md`，顶部互链）
+- [ ] 修掉 `macOS 14+` 徽章（**实际是 macOS 26 only**，现在是错的）
+- [ ] 保留对上游 Crisp 的署名
+
+### S6 — 发布
+- [ ] 开 GitHub Pages（main / docs）
+- [ ] `CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes.md --publish`
+- [ ] 验证：`spctl` 判 accepted、`brew install --cask iamzifei/tap/candela` 能装
+
+## HUMAN QUEUE
+
+| # | 事项 | 卡住什么 |
+|---|---|---|
+| 1 | **撤销并重发 app 专用密码**（appleid.apple.com）——它出现在 2026-08-15 的对话记录里 | 安全，非阻塞 |
+| 2 | 录一段真人操作的 demo（拖亮度滑条、切分辨率）——合成事件进不了面板命中区 | S2 的动态素材 |
+| 3 | 决定要不要注册 `candela.app` 域名 | 只影响 canonical，Pages 可先上 |

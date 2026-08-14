@@ -679,6 +679,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         canvas.snapToTargets()
     }
 
+    /// Opens the panel straight onto a named page, for capturing documentation
+    /// screenshots.
+    ///
+    /// Synthetic clicks do not reach this panel's SwiftUI hit targets — coordinate
+    /// clicks, System Events, and AXPress have all been tried and none of them land —
+    /// so without this there is no way to photograph any page below the root. Every
+    /// screenshot on the website and in the README would either be the root panel or
+    /// hand-taken, and hand-taken shots go stale the moment the UI changes.
+    ///
+    /// Reads CANDELA_SCREENSHOT_ROUTE, so it is inert in a normal launch. Display
+    /// pages use the first external display, which is the one worth photographing.
+    private func applyScreenshotRoute() {
+        guard let name = ProcessInfo.processInfo.environment["CANDELA_SCREENSHOT_ROUTE"] else { return }
+        let external = displayManager.displays.first { !$0.isBuiltin }?.displayID
+        let route: PanelRoute?
+        switch name {
+        case "root":            route = .root
+        case "display":         route = external.map { PanelRoute.display($0) }
+        case "allResolutions":  route = external.map { PanelRoute.allResolutions($0) }
+        case "tools":           route = .tools
+        case "virtualDisplays": route = .virtualDisplays
+        case "sidecar":         route = .sidecar
+        case "arrangement":     route = .arrangement
+        case "settings":        route = .settings
+        default:                route = nil
+        }
+        guard let route else { return }
+        sectionState.route = route
+    }
+
     private func showPanel() {
         // Content stays alive across opens (warm is a no-op after the first
         // call) so nothing mounts or animates in at open time; per-open state
@@ -738,6 +768,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // toggle) on every open; the panel content mounts once, so their .onAppear
         // won't re-fire here.
         NotificationCenter.default.post(name: .candelaPanelDidOpen, object: nil)
+
+        applyScreenshotRoute()
 
         // Re-probe DDC volume for externals that haven't answered yet: the
         // connect-time probe (+3s retry) can land inside the post-link-training
