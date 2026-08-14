@@ -515,178 +515,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         guard force || signature != blocksSignature else { return }
         blocksSignature = signature
 
-        let dm = displayManager
-        let state = sectionState
-        let settings = SettingsService.shared
-        func host<V: View>(_ id: String, @ViewBuilder _ content: () -> V) -> NSView {
-            let h = CountedHostingView(rootView: AnyView(
-                BlockHost(onHeight: { [weak self] h in self?.canvas.contentChanged(id, height: h) }) {
-                    content()
-                }
-                .environmentObject(dm)
-            ))
-            // Blocks near the window's top/bottom edge otherwise get a phantom
-            // safe-area inset: content shifts inside the host while the AppKit
-            // frame stays put, so clicks land ~12pt off (dead bands at the
-            // edges) and the inset flips with window height (spurious height
-            // reports, visible as jumps).
-            h.safeAreaRegions = []
-            return h
-        }
-        func block<V: View>(_ id: String, isOpen: @escaping () -> Bool = { true },
-                            @ViewBuilder _ content: () -> V) -> PanelBlock {
-            PanelBlock(id: id, host: host(id, content), isOpen: isOpen)
-        }
+        let factory = PanelBlockFactory(
+            displayManager: displayManager,
+            state: sectionState,
+            onHeight: { [weak self] id, height in
+                self?.canvas.contentChanged(id, height: height)
+            }
+        )
 
         var blocks: [PanelBlock] = []
         for (index, display) in vis.enumerated() {
-            let id = display.displayID
-            let uuid = display.displayUUID
-            let dhead = block("dhead-\(uuid)") {
-                DisplayHeaderBlock(display: display, isFirst: index == 0, state: state)
-            }
-            dhead.liveInFlight = true   // display row chevron
-            blocks.append(dhead)
-            // The expanded detail, split so every dropdown is its own block:
-            // the canvas animates each reveal as a clip over content that
-            // rendered once at natural height, so nothing re-renders per frame
-            // (the 120Hz fix for the nested dropdowns; docs/panel-resize.md).
-            // Controllers hold the state the sibling blocks share; the block
-            // hosts retain them. Every detail block carries the shaded band
-            // the one-piece detail view had, painted on the clip layer
-            // (banded) so reveal fades dim only the content, never the band.
-            let modeC = DisplayModeController(display: display, displayManager: dm)
-            let profC = DisplayProfileController(display: display)
-            let detailOpen = { state.expandedDisplayIDs.contains(id) }
-            func detail<V: View>(_ sub: String, isOpen: @escaping () -> Bool,
-                                 live: Bool = false,
-                                 @ViewBuilder _ content: () -> V) -> PanelBlock {
-                let b = block("\(sub)-\(uuid)", isOpen: isOpen) {
-                    content()
-                        .padding(.leading, 4)
-                }
-                b.banded = true
-                b.liveInFlight = live
-                return b
-            }
-            blocks.append(detail("dres-head", isOpen: detailOpen, live: true) {
-                ResolutionHeadBlock(controller: modeC, state: state)
-            })
-            blocks.append(detail("dres-body", isOpen: {
-                detailOpen() && state.resolutionOpenIDs.contains(id)
-            }) {
-                ResolutionSliderBlock(controller: modeC, state: state)
-            })
-            blocks.append(detail("dres-all", isOpen: {
-                detailOpen() && state.resolutionOpenIDs.contains(id)
-                    && state.allResolutionsOpenIDs.contains(id)
-            }) {
-                ResolutionFullListBlock(controller: modeC)
-            })
-            blocks.append(detail("dref-head", isOpen: detailOpen, live: true) {
-                RefreshHeadBlock(controller: modeC, state: state)
-            })
-            blocks.append(detail("dref-body", isOpen: {
-                detailOpen() && state.refreshOpenIDs.contains(id)
-            }) {
-                RefreshListBlock(controller: modeC)
-            })
-            blocks.append(detail("dmode-tail", isOpen: detailOpen) {
-                ModeTailBlock(controller: modeC)
-            })
-            blocks.append(detail("dprof-head", isOpen: detailOpen, live: true) {
-                ProfileHeadBlock(controller: profC, state: state)
-            })
-            blocks.append(detail("dprof-body", isOpen: {
-                detailOpen() && state.profileOpenIDs.contains(id)
-            }) {
-                ProfileBodyBlock(controller: profC)
-            })
-            blocks.append(detail("dimg-head", isOpen: detailOpen, live: true) {
-                ImageHeadBlock(display: display, state: state)
-            })
-            blocks.append(detail("dimg-body", isOpen: {
-                detailOpen() && state.imageOpenIDs.contains(id)
-            }) {
-                ImageBodyBlock(display: display, state: state)
-            })
-            blocks.append(detail("dtail", isOpen: detailOpen) {
-                DetailTailBlock(display: display)
-            })
+            blocks += factory.displayBlocks(for: display, isFirst: index == 0)
         }
-        blocks.append(block("reconnect") { ReconnectDisplaysSection() })
-        let visCount = vis.count
-        blocks.append(block("combined",
-                            isOpen: { settings.showCombinedBrightness && visCount > 1 }) {
-            VStack(spacing: 0) {
-                SectionDivider()
-                CombinedBrightnessView(displays: vis)
-            }
-        })
-        if CoreBrightnessService.shared.darkModeAvailable
-            || CoreBrightnessService.shared.nightShiftAvailable
-            || CoreBrightnessService.shared.trueToneAvailable {
-            blocks.append(block("effects") { ScreenEffectsView() })
-        }
-        blocks.append(block("presets") {
-            VStack(alignment: .leading, spacing: 0) {
-                SectionDivider()
-                SectionHeader(title: "Presets")
-                PresetListView()
-            }
-        })
-        let toolshead = block("toolshead") {
-            VStack(alignment: .leading, spacing: 0) {
-                SectionDivider()
-                ExpandableRowStateful(icon: "wrench.and.screwdriver.fill", iconActive: false,
-                                      label: "Tools", state: state, key: \.showTools)
-            }
-        }
-        toolshead.liveInFlight = true
-        blocks.append(toolshead)
-        let toolsA = block("toolsA", isOpen: { state.showTools }) {
-            VStack(alignment: .leading, spacing: 0) {
-                KeepAwakeRow()
-                ExpandableRowStateful(icon: "display.2", iconActive: false,
-                                      label: "Virtual Displays", state: state, key: \.showVirtualDisplays)
-            }
-            .padding(.leading, 8)
-        }
-        toolsA.liveInFlight = true   // Virtual Displays chevron
-        blocks.append(toolsA)
-        blocks.append(block("vdrows", isOpen: { state.showTools && state.showVirtualDisplays }) {
-            VirtualDisplayView()
-                .padding(.leading, 16)
-        })
-        let toolsB = block("toolsB", isOpen: { [weak dm] in
-            state.showTools && (dm?.displays.count ?? 0) > 1
-        }) {
-            ExpandableRowStateful(icon: "rectangle.3.offgrid", iconActive: false,
-                                  label: "Arrange Displays", state: state, key: \.showArrangement)
-                .padding(.leading, 8)
-        }
-        toolsB.liveInFlight = true
-        blocks.append(toolsB)
-        blocks.append(block("arrangerows", isOpen: { [weak dm] in
-            state.showTools && state.showArrangement && (dm?.displays.count ?? 0) > 1
-        }) {
-            ArrangementView()
-                .padding(.leading, 8)
-        })
-        let settingshead = block("settingshead") {
-            ExpandableRowStateful(icon: "gearshape.fill", iconActive: false,
-                                  label: "Settings", state: state, key: \.showSettings)
-        }
-        settingshead.liveInFlight = true
-        blocks.append(settingshead)
-        blocks.append(block("settingsrows", isOpen: { state.showSettings }) {
-            SettingsView()
-                .padding(.leading, 8)
-        })
-        blocks.append(block("update") { UpdateBlockView() })
+        blocks += factory.globalBlocks(visible: vis)
 
-        let footer = block("footer") { PanelFooterBlock() }
-        canvas.setBlocks(blocks, footer: footer)
+        canvas.setBlocks(blocks, footer: factory.block("footer") { PanelFooterBlock() })
         canvas.snapToTargets()
     }
 
@@ -1001,5 +844,265 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             if canvas.visibleScreenFrame().contains(NSEvent.mouseLocation) { return }
             closePanel()
         }
+    }
+}
+
+// MARK: - Panel block construction
+
+/// Builds the panel's blocks.
+///
+/// Extracted from `AppDelegate.rebuildBlocksIfNeeded`, which had grown to 162
+/// lines of hosting-view boilerplate interleaved with the two block lists. The
+/// boilerplate now sits in `host` and the lists read as lists. Kept in this file
+/// rather than a new one: upstream still ships changes to the panel regularly,
+/// and moving the code across files turns every one of those into a conflict.
+///
+/// A struct, created fresh per rebuild, so the callbacks it captures cannot
+/// outlive the rebuild that made them.
+@MainActor
+private struct PanelBlockFactory {
+    let displayManager: DisplayManager
+    let state: PanelSectionState
+    /// Called when a block's SwiftUI content reports a new natural height.
+    let onHeight: (String, CGFloat) -> Void
+
+    // MARK: Primitives
+
+    private func host<V: View>(_ id: String, @ViewBuilder _ content: () -> V) -> NSView {
+        let hostingView = CountedHostingView(rootView: AnyView(
+            BlockHost(onHeight: { onHeight(id, $0) }) {
+                content()
+            }
+            .environmentObject(displayManager)
+        ))
+        // Blocks near the window's top/bottom edge otherwise get a phantom
+        // safe-area inset: content shifts inside the host while the AppKit
+        // frame stays put, so clicks land ~12pt off (dead bands at the
+        // edges) and the inset flips with window height (spurious height
+        // reports, visible as jumps).
+        hostingView.safeAreaRegions = []
+        return hostingView
+    }
+
+    func block<V: View>(_ id: String, isOpen: @escaping () -> Bool = { true },
+                        @ViewBuilder _ content: () -> V) -> PanelBlock {
+        PanelBlock(id: id, host: host(id, content), isOpen: isOpen)
+    }
+
+    /// A block inside a display's expanded detail: indented, banded, and keyed
+    /// by the display's UUID so it survives a reorder of the display list.
+    private func detail<V: View>(_ sub: String, uuid: String, isOpen: @escaping () -> Bool,
+                                 live: Bool = false,
+                                 @ViewBuilder _ content: () -> V) -> PanelBlock {
+        let detailBlock = block("\(sub)-\(uuid)", isOpen: isOpen) {
+            content()
+                .padding(.leading, 4)
+        }
+        detailBlock.banded = true
+        detailBlock.liveInFlight = live
+        return detailBlock
+    }
+
+    // MARK: Per-display blocks
+
+    /// One display's header plus its expanded detail.
+    ///
+    /// The detail is split so every dropdown is its own block: the canvas
+    /// animates each reveal as a clip over content that rendered once at natural
+    /// height, so nothing re-renders per frame (the 120Hz fix for the nested
+    /// dropdowns; docs/panel-resize.md). Controllers hold the state the sibling
+    /// blocks share; the block hosts retain them. Every detail block carries the
+    /// shaded band the one-piece detail view had, painted on the clip layer
+    /// (banded) so reveal fades dim only the content, never the band.
+    func displayBlocks(for display: DisplayInfo, isFirst: Bool) -> [PanelBlock] {
+        let state = self.state
+        let uuid = display.displayUUID
+        let detailOpen = { state.expandedDisplayIDs.contains(display.displayID) }
+
+        let header = block("dhead-\(uuid)") {
+            DisplayHeaderBlock(display: display, isFirst: isFirst, state: state)
+        }
+        header.liveInFlight = true   // display row chevron
+
+        // Split the way the detail reads on screen: resolution and refresh rate
+        // share one controller, colour profile and image adjustment another.
+        return [header]
+            + modeBlocks(for: display, detailOpen: detailOpen)
+            + colorBlocks(for: display, detailOpen: detailOpen)
+    }
+
+    /// Resolution and refresh rate, which share a `DisplayModeController`.
+    private func modeBlocks(for display: DisplayInfo,
+                            detailOpen: @escaping () -> Bool) -> [PanelBlock] {
+        let state = self.state
+        let id = display.displayID
+        let uuid = display.displayUUID
+        let controller = DisplayModeController(display: display, displayManager: displayManager)
+
+        return [
+            detail("dres-head", uuid: uuid, isOpen: detailOpen, live: true) {
+                ResolutionHeadBlock(controller: controller, state: state)
+            },
+            detail("dres-body", uuid: uuid, isOpen: {
+                detailOpen() && state.resolutionOpenIDs.contains(id)
+            }) {
+                ResolutionSliderBlock(controller: controller, state: state)
+            },
+            detail("dres-all", uuid: uuid, isOpen: {
+                detailOpen() && state.resolutionOpenIDs.contains(id)
+                    && state.allResolutionsOpenIDs.contains(id)
+            }) {
+                ResolutionFullListBlock(controller: controller)
+            },
+            detail("dref-head", uuid: uuid, isOpen: detailOpen, live: true) {
+                RefreshHeadBlock(controller: controller, state: state)
+            },
+            detail("dref-body", uuid: uuid, isOpen: {
+                detailOpen() && state.refreshOpenIDs.contains(id)
+            }) {
+                RefreshListBlock(controller: controller)
+            },
+            detail("dmode-tail", uuid: uuid, isOpen: detailOpen) {
+                ModeTailBlock(controller: controller)
+            }
+        ]
+    }
+
+    /// Colour profile and image adjustment, plus the detail region's tail.
+    private func colorBlocks(for display: DisplayInfo,
+                             detailOpen: @escaping () -> Bool) -> [PanelBlock] {
+        let state = self.state
+        let id = display.displayID
+        let uuid = display.displayUUID
+        let controller = DisplayProfileController(display: display)
+
+        return [
+            detail("dprof-head", uuid: uuid, isOpen: detailOpen, live: true) {
+                ProfileHeadBlock(controller: controller, state: state)
+            },
+            detail("dprof-body", uuid: uuid, isOpen: {
+                detailOpen() && state.profileOpenIDs.contains(id)
+            }) {
+                ProfileBodyBlock(controller: controller)
+            },
+            detail("dimg-head", uuid: uuid, isOpen: detailOpen, live: true) {
+                ImageHeadBlock(display: display, state: state)
+            },
+            detail("dimg-body", uuid: uuid, isOpen: {
+                detailOpen() && state.imageOpenIDs.contains(id)
+            }) {
+                ImageBodyBlock(display: display, state: state)
+            },
+            detail("dtail", uuid: uuid, isOpen: detailOpen) {
+                DetailTailBlock(display: display)
+            }
+        ]
+    }
+
+    // MARK: Blocks below the display list
+
+    /// Everything after the per-display sections: reconnect, combined brightness,
+    /// system effects, presets, tools, settings and the update banner.
+    func globalBlocks(visible: [DisplayInfo]) -> [PanelBlock] {
+        let state = self.state
+        let settings = SettingsService.shared
+        let visibleCount = visible.count
+        let coreBrightness = CoreBrightnessService.shared
+
+        var blocks: [PanelBlock] = [
+            block("reconnect") { ReconnectDisplaysSection() },
+            block("combined", isOpen: { settings.showCombinedBrightness && visibleCount > 1 }) {
+                VStack(spacing: 0) {
+                    SectionDivider()
+                    CombinedBrightnessView(displays: visible)
+                }
+            }
+        ]
+
+        if coreBrightness.darkModeAvailable
+            || coreBrightness.nightShiftAvailable
+            || coreBrightness.trueToneAvailable {
+            blocks.append(block("effects") { ScreenEffectsView() })
+        }
+
+        blocks.append(block("presets") {
+            VStack(alignment: .leading, spacing: 0) {
+                SectionDivider()
+                SectionHeader(title: "Presets")
+                PresetListView()
+            }
+        })
+
+        blocks += toolsBlocks()
+
+        let settingsHeader = block("settingshead") {
+            ExpandableRowStateful(icon: "gearshape.fill", iconActive: false,
+                                  label: "Settings", state: state, key: \.showSettings)
+        }
+        settingsHeader.liveInFlight = true
+        blocks.append(settingsHeader)
+
+        blocks.append(block("settingsrows", isOpen: { state.showSettings }) {
+            SettingsView()
+                .padding(.leading, 8)
+        })
+        blocks.append(block("update") { UpdateBlockView() })
+
+        return blocks
+    }
+
+    /// The Tools section: its header, Keep Awake, and the two nested sections
+    /// (Virtual Displays, Arrange Displays) with their bodies.
+    ///
+    /// Arrange Displays only exists with more than one display, and reads the
+    /// count through a weak reference so a block outliving a rebuild can't pin
+    /// the display manager.
+    private func toolsBlocks() -> [PanelBlock] {
+        let state = self.state
+        let displayManager = self.displayManager
+
+        let header = block("toolshead") {
+            VStack(alignment: .leading, spacing: 0) {
+                SectionDivider()
+                ExpandableRowStateful(icon: "wrench.and.screwdriver.fill", iconActive: false,
+                                      label: "Tools", state: state, key: \.showTools)
+            }
+        }
+        header.liveInFlight = true
+
+        let top = block("toolsA", isOpen: { state.showTools }) {
+            VStack(alignment: .leading, spacing: 0) {
+                KeepAwakeRow()
+                ExpandableRowStateful(icon: "display.2", iconActive: false,
+                                      label: "Virtual Displays", state: state, key: \.showVirtualDisplays)
+            }
+            .padding(.leading, 8)
+        }
+        top.liveInFlight = true   // Virtual Displays chevron
+
+        let arrangeHeader = block("toolsB", isOpen: { [weak displayManager] in
+            state.showTools && (displayManager?.displays.count ?? 0) > 1
+        }) {
+            ExpandableRowStateful(icon: "rectangle.3.offgrid", iconActive: false,
+                                  label: "Arrange Displays", state: state, key: \.showArrangement)
+                .padding(.leading, 8)
+        }
+        arrangeHeader.liveInFlight = true
+
+        return [
+            header,
+            top,
+            block("vdrows", isOpen: { state.showTools && state.showVirtualDisplays }) {
+                VirtualDisplayView()
+                    .padding(.leading, 16)
+            },
+            arrangeHeader,
+            block("arrangerows", isOpen: { [weak displayManager] in
+                state.showTools && state.showArrangement && (displayManager?.displays.count ?? 0) > 1
+            }) {
+                ArrangementView()
+                    .padding(.leading, 8)
+            }
+        ]
     }
 }
