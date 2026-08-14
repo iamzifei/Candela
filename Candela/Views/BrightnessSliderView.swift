@@ -215,6 +215,13 @@ struct BrightnessSliderView: View {
             localBrightness = display.brightness
             updateDDCStatus()
         }
+        // A monitor's refusal is only established after a few DDC read cycles, so
+        // the mode is often still unknown when this view first appears. Without
+        // this the badge stayed blank until the user dragged the slider — which is
+        // after the moment it was supposed to explain.
+        .onReceive(NotificationCenter.default.publisher(for: .candelaDDCAvailabilityChanged)) { _ in
+            updateDDCStatus()
+        }
         .onChange(of: display.brightness) { _, newValue in
             // While a click-glide runs, hold the thumb at the target the click set and
             // release once the fade reaches it, so the thumb never snaps back down through

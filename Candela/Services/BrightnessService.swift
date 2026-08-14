@@ -81,6 +81,11 @@ extension Notification.Name {
     /// Posted when the user manually changes the BUILT-IN display's brightness from Candela.
     /// Distinguishes a deliberate built-in change from the ambient signal auto-brightness follows.
     static let candelaBuiltinManualAdjust = Notification.Name("candela.builtinManualAdjust")
+    /// A display's brightness control mode changed — hardware DDC to software
+    /// dimming or back. Posted because the mode badge used to be read once when
+    /// its view appeared, and a monitor's refusal is only established after a few
+    /// read cycles, so the badge missed the change it exists to report.
+    static let candelaDDCAvailabilityChanged = Notification.Name("candela.ddcAvailabilityChanged")
 }
 
 // MARK: - BrightnessAnimator
@@ -355,6 +360,8 @@ final class BrightnessService: @unchecked Sendable {
                     if changed {
                         Task { @MainActor in
                             self.setSoftwareBrightness(display.brightness, for: displayID)
+                            NotificationCenter.default.post(
+                                name: .candelaDDCAvailabilityChanged, object: nil)
                         }
                     }
                 }
@@ -591,6 +598,8 @@ final class BrightnessService: @unchecked Sendable {
                 self.ddcAvailableLock.withLock { self.ddcAvailable[displayID] = false }
                 DispatchQueue.main.async { [weak self] in
                     self?.setSoftwareBrightness(percent, for: displayID)
+                    NotificationCenter.default.post(
+                        name: .candelaDDCAvailabilityChanged, object: nil)
                 }
             } else if success {
                 self.ddcAvailableLock.withLock { self.ddcAvailable[displayID] = true }
@@ -608,6 +617,8 @@ final class BrightnessService: @unchecked Sendable {
                     self.ddcAvailableLock.withLock { self.ddcAvailable[displayID] = false }
                     DispatchQueue.main.async { [weak self] in
                         self?.setSoftwareBrightness(percent, for: displayID)
+                        NotificationCenter.default.post(
+                            name: .candelaDDCAvailabilityChanged, object: nil)
                     }
                 }
             }

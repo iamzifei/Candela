@@ -992,7 +992,9 @@ private struct PanelBlockFactory {
         let state = self.state
         let uuid = display.displayUUID
         let header = block("dhead-\(uuid)") {
-            DisplayHeaderBlock(display: display, isFirst: isFirst, state: state)
+            PanelCard {
+                DisplayHeaderBlock(display: display, isFirst: isFirst, state: state)
+            }
         }
         header.liveInFlight = true
         return [header]
@@ -1101,43 +1103,32 @@ private struct PanelBlockFactory {
     /// Everything after the per-display sections: reconnect, combined brightness,
     /// system effects, presets, tools, settings and the update banner.
     func globalBlocks(visible: [DisplayInfo]) -> [PanelBlock] {
-        let state = self.state
         let settings = SettingsService.shared
         let visibleCount = visible.count
         let coreBrightness = CoreBrightnessService.shared
 
         var blocks: [PanelBlock] = [
             block("reconnect") { ReconnectDisplaysSection() },
+            // Cards instead of dividers from here down: separate surfaces with gaps
+            // are what group things in Control Centre, and the slider carries its
+            // title inside its own card the way Display and Sound do there.
             block("combined", isOpen: { settings.showCombinedBrightness && visibleCount > 1 }) {
-                VStack(spacing: 0) {
-                    SectionDivider()
-                    CombinedBrightnessView(displays: visible)
-                }
+                PanelCard { CombinedBrightnessView(displays: visible) }
             }
         ]
 
         if coreBrightness.darkModeAvailable
             || coreBrightness.nightShiftAvailable
             || coreBrightness.trueToneAvailable {
-            blocks.append(block("effects") { ScreenEffectsView() })
+            blocks.append(block("effects") { PanelCard { ScreenEffectsView() } })
         }
 
         blocks.append(block("presets") {
-            VStack(alignment: .leading, spacing: 0) {
-                SectionDivider()
-                SectionHeader(title: "Presets")
-                PresetListView()
-            }
+            PanelCard(title: "Presets") { PresetListView() }
         })
 
         blocks += toolsBlocks()
 
-        blocks.append(block("settingshead") {
-            PanelPushRow(icon: "gearshape.fill",
-                         label: String(localized: "Settings")) {
-                withAnimation(.panelResize) { state.route = .settings }
-            }
-        })
         blocks.append(block("update") { UpdateBlockView() })
 
         return blocks
@@ -1154,11 +1145,14 @@ private struct PanelBlockFactory {
         let state = self.state
         return [
             block("toolshead") {
-                VStack(alignment: .leading, spacing: 0) {
-                    SectionDivider()
+                PanelCard {
                     PanelPushRow(icon: "wrench.and.screwdriver.fill",
                                  label: String(localized: "Tools")) {
                         withAnimation(.panelResize) { state.route = .tools }
+                    }
+                    PanelPushRow(icon: "gearshape.fill",
+                                 label: String(localized: "Settings")) {
+                        withAnimation(.panelResize) { state.route = .settings }
                     }
                 }
             }

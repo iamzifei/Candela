@@ -13,17 +13,21 @@ struct MenuItemIcon: View {
     var active: Bool = true
 
     var body: some View {
-        // One view, not two branches, so active<->inactive cross-fades the glyph
-        // and fill instead of hard-swapping. Inactive keeps the same chip footprint
-        // with a faint gray fill (Wi-Fi non-selected style); active fills with the
-        // accent. Color still marks state, the change just animates.
+        // A white chip with a tinted glyph when active, matching Control Centre —
+        // its Wi-Fi, Bluetooth and AirDrop chips are all white circles carrying a
+        // blue glyph, not blue circles carrying a white one. This had it inverted;
+        // the mistake was easy to make because the inactive state, a faint chip with
+        // a plain glyph, is the same either way.
+        //
+        // One view, not two branches, so active<->inactive cross-fades the glyph and
+        // fill instead of hard-swapping.
         Image(systemName: systemName)
             .font(.system(size: 12, weight: .medium))
-            // Inactive glyph at full label strength (not .secondary) so it stays legible
-            // on the faint chip; the lack of color, not a dimmer glyph, marks it inactive.
-            .foregroundColor(active ? .white : .primary)
+            .foregroundColor(active ? color : .primary)
             .frame(width: 26, height: 26)
-            .background(Circle().fill(active ? color : Color.primary.opacity(0.12)))
+            .background(
+                Circle().fill(active ? Color.white : Color.primary.opacity(0.12))
+            )
             // Same curve as the panel's section reveal, so a toggle that recolors its
             // icon and glides a section open move together.
             .animation(.panelResize, value: active)

@@ -120,9 +120,8 @@ struct ExpandableRowStateful: View {
     }
 }
 
-/// Display name row + inline brightness slider (the always-visible part of a
-/// display section). The 8pt top padding separates stacked display sections;
-/// the first sits flush.
+/// Display name row + inline brightness slider. Stacked displays are separated by
+/// the gap between their cards now, not by padding inside them.
 struct DisplayHeaderBlock: View {
     @ObservedObject var display: DisplayInfo
     let isFirst: Bool
@@ -155,7 +154,47 @@ struct DisplayHeaderBlock: View {
                     .padding(.bottom, 4)
             }
         }
-        .padding(.top, isFirst ? 0 : 8)
+    }
+}
+
+/// A group of controls on its own rounded surface, with a gap to its neighbours.
+///
+/// Control Centre is not one panel divided by hairlines — it is a set of separate
+/// rounded surfaces with space between them: Wi-Fi, Bluetooth and AirDrop are
+/// individual capsules, Display and Sound are wider cards, and the gaps are what
+/// group them. This panel was the other thing, one flat sheet with dividers, which
+/// is why it read as close-but-not-quite next to the system's own.
+///
+/// A fill rather than another glass layer: the panel's backdrop is already
+/// NSGlassEffectView, and stacking glass on glass doubles the blur into something
+/// muddier than either. A translucent white over the existing glass is what reads
+/// as a raised surface here.
+struct PanelCard<Content: View>: View {
+    var title: LocalizedStringKey?
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            if let title {
+                Text(title)
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundColor(.primary)
+                    .padding(.horizontal, 12)
+                    .padding(.top, 2)
+            }
+            content
+        }
+        .padding(.vertical, 6)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.primary.opacity(0.08))
+        )
+        .padding(.horizontal, 10)
+        // Tight: the gap between cards is doing the grouping that dividers used to,
+        // and every point spent on it is a point of panel height. The whole reason
+        // for the page split was that this panel was getting too tall.
+        .padding(.vertical, 2)
     }
 }
 
