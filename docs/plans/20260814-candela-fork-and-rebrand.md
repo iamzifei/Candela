@@ -390,6 +390,60 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 
 ---
 
+## 🐛 真机用出来的 bug（2026-08-14 James 报告，全部已修）
+
+### 1. M28U 调不了亮度 → commit b2b797d
+
+- **实测**：M28U 对每次 Get VCP 都回 `6E 80 BE` —— DDC/CI **null message**，
+  校验和合法（`0x50^0x6E^0x80`），含义是「收到了，但我不答」。同机 VX1622 正常
+- **缺陷**：`ddcAvailable` 按「写是否成功」判定，而 `IOAVServiceWriteI2C` 只要字节
+  上总线就返回成功 → 显示器忽略命令、写照样"成功" → **永远不退到软件调光**
+- **修法**：把 null message 与"乱码"分开。乱码不能说明什么（有些显示器只支持写不
+  支持读），但 null message 是显示器明确表态，连续 3 次就信它。
+  规则抽到 `Candela/Models/DDCReply.swift`，用两台屏的真实字节写了测试
+- ⚠️ **M28U 是间歇性的**——中途成功答过一次（50/100，校验和合法）
+
+### 2. 快捷键调不了亮度 → commit b2b797d + a7c3f2c
+
+**这条查了很久，根因不在代码里。**
+
+- 系统设置里 Candela 的开关**显示为开**，但 app 日志里 TCC 的实际回复是
+  `auth_value=0 / result=false / auth_reason=5`（**拒绝**）
+- **原因**：第一次安装是 ad-hoc 签名，TCC 按 cdhash 绑定了记录；之后换成
+  Developer ID 签名，UI 那一行还在（按 bundle id 显示）但代码要求已对不上。
+  **用户点开的是一条失效的旧记录**
+- **解法**：`tccutil reset Accessibility com.candela.app`（执行时打印了 4 次，
+  说明确实存在多条陈旧记录），然后用**当前签名**重新授权
+- 🔴 **开发期铁律**：**dev 构建必须用 Developer ID 签名**，不要用 ad-hoc。
+  ad-hoc 每次构建 cdhash 都变，TCC 授权留不住，会反复出现"授权了但不生效"
+
+**同时修掉的两个代码问题**：
+- 启动时若未授权，原来只在 1s / 3s 各查一次就放弃。而 app 的提示恰恰把用户送去
+  系统设置——在那里授权远超 3 秒。→ `armWhenTrusted()` 持续轮询
+  （`AXIsProcessTrusted()` 不弹窗，`CGEvent.tapCreate` 才弹）
+- 加了 arming 诊断日志。**arming 失败没有任何可见症状**（按键继续走系统默认，
+  与"没装这个 app"无法区分）。查法：
+  `log show --predicate 'subsystem == "com.candela.app"' --last 10m --info`
+  ⚠️ **不加 `--info` 什么都看不到**，Logger.info 默认不落盘
+
+### 3. 多屏统一调节时亮度不一致 → commit a7c3f2c
+
+- **实测算出来的**：软件调光缩放的是 gamma 表输出的**信号**，显示器随后要应用
+  自己的 EOTF（≈γ2.2），所以信号缩放 k 倍 → **亮度变成 k^2.2 倍**。
+  而 DDC 的背光值与亮度大致线性。两条路径完全不在一条曲线上：
+
+  | 滑条 | DDC 屏 | 软件屏（旧） |
+  |---|---|---|
+  | 50% | ≈50% 亮度 | 0.50^2.2 = **22%** |
+  | 20% | ≈20% 亮度 | 0.20^2.2 = **2.9%** |
+
+- **修法**：`SoftwareDimming.transferFactor` 做 EOTF 反补偿（`p^(1/2.2)`）
+- ⚠️ **>100 必须原样透传**——那是 EDR boost 区间，`BrightnessBoostService` 把它
+  当原始倍率用，加修正或钳到 1.0 会**直接搞坏 Extra Brightness**（共用这个函数）
+- **诚实边界**：这修的是**响应曲线的形状，不是绝对亮度**。两块屏在"50%"仍会因
+  最大亮度和真实 EOTF 不同而有差异，那需要色度计才能校准。它保证的是
+  **两块屏一起动、不会一块黑了另一块还亮着**
+
 ## HUMAN QUEUE（只有 James 能做）
 
 | # | 事项 | 卡住了什么 | 状态 |
