@@ -635,6 +635,54 @@ DDC/Software 徽章原先只在滑条视图出现时读一次状态，而显示�
 那样重新授权后图标仍然空白，真正的解法是让 release.sh 产出 Assets.car。
 判据就是重新授权后看那一眼。
 
+### 多屏亮度一致：能做到什么、做不到什么（2026-08-15）
+
+诉求：「多个屏幕一起调整时，实际亮度需要一致」。
+
+**先说做不到的那部分，因为它决定了方案形状。**
+**实测**：`NSScreen` 对 M28U 和 VX1622-4K 都只报 EDR=1.0、reference EDR=0.0，
+即「SDR，无绝对亮度值」。macOS 不提供任何 nit 数据，**自动对齐绝对亮度没有依据可用**。
+不要再冒出「自动校准」的方案，那需要色度计。
+
+**已有的（更早做的）**：`SoftwareDimming` 用 EOTF(2.2) 反校正，把软件调光的**响应曲线形状**
+拉回和 DDC 硬件调光一致。解决的是「同样降 20%，一个降一点一个几乎全黑」。
+
+**这次新增**：`CombinedMapping` —— 每块屏一个**合并下限**，
+即「合并滑条拉到最低时这块屏停在哪」。用眼睛校一次，之后所有合并调节都经过它。
+- 顶端故意不校准：满亮度 = 各自面板的最大值。压低亮屏去迁就暗屏是在扔掉买来的亮度。
+- 未校准 = 下限 0 = 和旧行为逐点相同，已经配好的桌面不会因为升级变差。
+- 按 `displayUUID` 存，重新插拔后还在；只有接了 >1 块屏时才显示这张卡片。
+- Combined 滑条和 `.combined` 快捷键模式**读和写都经过各自下限**——
+  少了反向映射，被校准的屏会把共享滑块拽离它刚被设定的位置。
+
+根因链条（DDC 显示器背光有下限、软件调光能到接近全黑）写在 `CombinedMapping` 的文档注释里。
+
+### 坑：测试目标一直在拿 DerivedData 里的陈旧 module 编译
+
+`CandelaTests` 里写着 `@testable import Candela`，但 project.yml **没有声明对 app target 的依赖**。
+之前一直能过，靠的是 DerivedData 里恰好留着上次构建的 `Candela.swiftmodule`。
+删掉 DerivedData（或像 CI 那样全新 checkout）**整个测试套件编译不过**。
+已补依赖；**实测**：清空 DerivedData 后全套通过。
+
+顺带：新加的纯模型文件必须同时加进 `CandelaTests.sources` 白名单，
+否则符号链接不上（测试目标是把模型文件编译进自己，不链接 app）。
+
+### 坑：不要在别的任务里顺手「补全」私有 API 头文件的 nullability
+
+修上面那条时，测试目标的 `-Wnullability-completeness`（warnings-as-errors）开始报错。
+我做了「正确」的修法：全文件 `NS_ASSUME_NONNULL` + 逐个标注。**编译干净，然后启动即崩**
+——SIGTRAP 在 `DDCService.buildAVServiceMapByProximity()` 的 IOAVService 路径上。
+
+**实测确定因果**：只把 header 还原、其余改动全部保留 → 不崩；换回新 header → 崩。
+**机制没查清**（崩溃报告只到函数级，-O 内联后看不到具体 trap 点）。
+
+选择：在头文件里 `#pragma clang diagnostic ignored "-Wnullability-completeness"`，
+Swift 导入类型一个字节不变，零运行时风险。**没有把「猜出来的 nullability」写进代码。**
+真要审计这个头文件，应该单独做一次改动，前后都在真实硬件上跑 DDC 路径。
+
+**未验证**：合并下限的**端到端行为**（拖校准滑条、看两块屏在最低点是否一致）
+必须由 James 手动做——合成点击进不了这个面板的命中区。数学部分有 11 个单元测试覆盖。
+
 ## HUMAN QUEUE（只有 James 能做）
 
 | # | 事项 | 卡住了什么 | 状态 |
