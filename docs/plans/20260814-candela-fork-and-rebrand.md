@@ -55,24 +55,42 @@ Liquid Glass 设计语言，以开源免费形式发布。
 
 ---
 
-## Phase 1 — 仓库与品牌骨架
+## Phase 1 — 仓库与品牌骨架 ✅ 完成 2026-08-14（commit b03244d）
 
 **做什么**
-- [ ] 目录/文件重命名：`Crisp/` → `Candela/`，`CrispTests/` → `CandelaTests/`，
+- [x] 目录/文件重命名：`Crisp/` → `Candela/`，`CrispTests/` → `CandelaTests/`，
       `Crisp-Bridging-Header.h` → `Candela-Bridging-Header.h`
-- [ ] 262 处 `Crisp` 字样替换（代码 / project.yml / Makefile / dev.sh / scripts/）
-- [ ] Bundle ID `com.crisp.app` → `com.candela.app`；Logger subsystem、DispatchQueue label 同步
-- [ ] UserDefaults key 前缀 `crisp.` → `candela.`，**复用上游已有的
-      `didMigrateLegacyDefaults` 机制写一次性迁移**（否则老 Crisp 用户切过来会丢全部设置）
-- [ ] LICENSE 保留原 MIT + 追加 Candela 的版权行；ACKNOWLEDGMENTS.md 明确标注 fork 自 Crisp
-- [ ] `UpdateService.swift` 的 repoOwner/repoName 指向自己的仓库
-- [ ] 版本号重置为 `0.1.0`，build 号 `1`
+- [x] 262 处 `Crisp` 字样替换（代码 / project.yml / Makefile / dev.sh / scripts/）
+- [x] Bundle ID `com.crisp.app` → `com.candela.app`；Logger subsystem、DispatchQueue label 同步
+- [x] UserDefaults key 前缀 `crisp.` → `candela.`，迁移函数改为遍历 legacy 前缀列表
+- [x] LICENSE 双版权行；ACKNOWLEDGMENTS.md 说明 fork 关系并把想要成熟版的人指回 Crisp
+- [x] `UpdateService.swift` 指向 iamzifei 仓库
+- [x] 版本号重置为 `0.1.0`，build 号 `1`
 
-**验收标准**
-- `make compile` 通过且**零警告**（与基线一致）
-- `grep -ri crisp Candela/ scripts/ *.yml Makefile dev.sh` 只剩 ACKNOWLEDGMENTS / LICENSE 的归属声明
-- `git log` 保留上游 371 条历史；`git remote -v` 有 upstream
-- 在真机上跑起来，两台外接显示器都能识别、能调亮度（回归验证，不是编译验证）
+**验收标准（实测结果）**
+- ✅ `make compile` 33 秒通过，零警告（与基线一致）
+- ✅ 品牌字样只剩 LICENSE / ACKNOWLEDGMENTS 的归属声明与 README 待重写的站点链接
+- ✅ 保留上游 371 条历史，`upstream` remote 在位
+- ✅ `make build` 产出 0.1.0 签名 DMG；装到 /Applications 启动常驻，菜单栏图标在位
+- ✅ defaults 落在 `candela.*` 命名空间；`candela.volumeCapableDisplays` 已填入显示器 UUID
+- ✅ **DDC 往返实测（VX1622-4K）**：读 100 → 写 75 → 回读 75 → 还原 100 → 回读 100
+- ⏳ 面板 UI 级回归（打开面板看到两台屏、拖滑块）→ 见 HUMAN QUEUE #7
+
+### Phase 1 过程中的实测发现（不要重新推导）
+
+1. **M28U 不响应 DDC**。对 VCP 0x10 返回 `6E 80 BE 00…`（null message），地址回显与
+   checksum 均合法 → 显示器在 I2C 总线上活着，但拒绝 DDC/CI 命令。两次独立运行一致
+   （含/不含 Candela 运行）。**推断**是 OSD 里 DDC/CI 关着；**若判断错，最可能错在**
+   它是经 Anker Prime Dock（Thunderbolt 5，已确认在位）接入而 DDC 未透传。
+   → HUMAN QUEUE #8
+2. **Ice 会隐藏 Candela 的菜单栏图标**。开发期"图标没出来"的头号误判来源。
+   诊断法：退出 Ice 后截图即可看到 `sparkles.tv` 图标。**注意 macOS 26 上第三方状态项
+   不再以自己的进程出现在 CGWindowList 层 25**（层 25 只剩 Control Centre），
+   所以用 CGWindowList 判断"状态项存不存在"会得到假阴性。
+3. **zsh 不做默认分词**：`for f in $FILES` 会把整个列表当成一个文件名。批量改文件用
+   `grep -rl … | while IFS= read -r f`，不要用 `xargs -0` 配 BSD grep 的 `-Z`（不产生 NUL）。
+4. 排查"哪些 `crisp` 是英文形容词"时，`grep -rn … | grep -v Crisp` 会因为**路径里含
+   `Crisp/`** 而过滤掉该目录下的每一行。必须只对内容部分做判断。
 
 ---
 
@@ -171,6 +189,8 @@ Liquid Glass 设计语言，以开源免费形式发布。
 | 4 | `xcrun notarytool store-credentials` —— 需要 Apple ID + app-specific password，交互式 | Phase 5 公证 | ⏳ 待做 |
 | 5 | 建 Homebrew tap 仓库 `homebrew-tap` | Phase 5 分发 | ⏳ 待做 |
 | 6 | App icon 视觉方向拍板（我出候选，你选） | Phase 4 | ⏳ 待做 |
+| 7 | **面板 UI 回归**：点菜单栏 Candela 图标（在 Ice 隐藏区里），确认两台屏都列出、拖亮度滑块 VX1622 会变、切分辨率正常 | Phase 1 收尾 | ⏳ 待做，2 分钟 |
+| 8 | **M28U 的 OSD 菜单里找 DDC/CI 并打开**（Gigabyte M 系列一般在 Settings → Other Settings）。若菜单里本来就是开的，那问题在 Anker Prime Dock 不透传 DDC，需换直连 Mac 的线再测 | 主屏硬件亮度控制 | ⏳ 待做 |
 
 ## 回归测试清单（每个 Phase 结束后手测）
 
