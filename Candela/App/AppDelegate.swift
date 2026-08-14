@@ -295,13 +295,49 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     // MARK: - Status item + panel
 
+    /// The menu-bar mark: the app icon's gauge arc, redrawn for this size.
+    ///
+    /// Drawn rather than loaded from an asset because scripts/release.sh builds
+    /// the bundle with the Command Line Tools and never compiles an asset
+    /// catalog — an image resource would exist in the Xcode build and be
+    /// missing from the shipped app. The geometry matches scripts/generate-icon.py's
+    /// `menu_bar_icon`, on its own grid rather than scaled from the app icon:
+    /// at this size the app icon's proportions put the stroke under a pixel.
+    ///
+    /// Template, so AppKit inverts it for dark menu bars and dims it when the
+    /// menu bar is inactive.
+    private static func statusItemIcon() -> NSImage {
+        let side: CGFloat = 18
+        let image = NSImage(size: NSSize(width: side, height: side), flipped: false) { _ in
+            let center = NSPoint(x: side / 2, y: side / 2)
+            let radius = side * 0.30
+            let width = side * 0.135
+
+            // Degrees, AppKit's y-up convention. Sweeping clockwise from the
+            // lower left up over the top to the lower right leaves the gap at
+            // the bottom, where a dial's gap belongs.
+            let arc = NSBezierPath()
+            arc.appendArc(withCenter: center, radius: radius,
+                          startAngle: 222, endAngle: -42, clockwise: true)
+            arc.lineWidth = width
+            arc.lineCapStyle = .round
+            NSColor.black.setStroke()
+            arc.stroke()
+
+            let hub = side * 0.105
+            NSColor.black.setFill()
+            NSBezierPath(ovalIn: NSRect(x: center.x - hub, y: center.y - hub,
+                                        width: hub * 2, height: hub * 2)).fill()
+            return true
+        }
+        image.isTemplate = true
+        image.accessibilityDescription = "Candela"
+        return image
+    }
+
     private func setupStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        // Not "display": that's the native Displays module icon, two identical
-        // icons in the menu bar is confusing. Screen-with-sparkles keeps the vibe.
-        let icon = NSImage(systemSymbolName: "sparkles.tv", accessibilityDescription: "Candela")
-        icon?.isTemplate = true
-        item.button?.image = icon
+        item.button?.image = Self.statusItemIcon()
         // Action stays wired for accessibility (AXPress); real clicks are
         // intercepted below and never reach the button.
         item.button?.target = self

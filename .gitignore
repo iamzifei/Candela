@@ -20,3 +20,8 @@ Candela-dev.app/
 
 # Audit-only SwiftLint config (SwiftLint's own defaults, used to find complexity
 # hotspots the project config's raised thresholds hide). Not part of any build.
+
+# Rendered icon previews — regenerate with `python3 scripts/generate-icon.py --preview`.
+# The SVG sources next to them ARE tracked; these are just for eyeballing.
+design/*.png
+design/icon-candidates/*.png

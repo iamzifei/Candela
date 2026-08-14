@@ -43,4 +43,6 @@ every push, opt in once:
 git config core.hooksPath .githooks
 ```
 
-The app icon is generated from vector code: `scripts/generate-icon.swift`.
+The app icon is generated from vector code: `python3 scripts/generate-icon.py`.
+It writes the SVG sources to `design/` and rasterises the app iconset into
+`Candela/Assets.xcassets/AppIcon.appiconset/` at each final size.
