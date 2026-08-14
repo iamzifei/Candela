@@ -378,15 +378,30 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 
 ---
 
-## Phase 6 — 上游同步机制
+## Phase 6 — 上游同步机制 ✅ 完成 2026-08-14
 
-**做什么**
-- [ ] 写 `docs/UPSTREAM.md`：如何 `git merge upstream/main`、哪些文件必然冲突
-      （project.yml / Makefile / 品牌字符串）、冲突解法
-- [ ] 首次演练一次 merge
+- [x] `/Users/james/Dev/candela/docs/UPSTREAM.md`
+- [x] **实际演练过一次合并**（上游当前 0 条新提交，所以造了四类代表性改动来演练）
 
-**验收标准**
-- 文档写完并实际演练过一次，合并后 `make compile` 仍零警告
+### 演练的真实结果（不是预测）
+
+| 类别 | 结果 |
+|---|---|
+| 已被 git 识别为重命名的文件（如 `DDCService.swift`） | 跟随重命名，只在双方都改的行上产生内容冲突 ✅ |
+| **改动超过相似度阈值、未被识别为重命名的** | `CONFLICT (modify/delete)`，上游版本被留在**旧路径** `Crisp/...` 下，必须手工搬运 |
+| `project.yml` | 版本号必冲突 |
+| **`Localizable.xcstrings`** | **干净自动合入，零冲突** ✅ |
+
+**当前处于「未识别为重命名」名单的**：`Services/CGHelpers.swift`、
+`Services/LaunchService.swift`。这个名单会随着重写更多文件而变长，
+UPSTREAM.md 里给了查询命令。
+
+### 最有价值的一条验证
+
+**`Localizable.xcstrings` 干净合入，证明了当初「按文本插入、不做 JSON 往返」
+那个决定是对的。** 如果 `add-zh-Hant.py` 用 `json.dumps` 重排了 1200 行，
+这次演练里它就会变成整文件冲突——而上游经常加新字符串。
+**不要把那个脚本"整理"成普通的 JSON load-and-dump。**
 
 ---
 
