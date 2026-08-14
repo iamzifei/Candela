@@ -334,10 +334,30 @@ final class BrightnessService: @unchecked Sendable {
                 }
                 // A failed/ignored read does NOT mean DDC is unavailable: many monitors
                 // accept brightness *writes* but never answer *reads* (they ack the I2C
-                // transaction with stale/null bytes, now rejected by DDCService). Leaving
+                // transaction with stale bytes, now rejected by DDCService). Leaving
                 // availability undetermined lets the write path decide, marking it false
                 // here would wrongly force the gamma/software fallback on a display whose
                 // hardware backlight control works fine, just showing a stale slider value.
+                //
+                // An explicit refusal is the exception, and the one case that is not a
+                // guess: a monitor answering with DDC/CI null messages is stating it does
+                // not do DDC/CI, so believe it now rather than waiting for a write. That
+                // wait was visible — the brightness row's mode badge stayed blank until
+                // the user first dragged the slider, so the display gave no sign it was
+                // being dimmed in software until after they had wondered why it felt
+                // different.
+                else if DDCService.shared.hasRefusedDDC(for: displayID) {
+                    let changed: Bool = self.ddcAvailableLock.withLock {
+                        guard self.ddcAvailable[displayID] != false else { return false }
+                        self.ddcAvailable[displayID] = false
+                        return true
+                    }
+                    if changed {
+                        Task { @MainActor in
+                            self.setSoftwareBrightness(display.brightness, for: displayID)
+                        }
+                    }
+                }
             }
         }
     }
