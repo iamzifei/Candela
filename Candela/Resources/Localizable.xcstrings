@@ -170,38 +170,6 @@
     "%lld%%" : {
       "shouldTranslate" : false
     },
-    "Connecting switched off another display, so it was undone." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "连接后另一块显示器被关闭，已自动撤销。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "連接後另一塊顯示器被關閉，已自動撤銷。"
-          }
-        }
-      }
-    },
-    "The sidebar and Touch Bar apply the next time you connect" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "边栏与触控栏在下次连接时生效"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "側邊欄與觸控列在下次連接時生效"
-          }
-        }
-      }
-    },
     "×" : {
       "shouldTranslate" : false
     },
@@ -435,6 +403,9 @@
           }
         }
       }
+    },
+    "Back to %@" : {
+
     },
     "Beta" : {
       "extractionState" : "stale",
@@ -856,6 +827,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已連接"
+          }
+        }
+      }
+    },
+    "Connecting switched off another display, so it was undone." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连接后另一块显示器被关闭，已自动撤销。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "連接後另一塊顯示器被關閉，已自動撤銷。"
           }
         }
       }
@@ -2990,6 +2977,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "藍綠色"
+          }
+        }
+      }
+    },
+    "The sidebar and Touch Bar apply the next time you connect" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "边栏与触控栏在下次连接时生效"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "側邊欄與觸控列在下次連接時生效"
           }
         }
       }

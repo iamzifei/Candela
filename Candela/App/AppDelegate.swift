@@ -533,12 +533,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
     }
 
-    /// Builds the block list when its identity changed (display set/order).
-    /// Rebuild is a snap, not an animation; it only happens on discontinuous
-    /// events (connect/disconnect, or a different screen on open).
+    /// Builds the block list when its identity changed: the display set, or the
+    /// page being shown. Rebuild is a snap, not an animation; it only happens on
+    /// discontinuous events (connect/disconnect, a different screen on open, or
+    /// navigating between pages).
     private func rebuildBlocksIfNeeded(force: Bool = false) {
         let vis = visibleDisplays()
-        let signature = vis.map(\.displayUUID).joined(separator: "|")
+        // The route is part of the identity: navigating to a display's page is a
+        // different block list, not a reveal, and that is the whole point — the
+        // panel's height follows the page it is on.
+        let signature = "\(sectionState.route)|" + vis.map(\.displayUUID).joined(separator: "|")
         guard force || signature != blocksSignature else { return }
         blocksSignature = signature
 
@@ -550,13 +554,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         )
 
-        var blocks: [PanelBlock] = []
-        for (index, display) in vis.enumerated() {
-            blocks += factory.displayBlocks(for: display, isFirst: index == 0)
-        }
-        blocks += factory.globalBlocks(visible: vis)
-
-        canvas.setBlocks(blocks, footer: factory.block("footer") { PanelFooterBlock() })
+        canvas.setBlocks(factory.blocks(for: sectionState.route, visible: vis),
+                         footer: factory.block("footer") { PanelFooterBlock() })
         canvas.snapToTargets()
     }
 
@@ -565,7 +564,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     /// resolution-section expand after a soft-reconnect.
     private func wireCanvasSubscriptions() {
         sectionState.objectWillChange
-            .sink { [weak self] _ in self?.canvas.requestApply() }
+            .sink { [weak self] _ in
+                guard let self else { return }
+                // A route change is a different block list, not a reveal, so it needs
+                // a rebuild — and objectWillChange fires *before* the value lands, so
+                // read it on the next turn. rebuildBlocksIfNeeded compares signatures
+                // and does nothing when only a disclosure flag moved.
+                Task { @MainActor in self.rebuildBlocksIfNeeded() }
+                self.canvas.requestApply()
+            }
             .store(in: &canvasCancellables)
         // Light<->dark switched while the panel is open: re-tint the rim/shadow
         // live (Control Center / System Settings post this app-wide). The async
@@ -932,30 +939,89 @@ private struct PanelBlockFactory {
 
     // MARK: Per-display blocks
 
-    /// One display's header plus its expanded detail.
+    // Each section of a display's page is its own block: the canvas animates a
+    // reveal as a clip over content that rendered once at natural height, so
+    // nothing re-renders per frame (the 120Hz fix for the nested dropdowns;
+    // docs/panel-resize.md). Controllers hold the state sibling blocks share; the
+    // block hosts retain them. Each carries the shaded band the one-piece detail
+    // view had, painted on the clip layer (banded) so a reveal fade dims only the
+    // content, never the band.
+    // MARK: Pages
+
+    /// The block list for a page.
     ///
-    /// The detail is split so every dropdown is its own block: the canvas
-    /// animates each reveal as a clip over content that rendered once at natural
-    /// height, so nothing re-renders per frame (the 120Hz fix for the nested
-    /// dropdowns; docs/panel-resize.md). Controllers hold the state the sibling
-    /// blocks share; the block hosts retain them. Every detail block carries the
-    /// shaded band the one-piece detail view had, painted on the clip layer
-    /// (banded) so reveal fades dim only the content, never the band.
-    func displayBlocks(for display: DisplayInfo, isFirst: Bool) -> [PanelBlock] {
+    /// One list per page rather than one list with everything in it and most of it
+    /// clipped: the panel's height is the sum of its blocks, so a page that is not
+    /// on screen should not be in the list at all.
+    func blocks(for route: PanelRoute, visible: [DisplayInfo]) -> [PanelBlock] {
+        switch route {
+        case .root:
+            return rootBlocks(visible: visible)
+        case .display(let id):
+            guard let display = visible.first(where: { $0.displayID == id })
+            else { return rootBlocks(visible: visible) }
+            return displayPageBlocks(for: display)
+        case .allResolutions(let id):
+            guard let display = visible.first(where: { $0.displayID == id })
+            else { return rootBlocks(visible: visible) }
+            return allResolutionsPageBlocks(for: display)
+        }
+    }
+
+    private func rootBlocks(visible: [DisplayInfo]) -> [PanelBlock] {
+        var blocks: [PanelBlock] = []
+        for (index, display) in visible.enumerated() {
+            blocks += displayRowBlocks(for: display, isFirst: index == 0)
+        }
+        return blocks + globalBlocks(visible: visible)
+    }
+
+    /// A display on the root page: its name, brightness, and volume if it has any.
+    /// The name row pushes to the display's own page rather than expanding.
+    private func displayRowBlocks(for display: DisplayInfo, isFirst: Bool) -> [PanelBlock] {
         let state = self.state
         let uuid = display.displayUUID
-        let detailOpen = { state.expandedDisplayIDs.contains(display.displayID) }
-
         let header = block("dhead-\(uuid)") {
             DisplayHeaderBlock(display: display, isFirst: isFirst, state: state)
         }
-        header.liveInFlight = true   // display row chevron
-
-        // Split the way the detail reads on screen: resolution and refresh rate
-        // share one controller, colour profile and image adjustment another.
+        header.liveInFlight = true
         return [header]
-            + modeBlocks(for: display, detailOpen: detailOpen)
-            + colorBlocks(for: display, detailOpen: detailOpen)
+    }
+
+    /// One display's page: everything that used to be three taps deep, flat.
+    private func displayPageBlocks(for display: DisplayInfo) -> [PanelBlock] {
+        let state = self.state
+        let uuid = display.displayUUID
+        // Always open: on this page there is no outer disclosure to be inside of.
+        let open = { true }
+
+        let header = block("page-head-\(uuid)") {
+            PanelBackHeader(title: display.name) {
+                withAnimation(.panelResize) { _ = state.goBack() }
+            }
+        }
+        return [header]
+            + modeBlocks(for: display, detailOpen: open)
+            + colorBlocks(for: display, detailOpen: open)
+    }
+
+    /// The full mode list, the one page long enough to deserve being a page.
+    private func allResolutionsPageBlocks(for display: DisplayInfo) -> [PanelBlock] {
+        let state = self.state
+        let uuid = display.displayUUID
+        let controller = DisplayModeController(display: display, displayManager: displayManager)
+
+        let header = block("allres-head-\(uuid)") {
+            PanelBackHeader(title: display.name) {
+                withAnimation(.panelResize) { _ = state.goBack() }
+            }
+        }
+        return [
+            header,
+            block("allres-list-\(uuid)") {
+                ResolutionFullListBlock(controller: controller)
+            }
+        ]
     }
 
     /// Resolution and refresh rate, which share a `DisplayModeController`.
@@ -974,12 +1040,6 @@ private struct PanelBlockFactory {
                 detailOpen() && state.resolutionOpenIDs.contains(id)
             }) {
                 ResolutionSliderBlock(controller: controller, state: state)
-            },
-            detail("dres-all", uuid: uuid, isOpen: {
-                detailOpen() && state.resolutionOpenIDs.contains(id)
-                    && state.allResolutionsOpenIDs.contains(id)
-            }) {
-                ResolutionFullListBlock(controller: controller)
             },
             detail("dref-head", uuid: uuid, isOpen: detailOpen, live: true) {
                 RefreshHeadBlock(controller: controller, state: state)

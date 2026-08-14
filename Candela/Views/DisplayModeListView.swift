@@ -505,9 +505,17 @@ struct ResolutionSliderBlock: View {
         if modes.count >= 2 {
             VStack(alignment: .leading, spacing: 0) {
                 modeSlider(modes)
-                DisclosureSubRow(
-                    label: "Show all resolutions",
-                    isExpanded: state.openBinding(\.allResolutionsOpenIDs, display.displayID)
+                // Pushes to its own page: this list is the longest thing in the
+                // panel, and revealing it in place was the third tap of a
+                // three-deep accordion.
+                PanelPushRow(
+                    icon: "list.bullet",
+                    label: String(localized: "Show all resolutions"),
+                    onPush: {
+                        withAnimation(.panelResize) {
+                            state.route = .allResolutions(display.displayID)
+                        }
+                    }
                 )
             }
         } else {

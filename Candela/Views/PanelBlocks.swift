@@ -12,6 +12,10 @@ import AppKit
 /// headers (chevrons, bindings) and the AppKit canvas (clip targets) share it.
 @MainActor
 final class PanelSectionState: ObservableObject {
+    /// The page being shown. Changing it rebuilds the block list rather than
+    /// animating a reveal, so the panel's height follows the page it is on
+    /// instead of the sum of everything anyone has ever expanded.
+    @Published var route: PanelRoute = .root
     @Published var showTools = false
     @Published var showVirtualDisplays = false
     @Published var showSidecar = false
@@ -27,8 +31,17 @@ final class PanelSectionState: ObservableObject {
     @Published var profileOpenIDs: Set<CGDirectDisplayID> = []
     @Published var imageOpenIDs: Set<CGDirectDisplayID> = []
 
+    /// Go back one page, if there is one.
+    @discardableResult
+    func goBack() -> Bool {
+        guard let parent = route.parent else { return false }
+        route = parent
+        return true
+    }
+
     /// Reopen collapsed, like a native menu (called once the panel finished hiding).
     func collapseAll() {
+        route = .root
         showTools = false
         showVirtualDisplays = false
         showArrangement = false
@@ -43,6 +56,9 @@ final class PanelSectionState: ObservableObject {
 
     /// Drop state for displays that disappeared (disconnect, reconfiguration).
     func retainDisplays(_ valid: Set<CGDirectDisplayID>) {
+        // A page for a display that just vanished has nothing to show, and its back
+        // arrow would be the only way out of a blank panel.
+        if let id = route.displayID, !valid.contains(id) { route = .root }
         expandedDisplayIDs.formIntersection(valid)
         resolutionOpenIDs.formIntersection(valid)
         allResolutionsOpenIDs.formIntersection(valid)
@@ -126,16 +142,15 @@ struct DisplayHeaderBlock: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // Pushes to the display's own page rather than expanding in place;
+            // `isExpanded` stays false so the chevron points right, at the page it
+            // opens, instead of down at a reveal that no longer happens here.
             DisplayRowView(
                 display: display,
-                isExpanded: state.expandedDisplayIDs.contains(display.displayID),
+                isExpanded: false,
                 onToggleExpand: {
                     withAnimation(.panelResize) {
-                        if state.expandedDisplayIDs.contains(display.displayID) {
-                            state.expandedDisplayIDs.remove(display.displayID)
-                        } else {
-                            state.expandedDisplayIDs.insert(display.displayID)
-                        }
+                        state.route = .display(display.displayID)
                     }
                 }
             )
@@ -152,6 +167,81 @@ struct DisplayHeaderBlock: View {
             }
         }
         .padding(.top, isFirst ? 0 : 8)
+    }
+}
+
+/// The top row of any page below the root: a back chevron and the page's title.
+///
+/// The chevron and the title are one target, as they are in Settings and in
+/// Control Centre's own sub-pages — the title is where people aim, and a 12pt
+/// chevron alone is a small thing to hit in a floating panel.
+struct PanelBackHeader: View {
+    let title: String
+    let onBack: () -> Void
+
+    @State private var isHovered = false
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "chevron.left")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundColor(.secondary)
+            Text(title)
+                .font(.system(size: 15, weight: .semibold))
+                .lineLimit(1)
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .menuRowHover(isHovered)
+        .contentShape(Rectangle())
+        .onHover { isHovered = $0 }
+        .onTapGesture(perform: onBack)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("Back to \(title)"))
+        .accessibilityAddTraits(.isButton)
+    }
+}
+
+/// A row that opens another page. The chevron points right, the way every
+/// drill-in row on this platform does.
+struct PanelPushRow: View {
+    let icon: String
+    var iconColor: Color = .accentColor
+    var iconActive: Bool = false
+    let label: String
+    var detail: String?
+    let onPush: () -> Void
+
+    @State private var isHovered = false
+
+    var body: some View {
+        HStack(spacing: 8) {
+            MenuItemIcon(systemName: icon, color: iconColor, active: iconActive)
+                .accessibilityHidden(true)
+            Text(label)
+                .font(.body)
+                .lineLimit(1)
+            Spacer()
+            if let detail {
+                Text(detail)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+            }
+            Image(systemName: "chevron.right")
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 7)
+        .menuRowHover(isHovered)
+        .contentShape(Rectangle())
+        .onHover { isHovered = $0 }
+        .onTapGesture(perform: onPush)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(detail.map { "\(label), \($0)" } ?? label)
+        .accessibilityAddTraits(.isButton)
     }
 }
 
