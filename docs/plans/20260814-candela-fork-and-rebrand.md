@@ -687,15 +687,33 @@ Swift 导入类型一个字节不变，零运行时风险。**没有把「猜出
 
 | # | 事项 | 卡住了什么 | 状态 |
 |---|---|---|---|
-| 1 | 决定是否接受签名证书显示 **"Orris Technology Pty Ltd"** —— Developer ID 证书主体是法律实体名，用户在 Gatekeeper 和 `codesign -dv` 里会看到。全局规则「客户邮件不提 Orris」不覆盖代码签名，但开源项目会暴露实体名，需要你确认接受 | Phase 5 公证 | ⏳ 待决 |
+| 1 | ~~决定是否接受签名证书显示~~ **"Orris Technology Pty Ltd"** —— Developer ID 证书主体是法律实体名，用户在 Gatekeeper 和 `codesign -dv` 里会看到。全局规则「客户邮件不提 Orris」不覆盖代码签名，但开源项目会暴露实体名，需要你确认接受 | Phase 5 公证 | ✅ 2026-08-14 已同意 |
 | 2 | 注册域名 `candela.app`（实测未注册）—— 或决定只用 GitHub Pages 不买域名 | Phase 5 落地页 | ⏳ 待决 |
 | 3 | 创建 GitHub 仓库（public），决定仓库名 `candela` 还是 `Candela` | Phase 5 | ⏳ 待做 |
-| 4 | `xcrun notarytool store-credentials` —— 需要 Apple ID + app-specific password，交互式 | Phase 5 公证 | ⏳ 待做 |
-| 5 | 建 Homebrew tap 仓库 `homebrew-tap` | Phase 5 分发 | ⏳ 待做 |
+| 4 | `xcrun notarytool store-credentials <profile> --apple-id <id> --team-id K9YT36SP4B --password <app 专用密码>` —— 交互式。之后发布时 `CANDELA_NOTARY_PROFILE=<profile>` | **`--publish` 现在会硬性拒绝没有公证的发布**（未公证的 Developer ID 包 Gatekeeper 直接拦，实测 `spctl` 判 `Unnotarized Developer ID`） | ⏳ 待做 |
+| 5 | 建 Homebrew tap 仓库 `iamzifei/homebrew-tap`（空的 public 仓库即可，cask 首发时会自动种进去） | 发布前置检查会拒绝 tap 不存在的发布 | ⏳ 待做 |
 | 6 | App icon 视觉方向拍板 | Phase 4 | ✅ 2026-08-14 选定 B 亮度弧 |
 | 9 | **（可选）用 Icon Composer 做分层 `.icon`** —— GUI 无法无头驱动。打开 Icon Composer（在 Xcode 里：`/Applications/Xcode.app/Contents/Applications/Icon Composer.app`），导入 `/Users/james/Dev/candela/design/candela-icon-{light,dark,mono}.svg` 作为三个外观的图层，导出 `.icon` 放进仓库。收益＝Liquid Glass 的分层折射/高光/「明晰」外观。**不做也能发布**，现在 ship 的扁平 icns 完全可用 | Phase 4 收尾 | ⏳ 可选 |
 | 7 | **面板 UI 回归**：点菜单栏 Candela 图标（在 Ice 隐藏区里），确认两台屏都列出、拖亮度滑块 VX1622 会变、切分辨率正常 | Phase 1 收尾 | ⏳ 待做，2 分钟 |
 | 8 | **M28U 的 OSD 菜单里找 DDC/CI 并打开**（Gigabyte M 系列一般在 Settings → Other Settings）。若菜单里本来就是开的，那问题在 Anker Prime Dock 不透传 DDC，需换直连 Mac 的线再测 | 主屏硬件亮度控制 | ⏳ 待做 |
+
+## Phase 5 进展（2026-08-15）
+
+**已做完、且实测验证过的：**
+
+| 事项 | 验证方式 |
+|---|---|
+| 发布包用 Developer ID + hardened runtime 签名 | 干跑后 `codesign -dv`：`flags=0x10000(runtime)`、`TeamIdentifier=K9YT36SP4B`、satisfies its Designated Requirement |
+| `dev.sh` / `release.sh` 都不再静默降级 ad-hoc | 两个脚本改为自动发现钥匙串里的 Developer ID；`release.sh --publish` 无证书直接报错退出 |
+| `--publish` 无公证时拒绝发布 | 未公证包 `spctl` 实测判 `rejected / source=Unnotarized Developer ID` |
+| 所有会失败的检查前移到 `gh release create` 之前 | 原先 tap 更新在建 release 之后，首发必 404，留下半个已公开的 release |
+| 首发时自动种 cask | `packaging/candela.rb`，tap 里没有就用它建 |
+| cask 能被 Homebrew 正确解析 | 建临时本地 tap 实测：`brew info` 解析出 `arm64 architecture, macOS >= 26` |
+| 裸符号 `:tahoe` = 「26 或更新」而非「恰好 26」 | 实测两种写法 `brew info` 都输出 `macOS >= 26`；写错会导致 macOS 27 装不上 |
+| 中英繁三语翻译完整 | `check-translations.py`：`All strings translated for: zh-Hans, zh-Hant` |
+
+**剩下的全部是 HUMAN QUEUE 里的三件事**：建 GitHub 仓库、建 tap 仓库、跑 `notarytool store-credentials`。
+代码侧没有已知阻塞项。
 
 ## 回归测试清单（每个 Phase 结束后手测）
 
