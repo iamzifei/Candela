@@ -4,7 +4,7 @@
 #   make dev        compile, swap the binary into /Applications/Candela.app, relaunch
 #   make compile    compile the binary only (./Candela-bin), no swap — quick build check
 #   make test       generate the Xcode project and run unit tests
-#   make check      lint + tests + localization keys, everything CI enforces: run before pushing
+#   make check      lint + tests + localization keys + zh-Hant sync, everything CI enforces
 #                   (auto-run on every push after: git config core.hooksPath .githooks)
 #
 # Distributable DMG:
@@ -36,7 +36,7 @@ SWIFTC_FLAGS := -O -target arm64-apple-macos26.0 -swift-version 5 -strict-concur
                 -Xlinker -undefined -Xlinker dynamic_lookup
 
 .DEFAULT_GOAL := help
-.PHONY: help dev compile test lint loc-check check build dmg release clean
+.PHONY: help dev compile test lint loc-check hant-check check build dmg release clean
 
 help:
 	@echo "Candela — make targets:"
@@ -81,8 +81,17 @@ loc-check:
 	python3 scripts/check-localization-keys.py build/loc/en.xcloc \
 		Candela/Resources/Localizable.xcstrings scripts/i18n-missing-allowlist.txt
 
+# Traditional Chinese lives in scripts/zh-Hant.json and is merged into the String
+# Catalog by scripts/add-zh-Hant.py. This fails if the two have drifted — an
+# untranslated new string, or a translation for a key that no longer exists —
+# so a zh-Hans string added upstream can't silently ship as English to zh-Hant.
+# To fix a failure: edit scripts/zh-Hant.json, then run
+#   python3 scripts/add-zh-Hant.py
+hant-check:
+	python3 scripts/add-zh-Hant.py --check
+
 # Everything CI enforces (lint + build + tests + localization keys), locally.
-check: lint test loc-check
+check: lint test loc-check hant-check
 	@echo "check passed: lint clean, tests green, localization keys complete"
 
 build:
