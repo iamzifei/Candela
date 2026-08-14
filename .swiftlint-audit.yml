@@ -1,0 +1,18 @@
+disabled_rules:
+  - todo
+  - implicit_optional_initialization
+  - multiple_closures_with_trailing_closure
+excluded:
+  - scripts
+  - build
+identifier_name:
+  min_length:
+    warning: 1
+  excluded: [_DisplayServices_GetBrightness, _CoreDisplay_GetBrightness]
+type_name:
+  excluded: [Fn]
+line_length:
+  warning: 140
+  ignores_comments: true
+  ignores_urls: true
+  ignores_interpolated_strings: true

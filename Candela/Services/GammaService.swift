@@ -324,12 +324,12 @@ final class GammaService: @unchecked Sendable {
         let bGain = max(0.0, globalGain * (1.0 + adj.bGain / 100.0))
 
         // ── Color temperature ───────────────────────────────────────────
-        let (tempR, tempG, tempB) = colorTempFactors(adj.colorTemperature)
+        let temp = colorTempFactors(adj.colorTemperature)
 
         // Per-channel max after gain × color-temp
-        let rHiBase = rGain * tempR
-        let gHiBase = gGain * tempG
-        let bHiBase = bGain * tempB
+        let rHiBase = rGain * temp.r
+        let gHiBase = gGain * temp.g
+        let bHiBase = bGain * temp.b
 
         // ── Contrast (symmetric push/pull of min and max) ───────────────
         // ±100% → ±0.4 shift, widening/narrowing the output range
@@ -362,9 +362,29 @@ final class GammaService: @unchecked Sendable {
 
     // MARK: - Color temperature (Tanner Helland algorithm)
 
+    /// Per-channel multipliers applied to the gamma ramp. Named rather than an
+    /// anonymous `(Double, Double, Double)`: at the call site `kelvinToRGB` and its
+    /// 6500 K normalisation twin return the same shape, and swapping two of the three
+    /// destructured names would tint the whole screen with nothing to catch it.
+    struct RGBGains {
+        let r: Double
+        let g: Double
+        let b: Double
+
+        static let identity = RGBGains(r: 1.0, g: 1.0, b: 1.0)
+
+        /// Divides each channel by `reference`'s, guarding a zero reference channel
+        /// by passing this channel through unchanged.
+        func normalized(against reference: RGBGains) -> RGBGains {
+            RGBGains(r: reference.r > 0 ? r / reference.r : r,
+                     g: reference.g > 0 ? g / reference.g : g,
+                     b: reference.b > 0 ? b / reference.b : b)
+        }
+    }
+
     /// Returns per-channel gain multipliers normalised so that 6500 K → (1, 1, 1).
-    private func colorTempFactors(_ sliderValue: Double) -> (r: Double, g: Double, b: Double) {
-        guard sliderValue != 0.0 else { return (1.0, 1.0, 1.0) }
+    private func colorTempFactors(_ sliderValue: Double) -> RGBGains {
+        guard sliderValue != 0.0 else { return .identity }
         // positive slider = warmer (lower K); negative = cooler (higher K)
         let kelvin: Double
         if sliderValue > 0 {
@@ -372,16 +392,10 @@ final class GammaService: @unchecked Sendable {
         } else {
             kelvin = 6500.0 - sliderValue / 100.0 * 5500.0  // 6500 K → 12000 K
         }
-        let (r, g, b) = kelvinToRGB(kelvin)
-        let (rN, gN, bN) = kelvinToRGB(6500.0)
-        return (
-            rN > 0 ? r / rN : r,
-            gN > 0 ? g / gN : g,
-            bN > 0 ? b / bN : b
-        )
+        return kelvinToRGB(kelvin).normalized(against: kelvinToRGB(6500.0))
     }
 
-    private func kelvinToRGB(_ kelvin: Double) -> (Double, Double, Double) {
+    private func kelvinToRGB(_ kelvin: Double) -> RGBGains {
         let temp = max(1000.0, min(40000.0, kelvin)) / 100.0
 
         let r: Double
@@ -407,7 +421,7 @@ final class GammaService: @unchecked Sendable {
             b = max(0, min(1, 0.543206789 * log(temp - 10) - 1.196254089))
         }
 
-        return (r, g, b)
+        return RGBGains(r: r, g: g, b: b)
     }
 
     // MARK: - Quantization (table mode)

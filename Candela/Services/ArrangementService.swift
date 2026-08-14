@@ -9,13 +9,31 @@ class ArrangementService {
     static let shared = ArrangementService()
     private init() {}
 
+    /// One display's proposed position for a pending arrangement transaction.
+    ///
+    /// A named type rather than the `(id:x:y:)` tuple this used to pass around: the
+    /// whole point of `applyOrigins` is that only value types cross the `@Sendable`
+    /// boundary into the timeout wrapper, and a struct says that at the declaration
+    /// instead of leaving it to a comment. `Sendable` is explicit for the same reason.
+    struct DisplayOrigin: Sendable {
+        let id: CGDirectDisplayID
+        let x: Int
+        let y: Int
+
+        /// Returns this origin shifted by (`dx`, `dy`), used to renormalize a whole
+        /// arrangement so the main display lands back on (0, 0).
+        func translated(dx: Int, dy: Int) -> DisplayOrigin {
+            DisplayOrigin(id: id, x: x - dx, y: y - dy)
+        }
+    }
+
     /// Moves the given display to the specified position in the global coordinate space.
     /// Used by preset restore, which writes each display's saved absolute origin.
     /// - Returns: true if the configuration was applied successfully.
     @discardableResult
     func setPosition(x: Int, y: Int, for displayID: CGDirectDisplayID) async -> Bool {
         PresetService.shared.noteManualChange()
-        return await applyOrigins([(displayID, x, y)])
+        return await applyOrigins([DisplayOrigin(id: displayID, x: x, y: y)])
     }
 
     /// Moves `displayID` to (x, y) for an interactive drag, keeping the current
@@ -33,18 +51,18 @@ class ArrangementService {
         PresetService.shared.noteManualChange()
 
         // Proposed origins: everyone keeps their spot except the dragged display.
-        var origins: [(id: CGDirectDisplayID, x: Int, y: Int)] = displays.map { d in
+        var origins: [DisplayOrigin] = displays.map { d in
             d.displayID == displayID
-                ? (d.displayID, x, y)
-                : (d.displayID, Int(d.bounds.origin.x), Int(d.bounds.origin.y))
+                ? DisplayOrigin(id: d.displayID, x: x, y: y)
+                : DisplayOrigin(id: d.displayID,
+                                x: Int(d.bounds.origin.x), y: Int(d.bounds.origin.y))
         }
         // Renormalize so the current main sits at (0, 0). When the main is the
         // dragged display, this pushes its offset onto all the others.
         if let mainID = displays.first(where: { $0.isMain })?.displayID,
            let main = origins.first(where: { $0.id == mainID }),
            main.x != 0 || main.y != 0 {
-            let dx = main.x, dy = main.y
-            origins = origins.map { ($0.id, $0.x - dx, $0.y - dy) }
+            origins = origins.map { $0.translated(dx: main.x, dy: main.y) }
         }
         return await applyOrigins(origins)
     }
@@ -66,8 +84,10 @@ class ArrangementService {
 
         let dx = Int(target.bounds.origin.x)
         let dy = Int(target.bounds.origin.y)
-        let origins: [(id: CGDirectDisplayID, x: Int, y: Int)] = displays.map {
-            ($0.displayID, Int($0.bounds.origin.x) - dx, Int($0.bounds.origin.y) - dy)
+        let origins = displays.map {
+            DisplayOrigin(id: $0.displayID,
+                          x: Int($0.bounds.origin.x), y: Int($0.bounds.origin.y))
+                .translated(dx: dx, dy: dy)
         }
         return await applyOrigins(origins)
     }
@@ -76,7 +96,7 @@ class ArrangementService {
     /// Begin→Origin→Complete runs inside `CGHelpers.runWithTimeout` so
     /// `CGCompleteDisplayConfiguration` cannot block indefinitely on WindowServer
     /// IPC. Only value types cross the `@Sendable` boundary, no OpaquePointer.
-    private func applyOrigins(_ origins: [(id: CGDirectDisplayID, x: Int, y: Int)]) async -> Bool {
+    private func applyOrigins(_ origins: [DisplayOrigin]) async -> Bool {
         await CGHelpers.runWithTimeout(seconds: 10, fallback: false) {
             var config: CGDisplayConfigRef?
             guard CGBeginDisplayConfiguration(&config) == .success,

@@ -56,10 +56,7 @@ final class PresetService: ObservableObject, @unchecked Sendable {
         guard let index = presets.firstIndex(where: { $0.id == id }) else { return }
         let existing = presets[index]
         let captured = captureCurrentState(
-            name: existing.name, icon: existing.icon,
-            includeResolution: existing.includesResolution,
-            includeBrightness: existing.includesBrightness,
-            includeArrangement: existing.includesArrangement
+            name: existing.name, icon: existing.icon, captures: existing.captures
         )
         presets[index].displays = captured.displays
         savePresets()
@@ -72,17 +69,15 @@ final class PresetService: ObservableObject, @unchecked Sendable {
     /// re-captured when its inclusion actually changed, so captures left alone
     /// keep their stored values across a rename.
     func editPreset(id: UUID, name: String, icon: String, colorName: String?,
-                    includeResolution: Bool, includeBrightness: Bool, includeArrangement: Bool) {
+                    captures: Set<PresetCapture>) {
         guard let index = presets.firstIndex(where: { $0.id == id }) else { return }
         presets[index].name = name
         presets[index].icon = icon
         presets[index].colorName = colorName
         savePresets()
-        for (capture, want) in [(PresetCapture.resolution, includeResolution),
-                                (.brightness, includeBrightness),
-                                (.arrangement, includeArrangement)]
-        where presets[index].includes(capture) != want {
-            setCapture(id: id, capture, included: want)
+        for capture in PresetCapture.allCases
+        where presets[index].includes(capture) != captures.contains(capture) {
+            setCapture(id: id, capture, included: captures.contains(capture))
         }
     }
 
@@ -202,13 +197,14 @@ final class PresetService: ObservableObject, @unchecked Sendable {
 
     // MARK: - Capture
 
-    /// Snapshots all current online displays into a new preset. The include
-    /// flags decide which attributes the preset controls; an excluded attribute
-    /// is stored as nil and won't be touched on apply.
+    /// Snapshots all current online displays into a new preset. `captures` decides
+    /// which attributes the preset controls; an excluded attribute is stored as nil
+    /// and won't be touched on apply.
     func captureCurrentState(name: String, icon: String,
-                             includeResolution: Bool = true,
-                             includeBrightness: Bool = true,
-                             includeArrangement: Bool = true) -> DisplayPreset {
+                             captures: Set<PresetCapture> = Set(PresetCapture.allCases)) -> DisplayPreset {
+        let includeResolution = captures.contains(.resolution)
+        let includeBrightness = captures.contains(.brightness)
+        let includeArrangement = captures.contains(.arrangement)
         let displays = DisplayManagerAccessor.shared.displays
         let entries: [DisplayPresetEntry] = displays.compactMap { display in
             guard display.isOnline else { return nil }

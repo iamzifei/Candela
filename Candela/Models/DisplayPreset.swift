@@ -42,6 +42,16 @@ struct DisplayPreset: Codable, Identifiable {
         case .arrangement: includesArrangement
         }
     }
+
+    /// Every attribute this preset currently controls, as a set.
+    ///
+    /// The set is the form the API takes, so callers pass one value instead of a
+    /// row of three same-typed `Bool`s that a positional slip could reorder
+    /// silently. It also stops the three flags from ever disagreeing about how
+    /// many captures exist when a fourth is added.
+    var captures: Set<PresetCapture> {
+        Set(PresetCapture.allCases.filter(includes))
+    }
 }
 
 /// One toggleable attribute a preset can control. Used by the preset row's

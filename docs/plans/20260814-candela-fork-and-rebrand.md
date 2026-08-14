@@ -139,20 +139,127 @@ Liquid Glass 设计语言，以开源免费形式发布。
 
 ---
 
-## Phase 3 — Liquid Glass 原生化
+## ⚠ 贯穿所有重构的取舍（2026-08-14 James 追加「重构优化」需求后写下）
 
-**做什么**
-- [ ] SwiftUI 层用原生 `glassEffect(_:in:)` / `GlassEffectContainer` /
-      `.buttonStyle(.glass)` 替换手搓的材质与 chip（`MenuItemIcon`、`PanelBlocks`、
-      `ScreenEffectsView` 的圆形按钮行）
-- [ ] 滑块（亮度/分辨率/音量）改用 macOS 26 规范的控件形制
-- [ ] 用 `GlassEffectContainer` 统一面板内多个玻璃元素，避免各自为政的折射
-- [ ] 检查深浅色、强调色、增强对比度、减弱动态四种系统设置下的表现
+上游 **每天都在提交**（371 commits，最后一条 2026-08-14）。**每一处重构都在给
+Phase 6 的合并加成本。** 因此排序原则：
+
+1. **优先做上游也会接受的改动**（真 bug、无障碍缺陷、明确的规范偏离）——将来可以
+   反向提 PR，冲突自然消解
+2. **纯风格偏好的改动集中在少数文件**，不要全库铺开
+3. **不碰 Services 层的算法与私有 API 调用序**——那是 fork 的全部价值，且是
+   逆向出来的、注释里写满了"为什么必须这样"的代码。**改它等于把资产变成负债**
+
+James 的 CLAUDE.md 里那条 78 文件批量加类型、炸出 126 个 TS 错误、最后整体回滚的
+教训，就是这一节存在的理由。**每片 5–10 个文件，每片跑 compile + test，绿了再下一片。**
+
+## Phase 3a — 代码质量（证据驱动，切片执行）
+
+**基线（实测 2026-08-14）**：`swiftlint --strict` 用项目自带配置是 **0 违规**——
+但那是把阈值调宽换来的（配置注释自己承认「较大的文件早于 lint 存在，放宽阈值以减少
+噪音」：`file_length 1400` / `type_body_length 700` / `function_body_length 175` /
+`cyclomatic_complexity 15`）。
+
+**用 SwiftLint 默认阈值重跑：69 个文件里 46 处违规。**
+审计配置留在 `.swiftlint-audit.yml`，随时可复现：`swiftlint lint --config .swiftlint-audit.yml`
+
+| 规则 | 数量 | 最严重的几处 |
+|---|---|---|
+| file_length | 12 | `DisplayModeListView` 906 · `AppDelegate` 1005 · `BrightnessService` 933 · `PanelCanvas` 753 · `DDCService` 736 |
+| function_body_length | 10 | `AppDelegate:512` **162 行**（上限 100）· `AppDelegate:89` 65 行 |
+| cyclomatic_complexity | 8 | `PanelCanvas:518` 13 · `BrightnessKeyService:227` 13 |
+| type_body_length | 7 | `AppDelegate` 类体 617 行 · `BrightnessService` 505 · `DDCService` 473 |
+| large_tuple | 7 | `ArrangementService` ×3 · `GammaService` ×2 · `VirtualDisplayView` ×2 |
+| function_parameter_count | 2 | `BrightnessHUDService:18` 7 个 · `PresetService:74` 7 个 |
+
+**切片顺序**（每片独立提交，绿了才进下一片）：
+
+- [ ] **切片 1 · large_tuple（7 处，低风险）**：匿名三元组换成具名 struct。纯可读性，
+      不改逻辑，最容易被上游接受
+- [ ] **切片 2 · function_parameter_count（2 处）**：7 参数的函数换成参数对象
+- [ ] **切片 3 · AppDelegate 拆分**：类体 617 行、单函数 162 行。把
+      `setupStatusItem` / 面板构建 / 通知订阅拆成 extension 或独立类型。
+      ⚠️ 这是全项目最高冲突面，放在切片 3 而不是切片 1 就是这个原因
+- [ ] **切片 4 · 视图层文件拆分**：`DisplayModeListView` 906 行 →
+      按「模式列表 / 平滑缩放 / 行渲染」拆
+- [ ] **切片 5 · 收紧 `.swiftlint.yml` 阈值**到实际达成的水平，让新增代码不能再退化
+
+**明确不做**：`DDCService` / `BrightnessService` / `ResolutionService` 的内部逻辑重排。
+文件长是因为注释密度高（上游把逆向结论都写进注释了），拆它收益低风险高。
 
 **验收标准**
-- 面板截图与系统「控制中心」并排对比，材质、圆角、间距、字重一致
-- 四种辅助功能设置下均不塌陷（尤其「减弱动态」要关掉玻璃动画）
-- 无自定义颜色硬编码，全部走 semantic color
+- 每片结束：`make compile` 零警告 + 52/52 测试通过 + 真机面板能开
+- 全部结束：`.swiftlint.yml` 的阈值不再高于 SwiftLint 默认值的 1.5 倍
+- 未引入任何新的 `// swiftlint:disable`
+
+## Phase 3b — UI / UX 对齐 macOS 26
+
+**证据基础（实测 2026-08-14，Candela 面板与系统控制中心并排截图）**
+截图：`/private/tmp/.../scratchpad/panel.png` 与 `cc.png`
+
+已观察到的三处差异：
+
+1. **分组容器**：控制中心把每组控件包在**独立的圆角玻璃卡片**里（Wi-Fi/蓝牙/AirDrop
+   是胶囊，Display/Sound 是带标题的宽卡片）；Candela 是一整块平面 + 细分隔线。
+   这是 macOS 26 控制中心布局最显著的特征，也是最大的一处偏离
+2. **滑条上下文**：控制中心的滑条在卡片内、**上方有标题**（"Display" / "Sound"）；
+   Candela 的滑条是裸行。⚠️ 但**滑条本身的形制是一致的**（细轨 + 两端字形），
+   我原以为 26 会用 iOS 那种高胶囊滑条，截图否掉了这个预期
+3. **图标 chip 配色**：控制中心开启态是**白底 + 彩色字形**；Candela 是
+   **彩色底 + 白色字形**。⚠️ 但 Candela 的 Dark Mode 开启态恰好是白底黑标，与系统
+   一致——所以不是全错，是**内部不统一**
+
+**置信度**：n=1 单次截图，且只覆盖控制中心默认模块。⚠️ **下"必须改"的结论前**，
+还要看系统设置里的「显示器」面板——上游 `ScreenEffectsView.swift:4` 的注释说那一行
+按钮就是照它做的，若照的是那个而非控制中心，则差异 3 不成立。
+
+- [ ] 先补这一张对照截图，再决定差异 3 改不改
+- [ ] 引入分组玻璃卡片（差异 1），用 `GlassEffectContainer` 统一折射
+- [ ] 滑条加分组标题（差异 2）
+- [ ] 四种系统设置下逐一截图验证：深色/浅色 · 增强对比度 · **减弱动态**（必须关掉
+      玻璃动画）· 大字体
+- [ ] 无障碍：VoiceOver 能读出每个滑条的标签与当前值（当前未验证）
+
+**验收标准**
+- 四种辅助功能设置各一张截图，均不塌陷
+- VoiceOver 逐控件走查通过
+- 无硬编码颜色，全部走 semantic color
+
+## Phase 7 — 多语言：简体 / 繁体 / 英文（2026-08-14 James 追加）
+
+**现状（实测）**：`Localizable.xcstrings` 199 个 key，仅 `en` + `zh-Hans`。
+zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版本号这类不需翻译的
+——**即简中实际是完整的**。
+
+**要做**：新增 `zh-Hant`（繁体中文）191 条。
+
+🚫 **不得用简繁字符转换（OpenCC 之类）糊弄。** 转换出来的是"用繁体字写的大陆用语"，
+台港用户一眼假。显示器领域的实际差异：
+
+| 英文 | zh-Hans | zh-Hant |
+|---|---|---|
+| Resolution | 分辨率 | **解析度** |
+| Refresh rate | 刷新率 | **更新率** |
+| Screen | 屏幕 | **螢幕** |
+| Settings | 设置 | **設定** |
+| Default | 默认 | **預設** |
+| Preset | 预设 | ⚠️ **不能用「預設」**（那是 default），要用「組合」/「設定組合」 |
+| Software | 软件 | **軟體** |
+| Shortcut key | 快捷键 | **快速鍵** |
+| Menu bar | 菜单栏 | **選單列** |
+| Mirror | 镜像 | 鏡像 |
+| Virtual | 虚拟 | 虛擬 |
+
+- [ ] `project.yml` 的 `knownRegions` 加 `zh-Hant`
+- [ ] 191 条逐条译，术语按上表
+- [ ] `python3 scripts/check-translations.py` 通过
+- [ ] `make loc-check` 通过
+- [ ] release.sh 的 `xcstrings-compile.py` 能编出 `zh-Hant.lproj`
+
+**验收标准**
+- `defaults write com.candela.app AppleLanguages '(zh-Hant)'` 后启动，面板全繁体，
+  **且截图人工过一遍**（自动检查只能证明"有翻译"，证明不了"翻译对"）
+- 三种语言各截一张面板图存档
 
 ---
 

@@ -101,8 +101,18 @@ struct SavePresetForm: View {
         _includeArrangement = State(initialValue: editing?.includesArrangement ?? true)
     }
 
-    private var nothingSelected: Bool {
-        !includeResolution && !includeBrightness && !includeArrangement
+    private var nothingSelected: Bool { selectedCaptures.isEmpty }
+
+    /// The three toggles as the set `PresetService` takes. The toggles stay three
+    /// separate `@State` bools because each one binds to its own switch; this is
+    /// where they converge, so no caller has to pass three same-typed flags
+    /// positionally.
+    private var selectedCaptures: Set<PresetCapture> {
+        var captures: Set<PresetCapture> = []
+        if includeResolution { captures.insert(.resolution) }
+        if includeBrightness { captures.insert(.brightness) }
+        if includeArrangement { captures.insert(.arrangement) }
+        return captures
     }
 
     /// Stored resolution shown inline only when a single display carries it (clean
@@ -323,9 +333,7 @@ struct SavePresetForm: View {
             // values for captures left unchanged.
             PresetService.shared.editPreset(
                 id: editing.id, name: name, icon: selectedIcon, colorName: selectedColor,
-                includeResolution: includeResolution,
-                includeBrightness: includeBrightness,
-                includeArrangement: includeArrangement
+                captures: selectedCaptures
             )
             // Opt-in: refresh the stored values to the current display state.
             if recaptureValues {
@@ -333,10 +341,7 @@ struct SavePresetForm: View {
             }
         } else {
             var preset = PresetService.shared.captureCurrentState(
-                name: name, icon: selectedIcon,
-                includeResolution: includeResolution,
-                includeBrightness: includeBrightness,
-                includeArrangement: includeArrangement
+                name: name, icon: selectedIcon, captures: selectedCaptures
             )
             preset.colorName = selectedColor
             PresetService.shared.addPreset(preset)

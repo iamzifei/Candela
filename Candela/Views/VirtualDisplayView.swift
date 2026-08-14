@@ -323,16 +323,28 @@ struct CreateVirtualDisplayForm: View {
     @State private var customHeight: String
     @State private var autoCreate: Bool
 
-    static let presetOptions: [(label: String, width: Int, height: Int)] = [
-        ("1920×1080 (FHD)", 1920, 1080),
-        ("2560×1440 (QHD)", 2560, 1440),
-        ("3840×2160 (4K)", 3840, 2160),
-        ("2732×2048 (iPad Pro 12.9″)", 2732, 2048),
-        ("2388×1668 (iPad Pro 11″)", 2388, 1668),
-        ("2360×1640 (iPad Air)", 2360, 1640),
-        ("2048×1536 (iPad 4:3)", 2048, 1536)
+    /// One entry in the size picker. A named type rather than a
+    /// `(label:width:height:)` tuple: `width` and `height` are both `Int` and
+    /// adjacent, so a positional swap builds cleanly and silently creates every
+    /// virtual display in portrait.
+    struct SizePreset: Identifiable {
+        let label: String
+        let width: Int
+        let height: Int
+
+        var id: String { label }
+    }
+
+    static let presetOptions: [SizePreset] = [
+        SizePreset(label: "1920×1080 (FHD)", width: 1920, height: 1080),
+        SizePreset(label: "2560×1440 (QHD)", width: 2560, height: 1440),
+        SizePreset(label: "3840×2160 (4K)", width: 3840, height: 2160),
+        SizePreset(label: "2732×2048 (iPad Pro 12.9″)", width: 2732, height: 2048),
+        SizePreset(label: "2388×1668 (iPad Pro 11″)", width: 2388, height: 1668),
+        SizePreset(label: "2360×1640 (iPad Air)", width: 2360, height: 1640),
+        SizePreset(label: "2048×1536 (iPad 4:3)", width: 2048, height: 1536)
     ]
-    private var presets: [(label: String, width: Int, height: Int)] { Self.presetOptions }
+    private var presets: [SizePreset] { Self.presetOptions }
     /// The tag used by the "Custom…" picker entry (one past the last preset).
     private var customTag: Int { Self.presetOptions.count }
 

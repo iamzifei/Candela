@@ -17,3 +17,6 @@ docs/research/
 docs/RELEASE_NOTES_*.md
 docs/ISSUE_REPLIES_*.md
 Candela-dev.app/
+
+# Audit-only SwiftLint config (SwiftLint's own defaults, used to find complexity
+# hotspots the project config's raised thresholds hide). Not part of any build.
