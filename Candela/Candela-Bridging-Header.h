@@ -139,17 +139,22 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol CandelaSidecarDisplayConfig <NSObject>
-/// YES = the iPad gets its own desktop (extend); NO = it mirrors.
+/// ⚠️ DO NOT SET. "Exclusive" is literal: setting this to YES connected the iPad
+/// and blanked both attached external monitors. Observed on macOS 26.6.
 ///
-/// The meaning is inferred from the name and from how Sidecar behaves, not from any
-/// documentation: "exclusive mode" is the iPad owning a display space rather than
-/// sharing the Mac's. If a build ever mirrors when it should extend, this flag is
-/// the first thing to invert.
+/// It was set here once, on the guess that "exclusive mode" meant the iPad owning
+/// its own display space — i.e. extend rather than mirror. It does not. Extend
+/// versus mirror for a Sidecar display is ordinary display mirroring, applied
+/// after connecting with CGConfigureDisplayMirrorOfDisplay like any other screen;
+/// see SidecarService. Declared only so the name is documented and nobody
+/// rediscovers it the same way.
 @property (nonatomic, copy, nullable) NSNumber *configureDisplayExclusiveMode;
 /// The iPad-side sidebar with the modifier keys.
 @property (nonatomic, copy, nullable) NSNumber *showSideBar;
 /// The iPad-side Touch Bar strip.
 @property (nonatomic, copy, nullable) NSNumber *showTouchBar;
+/// The CGDirectDisplayID the session is running on, once connected. Boxed.
+@property (nonatomic, copy, nullable) NSNumber *displayID;
 @end
 
 @protocol CandelaSidecarDisplayManager <NSObject>
@@ -157,6 +162,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, copy) NSArray *devices;
 /// Devices currently serving as a display.
 @property (nonatomic, readonly, copy) NSArray *connectedDevices;
+/// The live config of a CONNECTED device, nil for anything else. The only way to
+/// learn which CGDirectDisplayID the iPad ended up on.
+- (nullable id<CandelaSidecarDisplayConfig>)configForDevice:(id)device;
 - (void)connectToDevice:(id)device
              withConfig:(id)config
              completion:(void (^)(NSError *_Nullable error))completion;

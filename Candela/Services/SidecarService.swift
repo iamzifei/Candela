@@ -151,18 +151,97 @@ final class SidecarService: ObservableObject, @unchecked Sendable {
 
         // Built here rather than fetched: configForDevice: returns nil for anything
         // not already connected. Properties left unset stay nil, which SidecarCore
-        // reads as "use the system default", so only the flags shown in the UI are
-        // overridden.
+        // reads as "use the system default", so only the flags below are overridden.
+        //
+        // `configureDisplayExclusiveMode` is deliberately NOT set. It was, once, on
+        // the guess that it meant extend-rather-than-mirror; "exclusive" turned out
+        // to be literal and connecting blanked both attached monitors. Extend versus
+        // mirror is applied after connecting instead, as ordinary display mirroring.
         let config = unsafeBitCast(configClass.init(), to: CandelaSidecarDisplayConfig.self)
-        config.configureDisplayExclusiveMode = NSNumber(value: useAsSeparateDisplay)
         config.showSideBar = NSNumber(value: showSidebar)
         config.showTouchBar = NSNumber(value: showTouchBar)
+
+        // Snapshot the screens that are lit now, to check none of them go dark. See
+        // recoverIfDisplaysWentDark.
+        let before = Self.activeDisplayIDs()
 
         // The identifier, not the Device: the completion block is @Sendable.
         let id = device.id
         manager.connect(toDevice: device.handle, withConfig: config) { [weak self] error in
             // SidecarCore calls back on an arbitrary queue.
-            Task { @MainActor in self?.finish(id, error: error, verb: "connect") }
+            Task { @MainActor in
+                self?.finish(id, error: error, verb: "connect")
+                guard error == nil else { return }
+                self?.applyMirroring(for: id)
+                self?.recoverIfDisplaysWentDark(wereActive: before, device: id)
+            }
+        }
+    }
+
+    private static func activeDisplayIDs() -> Set<CGDirectDisplayID> {
+        var count: UInt32 = 0
+        var ids = [CGDirectDisplayID](repeating: 0, count: 16)
+        guard CGGetActiveDisplayList(16, &ids, &count) == .success else { return [] }
+        return Set(ids.prefix(Int(count)))
+    }
+
+    /// Undoes the connection if starting the session put other screens out.
+    ///
+    /// Not a hypothetical: setting `configureDisplayExclusiveMode` did exactly this,
+    /// and the failure is one the user cannot click their way out of — the app's own
+    /// panel is on a screen that just went black. This build no longer sets that
+    /// flag, so the check should never fire; it stays because the cost of being
+    /// wrong again is losing every screen, and the cost of the check is one display
+    /// list read a couple of seconds after connecting.
+    private func recoverIfDisplaysWentDark(wereActive before: Set<CGDirectDisplayID>,
+                                           device id: String) {
+        Task { @MainActor in
+            // Long enough for the session to settle; a display briefly drops out
+            // during any reconfiguration.
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            let lost = before.subtracting(Self.activeDisplayIDs())
+            guard !lost.isEmpty else { return }
+
+            Self.log.error("connecting put \(lost.count, privacy: .public) display(s) out; disconnecting")
+            lastError = String(localized: "Connecting switched off another display, so it was undone.")
+            if let device = available.first(where: { $0.id == id }) {
+                disconnect(device)
+            }
+        }
+    }
+
+    /// Puts the freshly-connected iPad into extend or mirror, whichever is set.
+    ///
+    /// Sidecar's own config has no flag for this — the one that looks like it,
+    /// `configureDisplayExclusiveMode`, blanks every other display. Once connected
+    /// the iPad is an ordinary CGDirectDisplay, so this is the same mirroring any
+    /// two screens use, and mirrors onto the main display exactly as the Displays
+    /// pane's "Mirror for <display>" does.
+    private func applyMirroring(for id: String) {
+        Task { @MainActor in
+            // The session needs a moment to register its display before
+            // configForDevice: reports one.
+            for attempt in 0..<10 {
+                if attempt > 0 { try? await Task.sleep(nanoseconds: 400_000_000) }
+                guard let manager,
+                      let device = available.first(where: { $0.id == id }),
+                      let config = manager.config(forDevice: device.handle),
+                      let displayID = config.displayID?.uint32Value, displayID != 0
+                else { continue }
+
+                if useAsSeparateDisplay {
+                    if MirrorService.shared.isMirroring(displayID) {
+                        await MirrorService.shared.disableMirror(displayID: displayID)
+                    }
+                } else {
+                    let main = CGMainDisplayID()
+                    if displayID != main, !MirrorService.shared.isMirroring(displayID) {
+                        await MirrorService.shared.enableMirror(source: main, target: displayID)
+                    }
+                }
+                return
+            }
+            Self.log.info("connected but never saw a display ID; left as the system arranged it")
         }
     }
 
