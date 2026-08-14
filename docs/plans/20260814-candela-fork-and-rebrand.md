@@ -174,9 +174,15 @@ James 的 CLAUDE.md 里那条 78 文件批量加类型、炸出 126 个 TS 错�
 
 **切片顺序**（每片独立提交，绿了才进下一片）：
 
-- [ ] **切片 1 · large_tuple（7 处，低风险）**：匿名三元组换成具名 struct。纯可读性，
-      不改逻辑，最容易被上游接受
-- [ ] **切片 2 · function_parameter_count（2 处）**：7 参数的函数换成参数对象
+- [x] **切片 1 · large_tuple（7 → 0）** ✅ commit 5be20b3
+      `(id:x:y:)` → `ArrangementService.DisplayOrigin`（含 `translated(dx:dy:)`）·
+      `(r:g:b:)` → `GammaService.RGBGains`（含 `normalized(against:)`）·
+      `(label:width:height:)` → `VirtualDisplayView.SizePreset`
+- [x] **切片 2 · function_parameter_count（2 → 1）** ✅ commit 5be20b3
+      `editPreset` / `captureCurrentState` 的三个 `include*` 布尔 → `Set<PresetCapture>`
+      （枚举本来就存在，是给预设行的 ⋯ 菜单用的），`DisplayPreset` 新增 `captures`
+      计算属性。**剩下那 1 处不能改**：`OSDUIHelperProtocol.showImage` 的 7 个参数是
+      Apple 私有 XPC 的签名，收窄会断绑定
 - [ ] **切片 3 · AppDelegate 拆分**：类体 617 行、单函数 162 行。把
       `setupStatusItem` / 面板构建 / 通知订阅拆成 extension 或独立类型。
       ⚠️ 这是全项目最高冲突面，放在切片 3 而不是切片 1 就是这个原因
@@ -250,16 +256,38 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 | Mirror | 镜像 | 鏡像 |
 | Virtual | 虚拟 | 虛擬 |
 
-- [ ] `project.yml` 的 `knownRegions` 加 `zh-Hant`
-- [ ] 191 条逐条译，术语按上表
-- [ ] `python3 scripts/check-translations.py` 通过
-- [ ] `make loc-check` 通过
-- [ ] release.sh 的 `xcstrings-compile.py` 能编出 `zh-Hant.lproj`
+- [x] `project.yml` 的 `knownRegions` 加 `zh-Hant`
+- [x] 191 条逐条译，术语按上表
+- [x] `check-translations.py` → `All strings translated for: zh-Hans, zh-Hant`
+- [x] `make loc-check` 通过（198 个 key 全在目录里）
+- [x] `xcstrings-compile.py` 编出 `zh-Hant.lproj`（191 条）
 
-**验收标准**
-- `defaults write com.candela.app AppleLanguages '(zh-Hant)'` 后启动，面板全繁体，
-  **且截图人工过一遍**（自动检查只能证明"有翻译"，证明不了"翻译对"）
-- 三种语言各截一张面板图存档
+### ✅ 完成 2026-08-14（commit 7dd44f8）
+
+**实现方式（重要，将来改翻译走这条路）**
+- 译文单独放 `/Users/james/Dev/candela/scripts/zh-Hant.json`，当散文审阅，不用
+  在 xcstrings 的 JSON 脚手架里读
+- `/Users/james/Dev/candela/scripts/add-zh-Hant.py` 合并进 String Catalog。
+  ⚠️ **它按文本插入，不走 `json.dumps` 往返**——Xcode 的格式（`"key" : value`
+  冒号前有空格、空对象包一个空行、自己的 key 排序、文件末尾无换行）经 Python
+  序列化会整文件重排 1200 行，**那样每次 `git merge upstream/main` 这个文件必冲突**，
+  而上游经常加新字符串。现在 diff 是 **1147 增 / 1 删**
+- 幂等：整块重建 `localizations` 对象而不是就地补逗号（第一版就地补逗号，跑第二次
+  产生尾随逗号、JSON 失效——这是实际踩到的坑）
+- 双向漂移检查：zh-Hans 有而 zh-Hant 没有 → 报错；zh-Hant 有而目录里没这个 key
+  （上游改名/删除）→ 也报错。**任一方向静默跳过都会发出一个"报告为完整、实际回退
+  英文"的语言**
+- 已挂进 `make check`（新增 `make hant-check` 目标）
+
+**验收结果**
+- ✅ 切到 `AppleLanguages=(zh-Hant)` 启动，面板显示：合併亮度 / 深色模式·開 /
+  夜覽·關 / 預設組合 / 新增預設組合 / 工具 / 設定 / **結束 Candela**
+- ✅ 构建产物 `.strings` 抽查深层字符串全部正确（解析度 / 更新頻率 / 拷貝顯示器名稱 /
+  隱藏瀏海區域 / 顏色描述檔 / 影像調整 / 中斷顯示器連線 / 原彩顯示 / 軟體 /
+  「輔助使用」權限…）
+- ✅ `make check` 端到端通过
+- 截图：`panel.png`（英文）· `panel-hant.png`（繁体）· `cc.png`（系统控制中心对照）
+- ⏳ 简体截图尚未存档
 
 ---
 
