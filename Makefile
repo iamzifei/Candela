@@ -8,7 +8,7 @@
 #                   (auto-run on every push after: git config core.hooksPath .githooks)
 #
 # Distributable DMG:
-#   make build      signed universal (arm64 + x86_64) DMG via scripts/release.sh (dry run)
+#   make build      signed arm64 DMG via scripts/release.sh (dry run)
 #   make dmg        DMG via Xcode (scripts/build-dmg.sh; needs full Xcode + xcodegen)
 #   make release ARGS="vX.Y.Z notes.md --publish"   full release (see scripts/release.sh)
 #
@@ -30,7 +30,7 @@ endif
 # swiftc invocation kept in sync with dev.sh's compile step.
 SWIFT_SOURCES := Candela/App/*.swift Candela/Models/*.swift Candela/Services/*.swift \
                  Candela/Views/*.swift Candela/Utilities/*.swift
-SWIFTC_FLAGS := -O -swift-version 5 -strict-concurrency=minimal -parse-as-library \
+SWIFTC_FLAGS := -O -target arm64-apple-macos26.0 -swift-version 5 -strict-concurrency=minimal -parse-as-library \
                 -import-objc-header Candela/Candela-Bridging-Header.h \
                 -framework AppKit -framework SwiftUI -framework IOKit -framework CoreAudio \
                 -Xlinker -undefined -Xlinker dynamic_lookup
@@ -44,7 +44,7 @@ help:
 	@echo "  make compile    compile ./Candela-bin only, no swap (quick build check)"
 	@echo "  make test       generate the Xcode project and run unit tests"
 	@echo "  make check      lint + tests + localization keys, everything CI enforces"
-	@echo "  make build      signed universal DMG, no Xcode (scripts/release.sh v$(VERSION))"
+	@echo "  make build      signed arm64 DMG, no Xcode (scripts/release.sh v$(VERSION))"
 	@echo "  make dmg        DMG via Xcode (scripts/build-dmg.sh)"
 	@echo "  make release ARGS=\"vX.Y.Z notes.md --publish\"   full release (scripts/release.sh)"
 	@echo "  make clean      remove build artifacts (Candela-bin, build/, Candela.dmg)"

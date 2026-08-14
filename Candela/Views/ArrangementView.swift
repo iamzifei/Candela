@@ -380,7 +380,9 @@ struct DisplayNameBadge: View {
 
 /// Measures the name callout's height so it can lift itself above the thumbnail.
 private struct BadgeHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
+    // `let`, not `var`: PreferenceKey only ever reads this, and a mutable static
+    // is global shared state that Swift 6 rejects outright.
+    static let defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
 }
 

@@ -220,7 +220,11 @@ struct BrightnessSliderView: View {
     /// value crosses 100. Tint on a control does not interpolate on its own,
     /// so the blend progress is the animatable data and the mixed color is
     /// recomputed every frame of the transition.
-    private struct BoostTintModifier: ViewModifier, Animatable {
+    /// `Animatable` is a nonisolated protocol, but `ViewModifier` puts this type on
+    /// the main actor, so under Swift 6 the conformance has to say which actor it
+    /// runs on. SwiftUI only ever reads `animatableData` while laying out on the
+    /// main actor, so isolating the conformance there is accurate, not a silencer.
+    private struct BoostTintModifier: ViewModifier, @MainActor Animatable {
         var progress: Double
         var animatableData: Double {
             get { progress }
@@ -233,13 +237,7 @@ struct BrightnessSliderView: View {
         private var boostTint: Color {
             guard progress > 0 else { return .accentColor }
             let fraction = min(1.0, progress)
-            if #available(macOS 15.0, *) {
-                return Color.accentColor.mix(with: .yellow, by: fraction)
-            }
-            // macOS 14: Color.mix is 15+; AppKit's blend interpolates in a
-            // slightly different space, indistinguishable across a tint ramp.
-            return Color(nsColor: NSColor.controlAccentColor
-                .blended(withFraction: fraction, of: .systemYellow) ?? .controlAccentColor)
+            return Color.accentColor.mix(with: .yellow, by: fraction)
         }
     }
 

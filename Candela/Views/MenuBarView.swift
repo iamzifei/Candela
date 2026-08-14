@@ -151,16 +151,11 @@ extension View {
     /// Keep scroll content pinned to the top on first layout and while its
     /// size animates; without this the scroll offset transiently re-anchors
     /// during expansion and the whole panel content shifts up for a moment.
-    /// The role-scoped anchors are macOS 15+; on 14 the all-roles anchor is
-    /// close enough (it additionally top-aligns short content, which the
-    /// panel fills anyway).
-    @ViewBuilder func topAnchoredScroll() -> some View {
-        if #available(macOS 15.0, *) {
-            self.defaultScrollAnchor(.top, for: .sizeChanges)
-                .defaultScrollAnchor(.top, for: .initialOffset)
-        } else {
-            self.defaultScrollAnchor(.top)
-        }
+    /// Scoping the anchor to these two roles (rather than all roles) leaves
+    /// short content vertically free, which the panel relies on.
+    func topAnchoredScroll() -> some View {
+        self.defaultScrollAnchor(.top, for: .sizeChanges)
+            .defaultScrollAnchor(.top, for: .initialOffset)
     }
 }
 
@@ -483,7 +478,11 @@ struct SettingsView: View {
 
         private func requestAccess() {
             // Fire the native trust prompt (shows the system dialog the first time)...
-            let opts = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+            // The key is spelled out rather than read from kAXTrustedCheckOptionPrompt:
+            // that symbol is an ApplicationServices global `var` of non-Sendable type, so
+            // touching it is a hard error under Swift 6 strict concurrency. Its value is
+            // this exact string and is part of the framework's ABI.
+            let opts = ["AXTrustedCheckOptionPrompt": true] as CFDictionary
             _ = AXIsProcessTrustedWithOptions(opts)
             // ...and open the exact pane, so the toggle still lands somewhere useful after the
             // one-shot prompt has already been dismissed once.

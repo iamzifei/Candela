@@ -141,10 +141,15 @@ final class BrightnessKeyService: @unchecked Sendable {
         if pollTimer == nil {
             pollTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] timer in
                 // Scheduled from the main actor, so it fires on the main run loop.
-                MainActor.assumeIsolated {
-                    guard let self else { timer.invalidate(); return }
+                // `timer` stays outside assumeIsolated: Timer is not Sendable, and
+                // handing it to the isolated closure is a strict-concurrency error.
+                // The isolated part reports whether it still has a target instead.
+                let stillAlive = MainActor.assumeIsolated { () -> Bool in
+                    guard let self else { return false }
                     self.armIfSettled()
+                    return true
                 }
+                if !stillAlive { timer.invalidate() }
             }
         }
         if activationObserver == nil {
@@ -194,13 +199,16 @@ final class BrightnessKeyService: @unchecked Sendable {
         // is a cheap TCC lookup so 2x/sec while armed is negligible.
         trustWatchdog = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
             // Scheduled from the main actor, so it fires on the main run loop.
-            MainActor.assumeIsolated {
-                guard let self else { timer.invalidate(); return }
-                guard self.eventTap != nil, !AXIsProcessTrusted() else { return }
+            // See retryUntilArmed: `timer` cannot cross into the isolated closure.
+            let stillAlive = MainActor.assumeIsolated { () -> Bool in
+                guard let self else { return false }
+                guard self.eventTap != nil, !AXIsProcessTrusted() else { return true }
                 self.disabledAt = ProcessInfo.processInfo.systemUptime
                 self.stop()
                 self.retryUntilArmed()
+                return true
             }
+            if !stillAlive { timer.invalidate() }
         }
     }
 

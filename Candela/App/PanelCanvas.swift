@@ -65,6 +65,10 @@ final class PanelViewport: FlippedView {
 /// height). Every rule is load-bearing (docs/panel-resize.md):
 /// frame-paced time (one refresh period per tick, never wall time), a link
 /// created once and never invalidated, velocity carry across retargets.
+/// Main-actor isolated: the link is created from a view, ticks on the main run
+/// loop, and every callback drives AppKit layout. Nothing here is ever touched
+/// off the main thread, so the annotation states a fact rather than adding a hop.
+@MainActor
 final class FrameSpring: NSObject {
     private var link: CADisplayLink?
     private var active = false

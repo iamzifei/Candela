@@ -175,7 +175,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             forName: NSMenu.didBeginTrackingNotification, object: nil, queue: .main
         ) { [weak self] note in
             let menu = note.object as? NSMenu
-            Task { @MainActor in
+            // Delivered on .main, so assert that rather than hopping: a Task would
+            // have to send the non-Sendable NSMenu across an isolation boundary, and
+            // would also let the panel see tracking a beat late.
+            MainActor.assumeIsolated {
                 PanelOpenGuard.isMenuTracking = true
                 self?.trackingMenu = menu
             }
@@ -452,22 +455,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // it). Its materialize bloom plays only when the view first comes on
         // screen, which happens once during hidden warm-up; the panel never
         // orders out afterwards.
-        let backdrop: NSView
-        if #available(macOS 26.0, *) {
-            let glass = NSGlassEffectView(frame: shell.bounds)
-            glass.cornerRadius = 16
-            backdrop = glass
-        } else {
-            // Pre-Tahoe: .popover is the translucent grade native menus and
-            // Control Center panels show on macOS 15.
-            let material = NSVisualEffectView(frame: shell.bounds)
-            material.material = .popover
-            material.state = .active
-            material.wantsLayer = true
-            material.layer?.cornerRadius = 16
-            material.layer?.masksToBounds = true
-            backdrop = material
-        }
+        let glass = NSGlassEffectView(frame: shell.bounds)
+        glass.cornerRadius = 16
+        let backdrop: NSView = glass
         // Oversized fixed canvas glued to the shell top, clipped by the
         // shell's rounded mask: resizing the shell then only MOVES the glass
         // layer (autoresizing it with the shell cost ~3ms per tick in its

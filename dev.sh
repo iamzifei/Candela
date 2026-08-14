@@ -24,7 +24,7 @@ VERSION=$(grep -E '^[[:space:]]*MARKETING_VERSION:' project.yml | head -1 | sed 
 BUILD=$(grep -E '^[[:space:]]*CURRENT_PROJECT_VERSION:' project.yml | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
 
 echo "==> Compiling Candela $VERSION ($BUILD)..."
-swiftc -O -swift-version 5 -strict-concurrency=minimal -parse-as-library \
+swiftc -O -target arm64-apple-macos26.0 -swift-version 5 -strict-concurrency=minimal -parse-as-library \
     -import-objc-header Candela/Candela-Bridging-Header.h \
     -framework AppKit -framework SwiftUI -framework IOKit -framework CoreAudio \
     -Xlinker -undefined -Xlinker dynamic_lookup \

@@ -2,7 +2,7 @@ name: Candela
 options:
   bundleIdPrefix: com.candela
   deploymentTarget:
-    macOS: "14.0"
+    macOS: "26.0"
   developmentLanguage: en
   knownRegions:
     - en
@@ -13,7 +13,7 @@ targets:
   Candela:
     type: application
     platform: macOS
-    deploymentTarget: "14.0"
+    deploymentTarget: "26.0"
     sources:
       - path: Candela
         excludes:
@@ -46,7 +46,7 @@ targets:
   CandelaTests:
     type: bundle.unit-test
     platform: macOS
-    deploymentTarget: "14.0"
+    deploymentTarget: "26.0"
     sources:
       - path: CandelaTests
       - path: Candela/Models/DisplayModeGeometry.swift

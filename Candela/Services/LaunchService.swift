@@ -1,7 +1,7 @@
 import Foundation
 import ServiceManagement
 
-/// Manages "Launch at Login" using SMAppService (macOS 13+).
+/// Manages "Launch at Login" using SMAppService.
 @MainActor
 final class LaunchService: @unchecked Sendable {
     static let shared = LaunchService()
@@ -10,38 +10,29 @@ final class LaunchService: @unchecked Sendable {
     // MARK: - State
 
     var isEnabled: Bool {
-        if #available(macOS 13.0, *) {
-            return SMAppService.mainApp.status == .enabled
-        }
-        return false
+        SMAppService.mainApp.status == .enabled
     }
 
     // MARK: - Enable / Disable
 
     @discardableResult
     func enable() -> Bool {
-        if #available(macOS 13.0, *) {
-            do {
-                try SMAppService.mainApp.register()
-                return true
-            } catch {
-                return false
-            }
+        do {
+            try SMAppService.mainApp.register()
+            return true
+        } catch {
+            return false
         }
-        return false
     }
 
     @discardableResult
     func disable() -> Bool {
-        if #available(macOS 13.0, *) {
-            do {
-                try SMAppService.mainApp.unregister()
-                return true
-            } catch {
-                return false
-            }
+        do {
+            try SMAppService.mainApp.unregister()
+            return true
+        } catch {
+            return false
         }
-        return false
     }
 
     /// Toggle and return the new state.

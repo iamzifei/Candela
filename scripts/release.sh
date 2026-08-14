@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Candela release script: builds a signed universal DMG with the Command Line
+# Candela release script: builds a signed arm64 DMG with the Command Line
 # Tools only (no Xcode), and optionally publishes the GitHub release and bumps
 # the Homebrew tap. Default is a dry run: it builds and verifies the DMG but
 # publishes nothing. Pass --publish to actually release.
@@ -37,16 +37,16 @@ fi
 
 rm -rf "$BUILD"; mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
-echo "==> Compiling universal binary (arm64 + x86_64)…"
+# arm64 only, not universal: DDC on this app runs through IOAVService, which is
+# the Apple Silicon path. An x86_64 slice would build but could not control an
+# external monitor's backlight, so shipping one would only mislead Intel users.
+echo "==> Compiling arm64 binary…"
 SRC=$(find Candela -name '*.swift')
-for a in arm64 x86_64; do
-  swiftc -O -parse-as-library -target "$a-apple-macos14.0" \
-    -import-objc-header Candela/Candela-Bridging-Header.h \
-    -Xlinker -U -Xlinker _SLSConfigureDisplayEnabled \
-    -Xlinker -U -Xlinker _SLSGetDisplayList \
-    $SRC -o "$BUILD/Candela-$a"
-done
-lipo -create "$BUILD/Candela-arm64" "$BUILD/Candela-x86_64" -output "$APP/Contents/MacOS/Candela"
+swiftc -O -parse-as-library -target "arm64-apple-macos26.0" \
+  -import-objc-header Candela/Candela-Bridging-Header.h \
+  -Xlinker -U -Xlinker _SLSConfigureDisplayEnabled \
+  -Xlinker -U -Xlinker _SLSGetDisplayList \
+  $SRC -o "$APP/Contents/MacOS/Candela"
 
 echo "==> Building app icon from asset catalog…"
 ICONSET="$BUILD/AppIcon.iconset"; mkdir -p "$ICONSET"
@@ -88,7 +88,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 	<key>CFBundleLocalizations</key><array>${LOC_XML}</array>
 	<key>CFBundleShortVersionString</key><string>${VERSION}</string>
 	<key>CFBundleVersion</key><string>${VERSION}</string>
-	<key>LSMinimumSystemVersion</key><string>14.0</string>
+	<key>LSMinimumSystemVersion</key><string>26.0</string>
 	<key>LSUIElement</key><true/>
 	<key>NSHumanReadableCopyright</key><string>Candela - Free &amp; Open Source</string>
 	<key>NSAppleEventsUsageDescription</key><string>Candela uses System Events to switch Dark Mode with the system's animated transition.</string>
