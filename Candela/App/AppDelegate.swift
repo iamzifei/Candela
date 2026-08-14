@@ -1012,8 +1012,19 @@ private struct PanelBlockFactory {
                 withAnimation(.panelResize) { _ = state.goBack() }
             }
         }
+        // Only where it can do something: with one display there is no combined
+        // move to calibrate, and the control would be a puzzle rather than a setting.
+        let calibration: [PanelBlock] = displayManager.displays.count > 1 ? [
+            block("combined-floor-\(uuid)") {
+                PanelCard(title: "Combined brightness") {
+                    CombinedFloorView(display: display)
+                }
+            }
+        ] : []
+
         return [header]
             + modeBlocks(for: display, detailOpen: open)
+            + calibration
             + colorBlocks(for: display, detailOpen: open)
     }
 

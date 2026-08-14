@@ -48,6 +48,14 @@ targets:
     type: bundle.unit-test
     platform: macOS
     deploymentTarget: "26.0"
+    # The tests say `@testable import Candela`, so the app module has to exist before
+    # they compile. Without this the only thing ordering them was luck: a stale
+    # Candela.swiftmodule left in DerivedData by an earlier build. Delete DerivedData
+    # (or check the repo out fresh, as CI does) and the whole suite stopped compiling.
+    dependencies:
+      - target: Candela
+        embed: false
+        link: false
     sources:
       - path: CandelaTests
       - path: Candela/Models/DisplayModeGeometry.swift
@@ -55,6 +63,7 @@ targets:
       - path: Candela/Models/DDCReply.swift
       - path: Candela/Models/SoftwareDimming.swift
       - path: Candela/Models/CombinedBrightnessLevel.swift
+      - path: Candela/Models/CombinedMapping.swift
       - path: Candela/Models/PanelRoute.swift
       - path: Candela/Models/RefreshRateFormat.swift
       - path: Candela/Models/GammaPersistenceKey.swift

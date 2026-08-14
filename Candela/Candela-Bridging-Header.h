@@ -12,6 +12,29 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+// These are private-API declarations, transcribed from disassembly and from other
+// projects' headers. Their nullability is not documented anywhere, so most pointers
+// here carry no annotation and import into Swift as implicitly-unwrapped optionals.
+// Clang's -Wnullability-completeness fires per file as soon as *anything* in it is
+// annotated, and the Sidecar section below has to be (a bare `id` under an assume-
+// nonnull region imports as `Any` and traps). The test target builds with
+// warnings-as-errors, so that combination made the whole suite fail to compile.
+//
+// Annotating the rest was tried and reverted on 2026-08-15. Auditing the file with
+// a file-wide NS_ASSUME_NONNULL compiles clean and then crashes at launch, SIGTRAP
+// inside DDCService.buildAVServiceMapByProximity() on the IOAVService path. Reverting
+// only the header, with every other change of that session left in place, stops the
+// crash — so the cause is established even though the mechanism is not. Changing how
+// twenty private-API pointers import into Swift is not a side quest to take on while
+// chasing something else, and guessing at nullability we cannot verify is how the
+// bug got in.
+//
+// So: the warning is off for this file, and the imports stay exactly as they are.
+// Anyone who wants to audit this properly should do it as its own change, with the
+// DDC path exercised on real hardware before and after.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnullability-completeness"
+
 // MARK: - CGVirtualDisplay Private API (macOS 14+)
 
 @interface CGVirtualDisplayDescriptor : NSObject
@@ -207,5 +230,7 @@ extern IOReturn IOAVServiceWriteI2C(IOAVServiceRef service,
                                     uint32_t dataAddress,
                                     void *inputBuffer,
                                     uint32_t inputBufferSize);
+
+#pragma clang diagnostic pop
 
 #endif /* Candela_Bridging_Header_h */

@@ -62,6 +62,9 @@ final class SettingsService: ObservableObject, @unchecked Sendable {
         static let colorPickerHistory     = "candela.colorPickerHistory"
         static let brightnessKeyTarget    = "candela.brightnessKeyTarget"
         static let brightnessKeySelected  = "candela.brightnessKeySelectedDisplays"
+        // Keyed by displayUUID, not displayID: a floor is calibrated by eye and has
+        // to survive a reconnect, and displayIDs are reassigned across those.
+        static let combinedFloors         = "candela.combinedFloors"
         // Per-display keys use prefix + displayID
         static let brightnessPrefix       = "candela.brightness_"
         static let contrastPrefix         = "candela.contrast_"
@@ -111,6 +114,13 @@ final class SettingsService: ObservableObject, @unchecked Sendable {
     /// Displays chosen for the `.selected` brightness-key mode, stored by stable
     /// DisplayInfo.displayUUID (not the volatile CGDirectDisplayID, which macOS can
     /// reassign across reconnects). Ignored unless brightnessKeyTarget == .selected.
+    /// Per-display combined-brightness floors, keyed by `displayUUID`. See
+    /// `CombinedMapping` for what a floor is and why the user has to set it by eye.
+    /// Absent means uncalibrated, which maps identically to the old behaviour.
+    @Published var combinedFloors: [String: Double] = [:] {
+        didSet { defaults.set(combinedFloors, forKey: Keys.combinedFloors) }
+    }
+
     @Published var brightnessKeySelectedDisplayUUIDs: Set<String> = [] {
         didSet {
             defaults.set(Array(brightnessKeySelectedDisplayUUIDs), forKey: Keys.brightnessKeySelected)
@@ -118,6 +128,26 @@ final class SettingsService: ObservableObject, @unchecked Sendable {
     }
 
     // MARK: - Per-Display Settings
+
+    /// This display's combined floor, or 0 when it has never been calibrated.
+    func combinedFloor(forDisplayUUID uuid: String) -> Double {
+        CombinedMapping.clampFloor(combinedFloors[uuid] ?? 0)
+    }
+
+    /// Records a calibrated floor, or clears it when `floor` is nil.
+    func setCombinedFloor(_ floor: Double?, forDisplayUUID uuid: String) {
+        if let floor {
+            combinedFloors[uuid] = CombinedMapping.clampFloor(floor)
+        } else {
+            combinedFloors.removeValue(forKey: uuid)
+        }
+    }
+
+    /// Whether any display has been calibrated — the UI uses this to decide whether
+    /// a "reset" affordance is worth showing at all.
+    var hasCombinedCalibration: Bool {
+        combinedFloors.values.contains { $0 > 0 }
+    }
 
     func brightness(for displayID: CGDirectDisplayID) -> Double? {
         let key = Keys.brightnessPrefix + "\(displayID)"
@@ -185,5 +215,6 @@ final class SettingsService: ObservableObject, @unchecked Sendable {
         brightnessKeyTarget = defaults.string(forKey: Keys.brightnessKeyTarget)
             .flatMap(BrightnessKeyTarget.init(rawValue:)) ?? .underCursor
         brightnessKeySelectedDisplayUUIDs = Set(defaults.stringArray(forKey: Keys.brightnessKeySelected) ?? [])
+        combinedFloors = (defaults.dictionary(forKey: Keys.combinedFloors) as? [String: Double]) ?? [:]
     }
 }

@@ -798,6 +798,22 @@
         }
       }
     },
+    "Combined brightness floor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合并亮度下限"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合併亮度下限"
+          }
+        }
+      }
+    },
     "Confirm Deletion" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2622,6 +2638,22 @@
         }
       }
     },
+    "Reset combined brightness floor" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置合并亮度下限"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置合併亮度下限"
+          }
+        }
+      }
+    },
     "Resolution" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2993,6 +3025,22 @@
         }
       }
     },
+    "This display stops at %lld%% when the combined slider is at the bottom." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合并滑条拉到最低时，这块屏幕停在 %lld%%。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合併滑桿拉到最低時，這塊螢幕停在 %lld%%。"
+          }
+        }
+      }
+    },
     "This virtual display is currently active. Deleting it will disable it immediately." : {
       "localizations" : {
         "zh-Hans" : {
@@ -3235,6 +3283,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "虛擬顯示器"
+          }
+        }
+      }
+    },
+    "Where this display sits when the combined slider is at the bottom. Drag until it matches the displays beside it." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合并滑条拉到最低时，这块屏幕停在的亮度。拖动到与旁边的屏幕看起来一致为止。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合併滑桿拉到最低時，這塊螢幕停在的亮度。拖曳到與旁邊的螢幕看起來一致為止。"
           }
         }
       }

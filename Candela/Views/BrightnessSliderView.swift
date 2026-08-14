@@ -282,6 +282,7 @@ struct BrightnessSliderView: View {
 
 struct CombinedBrightnessView: View {
     let displays: [DisplayInfo]
+    @ObservedObject private var settings = SettingsService.shared
     @State private var combinedBrightness: Double = 50
     @State private var isDragging: Bool = false
     @State private var dragConfirmed: Bool = false
@@ -293,8 +294,20 @@ struct CombinedBrightnessView: View {
         // range, so a boosted display at 160/160 and a plain one at 100/100
         // both read as 100%. Shared with the `.combined` brightness-key mode so
         // the handle and the keys agree on what the current level is.
-        CombinedBrightnessLevel.level(
-            ofPositions: displays.map { $0.brightness / $0.maxBrightness * 100.0 })
+        CombinedBrightnessLevel.level(ofPositions: displays.map {
+            CombinedMapping.combinedLevel(
+                forPosition: $0.brightness / $0.maxBrightness * 100.0,
+                floor: settings.combinedFloor(forDisplayUUID: $0.displayUUID))
+        })
+    }
+
+    /// The brightness `display` should be at for a given combined level, routed
+    /// through that display's calibrated floor.
+    private func target(_ level: Double, for display: DisplayInfo) -> Double {
+        CombinedMapping.position(
+            forCombined: level,
+            floor: settings.combinedFloor(forDisplayUUID: display.displayUUID)
+        ) / 100.0 * display.maxBrightness
     }
 
     var body: some View {
@@ -326,7 +339,7 @@ struct CombinedBrightnessView: View {
                             clickGliding = true
                             for display in displays {
                                 BrightnessService.shared.setBrightnessSmooth(
-                                    combinedBrightness / 100.0 * display.maxBrightness, for: display)
+                                    target(combinedBrightness, for: display), for: display)
                             }
                             Task { @MainActor in
                                 try? await Task.sleep(nanoseconds: 600_000_000)  // fallback release
@@ -337,7 +350,7 @@ struct CombinedBrightnessView: View {
                             Task { @MainActor in
                                 for display in displays {
                                     await BrightnessService.shared.setBrightness(
-                                        combinedBrightness / 100.0 * display.maxBrightness, for: display)
+                                        target(combinedBrightness, for: display), for: display)
                                 }
                             }
                         }
@@ -358,9 +371,9 @@ struct CombinedBrightnessView: View {
                     }
                     Task { @MainActor in
                         for display in displays {
-                            let target = newValue / 100.0 * display.maxBrightness
-                            display.brightness = target
-                            await BrightnessService.shared.setBrightness(target, for: display)
+                            let value = target(newValue, for: display)
+                            display.brightness = value
+                            await BrightnessService.shared.setBrightness(value, for: display)
                         }
                     }
                 }
@@ -400,7 +413,7 @@ struct CombinedBrightnessView: View {
         // the displays' real brightness via BrightnessProbe, so it glides in exact
         // sync with the per-display handles instead of lagging a separate ramp.
         for display in displays {
-            BrightnessService.shared.setBrightnessSmooth(target / 100.0 * display.maxBrightness, for: display)
+            BrightnessService.shared.setBrightnessSmooth(self.target(target, for: display), for: display)
         }
     }
 }

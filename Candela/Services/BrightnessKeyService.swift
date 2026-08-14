@@ -506,14 +506,26 @@ final class BrightnessKeyService: @unchecked Sendable {
         let displays = DisplayManagerAccessor.shared.displays
         guard !displays.isEmpty else { return }
 
-        let positions = displays.map { $0.brightness / $0.maxBrightness * 100.0 }
+        // Read each display's position back through its own calibrated floor, so the
+        // combined level means the same thing here as it does on the slider. Without
+        // the inverse a calibrated display reports a position it was told to take and
+        // drags the shared level away from where the last press left it.
+        let settings = SettingsService.shared
+        let positions = displays.map {
+            CombinedMapping.combinedLevel(
+                forPosition: $0.brightness / $0.maxBrightness * 100.0,
+                floor: settings.combinedFloor(forDisplayUUID: $0.displayUUID))
+        }
         let target = CombinedBrightnessLevel.stepped(
             from: CombinedBrightnessLevel.level(ofPositions: positions), by: step)
 
         let screens = NSScreen.screens
         for display in displays {
+            let position = CombinedMapping.position(
+                forCombined: target,
+                floor: settings.combinedFloor(forDisplayUUID: display.displayUUID))
             BrightnessService.shared.setBrightnessSmooth(
-                target / 100.0 * display.maxBrightness, for: display)
+                position / 100.0 * display.maxBrightness, for: display)
             if let screen = screens.first(where: {
                 ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? CGDirectDisplayID) == display.displayID
             }) {
