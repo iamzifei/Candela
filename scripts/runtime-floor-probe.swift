@@ -1,4 +1,4 @@
-// Runtime-floor probe for issue #22: checks every private API surface Crisp
+// Runtime-floor probe for issue #22: checks every private API surface Candela
 // touches, on whatever macOS it runs on. The compile floor is 14.0, but the
 // dev/release binaries link with `-undefined dynamic_lookup`, so a symbol
 // missing at runtime crashes at FIRST CALL, not at launch; this probe resolves

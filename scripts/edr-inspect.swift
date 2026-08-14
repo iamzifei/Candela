@@ -39,7 +39,7 @@ func overlayWindows() {
     print("Fullscreen-ish windows from other apps (owner, level, bounds):")
     for w in info {
         guard let owner = w[kCGWindowOwnerName as String] as? String,
-              owner != "Crisp", owner != "Window Server", owner != "Dock", owner != "Finder",
+              owner != "Candela", owner != "Window Server", owner != "Dock", owner != "Finder",
               let b = w[kCGWindowBounds as String] as? [String: CGFloat],
               let width = b["Width"], let height = b["Height"] else { continue }
         let level = w[kCGWindowLayer as String] as? Int ?? 0

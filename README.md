@@ -1,27 +1,27 @@
 <div align="center">
 
-<img src="docs/icon.png" width="128" alt="Crisp icon">
+<img src="docs/icon.png" width="128" alt="Candela icon">
 
-# Crisp
+# Candela
 
 **Every display control macOS hides, in one menu bar panel.**
 
 Free, open-source external monitor control for macOS.<br>
 Sharp HiDPI scaling, DDC brightness, presets and virtual displays.
 
-[<img src="docs/download-macos.png" alt="Download Crisp for macOS" width="180">](https://github.com/didriksg/Crisp/releases/latest/download/Crisp.dmg)
+[<img src="docs/download-macos.png" alt="Download Candela for macOS" width="180">](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg)
 
-[![Downloads](https://img.shields.io/github/downloads/didriksg/Crisp/total?label=downloads&color=2f81f7)](https://github.com/didriksg/Crisp/releases)
+[![Downloads](https://img.shields.io/github/downloads/iamzifei/Candela/total?label=downloads&color=2f81f7)](https://github.com/iamzifei/Candela/releases)
 [![Platform](https://img.shields.io/badge/platform-macOS%2014%2B-blue)](#requirements)
-[![License](https://img.shields.io/github/license/didriksg/Crisp?color=3fb950)](LICENSE)
+[![License](https://img.shields.io/github/license/iamzifei/Candela?color=3fb950)](LICENSE)
 
-[Website](https://didriksg.github.io/Crisp/) · [Crisp vs BetterDisplay & Lunar](https://didriksg.github.io/Crisp/crisp-vs-betterdisplay.html) · [Fix a blurry external monitor](https://didriksg.github.io/Crisp/fix-blurry-external-monitor-macos.html) · [中文](https://didriksg.github.io/Crisp/zh.html)
+[Website](https://iamzifei.github.io/Candela/) · [Candela vs BetterDisplay & Lunar](https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html) · [Fix a blurry external monitor](https://iamzifei.github.io/Candela/fix-blurry-external-monitor-macos.html) · [中文](https://iamzifei.github.io/Candela/zh.html)
 
 </div>
 
 ---
 
-Crisp is a lightweight, native menu bar app for controlling external monitors on macOS, and a free, open-source alternative to BetterDisplay and Lunar. It adds what macOS leaves out: sharp HiDPI scaling on any monitor (no more blurry or tiny text), real brightness and volume control over DDC, presets, display arrangement, and virtual displays. Every feature is free, with no Pro tier and no license key.
+Candela is a lightweight, native menu bar app for controlling external monitors on macOS, and a free, open-source alternative to BetterDisplay and Lunar. It adds what macOS leaves out: sharp HiDPI scaling on any monitor (no more blurry or tiny text), real brightness and volume control over DDC, presets, display arrangement, and virtual displays. Every feature is free, with no Pro tier and no license key.
 
 Fully localized in English and Simplified Chinese (简体中文).
 
@@ -30,10 +30,10 @@ https://github.com/user-attachments/assets/90a62808-84d2-40d6-8563-0b282b9b4b6d
 ## Install
 
 ```sh
-brew install --cask didriksg/tap/crisp
+brew install --cask iamzifei/tap/candela
 ```
 
-Or download [`Crisp.dmg`](https://github.com/didriksg/Crisp/releases/latest/download/Crisp.dmg) and drag Crisp to Applications. Every release is signed and notarized by Apple, so it opens with a normal double-click.
+Or download [`Candela.dmg`](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg) and drag Candela to Applications. Every release is signed and notarized by Apple, so it opens with a normal double-click.
 
 ## Features
 
@@ -52,21 +52,21 @@ Or download [`Crisp.dmg`](https://github.com/didriksg/Crisp/releases/latest/down
 
 ## How does it compare?
 
-BetterDisplay and Lunar are excellent, deeper tools. Crisp keeps the everyday essentials free: flexible HiDPI scaling, hardware brightness, presets, disconnecting displays, color adjustments, and auto-brightness sync. See the full side-by-side: [Crisp vs BetterDisplay, Lunar & MonitorControl](https://didriksg.github.io/Crisp/crisp-vs-betterdisplay.html).
+BetterDisplay and Lunar are excellent, deeper tools. Candela keeps the everyday essentials free: flexible HiDPI scaling, hardware brightness, presets, disconnecting displays, color adjustments, and auto-brightness sync. See the full side-by-side: [Candela vs BetterDisplay, Lunar & MonitorControl](https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html).
 
 ## Support
 
-Crisp is and will stay completely free. Its main running cost is the $99/year Apple Developer Program, Apple's fee for signing and notarizing the app so it installs cleanly. If you've found Crisp useful, or it saved you a BetterDisplay or Lunar license, and you'd like to chip in toward keeping Crisp signed and notarized, there's:
+Candela is and will stay completely free. Its main running cost is the $99/year Apple Developer Program, Apple's fee for signing and notarizing the app so it installs cleanly. If you've found Candela useful, or it saved you a BetterDisplay or Lunar license, and you'd like to chip in toward keeping Candela signed and notarized, there's:
 
-- [GitHub Sponsors](https://github.com/sponsors/didriksg)
-- [Ko-fi](https://ko-fi.com/didriksg)
-- [爱发电 (Afdian)](https://ifdian.net/a/didriksg)
+- [GitHub Sponsors](https://github.com/sponsors/iamzifei)
+- [Ko-fi](https://ko-fi.com/iamzifei)
+- [爱发电 (Afdian)](https://ifdian.net/a/iamzifei)
 
 Completely optional, but you'll have my heartfelt thanks.
 
 ### Sponsors
 
-Thank you to the people chipping in toward keeping Crisp signed and notarized:
+Thank you to the people chipping in toward keeping Candela signed and notarized:
 
 - **Barry** ([@BarryBarrywu](https://github.com/BarryBarrywu))
 - **[@kuldipmaharjan](https://github.com/kuldipmaharjan)**
@@ -84,19 +84,19 @@ Thank you to the people chipping in toward keeping Crisp signed and notarized:
 
 ```sh
 brew install xcodegen
-xcodegen generate   # generates Crisp.xcodeproj from project.yml
-open Crisp.xcodeproj
+xcodegen generate   # generates Candela.xcodeproj from project.yml
+open Candela.xcodeproj
 ```
 
 For a distributable DMG (Command Line Tools only, no full Xcode) and the fast edit-compile-run dev loop, see [docs/BUILDING.md](docs/BUILDING.md).
 
 ## Contributing
 
-Issues and pull requests are welcome. Found a bug, want a feature, or have a display Crisp doesn't handle well? [Open an issue](https://github.com/didriksg/Crisp/issues) or start a [discussion](https://github.com/didriksg/Crisp/discussions). PRs are just as welcome, whether it's a fix, a feature, or a new translation.
+Issues and pull requests are welcome. Found a bug, want a feature, or have a display Candela doesn't handle well? [Open an issue](https://github.com/iamzifei/Candela/issues) or start a [discussion](https://github.com/iamzifei/Candela/discussions). PRs are just as welcome, whether it's a fix, a feature, or a new translation.
 
 ## Origin
 
-Crisp began as a fork of [FreeDisplay](https://github.com/huberdf/FreeDisplay) and has since been substantially rewritten: a custom panel architecture, native controls throughout, a reworked brightness pipeline, and a full redesign. Thanks to FreeDisplay for the foundation and the spirit: free display management for everyone.
+Candela began as a fork of [FreeDisplay](https://github.com/huberdf/FreeDisplay) and has since been substantially rewritten: a custom panel architecture, native controls throughout, a reworked brightness pipeline, and a full redesign. Thanks to FreeDisplay for the foundation and the spirit: free display management for everyone.
 
 ## License
 

@@ -42,7 +42,7 @@ func u32(_ value: Any?) -> UInt32? {
     return nil
 }
 
-// Burst mode: mimic a Crisp slider drag, one write per 50ms sweeping
+// Burst mode: mimic a Candela slider drag, one write per 50ms sweeping
 // 50 -> 20 -> 80 -> 50 in steps of 2 (about 60 writes over 3 seconds).
 var values: [UInt16] = []
 var burst = false

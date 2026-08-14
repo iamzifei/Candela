@@ -52,11 +52,11 @@ jobs:
       # allowlist next to the script; remove entries as they get fixed.
       - name: Check localization keys
         run: |
-          xcodebuild -quiet -exportLocalizations -project Crisp.xcodeproj \
+          xcodebuild -quiet -exportLocalizations -project Candela.xcodeproj \
             -localizationPath build/loc CODE_SIGNING_ALLOWED=NO \
             SWIFT_EMIT_LOC_STRINGS=YES SWIFT_VERSION=5 SWIFT_STRICT_CONCURRENCY=minimal
           python3 scripts/check-localization-keys.py build/loc/en.xcloc \
-            Crisp/Resources/Localizable.xcstrings scripts/i18n-missing-allowlist.txt
+            Candela/Resources/Localizable.xcstrings scripts/i18n-missing-allowlist.txt
       # Blocking on pushes to main, advisory on pull requests. A contributor
       # adding an English string is never blocked (the release path,
       # release.sh --publish, still enforces completeness before shipping). But
@@ -66,9 +66,9 @@ jobs:
       - name: Translation completeness (blocking on main, advisory on PRs)
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
-            python3 scripts/check-translations.py Crisp/Resources/Localizable.xcstrings
+            python3 scripts/check-translations.py Candela/Resources/Localizable.xcstrings
           else
-            python3 scripts/check-translations.py Crisp/Resources/Localizable.xcstrings || true
+            python3 scripts/check-translations.py Candela/Resources/Localizable.xcstrings || true
           fi
       # Reuses the release script's dry run: compiles the universal binary,
       # builds the icon, compiles the String Catalog, and packages the DMG,

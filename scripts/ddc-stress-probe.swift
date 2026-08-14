@@ -1,6 +1,6 @@
-// Interleaved DDC stress test: mimics Crisp running with both externals by
+// Interleaved DDC stress test: mimics Candela running with both externals by
 // alternating rapid AOC brightness reads (a wedged controller streaming
-// garbage, retried like Crisp does) with Dell brightness writes and reads.
+// garbage, retried like Candela does) with Dell brightness writes and reads.
 // Prints per-iteration Dell health so degradation timing is visible.
 //   swift scripts/ddc-stress-probe.swift
 import AppKit
@@ -93,7 +93,7 @@ func vcpWrite(_ svc: IOAVServiceRef, _ value: UInt16) -> Bool {
     return IOAVServiceWriteI2C(svc, 0x37, 0x51, &buf, UInt32(buf.count)) == kIOReturnSuccess
 }
 
-// 20 iterations of Crisp-like interleaving: 3 rapid AOC reads (the retry
+// 20 iterations of Candela-like interleaving: 3 rapid AOC reads (the retry
 // pattern its garbage stream provokes), a Dell write (gentle sweep around
 // 50), then a Dell read verdict.
 print("stress: 20 iterations of [3x AOC read, Dell write, Dell read]")

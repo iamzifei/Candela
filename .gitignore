@@ -7,13 +7,13 @@ DerivedData/
 .faz/
 .claude/settings.local.json
 .claude/
-Crisp.xcodeproj/
-Crisp.dmg
+Candela.xcodeproj/
+Candela.dmg
 .superpowers/
-Crisp-bin
+Candela-bin
 
 # Working/internal docs kept local-only (research, release-note drafts)
 docs/research/
 docs/RELEASE_NOTES_*.md
 docs/ISSUE_REPLIES_*.md
-Crisp-dev.app/
+Candela-dev.app/

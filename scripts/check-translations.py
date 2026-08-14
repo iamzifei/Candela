@@ -44,5 +44,5 @@ def main(path: str) -> int:
 
 
 if __name__ == "__main__":
-    path = sys.argv[1] if len(sys.argv) > 1 else "Crisp/Resources/Localizable.xcstrings"
+    path = sys.argv[1] if len(sys.argv) > 1 else "Candela/Resources/Localizable.xcstrings"
     sys.exit(main(path))

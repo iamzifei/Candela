@@ -1,6 +1,6 @@
 // scripts/check-boost-math.swift
 // Runnable check for BrightnessBoostMath. Run:
-//   cat Crisp/Utilities/BrightnessBoostMath.swift scripts/check-boost-math.swift | swift -
+//   cat Candela/Utilities/BrightnessBoostMath.swift scripts/check-boost-math.swift | swift -
 
 // sliderMax: no meaningful headroom means the scale stays at 100.
 assert(BrightnessBoostMath.sliderMax(potentialHeadroom: 1.0) == 100)

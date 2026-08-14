@@ -1,6 +1,6 @@
 // Diagnostic for the washed-out external: per-display gamma table endpoints
 // (a non-identity table means software dimming or a leftover scale is
-// active) and every Crisp-owned window with bounds and level (a stranded
+// active) and every Candela-owned window with bounds and level (a stranded
 // EDR overlay would show as a display-sized window at very high level).
 // Run: swift scripts/washout-probe.swift
 import AppKit
@@ -22,9 +22,9 @@ for screen in NSScreen.screens {
 
 guard let info = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]]
 else { print("window list unavailable"); exit(1) }
-print("Crisp-owned on-screen windows (level, bounds):")
+print("Candela-owned on-screen windows (level, bounds):")
 for w in info {
-    guard let owner = w[kCGWindowOwnerName as String] as? String, owner == "Crisp",
+    guard let owner = w[kCGWindowOwnerName as String] as? String, owner == "Candela",
           let b = w[kCGWindowBounds as String] as? [String: CGFloat],
           let width = b["Width"], let height = b["Height"],
           let x = b["X"], let y = b["Y"] else { continue }

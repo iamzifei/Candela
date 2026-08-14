@@ -1,6 +1,6 @@
 // VRR mode probe for issue #31: on a variable-refresh-rate external display the
 // mode list carries two entries at the same nominal Hz (one fixed, one VRR), and
-// nothing in the fields Crisp currently parses out of CGSDisplayModeDescription
+// nothing in the fields Candela currently parses out of CGSDisplayModeDescription
 // distinguishes them. macOS's own Displays pane classifies per mode via the same
 // private CGSGetDisplayModeDescriptionOfLength call, so the bit is somewhere in
 // the ~190 bytes of the struct we have not mapped. This probe hex-dumps the FULL
@@ -19,7 +19,7 @@ func CGSGetNumberOfDisplayModes(_ display: CGDirectDisplayID, _ nModes: UnsafeMu
 func CGSGetDisplayModeDescriptionOfLength(_ display: CGDirectDisplayID, _ idx: Int32,
                                           _ mode: UnsafeMutableRawPointer, _ length: Int32) -> CGError
 
-// Keep in sync with CGSDisplayModeDescription in Crisp-Bridging-Header.h.
+// Keep in sync with CGSDisplayModeDescription in Candela-Bridging-Header.h.
 let structLength: Int32 = 212
 
 func hexDump(_ bytes: UnsafeRawBufferPointer) {

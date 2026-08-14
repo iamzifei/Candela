@@ -1,6 +1,6 @@
 import AppKit
 
-// Renders the Crisp app icon: macOS-26-style gradient squircle with a white
+// Renders the Candela app icon: macOS-26-style gradient squircle with a white
 // display glyph and a sparkle. Writes a 1024 master plus all iconset sizes.
 
 let outDir = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "."

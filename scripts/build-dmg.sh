@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # Configuration
-APP_NAME="Crisp"
-SCHEME="Crisp"
+APP_NAME="Candela"
+SCHEME="Candela"
 BUILD_DIR="$(pwd)/build"
 DMG_NAME="${APP_NAME}.dmg"
 

@@ -1,9 +1,9 @@
-// Diagnostic for external DDC saturation: mirrors Crisp's DCPAVServiceProxy
+// Diagnostic for external DDC saturation: mirrors Candela's DCPAVServiceProxy
 // registry traversal (nearest-identity pairing, DDCService.swift), then reads
 // VCP 0x10 (brightness) three times per live channel, dumping the raw reply
 // bytes, header validity, checksum validity, and the parsed current/max.
 // Read-only: sends only DDC Get VCP requests, never Set. Run while the
-// saturated state is live, with the Crisp panel closed:
+// saturated state is live, with the Candela panel closed:
 //   swift scripts/ddc-probe.swift
 import AppKit
 import IOKit
@@ -32,7 +32,7 @@ func u32(_ value: Any?) -> UInt32? {
     return nil
 }
 
-// 1. The CG display list Crisp maps against.
+// 1. The CG display list Candela maps against.
 print("=== CG external displays ===")
 var count: UInt32 = 0
 CGGetOnlineDisplayList(16, nil, &count)
@@ -45,7 +45,7 @@ for id in ids where CGDisplayIsBuiltin(id) == 0 {
     print("  id=\(id)  \(name)  vendor=\(CGDisplayVendorNumber(id)) model=\(CGDisplayModelNumber(id)) serial=\(CGDisplaySerialNumber(id))")
 }
 
-// 2. Same traversal as Crisp: depth-first, nearest preceding identity wins.
+// 2. Same traversal as Candela: depth-first, nearest preceding identity wins.
 print("\n=== DCPAVServiceProxy channels (traversal order) ===")
 let root = IORegistryGetRootEntry(kIOMainPortDefault)
 var iterator: io_iterator_t = 0
