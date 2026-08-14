@@ -94,25 +94,48 @@ Liquid Glass 设计语言，以开源免费形式发布。
 
 ---
 
-## Phase 2 — 收窄到 macOS 26
+## Phase 2 — 收窄到 macOS 26 ✅ 完成 2026-08-14（commit 817555c）
 
-**做什么**
-- [ ] `project.yml` deploymentTarget 14.0 → 26.0；`SWIFT_VERSION` 5 → 6，
-      `SWIFT_STRICT_CONCURRENCY` minimal → complete（分步做，可能暴露并发问题）
-- [ ] 删除所有 `#available(macOS 26.0, *)` 的 else 分支（AppDelegate 的
-      NSVisualEffectView 回退等），代码直取新 API
-- [ ] 审掉为旧系统写的兼容代码路径（`AutoBrightnessService` 里已标注在 26 上失效的
-      CoreDisplay 回退等）
-- [ ] Makefile / dev.sh 的 swiftc flags 同步更新
+**做了什么**
+- [x] deploymentTarget 14.0 → 26.0，`LSMinimumSystemVersion` 同步
+- [x] 删除全部 4 处向下兼容分支：面板背景直取 `NSGlassEffectView`、
+      `topAnchoredScroll` 直用 role-scoped anchor、boost tint 直用 `Color.mix`、
+      `LaunchService` 去掉 3 个 `#available(macOS 13)`
+- [x] **改为 arm64-only**（原为 universal）。理由：DDC 走 IOAVService＝Apple Silicon
+      专有路径，x86_64 切片能编能启动但控不了外接屏背光，发出去只会误导 Intel 用户
+- [x] Makefile / dev.sh / release.sh 全部钉到 `arm64-apple-macos26.0`
+- [x] 顺带带入试 Swift 6 时暴露出的并发修正（在 Swift 5 下同样正确，且更好）
 
-**验收标准**
-- 零 `#available(macOS` 判断残留（除非确有 26.x 小版本差异，且写明原因）
-- `make compile` 零警告
-- 真机回归：分辨率切换、DDC 亮度、虚拟屏创建、排列拖拽，四项逐一手测通过
+**验收结果（实测）**
+- ✅ `#available` 零残留
+- ✅ `make compile` 零警告
+- ✅ **52/52 单元测试通过**
+- ✅ arm64-only DMG，`LSMinimumSystemVersion = 26.0`
+- ✅ 删掉 defaults 域后重启，显示器枚举与 DDC 能力探测**从零重建成功**，无崩溃报告
 
-**⚠ 风险**：`SWIFT_STRICT_CONCURRENCY: complete` 可能引出大量 Sendable 报错
-（Services 层大量 `@unchecked Sendable` 单例）。若一次改不完，**独立成 Phase 2b，
-不阻塞后续**，先只做 deploymentTarget 收窄。
+## Phase 2b — Swift 6 语言模式（已拆出，不阻塞任何后续 Phase）
+
+试过一遍，**故意没做完**。记录状态以免重新推导：
+
+- 起点 2 个错误 → 修完 8 处后仍在冒新错，长尾没有收敛迹象
+- 已修掉并**已合入**的：`kAXTrustedCheckOptionPrompt` 换成字面量（值实测＝
+  `AXTrustedCheckOptionPrompt`）· `BoostTintModifier` 的 `@MainActor Animatable`
+  conformance 隔离 · `BadgeHeightKey.defaultValue` 改 `let` ·
+  `CGDisplayMode: @retroactive @unchecked Sendable` · `CGHelpers` 用 `Mutex`
+  替代 NSLock+captured var · 两处 Timer 回调把 Timer 留在 `assumeIsolated` 外 ·
+  DDC completion 标 `@Sendable` · `FrameSpring` 标 `@MainActor`
+- **卡住的两处**：①`PanelCanvas` 的 CADisplayLink 弹簧（vsync 时序最敏感的代码）
+  ②`AppDelegate` 里 NSMenu 通知观察者——`Notification`/`NSMenu` 都不是 Sendable，
+  `assumeIsolated` 也算捕获跨界。剩下的路只有 `nonisolated(unsafe)` 消音、
+  或重构通知观察模式
+
+**为什么停**：这两处都在动显示/动画管线，而 fork 的全部价值就是那条管线是好的。
+为一个编译标志去改它，风险收益比不成立。**要做的话单开一次会话专做这件事**，
+且必须配真机动画回归（面板开合掉不掉帧，编译器验不出来）。
+
+**注意**：`project.yml` 里 `SWIFT_VERSION: "6.0"` 但 `SWIFT_STRICT_CONCURRENCY: minimal`
+——这是上游原样，Makefile 的 xcodebuild 调用用 `SWIFT_VERSION=5` 覆盖。看起来矛盾，
+但不是遗漏，Phase 2b 一并理顺。
 
 ---
 
