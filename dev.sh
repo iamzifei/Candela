@@ -41,21 +41,42 @@ cp Candela-bin "$APP/Contents/MacOS/Candela"
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "$APP/Contents/Info.plist"
 xattr -cr "$APP"
-# Sign with a stable self-signed identity when one exists, so macOS keeps the
-# Accessibility grant across rebuilds. Ad-hoc signing changes the code hash every
-# build, which invalidates the CGEventTap permission the brightness keys rely on,
-# forcing a re-grant after every deploy. Create the identity once: Keychain Access >
-# Certificate Assistant > Create a Certificate, name "Candela Dev", Self Signed Root,
-# type Code Signing. Falls back to ad-hoc when it is absent.
-SIGN_ID="${CANDELA_SIGN_ID:-Candela Dev}"
-# No -v: a self-signed identity is reported "not trusted" and excluded by -v, but
-# codesign still signs with it fine, and that's all we need (a stable designated
-# requirement so TCC keeps the grant across rebuilds).
-if security find-identity -p codesigning 2>/dev/null | grep -qF "$SIGN_ID"; then
+# Sign with a STABLE identity, so macOS keeps the Accessibility grant across
+# rebuilds. This matters more than it looks: ad-hoc signing gives the bundle a new
+# code hash every build, and TCC keys the grant to the old one. The result is not a
+# missing permission but a lying one — System Settings keeps showing Candela toggled
+# ON (the record is still there) while AXIsProcessTrusted() returns false for the
+# binary actually running, so the brightness keys are dead and the app's own switch
+# refuses to stay on. Nothing in that picture points at signing.
+#
+# Preference order:
+#   1. CANDELA_SIGN_ID, if you set it explicitly
+#   2. Any "Developer ID Application" certificate in the keychain. Same identity the
+#      release build uses, so a grant given to a dev build carries over to the
+#      shipped app instead of being orphaned by the first real release.
+#   3. A self-signed "Candela Dev" certificate (Keychain Access > Certificate
+#      Assistant > Create a Certificate, Self Signed Root, type Code Signing) — for
+#      contributors without a paid Apple developer account.
+#   4. Ad hoc. Works, but the grant dies on every build.
+if [ -n "${CANDELA_SIGN_ID:-}" ]; then
+    SIGN_ID="$CANDELA_SIGN_ID"
+else
+    # -v filters to valid identities; a Developer ID cert is one, so this is safe here
+    # (it is NOT safe for the self-signed case below, which -v excludes as untrusted).
+    SIGN_ID="$(security find-identity -v -p codesigning 2>/dev/null \
+        | grep -m1 -o '"Developer ID Application: [^"]*"' | tr -d '"')"
+    if [ -z "$SIGN_ID" ] && security find-identity -p codesigning 2>/dev/null | grep -qF "Candela Dev"; then
+        SIGN_ID="Candela Dev"
+    fi
+fi
+
+if [ -n "$SIGN_ID" ]; then
     echo "==> Signing with identity: $SIGN_ID"
     codesign --force -s "$SIGN_ID" --entitlements Candela/Candela.entitlements "$APP"
 else
-    echo "==> Signing ad hoc ($SIGN_ID not found; Accessibility will reset each build)"
+    echo "==> WARNING: no signing identity found, signing ad hoc."
+    echo "    Accessibility will be revoked on every build, and System Settings will"
+    echo "    keep showing a stale ON toggle while the brightness keys stay dead."
     codesign --force -s - --entitlements Candela/Candela.entitlements "$APP"
 fi
 
