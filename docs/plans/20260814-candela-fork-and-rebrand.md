@@ -609,6 +609,32 @@ DDC/Software 徽章原先只在滑条视图出现时读一次状态，而显示�
 - Reduce Motion / Reduce Transparency 打开状态下的样子没截过图（`com.apple.universalaccess` 是受保护域）。
 - Control Centre 的**下钻子页**始终没截到，切片 1-2 的版式参考只有根面板那一张截图。
 
+### 坑：ad-hoc 签名会伪装成「授权已开但功能是死的」（2026-08-15 第二次踩到）
+
+**这是同一个坑的第二次**。第一次修的是 TCC 里的僵尸记录，但没修产生僵尸记录的原因，
+所以它长回来了。
+
+`dev.sh` 找一个叫 `Candela Dev` 的自签名证书，找不到就**静默**走 ad-hoc 分支——
+而那张证书从来没被创建过，钥匙串里躺着的 Developer ID 一次都没被用上。
+
+**症状不指向签名**：ad-hoc 每次构建换 cdhash，TCC 认的是旧的，于是
+系统设置里 Candela 的开关**显示是开的**，而 `AXIsProcessTrusted()` 对当前跑的二进制返回 false。
+用户看到的是「权限给了、功能是死的、app 自己的开关还打不开」。
+
+修法不是再 reset 一次，是让 dev 构建用**稳定身份**：
+优先 `CANDELA_SIGN_ID` → 任意 Developer ID Application → 自签名 `Candela Dev` → ad-hoc（并大声警告）。
+用 release 的同一张证书还有个附带好处：dev 构建拿到的授权能延续到正式发布版，
+不会被第一次 release 作废。
+
+**实测**：修复后 `/Applications/Candela.app` 的 `TeamIdentifier=K9YT36SP4B`（原先 `Signature=adhoc`）。
+
+**未定**：系统设置 Privacy 列表里 Candela 没有图标。bundle 里 `AppIcon.icns` 是在的（Dock 渲染正常），
+`release.sh` 手工组装 bundle、没有编译过的 Assets.car，所以加 `CFBundleIconName` 解析不了、不是解法。
+**推断**是僵尸 TCC 记录解析不到 bundle 所致，重新授权后应自行恢复。
+**如果我错了，最可能错在**：Privacy 列表可能只认 asset catalog 图标、根本不从裸 .icns 渲染，
+那样重新授权后图标仍然空白，真正的解法是让 release.sh 产出 Assets.car。
+判据就是重新授权后看那一眼。
+
 ## HUMAN QUEUE（只有 James 能做）
 
 | # | 事项 | 卡住了什么 | 状态 |
