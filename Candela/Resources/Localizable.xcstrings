@@ -403,9 +403,6 @@
         }
       }
     },
-    "Back to %@" : {
-
-    },
     "Beta" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1596,6 +1593,22 @@
         }
       }
     },
+    "Goes back" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "返回"
+          }
+        }
+      }
+    },
     "gray" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2132,7 +2145,20 @@
       }
     },
     "Not connected" : {
-
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未连接"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未連接"
+          }
+        }
+      }
     },
     "Notch" : {
       "extractionState" : "stale",

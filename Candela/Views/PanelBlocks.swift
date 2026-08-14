@@ -226,7 +226,12 @@ struct PanelBackHeader: View {
         .onHover { isHovered = $0 }
         .onTapGesture(perform: onBack)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel(Text("Back to \(title)"))
+        // The title names the page you are ON, not the one this goes back to — three
+        // of the four pages using this header pass their own name. "Back to M28U"
+        // announced while standing on the M28U page was simply false; the title plus
+        // a hint says what is true on every page.
+        .accessibilityLabel(Text(title))
+        .accessibilityHint(Text("Goes back"))
         .accessibilityAddTraits(.isButton)
     }
 }
