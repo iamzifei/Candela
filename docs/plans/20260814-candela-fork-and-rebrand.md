@@ -183,9 +183,13 @@ James 的 CLAUDE.md 里那条 78 文件批量加类型、炸出 126 个 TS 错�
       （枚举本来就存在，是给预设行的 ⋯ 菜单用的），`DisplayPreset` 新增 `captures`
       计算属性。**剩下那 1 处不能改**：`OSDUIHelperProtocol.showImage` 的 7 个参数是
       Apple 私有 XPC 的签名，收窄会断绑定
-- [ ] **切片 3 · AppDelegate 拆分**：类体 617 行、单函数 162 行。把
-      `setupStatusItem` / 面板构建 / 通知订阅拆成 extension 或独立类型。
-      ⚠️ 这是全项目最高冲突面，放在切片 3 而不是切片 1 就是这个原因
+- [x] **切片 3 · AppDelegate 面板构建抽取** ✅ commit dd3b265
+      162 行的 `rebuildBlocksIfNeeded` → 20 行 + `PanelBlockFactory`
+      （`displayBlocks` = header + `modeBlocks` + `colorBlocks`，
+      `globalBlocks` 把 Tools 交给 `toolsBlocks`）。类体 **617 → 473 行**。
+      ⚠️ **factory 放在 AppDelegate.swift 内，没有新建文件**——上游经常改面板，
+      跨文件搬代码会把每一次上游改动都变成冲突。文件超长的违规值不了这个价钱。
+      纯代码搬移：块、id、顺序、open 判据全未变，真机截图与重构前逐项一致
 - [ ] **切片 4 · 视图层文件拆分**：`DisplayModeListView` 906 行 →
       按「模式列表 / 平滑缩放 / 行渲染」拆
 - [ ] **切片 5 · 收紧 `.swiftlint.yml` 阈值**到实际达成的水平，让新增代码不能再退化
@@ -224,7 +228,21 @@ James 的 CLAUDE.md 里那条 78 文件批量加类型、炸出 126 个 TS 错�
 - [ ] 滑条加分组标题（差异 2）
 - [ ] 四种系统设置下逐一截图验证：深色/浅色 · 增强对比度 · **减弱动态**（必须关掉
       玻璃动画）· 大字体
-- [ ] 无障碍：VoiceOver 能读出每个滑条的标签与当前值（当前未验证）
+- [ ] 无障碍：VoiceOver 能读出每个滑条的标签与当前值
+
+### 🔴 已发现的无障碍问题（2026-08-14 实测，待修）
+
+**折叠区块的内容仍在 AX 树里。** 面板收起状态下遍历 accessibility 树，能读到
+「Contrast / Gamma / Gain / Color Temp / Quantization / Gamma R·G·B」这些
+**属于已折叠的显示器详情**的标签与值。
+
+- **推断**：VoiceOver 会念出用户看不见的内容。根因是这个面板「先渲染再裁剪」
+  （`PanelCanvas` 把内容按自然高度渲染一次，再用 clip 层做动画——那正是它
+  120Hz 不掉帧的原因），不是条件渲染，所以块一直存在
+- **如果我错了，最可能错在**：clip 层可能已设 `accessibilityElementsHidden`，
+  而 System Events 的遍历绕过了它。**修之前先用真 VoiceOver 验一遍**
+- 修法方向：给 clip 的 host view 设 `accessibilityElementsHidden = !isOpen`，
+  在 `PanelCanvas` 更新 target 时同步。⚠️ 不要改成条件渲染，那会毁掉整个动画方案
 
 **验收标准**
 - 四种辅助功能设置各一张截图，均不塌陷
