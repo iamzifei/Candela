@@ -206,6 +206,10 @@ final class PanelBlock {
     /// render, and the static-block muting froze it until settle (the arrow
     /// snapped instead of turning). One-row hosts, so staying live is cheap.
     var liveInFlight = false
+    /// Mirrors what was last written to the clip's accessibility-hidden flag, so
+    /// layoutNow — which runs every frame of a resize — only touches AppKit when
+    /// the answer actually changes.
+    var isHiddenFromAccessibility = false
     var target: CGFloat { isOpen() ? contentHeight : 0 }
 
     init(id: String, host: NSView, isOpen: @escaping () -> Bool) {
@@ -526,6 +530,31 @@ final class PanelCanvas {
             let h = y - cursor
             let clipR = NSRect(x: 0, y: cursor, width: width, height: h)
             if b.clip.frame != clipR { b.clip.frame = clipR }
+            // A collapsed block is clipped to nothing but still rendered — that is
+            // what lets the canvas animate a reveal without re-laying out SwiftUI —
+            // so without this VoiceOver reads out every closed section: the whole
+            // image-adjustment panel, the resolution list, all of it, none of which
+            // is on screen. Hidden only at zero height, so a section stays readable
+            // through the reveal.
+            let hidden = h <= 0.5
+            if b.isHiddenFromAccessibility != hidden {
+                b.isHiddenFromAccessibility = hidden
+                // Swapping the clip's accessibility children between none and the
+                // host is the only arrangement of these that actually works, and
+                // both of the obvious alternatives were tried:
+                //
+                //   setAccessibilityHidden on the clip — no effect, the hosting view
+                //     inside is its own element and stays reachable
+                //   setAccessibilityHidden / setAccessibilityElement on the host —
+                //     also no effect on SwiftUI's own elements beneath it
+                //
+                // And the restore has to name the host explicitly:
+                // `setAccessibilityChildren(nil)` stores nil rather than restoring
+                // the computed children, so a section collapsed once would never be
+                // readable again. The clip holds exactly one subview (see
+                // PanelBlock.init), so [host] is the full set.
+                b.clip.setAccessibilityChildren(hidden ? [] : [b.host])
+            }
             // The host canvas is TALLER than the content (hostSlack), so the
             // top-glue in BlockHost engages and pins the content to the top; the
             // clip above reveals only `current` of it and masks the slack. A
