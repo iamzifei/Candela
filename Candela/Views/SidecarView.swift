@@ -43,9 +43,8 @@ struct SidecarView: View {
             SectionDivider()
                 .padding(.vertical, 2)
 
-            // Applied on the next connect, not to a live session: SidecarCore takes
-            // the config when the session opens. Said plainly in the subtitle so a
-            // toggle that appears to do nothing is expected rather than broken.
+            // This one takes effect immediately, connected or not: it is ordinary
+            // display mirroring rather than part of the Sidecar session.
             SidecarOptionToggle(
                 icon: "rectangle.on.rectangle",
                 label: "Use as separate display",
@@ -64,6 +63,16 @@ struct SidecarView: View {
                 subtitle: nil,
                 isOn: $service.showTouchBar
             )
+            // Unlike the mirroring switch above, these two are part of the session
+            // config SidecarCore reads when it opens, so they cannot change a running
+            // one. Said out loud, because a switch that moves and changes nothing
+            // reads as broken rather than as deferred.
+            Text("The sidebar and Touch Bar apply the next time you connect")
+                .font(.caption2)
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 12)
+                .padding(.top, 2)
+                .padding(.bottom, 6)
         }
         // Hopped off the current update rather than called inline: every block is
         // rendered once at natural height during the panel's warm-up, so this runs

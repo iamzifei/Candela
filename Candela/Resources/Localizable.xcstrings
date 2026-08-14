@@ -186,6 +186,22 @@
         }
       }
     },
+    "The sidebar and Touch Bar apply the next time you connect" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "边栏与触控栏在下次连接时生效"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "側邊欄與觸控列在下次連接時生效"
+          }
+        }
+      }
+    },
     "×" : {
       "shouldTranslate" : false
     },

@@ -48,8 +48,18 @@ final class SidecarService: ObservableObject, @unchecked Sendable {
 
     /// Extend rather than mirror. Persisted: it is a standing preference about how
     /// you work, not a per-connection decision.
+    ///
+    /// Applied to a live session as well as to the next connect, because unlike the
+    /// two below this is not part of the Sidecar session at all — it is ordinary
+    /// display mirroring, changeable at any time, and System Settings changes it
+    /// live. The first version only applied it at connect time, so flipping the
+    /// switch while the iPad was already connected appeared to do nothing.
     @Published var useAsSeparateDisplay: Bool {
-        didSet { defaults.set(useAsSeparateDisplay, forKey: Keys.separateDisplay) }
+        didSet {
+            guard useAsSeparateDisplay != oldValue else { return }
+            defaults.set(useAsSeparateDisplay, forKey: Keys.separateDisplay)
+            applyMirroringToConnectedDevices()
+        }
     }
     @Published var showSidebar: Bool {
         didSet { defaults.set(showSidebar, forKey: Keys.sidebar) }
@@ -220,28 +230,54 @@ final class SidecarService: ObservableObject, @unchecked Sendable {
     private func applyMirroring(for id: String) {
         Task { @MainActor in
             // The session needs a moment to register its display before
-            // configForDevice: reports one.
+            // configForDevice: reports one — measured at about a second.
             for attempt in 0..<10 {
                 if attempt > 0 { try? await Task.sleep(nanoseconds: 400_000_000) }
-                guard let manager,
-                      let device = available.first(where: { $0.id == id }),
-                      let config = manager.config(forDevice: device.handle),
-                      let displayID = config.displayID?.uint32Value, displayID != 0
-                else { continue }
-
-                if useAsSeparateDisplay {
-                    if MirrorService.shared.isMirroring(displayID) {
-                        await MirrorService.shared.disableMirror(displayID: displayID)
-                    }
-                } else {
-                    let main = CGMainDisplayID()
-                    if displayID != main, !MirrorService.shared.isMirroring(displayID) {
-                        await MirrorService.shared.enableMirror(source: main, target: displayID)
-                    }
-                }
+                guard let displayID = sidecarDisplayID(forDeviceID: id) else { continue }
+                await applyMirroring(toDisplay: displayID)
                 return
             }
             Self.log.info("connected but never saw a display ID; left as the system arranged it")
+        }
+    }
+
+    /// Re-applies the extend/mirror preference to every iPad already connected.
+    ///
+    /// Called when the switch changes, not only on connect: mirroring is a display
+    /// setting rather than part of the Sidecar session, so it can be changed live,
+    /// and a switch that only takes effect on the next connect reads as broken.
+    private func applyMirroringToConnectedDevices() {
+        Task { @MainActor in
+            for id in connectedIDs {
+                guard let displayID = sidecarDisplayID(forDeviceID: id) else {
+                    Self.log.info("no display ID for a connected device; mirroring not changed")
+                    continue
+                }
+                await applyMirroring(toDisplay: displayID)
+            }
+        }
+    }
+
+    /// The CGDirectDisplayID a connected device is running on, if it has one yet.
+    private func sidecarDisplayID(forDeviceID id: String) -> CGDirectDisplayID? {
+        guard let manager,
+              let device = available.first(where: { $0.id == id }),
+              let config = manager.config(forDevice: device.handle),
+              let displayID = config.displayID?.uint32Value, displayID != 0
+        else { return nil }
+        return displayID
+    }
+
+    private func applyMirroring(toDisplay displayID: CGDirectDisplayID) async {
+        if useAsSeparateDisplay {
+            guard MirrorService.shared.isMirroring(displayID) else { return }
+            let ok = await MirrorService.shared.disableMirror(displayID: displayID)
+            Self.log.info("extend: stopped mirroring display \(displayID, privacy: .public), ok=\(ok, privacy: .public)")
+        } else {
+            let main = CGMainDisplayID()
+            guard displayID != main, !MirrorService.shared.isMirroring(displayID) else { return }
+            let ok = await MirrorService.shared.enableMirror(source: main, target: displayID)
+            Self.log.info("mirror: display \(displayID, privacy: .public) onto \(main, privacy: .public), ok=\(ok, privacy: .public)")
         }
     }
 
