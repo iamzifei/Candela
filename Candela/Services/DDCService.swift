@@ -24,6 +24,35 @@ final class DDCService: ObservableObject, @unchecked Sendable {
 
     private let ddcQueue = DispatchQueue(label: "com.candela.ddc", qos: .userInitiated)
 
+    // MARK: - Explicit DDC/CI refusal
+
+    /// Consecutive DDC/CI null messages per display, reset by any real reply.
+    ///
+    /// A monitor with DDC/CI switched off in its OSD — or reached over a link that
+    /// doesn't carry the channel — still ACKs at the I2C layer and answers every
+    /// request with a null message. Writes to it "succeed" for the same reason, so
+    /// availability judged on writes alone reads as working while the panel never
+    /// changes. This counter is how that case is told apart from a monitor whose
+    /// reads simply fail (garbage, timeouts), which may still honour writes.
+    private var nullReplyStreak: [CGDirectDisplayID: Int] = [:]
+    private let nullReplyLock = NSLock()
+    /// One null message can be a collision on a shared bus. Three in a row is policy.
+    private let refusalThreshold = 3
+
+    /// Whether `displayID` has explicitly refused DDC/CI often enough to be believed.
+    ///
+    /// Callers should treat true as "hardware brightness is not available here" and
+    /// fall back to software dimming, regardless of what writes report.
+    func hasRefusedDDC(for displayID: CGDirectDisplayID) -> Bool {
+        nullReplyLock.withLock { (nullReplyStreak[displayID] ?? 0) >= refusalThreshold }
+    }
+
+    /// Clears the refusal record, so a monitor whose DDC/CI was switched back on is
+    /// picked up again without relaunching. Called on display reconfiguration.
+    func clearRefusal(for displayID: CGDirectDisplayID) {
+        nullReplyLock.withLock { nullReplyStreak[displayID] = 0 }
+    }
+
     // MARK: - VCP Read Cache (5-second TTL)
 
     private struct VCPCacheEntry {
@@ -296,18 +325,25 @@ final class DDCService: ObservableObject, @unchecked Sendable {
         //  replyBuf[10] = checksum
         guard replyBuf.count >= 10 else { return nil }
 
-        // Validate the reply frame before trusting the payload. Many monitors ack the
-        // I2C read (readRet == success) but return stale EDID bytes or a null frame
+        // Classify the frame before trusting the payload. Many monitors ack the I2C
+        // read (readRet == success) but return stale EDID bytes or a null frame
         // instead of a real VCP reply, especially over the Apple Silicon AV path.
         // Reading bytes 6–9 from such garbage yields a bogus "max" (e.g. 8824 instead
         // of 100), which then compresses the usable brightness range so the top of the
-        // slider does nothing. Require the DDC/CI reply signature and the VCP echo.
-        guard replyBuf[0] == 0x6E,      // source address
-              replyBuf[2] == 0x02,      // Get VCP Feature Reply opcode
-              replyBuf[3] == 0x00,      // result code: no error
-              replyBuf[4] == command    // echo of the VCP code we asked for
-        else {
+        // slider does nothing.
+        //
+        // A null message is separated from garbage because only it means "I received
+        // this and I decline" — see `hasRefusedDDC`.
+        switch DDCReply.classify(replyBuf, command: command) {
+        case .refused:
+            nullReplyLock.withLock {
+                nullReplyStreak[displayID] = (nullReplyStreak[displayID] ?? 0) + 1
+            }
             return nil
+        case .malformed:
+            return nil
+        case .value:
+            nullReplyLock.withLock { nullReplyStreak[displayID] = 0 }
         }
 
         // Header bytes alone are only 4 bytes of protection: a wedged DDC

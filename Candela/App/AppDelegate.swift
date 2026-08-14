@@ -101,22 +101,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // but only if Accessibility is already granted. Creating the tap (tapCreate) is what
         // surfaces the OS prompt, so gating on trust keeps launch prompt-free; new users opt
         // in via the toggle in the Brightness Keys section, which arms it in context. (jv1b)
-        if AXIsProcessTrusted() {
-            BrightnessKeyService.shared.start()
-        } else {
-            // AXIsProcessTrusted() is unreliable at the exact launch instant, especially right
-            // after an upgrade while macOS re-validates the replaced bundle: a user who already
-            // granted access in the prior version would otherwise have the tap silently never arm
-            // (the launch check reads false, and nothing re-arms it since the opt-in toggle is
-            // hidden once trust settles true). Re-check a couple of times as trust settles and arm
-            // if it has; start() is idempotent, and this is bounded so users who never granted
-            // don't poll forever. (upgrade zombie)
-            for delay in [1.0, 3.0] {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    if AXIsProcessTrusted() { BrightnessKeyService.shared.start() }
-                }
-            }
-        }
+        // Covers three cases at once: trust already granted (arms now), trust granted
+        // but not yet visible because macOS is still re-validating a replaced bundle
+        // after an upgrade, and trust granted later — in System Settings, which is
+        // where the in-app toggle's own prompt sends people. The previous version
+        // re-checked only at 1s and 3s and then gave up, so a grant made in System
+        // Settings did nothing until the next relaunch.
+        BrightnessKeyService.shared.armWhenTrusted()
 
         // Touch the singleton so auto-brightness polling starts at launch; otherwise
         // it only starts the first time the menu panel is opened (its only other ref).

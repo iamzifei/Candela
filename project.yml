@@ -52,6 +52,7 @@ targets:
       - path: CandelaTests
       - path: Candela/Models/DisplayModeGeometry.swift
       - path: Candela/Models/DDCServiceMatcher.swift
+      - path: Candela/Models/DDCReply.swift
       - path: Candela/Models/RefreshRateFormat.swift
       - path: Candela/Models/GammaPersistenceKey.swift
       - path: Candela/Models/VariableRefreshModes.swift

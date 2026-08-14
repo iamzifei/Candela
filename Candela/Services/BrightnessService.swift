@@ -561,7 +561,18 @@ final class BrightnessService: @unchecked Sendable {
             value: ddcValue
         ) { [weak self] success in
             guard let self else { return }
-            if success {
+            // A successful write is not on its own evidence that the monitor acted on
+            // it. IOAVServiceWriteI2C reports success once the bytes reach the bus, so
+            // a monitor with DDC/CI switched off ACKs every write and changes nothing —
+            // and because this is the only place that ever marked a display DDC-capable
+            // during a drag, the slider moved and the panel stayed put forever. When the
+            // monitor has been answering reads with null messages, believe the monitor.
+            if success, DDCService.shared.hasRefusedDDC(for: displayID) {
+                self.ddcAvailableLock.withLock { self.ddcAvailable[displayID] = false }
+                DispatchQueue.main.async { [weak self] in
+                    self?.setSoftwareBrightness(percent, for: displayID)
+                }
+            } else if success {
                 self.ddcAvailableLock.withLock { self.ddcAvailable[displayID] = true }
                 self.ddcPumpLock.withLock { self.ddcFailStreak[displayID] = 0 }
             } else {
@@ -736,6 +747,10 @@ final class BrightnessService: @unchecked Sendable {
     /// Call this when a display is removed so stale state cannot pollute a reconnect.
     @MainActor
     func invalidateDDCState(for displayID: CGDirectDisplayID) {
+        // Drop the refusal record too, so a monitor whose DDC/CI the user has just
+        // switched on in its OSD is re-evaluated on reconnect instead of staying on
+        // software dimming until the app is relaunched.
+        DDCService.shared.clearRefusal(for: displayID)
         ddcAvailableLock.withLock {
             ddcAvailable.removeValue(forKey: displayID)
             ddcMaxBrightness.removeValue(forKey: displayID)

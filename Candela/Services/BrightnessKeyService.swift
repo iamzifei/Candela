@@ -134,6 +134,9 @@ final class BrightnessKeyService: @unchecked Sendable {
 
     private var pollTimer: Timer?
     private var activationObserver: NSObjectProtocol?
+    /// Poll used only by `armWhenTrusted`, kept apart from `pollTimer` because the
+    /// two paths differ on whether they may call `start()` (and so prompt).
+    private var trustWatchTimer: Timer?
 
     private func retryUntilArmed() {
         // ponytail: unbounded 2s poll; tapCreate is cheap and it stops the instant the grant
@@ -170,6 +173,51 @@ final class BrightnessKeyService: @unchecked Sendable {
     /// active session tap while a revoke is still propagating is exactly what churns and freezes
     /// input; once settled, tapCreate cleanly succeeds (still granted) or fails (revoked). On the
     /// initial grant flow disabledAt is 0, so this arms immediately with no delay.
+    /// Watches for Accessibility access to be granted, then arms, without prompting.
+    ///
+    /// Call at launch when trust is absent. `AXIsProcessTrusted()` is a plain TCC
+    /// lookup and shows no dialog — it is `CGEvent.tapCreate` that prompts — so
+    /// polling it keeps launch quiet while still noticing a grant whenever it lands.
+    ///
+    /// Without this the app re-checked exactly twice, at 1s and 3s after launch, and
+    /// then never again. The in-app toggle's prompt sends the user to System
+    /// Settings, where granting takes far longer than 3 seconds; access was live and
+    /// the keys stayed dead until the next relaunch, which reads as the feature
+    /// being broken. Reported on Candela 0.1.0.
+    ///
+    /// Kept separate from `retryUntilArmed` rather than reusing it: that path is
+    /// entered after a `tapCreate` failure, so the prompt has already happened and
+    /// it may call `start()` freely — deliberately not gating on
+    /// `AXIsProcessTrusted()`, which is unreliable for ad-hoc signed builds whose
+    /// TCC entry dies on every rebuild. This path has to stay quiet until trust is
+    /// real, so it owns its own timer.
+    func armWhenTrusted() {
+        guard eventTap == nil, trustWatchTimer == nil else { return }
+        if AXIsProcessTrusted() {
+            start()
+            return
+        }
+        // Cheap TCC lookup; the trust watchdog below already polls twice a second
+        // while armed, so once every two seconds while idle is nothing.
+        trustWatchTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] timer in
+            // See retryUntilArmed: Timer is not Sendable and cannot cross into the
+            // isolated closure, so the isolated part reports whether to keep going.
+            let keepPolling = MainActor.assumeIsolated { () -> Bool in
+                guard let self else { return false }
+                guard AXIsProcessTrusted() else { return true }
+                self.stopWatchingForTrust()
+                self.start()
+                return false
+            }
+            if !keepPolling { timer.invalidate() }
+        }
+    }
+
+    private func stopWatchingForTrust() {
+        trustWatchTimer?.invalidate()
+        trustWatchTimer = nil
+    }
+
     private func armIfSettled() {
         guard ProcessInfo.processInfo.systemUptime - disabledAt >= Self.rearmSettleDelay else { return }
         start()
