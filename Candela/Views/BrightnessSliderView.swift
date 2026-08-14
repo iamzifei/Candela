@@ -72,24 +72,41 @@ struct BrightnessSliderView: View {
     // display->slider sync pull it back down through the fade.
     @State private var clickGliding: Bool = false
 
+    /// Whether the mode row is worth the space.
+    ///
+    /// Expanded, it always shows: you opened the detail to see detail. Collapsed, it
+    /// shows only for a display falling back to software dimming, because that is
+    /// the state that needs explaining — the slider dims the picture instead of the
+    /// backlight, so the display behaves unlike its neighbour and unlike the one the
+    /// user configured in the monitor's own menu. Hiding that until someone expands
+    /// a section leaves the difference looking like a bug in the app.
+    private var showsModeRow: Bool {
+        guard compact else { return true }
+        return !display.isBuiltin && ddcStatus == false
+    }
+
     var body: some View {
         VStack(spacing: 2) {
             // Mode indicator row
-            if !compact {
+            if showsModeRow {
             HStack(spacing: 4) {
                 Spacer()
                 if display.isBuiltin {
-                    Circle()
-                        .fill(Color.blue)
-                        .frame(width: 5, height: 5)
+                    Image(systemName: "display")
+                        .font(.system(size: 8, weight: .semibold))
+                        .foregroundColor(.blue)
                         .accessibilityHidden(true)
                     Text("System")
                         .font(.caption2)
                         .foregroundColor(.blue)
                 } else if let status = ddcStatus {
-                    Circle()
-                        .fill(status ? Color.green : Color.orange)
-                        .frame(width: 5, height: 5)
+                    // A distinct glyph per mode, not the same dot in two colours:
+                    // green-versus-orange is the whole signal otherwise, and it
+                    // disappears under Differentiate Without Colour and for anyone
+                    // who cannot separate those two hues.
+                    Image(systemName: status ? "bolt.fill" : "paintbrush.fill")
+                        .font(.system(size: 8, weight: .semibold))
+                        .foregroundColor(status ? .green : .orange)
                         .accessibilityHidden(true)
                     Text(status ? "DDC" : "Software")
                         .font(.caption2)

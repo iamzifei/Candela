@@ -484,7 +484,7 @@ struct PresetArrangementThumbnail: View {
                         .frame(width: item.rect.width, height: item.rect.height)
                         .contentShape(Rectangle())
                         .onHover { hovering in
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.72)) {
+                            withAnimation(Animation.spring(response: 0.3, dampingFraction: 0.72).respectingReduceMotion) {
                                 if hovering { hoveredID = item.id } else if hoveredID == item.id { hoveredID = nil }
                             }
                         }

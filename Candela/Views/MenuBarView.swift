@@ -93,7 +93,27 @@ extension Animation {
     /// The one curve every panel size change shares (rows, footer, window, and
     /// icon state fades): the smooth spring Control Center panels use when a list
     /// expands.
-    static let panelResize = Animation.smooth(duration: panelResizeDuration)
+    ///
+    /// Computed rather than stored so it collapses to an instant change under
+    /// Reduce Motion. Every panel animation runs through here or through
+    /// `FrameSpring`, which checks the same setting, so honouring it in these two
+    /// places covers the panel.
+    static var panelResize: Animation {
+        Animation.smooth(duration: panelResizeDuration).respectingReduceMotion
+    }
+
+    /// This animation normally, an instant change when Reduce Motion is on.
+    ///
+    /// Every `withAnimation` in the app goes through this or through `panelResize`,
+    /// which is built on it. The system damps its own animations for this setting
+    /// but has no say over these, so each one has to opt in — and the panel is
+    /// nothing but animated reveals, so ignoring the setting makes the app unusable
+    /// for the people who set it.
+    var respectingReduceMotion: Animation {
+        NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+            ? .linear(duration: 0)
+            : self
+    }
 }
 
 /// Native list expansion (the Wi-Fi panel's "Other Networks" format): the

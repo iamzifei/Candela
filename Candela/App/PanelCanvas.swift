@@ -100,6 +100,20 @@ final class FrameSpring: NSObject {
     }
 
     func animate(from f: CGFloat, to tg: CGFloat) {
+        // Reduce Motion: land on the target and report it, no flight. The system
+        // damps its own animations for this setting, but the panel's resize is this
+        // hand-written spring driven by a display link, so nothing damps it but us.
+        if NSWorkspace.shared.accessibilityDisplayShouldReduceMotion {
+            from = Double(tg)
+            target = Double(tg)
+            velocity = 0
+            v0 = 0
+            t = 0
+            active = false
+            onTick?(Double(tg))
+            onSettle?()
+            return
+        }
         from = Double(f)
         target = Double(tg)
         v0 = velocity

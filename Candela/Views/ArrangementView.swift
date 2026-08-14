@@ -67,7 +67,7 @@ struct ArrangementView: View {
                 // placed after it would cover the whole canvas, not this screen.
                 .contentShape(Rectangle())
                 .onHover { hovering in
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.72)) {
+                    withAnimation(Animation.spring(response: 0.3, dampingFraction: 0.72).respectingReduceMotion) {
                         if hovering { hoveredID = display.displayID } else if hoveredID == display.displayID { hoveredID = nil }
                     }
                 }
@@ -214,7 +214,7 @@ struct ArrangementView: View {
             // On success the reconfiguration callback (.movedFlag) rebuilds the display
             // list; refreshing here too rebuilt it twice per drag.
             if !ok {
-                withAnimation(.easeInOut(duration: 0.2)) {
+                withAnimation(Animation.easeInOut(duration: 0.2).respectingReduceMotion) {
                     dragError = String(localized: "Failed to arrange displays. Please try again.")
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

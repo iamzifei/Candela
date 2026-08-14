@@ -295,10 +295,10 @@ private struct AdjustRow: View {
             Slider(value: $value, in: -100...100) { editing in
                 if !editing {
                     commitAction()
-                    withAnimation(.easeOut(duration: 0.3)) { highlighted = true }
+                    withAnimation(Animation.easeOut(duration: 0.3).respectingReduceMotion) { highlighted = true }
                     Task { @MainActor in
                         try? await Task.sleep(nanoseconds: 400_000_000)
-                        withAnimation(.easeOut(duration: 0.3)) { highlighted = false }
+                        withAnimation(Animation.easeOut(duration: 0.3).respectingReduceMotion) { highlighted = false }
                     }
                 }
             }
