@@ -15,6 +15,7 @@ Usage:  python3 site/build.py [--check]
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import re
 import shutil
@@ -177,6 +178,18 @@ def nav(page: Page, by_slug: dict) -> str:
 </header>"""
 
 
+def css_version() -> str:
+    """Short content hash of the stylesheet, appended to its URL.
+
+    Without it a returning visitor keeps whatever CSS their browser cached, which
+    is how a fixed style stays broken for exactly the people who have been here
+    before. Hashing the file means the URL changes when the file does, and only
+    then.
+    """
+    data = (ROOT / "site" / "styles.css").read_bytes()
+    return hashlib.sha256(data).hexdigest()[:8]
+
+
 def head(page: Page, by_slug: dict) -> str:
     m = page.meta
     up = "../" if page.depth else ""
@@ -209,7 +222,7 @@ def head(page: Page, by_slug: dict) -> str:
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{SITE}/{og}">
 <link rel="icon" href="{up}icon.png">
-<link rel="stylesheet" href="{up}styles.css">
+<link rel="stylesheet" href="{up}styles.css?v={css_version()}">
 {schema}"""
 
 
