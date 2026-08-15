@@ -240,7 +240,7 @@ def nav(page: Page, by_slug: dict) -> str:
     counterpart = by_slug.get((other, page.slug)) or by_slug.get((other, "index"))
     return f"""<header class="nav">
   <div class="nav-inner">
-    <a class="wordmark" href="{home}"><img src="{up}icon.png" alt="" width="26" height="26">Candela</a>
+    <a class="wordmark" href="{home}"><img src="{up}icon.png" alt="" width="26" height="26"><span>Candela</span></a>
     <nav class="nav-links">
       <a href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
       <a href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html" class="hide-sm">{t['nav_guides']}</a>
@@ -335,6 +335,10 @@ def render(page: Page, by_slug: dict) -> str:
     if page.lang == DEFAULT_LANG and counterpart:
         redirect = LANG_REDIRECT.replace("ZH_URL", f"'{SITE}/{counterpart.path}'")
 
+    up = "../" if page.depth else ""
+    other = "zh" if page.lang == "en" else "en"
+    footer_counterpart = by_slug.get((other, page.slug)) or by_slug.get((other, "index"))
+
     remember = """<script>
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
@@ -355,6 +359,13 @@ document.querySelectorAll('a.lang').forEach(function (a) {
 {body}
 </main>
 <footer class="site-footer">
+  <nav class="footer-nav">
+    <a href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
+    <a href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html">{t['nav_guides']}</a>
+    <a href="{REPO}" rel="noopener">{t['nav_github']}</a>
+    <a href="{KOFI}" rel="noopener">Ko-fi</a>
+    <a class="lang" href="{SITE}/{footer_counterpart.path}" hreflang="{LANGS[other]['hreflang']}">{LANGS[page.lang]['switch']}</a>
+  </nav>
   <p>{t['footer_built']} {t['footer_fork']}
      <a href="{REPO}" rel="noopener">GitHub</a> ·
      <a href="{UPSTREAM}" rel="noopener">Crisp</a> ·

@@ -142,7 +142,10 @@ a:hover { border-bottom-color: var(--blue); }
   display: flex;
   align-items: center;
   gap: var(--s4);
-  flex-wrap: wrap;
+  /* Never wrap. Wrapping turned the masthead into a three-row, 160px-tall pill on a
+     390px phone — a permanent 19% of the viewport, with a 999px radius stretched
+     around it. A bar that cannot fit its contents should drop contents, not grow. */
+  flex-wrap: nowrap;
   background: var(--parchment);
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -197,10 +200,33 @@ a:hover { border-bottom-color: var(--blue); }
 .nav-links > a.btn-kofi { border: 1px solid var(--border); }
 .nav-links > a.btn-kofi:hover { background: var(--sand); }
 
+/* On a phone the masthead keeps two things: where you are, and the one action the
+   page is for. Everything else moves to the footer, which is where a reader looks
+   for navigation on a long page anyway.
+
+   Each rule is written as `.nav-links > a.x` rather than `.x`, because `.nav-links >
+   a` is the more specific selector and a bare `.hide-sm { display: none }` lost to
+   it — the Guides link was still being drawn at every width. */
 @media (max-width: 760px) {
-  .hide-sm { display: none; }
-  .nav-links .btn-kofi { display: none; }
-  .nav-inner { padding: var(--s2) var(--s4); }
+  .nav { top: var(--s2); padding: 0 var(--s3); }
+  .nav-inner {
+    padding: var(--s1) var(--s2) var(--s1) var(--s4);
+    gap: var(--s2);
+  }
+  .nav-links > a.hide-sm,
+  .nav-links > a.btn-kofi,
+  .nav-links > a[href^="https://github.com"],
+  .nav-links > a[href$="candela-vs-betterdisplay.html"] { display: none; }
+  .nav-links > a { padding: 0 var(--s2); font-size: 13px; }
+  .nav-links > a.btn-dl { padding: 0 var(--s3); }
+  .wordmark { font-size: 19px; }
+}
+
+/* Narrower still, the wordmark drops to its mark. The name is two characters from
+   the icon and stays in the accessible name, so nothing is lost but the width. */
+@media (max-width: 460px) {
+  .wordmark span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .wordmark { gap: 0; }
 }
 
 /* ---------- the page ---------- */
@@ -532,6 +558,24 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   line-height: 1.4;
 }
 .site-footer p { margin: 0; }
+/* Everything the masthead drops on a phone lands here, so no page becomes
+   unreachable at a narrow width. */
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s2) var(--s5);
+  margin: 0 0 var(--s5);
+  font-size: 14px;
+}
+.footer-nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-3);
+  border-bottom: 0;
+}
+.footer-nav a:hover { color: var(--ink); }
 .site-footer a { color: var(--ink-3); border-bottom-color: var(--border); }
 .site-footer a:hover { color: var(--ink); }
 
