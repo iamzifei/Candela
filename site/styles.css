@@ -148,13 +148,6 @@ ul, ol { margin: 0 0 1.05rem; padding-left: 1.35rem; }
 li { margin: .3rem 0; }
 strong { font-weight: 620; }
 
-blockquote {
-  margin: 1.4rem 0;
-  padding: .1rem 0 .1rem 1rem;
-  border-left: 3px solid var(--warm);
-  color: var(--ink-soft);
-}
-
 code {
   font: .89em/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
   background: var(--line);
