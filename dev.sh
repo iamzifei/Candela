@@ -38,6 +38,16 @@ sleep 1
 cp Candela-bin "$APP/Contents/MacOS/Candela"
 # Keep the installed bundle's reported version in step with project.yml,
 # since the binary swap doesn't regenerate Info.plist.
+# Refresh the compiled localizations too, not just the binary. Swapping only the
+# executable leaves whatever .lproj the bundle was last BUILT with, so a string
+# added or translated since then renders in English no matter how correct the
+# catalog is — and it looks exactly like a localization bug in the code. That cost
+# an afternoon: a Chinese sentence was diagnosed as a SwiftUI `Text(ternary)`
+# problem when the bundle's strings were simply twenty hours old (201 entries
+# against the catalog's 207).
+python3 "$ROOT/scripts/xcstrings-compile.py" \
+  Candela/Resources/Localizable.xcstrings "$APP/Contents/Resources" >/dev/null
+
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "$APP/Contents/Info.plist"
 xattr -cr "$APP"

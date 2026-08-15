@@ -448,7 +448,14 @@ def main() -> int:
 
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
-        tmpdir = Path(tmp)
+        tmpdir = Path(tmp) / "site"
+        # Start from what is committed, then build over it. The check used to build
+        # into an empty directory and copy a hand-listed set of assets, which meant
+        # anything not on that list — the banner, the tour GIF — was absent from the
+        # comparison. Harmless until the fingerprint file arrived: it hashes every
+        # published file, so the two trees differed every time and the check failed
+        # on a docs/ that was perfectly in sync.
+        shutil.copytree(OUT, tmpdir)
         build(tmpdir)
         stale = []
         for built in tmpdir.rglob("*"):
