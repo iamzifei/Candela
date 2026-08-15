@@ -1,49 +1,52 @@
 #!/bin/bash
 set -euo pipefail
 
-# Waits until GitHub Pages is serving the commit that is checked out here.
+# Waits until GitHub Pages is serving the files that were built here.
 #
-# Written because the obvious way to wait — poll a URL until some string appears —
-# quietly does the wrong thing when the string is already there. Waiting on the
-# stylesheet's hash after a change that touched only HTML passed instantly, so the
-# next screenshot was of the previous deploy. That cost two wrong diagnoses in a row:
-# a CSS rule declared "not applying" and a selector declared "not matching", both of
-# which were fine in the version that had not arrived yet.
+# Third attempt, and the first two are worth recording because both failed in ways
+# that produced wrong conclusions rather than error messages:
 #
-# The commit SHA cannot have that failure mode. What it asks is the "pages build and
-# deployment" workflow run for this commit — NOT `repos/*/pages/builds/latest`, which
-# is the legacy branch-build API and keeps reporting the previous commit on a repo
-# whose Pages deploys through Actions. Checked: that endpoint still said 5d73823 long
-# after the workflow for 643fcaa had succeeded.
+#   * Polling a URL until some string appears passes instantly when the string is
+#     already there. Waiting on the stylesheet hash after a change that touched only
+#     HTML let a screenshot be taken of the previous deploy, and two CSS rules were
+#     then diagnosed as "not applying" when they were simply not there yet.
+#   * Waiting on the deployment record — either the `pages build and deployment` run
+#     for the commit, or the newest github-pages deployment — times out on a deploy
+#     that has already succeeded. GitHub coalesces consecutive pushes, so a commit
+#     whose content is live may have no run of its own and may never appear as the
+#     deployed SHA. Verified: the live stylesheet was byte-identical to the local one
+#     while the API still reported the previous commit.
+#
+# So it compares bytes. A file either matches what was built here or it does not;
+# that cannot be true early and cannot be false late.
 #
 # Usage: ./scripts/wait-for-deploy.sh [timeout-seconds]
 
-REPO="$(git remote get-url origin | sed -E 's#^.*github\.com[:/]##; s#\.git$##')"
-WANT="$(git rev-parse HEAD)"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SITE="https://zifei.info/Candela"
 TIMEOUT="${1:-300}"
 START=$(date +%s)
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
 
-printf '==> Waiting for %s to serve %s' "$REPO" "${WANT:0:7}"
+# The stylesheet and one page per language: between them they cover a change to the
+# design, to the generator, and to the content of either translation.
+check_one() {  # <url> <local path>
+  curl -fsS -o "$TMP/live" "$1" 2>/dev/null || return 1
+  cmp -s "$TMP/live" "$ROOT/docs/$2"
+}
+
+printf '==> Waiting for %s to serve this build' "$SITE"
 while true; do
-  # Filtered by run name in jq rather than with --workflow: the Pages deployment is a
-  # dynamic workflow with no file in the repo, and `--workflow "pages build and
-  # deployment"` answers "could not find any workflows named ...".
-  STATE="$(gh run list --repo "$REPO" --commit "$WANT" --limit 20 \
-      --json name,status,conclusion \
-      --jq '[.[] | select(.name == "pages build and deployment")][0]
-            | if . == null then "" else "\(.status) \(.conclusion // "")" end' 2>/dev/null || echo "")"
-  case "$STATE" in
-    "completed success")
-      echo " — deployed"
-      exit 0 ;;
-    "completed "*)
-      echo
-      echo "error: Pages deployment for ${WANT:0:7} finished as ${STATE#completed }." >&2
-      exit 1 ;;
-  esac
+  if check_one "$SITE/styles.css" "styles.css" \
+     && check_one "$SITE/" "index.html" \
+     && check_one "$SITE/zh/" "zh/index.html"; then
+    echo " — live"
+    exit 0
+  fi
   if [ $(( $(date +%s) - START )) -ge "$TIMEOUT" ]; then
     echo
-    echo "error: timed out after ${TIMEOUT}s; deployment for ${WANT:0:7} is \"${STATE:-not started}\"." >&2
+    echo "error: timed out after ${TIMEOUT}s; the site is still serving older files." >&2
     exit 1
   fi
   printf '.'
