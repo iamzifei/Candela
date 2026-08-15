@@ -16,10 +16,10 @@ schema: |
 
 <div class="hero">
 
-# macOS 藏起来的显示器设置，都在这一个面板里
+# macOS 藏起来的显示器设置
 
-外接显示器在 Mac 上被砍掉的那些控制——真正的 DDC 硬件亮度、清晰的 HiDPI 缩放、
-能作用于任意屏幕的亮度快捷键、预设、虚拟显示器——Candela 全部补回来。
+全都在菜单栏的这一个面板里：真正的 DDC 硬件亮度、清晰的 HiDPI 缩放、
+能作用于任意屏幕的亮度快捷键、预设，以及虚拟显示器。
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
