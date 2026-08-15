@@ -43,11 +43,11 @@ macOS 通过显示器的 EDID——显示器自报的一段描述，含物理尺
 4. macOS 询问时输入管理员密码，屏幕会闪一次——显示模式列表正在重建。
 5. 打开 **Resolution**，在新出现的档位里选。
 
-![Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。](shots/panel-display.png)
+![Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。](shots/panel-display.webp)
 
 完整模式列表是单独一页，列出这块屏能接受的全部分辨率，并标出其中清晰的那些：
 
-![Candela 中某块显示器的完整分辨率列表。](shots/panel-allResolutions.png)
+![Candela 中某块显示器的完整分辨率列表。](shots/panel-allResolutions.webp)
 
 ### 手动做法
 

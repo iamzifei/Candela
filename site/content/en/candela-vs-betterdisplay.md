@@ -77,7 +77,7 @@ still lit at zero, while one dimmed in software goes nearly black. Candela lets 
 calibrate that floor by eye, once per display, and then the combined slider keeps them
 together. [How it works →](sync-brightness-multiple-monitors-mac.html)
 
-![The display page in Candela, showing the combined-brightness floor control for one monitor.](shots/panel-display.png)
+![The display page in Candela, showing the combined-brightness floor control for one monitor.](shots/panel-display.webp)
 
 **It tells you when brightness is faked.** If a monitor refuses DDC — some do, and
 some USB-C docks do not pass the channel through — Candela dims the picture instead of

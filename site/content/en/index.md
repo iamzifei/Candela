@@ -8,7 +8,7 @@ schema: |
    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
    "url":"https://zifei.info/Candela/",
    "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"https://zifei.info/Candela/shots/panel-root.png",
+   "screenshot":"https://zifei.info/Candela/shots/panel-root.webp",
    "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
    "isAccessibleForFree":true}
   </script>
@@ -30,7 +30,7 @@ work on every display, presets, and virtual screens.
 <p class="note">macOS 26 · Apple silicon · MIT licence · no Pro tier, no licence key</p>
 </div>
 
-![The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.](shots/panel-root.png)
+![The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.](shots/panel-root.webp)
 
 ## What macOS leaves out
 

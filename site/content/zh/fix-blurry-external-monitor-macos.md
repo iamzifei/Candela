@@ -49,7 +49,7 @@ HiDPI 会给 macOS 一些它平时不对第三方显示器开放的中间档位�
 
 macOS 没有给这件事任何开关。Candela 加了一个：
 
-![Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。](shots/panel-display.png)
+![Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。](shots/panel-display.webp)
 
 打开 Candela 的面板，点进你的显示器，打开 **Smooth scaling**。
 macOS 会要求管理员密码，屏幕会闪一次——那是显示模式列表正在重建。

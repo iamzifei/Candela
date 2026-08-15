@@ -30,7 +30,7 @@ looking at.
 4. macOS asks for Accessibility permission. Grant it — this is what lets an app see a
    key press before the system consumes it. No restart is needed.
 
-![Candela's settings, showing the brightness-key row and its current target.](shots/panel-settings.png)
+![Candela's settings, showing the brightness-key row and its current target.](shots/panel-settings.webp)
 
 Once granted, the row becomes a target picker.
 
@@ -79,7 +79,7 @@ Some displays refuse DDC/CI. When Candela detects a refusal it falls back to dim
 the picture in software and marks that display **Software** in the panel, so you can
 tell the difference between "the backlight moved" and "the image got darker".
 
-![Candela's panel, with the Software badge on a display that refuses DDC.](shots/panel-root.png)
+![Candela's panel, with the Software badge on a display that refuses DDC.](shots/panel-root.webp)
 
 Three things to try, in order of how often they are the cause:
 

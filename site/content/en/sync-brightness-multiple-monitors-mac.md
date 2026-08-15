@@ -17,7 +17,7 @@ Open Candela's panel and use the **Combined** slider. It drives every connected
 display, and the brightness keys can do the same thing if you set their target to
 *All displays together*.
 
-![Candela's panel with per-display sliders and a Combined slider that drives all of them.](shots/panel-root.png)
+![Candela's panel with per-display sliders and a Combined slider that drives all of them.](shots/panel-root.webp)
 
 The combined level is a proportion, not an absolute value, so a display with extra
 headroom uses its extra headroom and a plain one does not have to pretend it has any.
@@ -66,7 +66,7 @@ So the eye is the instrument. It takes about thirty seconds, once per display.
 4. Stop when they match. That is it: the value is saved, and the display is returned
    to where it was sitting before you started.
 
-![The combined-brightness floor control on a display's page in Candela.](shots/panel-display.png)
+![The combined-brightness floor control on a display's page in Candela.](shots/panel-display.webp)
 
 From then on, the combined slider and the brightness keys route every display through
 its own floor. They arrive at the bottom together, and they stay together on the way

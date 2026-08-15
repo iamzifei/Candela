@@ -8,7 +8,7 @@ schema: |
    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
    "url":"https://zifei.info/Candela/zh/",
    "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"https://zifei.info/Candela/shots/panel-root.png",
+   "screenshot":"https://zifei.info/Candela/shots/panel-root.webp",
    "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
    "isAccessibleForFree":true}
   </script>
@@ -29,7 +29,7 @@ schema: |
 <p class="note">macOS 26 · Apple 芯片 · MIT 许可 · 没有 Pro 版，不需要激活码</p>
 </div>
 
-![Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。](shots/panel-root.png)
+![Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。](shots/panel-root.webp)
 
 ## macOS 没给你的三件事
 

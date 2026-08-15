@@ -65,7 +65,7 @@ Candela 没有自动化引擎，也不假装有。
 Candela 让你用眼睛给每块屏校一次这个下限，之后合并滑条就能让它们保持一致。
 [原理与做法 →](sync-brightness-multiple-monitors-mac.html)
 
-![Candela 中某块显示器的详情页，包含合并亮度下限的校准控件。](shots/panel-display.png)
+![Candela 中某块显示器的详情页，包含合并亮度下限的校准控件。](shots/panel-display.webp)
 
 **它会告诉你亮度是不是「假的」。** 如果显示器拒绝 DDC——确实有这种机型，
 也有不透传该通道的 USB-C 扩展坞——Candela 会改为调暗画面而不是背光，

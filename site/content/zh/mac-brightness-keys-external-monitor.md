@@ -27,7 +27,7 @@ description: "Mac 接了外接显示器后 F1／F2 毫无反应。这是 macOS �
 4. macOS 会请求「辅助功能」权限。授予它——这正是让 app 在系统消费掉按键之前看到它的机制。
    不需要重启。
 
-![Candela 的设置页，显示亮度键一行及其当前作用目标。](shots/panel-settings.png)
+![Candela 的设置页，显示亮度键一行及其当前作用目标。](shots/panel-settings.webp)
 
 授权之后，这一行会变成作用目标选择器。
 
@@ -70,7 +70,7 @@ macOS 把授权绑定在**当初请求它的那一份已签名的 app** 上，
 并在面板上把那块屏标成 **Software**，
 让你能区分「背光动了」和「画面变暗了」。
 
-![Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。](shots/panel-root.png)
+![Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。](shots/panel-root.webp)
 
 按发生概率从高到低试三件事：
 

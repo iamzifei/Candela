@@ -87,5 +87,27 @@ for page in "${PAGES[@]}"; do
 done
 
 osascript -e 'quit app "Candela"' >/dev/null 2>&1 || true
-echo "Done. $(ls -1 "$OUT"/panel-*.png 2>/dev/null | wc -l | tr -d ' ') screenshots in $OUT"
+
+# PNG is the wrong format to publish these in. A screenshot of a glass panel over a
+# gradient compresses terribly as PNG — 1.6 MB each — and the one at the top of the
+# home page is the page's largest paint, so it arrived late and left a hole where the
+# picture should be. The same image is 44 KB as WebP at quality 90, which is a 37×
+# difference for no visible loss on a UI screenshot.
+#
+# The manifest is written here rather than measured at site-build time so that
+# building the site needs no image tooling: the generator reads the dimensions from
+# it and emits width/height on every <img>, which is what stops the page from
+# shifting as the pictures arrive.
+echo "==> Converting to WebP"
+: > "$OUT/manifest.txt"
+for png in "$OUT"/panel-*.png; do
+  [ -f "$png" ] || continue
+  webp="${png%.png}.webp"
+  magick "$png" -quality 90 "$webp"
+  read -r w h <<< "$(magick identify -format "%w %h" "$webp")"
+  echo "$(basename "$webp") $w $h" >> "$OUT/manifest.txt"
+  rm -f "$png"
+done
+sort -o "$OUT/manifest.txt" "$OUT/manifest.txt"
+echo "Done. $(ls -1 "$OUT"/panel-*.webp 2>/dev/null | wc -l | tr -d ' ') screenshots in $OUT"
 exit $failed

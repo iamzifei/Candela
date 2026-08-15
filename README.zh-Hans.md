@@ -28,7 +28,7 @@
 分辨率列表只给几个发虚的选项，把清晰的那些藏了起来；想把整张桌子调暗，
 只能一块屏一块屏地拖。Candela 把这三件事补回来。
 
-<img src="docs/shots/panel-root.png" alt="Candela 面板：每块显示器各自的亮度滑条、驱动全部屏幕的合并滑条，以及预设、工具与设置" width="360">
+<img src="docs/shots/panel-root.webp" alt="Candela 面板：每块显示器各自的亮度滑条、驱动全部屏幕的合并滑条，以及预设、工具与设置" width="360">
 
 <div align="center">
 

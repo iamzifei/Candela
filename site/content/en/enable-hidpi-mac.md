@@ -53,12 +53,12 @@ None of this is a setting, and there is no checkbox in System Settings.
    once — the display list is being rebuilt.
 5. Open **Resolution** and pick from the new modes.
 
-![The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes.](shots/panel-display.png)
+![The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes.](shots/panel-display.webp)
 
 The full mode list is a page of its own, with every resolution the display can take
 and the sharp ones marked:
 
-![Candela's full resolution list for one display.](shots/panel-allResolutions.png)
+![Candela's full resolution list for one display.](shots/panel-allResolutions.webp)
 
 ### The manual route
 

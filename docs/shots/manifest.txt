@@ -1,0 +1,14 @@
+panel-allResolutions-plate.webp 840 1600
+panel-allResolutions.webp 1380 1708
+panel-arrangement-plate.webp 840 708
+panel-arrangement.webp 1380 816
+panel-display-plate.webp 840 1374
+panel-display.webp 1380 1482
+panel-root-plate.webp 840 1374
+panel-root.webp 1380 1482
+panel-settings-plate.webp 840 826
+panel-settings.webp 1380 934
+panel-tools-plate.webp 840 624
+panel-tools.webp 1380 732
+panel-virtualDisplays-plate.webp 840 458
+panel-virtualDisplays.webp 1380 566

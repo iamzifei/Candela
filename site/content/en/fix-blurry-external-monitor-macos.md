@@ -59,7 +59,7 @@ Text stays sharp at a size you can actually read.
 
 macOS has no user-facing switch for this. Candela adds one:
 
-![The display page in Candela, with the resolution row and the smooth-scaling switch.](shots/panel-display.png)
+![The display page in Candela, with the resolution row and the smooth-scaling switch.](shots/panel-display.webp)
 
 Open Candela's panel, click your monitor, and turn on **Smooth scaling**. macOS asks
 for an administrator password and the screen flashes once while the display list is

@@ -30,7 +30,7 @@ built-in display. The brightness keys adjust nothing. The resolution list offers
 handful of blurry options and hides the sharp ones. And there is no way to move every
 display at once. Candela puts all three back.
 
-<img src="docs/shots/panel-root.png" alt="The Candela panel: each connected display with its own brightness slider, a combined slider, and rows for presets, tools and settings" width="360">
+<img src="docs/shots/panel-root.webp" alt="The Candela panel: each connected display with its own brightness slider, a combined slider, and rows for presets, tools and settings" width="360">
 
 <div align="center">
 

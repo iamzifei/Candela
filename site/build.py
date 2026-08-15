@@ -113,9 +113,10 @@ class Renderer(mistune.HTMLRenderer):
     def __init__(self, depth: int = 0, **kw):
         super().__init__(**kw)
         # Pages in a language subdirectory reach shared assets one level up. Doing
-        # this here means the Markdown says `shots/panel-root.png` in every
+        # this here means the Markdown says `shots/panel-root.webp` in every
         # language, instead of each translator having to remember a `../`.
         self.depth = depth
+        self.image_count = 0
 
     def heading(self, text: str, level: int, **attrs) -> str:
         # Slugged ids so headings can be linked to, and so the table of contents
@@ -127,12 +128,22 @@ class Renderer(mistune.HTMLRenderer):
         # Every screenshot is a figure with its alt text as the caption. Search
         # engines read the caption, and a reader who cannot see the image gets the
         # same sentence either way.
+        self.image_count += 1
+        dims = IMAGE_SIZES.get(url.rsplit("/", 1)[-1])
         if self.depth and not url.startswith(("http://", "https://", "/", "../")):
             url = "../" * self.depth + url
         alt = html.escape(text or "")
         cap = f'<figcaption>{alt}</figcaption>' if alt else ""
-        return (f'<figure class="shot"><img src="{url}" alt="{alt}" '
-                f'loading="lazy" decoding="async">{cap}</figure>')
+        # Intrinsic size on every image, so the box is reserved before the picture
+        # arrives and the text below it does not jump.
+        size = f' width="{dims[0]}" height="{dims[1]}"' if dims else ""
+        # The first image on a page is usually the one above the fold, and marking
+        # the largest paint on the page as lazy is how it ends up arriving late and
+        # leaving a hole where the picture should be.
+        loading = ('loading="eager" fetchpriority="high"' if self.image_count == 1
+                   else 'loading="lazy"')
+        return (f'<figure class="shot"><img src="{url}" alt="{alt}"{size} '
+                f'{loading} decoding="async">{cap}</figure>')
 
     def block_code(self, code: str, info=None) -> str:
         return f'<pre><code>{html.escape(code)}</code></pre>\n'
@@ -143,6 +154,26 @@ def make_markdown(depth: int):
         renderer=Renderer(depth=depth, escape=False),
         plugins=["table", "strikethrough"],
     )
+
+
+def read_image_sizes() -> dict[str, tuple[int, int]]:
+    """Intrinsic sizes of the screenshots, written by scripts/capture-screenshots.sh.
+
+    Read from a manifest rather than measured here, so building the site needs no
+    image tooling — CI checks the site without ImageMagick installed.
+    """
+    manifest = OUT / "shots" / "manifest.txt"
+    if not manifest.exists():
+        return {}
+    sizes = {}
+    for line in manifest.read_text(encoding="utf-8").splitlines():
+        parts = line.split()
+        if len(parts) == 3:
+            sizes[parts[0]] = (int(parts[1]), int(parts[2]))
+    return sizes
+
+
+IMAGE_SIZES: dict[str, tuple[int, int]] = {}
 
 
 def read_pages() -> list[Page]:
@@ -293,6 +324,8 @@ def sitemap(pages: list[Page]) -> str:
 
 
 def build(out: Path) -> None:
+    global IMAGE_SIZES
+    IMAGE_SIZES = read_image_sizes()
     pages = read_pages()
     by_slug = {(p.lang, p.slug): p for p in pages}
 
