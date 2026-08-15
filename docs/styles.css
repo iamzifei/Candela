@@ -344,6 +344,16 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
    the note under the buttons, where it is one of several facts rather than a label
    the headline has to be introduced by. */
 .hero h1 { max-width: 22ch; margin-inline: auto; }
+/* CJK sets about twice as much meaning per character, so the same `ch` measure that
+   balances an English headline over two lines splits a Chinese one over three and
+   leaves a conjunction stranded at the end of a line. A narrower measure puts the
+   break at the clause instead. `balance` is also the wrong algorithm here: it
+   equalises line lengths without knowing where a Chinese phrase can be divided. */
+:lang(zh-Hans) .hero h1,
+:lang(zh-Hant) .hero h1 {
+  max-width: 15ch;
+  text-wrap: pretty;
+}
 .hero p {
   font-size: 19px;
   color: var(--ink-3);
