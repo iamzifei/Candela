@@ -32,7 +32,7 @@ work on every display, presets, and virtual screens.
 
 ![The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.](shots/panel-root.webp)
 
-<span class="sect-label">01 · What macOS leaves out</span>
+<div class="sect-label">01 · What macOS leaves out</div>
 
 ## Three things stop working
 
@@ -102,7 +102,7 @@ like Control Centre rather than a preferences window.</p>
 </div>
 </div>
 
-<span class="sect-label">02 · What it costs</span>
+<div class="sect-label">02 · What it costs</div>
 
 ## Nothing, and there is no second tier
 
@@ -119,7 +119,7 @@ day. Both are good software. Candela's answer to "which features do I get" is si
 
 [Read the full comparison →](candela-vs-betterdisplay.html)
 
-<span class="sect-label">03 · Guides</span>
+<div class="sect-label">03 · Guides</div>
 
 ## Start here
 
@@ -128,7 +128,7 @@ day. Both are good software. Candela's answer to "which features do I get" is si
 - [Make the brightness keys work on an external monitor](mac-brightness-keys-external-monitor.html) — F1 and F2 on any display, and the permission that makes it possible
 - [Sync brightness across multiple monitors](sync-brightness-multiple-monitors-mac.html) — one slider for the whole desk, and how to make panels actually match
 
-<span class="sect-label">04 · Installing</span>
+<div class="sect-label">04 · Installing</div>
 
 ## Two ways
 
@@ -141,7 +141,7 @@ brew install --cask iamzifei/tap/candela
 Candela is signed with a Developer ID and notarised by Apple, so it opens without
 right-click warnings.
 
-<span class="sect-label">05 · Requirements</span>
+<div class="sect-label">05 · Requirements</div>
 
 ## What you need
 

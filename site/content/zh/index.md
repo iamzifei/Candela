@@ -31,7 +31,7 @@ schema: |
 
 ![Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。](shots/panel-root.webp)
 
-<span class="sect-label">01 · macOS 没给你的</span>
+<div class="sect-label">01 · macOS 没给你的</div>
 
 ## 有三件事立刻不正常
 
@@ -99,7 +99,7 @@ Candela 把这三件事补回来，而且做成一个像控制中心那样的面
 </div>
 </div>
 
-<span class="sect-label">02 · 它要多少钱</span>
+<div class="sect-label">02 · 它要多少钱</div>
 
 ## 不要钱，也没有第二档
 
@@ -113,7 +113,7 @@ Candela 对「我能用到哪些功能」的回答就一个字：全部。
 
 [看完整对比 →](candela-vs-betterdisplay.html)
 
-<span class="sect-label">03 · 指南</span>
+<div class="sect-label">03 · 指南</div>
 
 ## 从这里开始
 
@@ -122,7 +122,7 @@ Candela 对「我能用到哪些功能」的回答就一个字：全部。
 - [让亮度键能控制外接显示器](mac-brightness-keys-external-monitor.html) —— F1／F2 作用于任意屏幕，以及那一个必需的权限
 - [多块显示器亮度同步](sync-brightness-multiple-monitors-mac.html) —— 一条滑条管全部，以及怎么让不同面板真的看起来一致
 
-<span class="sect-label">04 · 安装</span>
+<div class="sect-label">04 · 安装</div>
 
 ## 两种方式
 
@@ -134,7 +134,7 @@ brew install --cask iamzifei/tap/candela
 
 Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「无法验证开发者」的拦截。
 
-<span class="sect-label">05 · 系统要求</span>
+<div class="sect-label">05 · 系统要求</div>
 
 ## 你需要什么
 

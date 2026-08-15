@@ -354,6 +354,11 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 .yes { color: var(--good); }
 .no  { color: var(--ink-4); }
 
+/* The picture under the hero is an introduction, not the section itself. At the
+   figure default it filled the viewport on its own and pushed the first sentence of
+   the page below the fold — which is the same mistake as before in a smaller size. */
+.hero + .shot img { max-height: 46vh; }
+
 /* ---------- home ---------- */
 
 .hero {
@@ -440,14 +445,14 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
    one thing that earns a label above a heading. The heading still carries the
    meaning; the number carries the position. */
 .sect-label {
-  display: block;
-  margin: var(--section) 0 var(--s2);
+  margin: var(--section) 0 var(--s3);
   font-size: 12px;
   letter-spacing: .8px;
   color: var(--blue);
   font-variant-numeric: tabular-nums;
 }
 .sect-label + h2 { margin-top: 0; }
+.sect-label + h2 + .sect-lede { margin-top: var(--s3); }
 .sect-lede {
   margin: 0 0 var(--s8);
   color: var(--ink-3);
@@ -462,7 +467,10 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--s12);
-  align-items: center;
+  /* Top-aligned, not centred. The screenshots are much taller than the three lines
+     beside them, so centring floated the text in the middle of the row with a wide
+     band of nothing above it — the eye had to hunt for where the sentence started. */
+  align-items: start;
   padding: var(--s8) 0;
 }
 .row:nth-child(even) .row-figure { order: 2; }
