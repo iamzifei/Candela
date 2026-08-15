@@ -122,7 +122,7 @@ final class HiDPIService: @unchecked Sendable {
         ]
 
         guard let data = try? PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0) else {
-            return "Failed to generate plist data"
+            return String(localized: "Failed to generate plist data")
         }
 
         // Write to a temp file first, then use privileged helper to move it
@@ -130,7 +130,7 @@ final class HiDPIService: @unchecked Sendable {
         do {
             try data.write(to: URL(fileURLWithPath: tmpPath), options: .atomic)
         } catch {
-            return "Failed to write temp file: \(error.localizedDescription)"
+            return String(localized: "Failed to write temp file: \(error.localizedDescription)")
         }
 
         // Use AppleScript to get admin privileges for writing to /Library/Displays/
@@ -167,7 +167,7 @@ final class HiDPIService: @unchecked Sendable {
             """
         var error: NSDictionary?
         guard let appleScript = NSAppleScript(source: script) else {
-            return "Failed to create AppleScript"
+            return String(localized: "Failed to create AppleScript")
         }
         // The auth dialog steals key and swallows the user's clicks, which would
         // otherwise trip the panel's auto-dismiss. Suppress that here. The
@@ -190,9 +190,9 @@ final class HiDPIService: @unchecked Sendable {
         if let error = error {
             let msg = error[NSAppleScript.errorMessage] as? String ?? "Unknown error"
             if msg.contains("canceled") || msg.contains("Cancel") {
-                return "User canceled authorization"
+                return String(localized: "User canceled authorization")
             }
-            return "Administrator authorization failed: \(msg)"
+            return String(localized: "Administrator authorization failed: \(msg)")
         }
         return nil
     }

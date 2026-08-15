@@ -21,7 +21,13 @@ struct LanguageRow: View {
                 icon: "globe",
                 iconColor: .accentColor,
                 iconActive: true,
-                label: "Language",
+                // String(localized:) so the key is extracted. ExpandableRow resolves
+                // its label through NSLocalizedString at render time, but a variable
+                // is invisible to Xcode's string extraction — "Language" never
+                // reached the catalog, so the lookup had nothing to find and the row
+                // stayed English on a Chinese system. Every other caller of this row
+                // already does it this way.
+                label: String(localized: "Language"),
                 subtitle: AppLanguage.current.title,
                 isExpanded: $expanded
             )

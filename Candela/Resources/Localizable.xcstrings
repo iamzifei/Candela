@@ -68,6 +68,38 @@
         }
       }
     },
+    "%@ (Default)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@（默认）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@（預設）"
+          }
+        }
+      }
+    },
+    "%@ (low resolution)" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@（低分辨率）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@（低解析度）"
+          }
+        }
+      }
+    },
     "%@ color" : {
       "localizations" : {
         "zh-Hans" : {
@@ -252,6 +284,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "調整可能影響 HDR 內容！"
+          }
+        }
+      }
+    },
+    "Administrator authorization failed: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理员授权失败：%@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理者授權失敗：%@"
           }
         }
       }
@@ -1400,6 +1448,22 @@
         }
       }
     },
+    "Failed to create AppleScript" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建 AppleScript 失败"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立 AppleScript 失敗"
+          }
+        }
+      }
+    },
     "Failed to create virtual display. Please try again." : {
       "localizations" : {
         "zh-Hans" : {
@@ -1412,6 +1476,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "建立虛擬顯示器失敗，請重試。"
+          }
+        }
+      }
+    },
+    "Failed to generate plist data" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生成 plist 数据失败"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "產生 plist 資料失敗"
           }
         }
       }
@@ -1444,6 +1524,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更新虛擬顯示器失敗，請重試。"
+          }
+        }
+      }
+    },
+    "Failed to write temp file: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写入临时文件失败：%@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寫入暫存檔失敗：%@"
           }
         }
       }
@@ -1862,6 +1958,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保持亮度差異"
+          }
+        }
+      }
+    },
+    "Language" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語言"
           }
         }
       }
@@ -3287,6 +3399,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "用亮度鍵控制外接顯示器"
+          }
+        }
+      }
+    },
+    "User canceled authorization" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已取消授权"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已取消授權"
           }
         }
       }
