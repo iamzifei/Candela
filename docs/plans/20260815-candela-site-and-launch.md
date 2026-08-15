@@ -3,7 +3,7 @@
 **目标**：把 `docs/` 从「Crisp 的站点」改造成 Candela 自己的双语站点，配齐 SEO 文章与真实素材，
 并让 README 有 banner / demo。
 
-**非目标**：不做自定义域名（`candela.app` 未注册，先用 GitHub Pages）；不做 blog 系统；
+**非目标**：不注册 `candela.app`（站点走已有的 `zifei.info`）；不做 blog 系统；
 不为 SEO 写凑数的长尾页。
 
 ---
@@ -46,13 +46,13 @@
 **验收**：每张图里出现的是 Candela 当前的卡片式面板，不是 Crisp 旧界面。
 
 ### S3 — 站点骨架 ✅ 完成
-- [ ] `docs/styles.css` 沿用（它是通用的，无品牌字样）→ 核对后决定
-- [ ] `docs/index.html` 重写（EN）
-- [ ] `docs/zh/index.html`（简中）
-- [ ] 语言切换：顶部切换链接 + 首访 `navigator.language` 自动跳转（**默认英文**；
+- [x] 样式表**重写**（`site/styles.css`），没有沿用上游的视觉
+- [x] `docs/index.html` 重写（EN）
+- [x] `docs/zh/index.html`（简中）
+- [x] 语言切换：顶部切换链接 + 首访 `navigator.language` 自动跳转（**默认英文**；
       跳转结果写 localStorage，手动选择后不再自动跳，否则用户永远回不到英文页）
-- [ ] 顶部固定：下载按钮 + Ko-fi（https://ko-fi.com/iamzifei）
-- [ ] `sitemap.xml`、`robots.txt`、canonical、hreflang 全部指向 iamzifei/Candela
+- [x] 顶部固定：下载按钮 + Ko-fi（https://ko-fi.com/iamzifei）
+- [x] `sitemap.xml`、`robots.txt`、canonical、hreflang 全部指向 **zifei.info/Candela**（见下方域名说明）
 
 ### S4 — 文章 ✅ 完成（6 页 × 2 语言 = 12 页）
 | # | slug | 目标关键词 |
@@ -72,15 +72,10 @@
 - 不写 Candela 做不到的事；**竞品对比只写可验证的事实**（价格、许可、是否开源）
 
 ### S5 — README ✅ 完成
-- [ ] banner 图 / demo
-- [ ] 中英切换（`README.md` + `README.zh-Hans.md`，顶部互链）
-- [ ] 修掉 `macOS 14+` 徽章（**实际是 macOS 26 only**，现在是错的）
-- [ ] 保留对上游 Crisp 的署名
-
-### S6 — 发布
-- [ ] 开 GitHub Pages（main / docs）
-- [ ] `CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes.md --publish`
-- [ ] 验证：`spctl` 判 accepted、`brew install --cask iamzifei/tap/candela` 能装
+- [x] banner 图 / demo
+- [x] 中英切换（`README.md` + `README.zh-Hans.md`，顶部互链）
+- [x] 修掉 `macOS 14+` 徽章（**实际是 macOS 26 only**，现在是错的）
+- [x] 保留对上游 Crisp 的署名
 
 ## 上线状态（2026-08-15 实测）
 
