@@ -102,6 +102,49 @@ canonical / hreflang / og:url / JSON-LD 全部已指向 zifei.info——
 - [ ] `CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes.md --publish`
 - [ ] 验证 `spctl` 判 accepted、`brew install --cask iamzifei/tap/candela` 能装
 
+## S7 — 视觉方向改为 kami + 杂志编排（2026-08-15 下午）
+
+参考 [mole.fit](https://mole.fit/) 与 kami（紙）设计系统。**版面语言按 kami，
+苹果规范只取行为与无障碍那部分**——两者争的不是同一件事。
+
+| 做了什么 | 为什么 |
+|---|---|
+| 浮动药丸导航（sticky、纯色纸底 + 细边） | kami 禁 `backdrop-filter`；纸上的报头本来就是不透明的 |
+| 编号栏目标签 `01 ·` | craft floor 允许「序列本身带信息」的编号；长页面上它告诉读者位置 |
+| 图文左右交替行 + 带 ❖ 的分隔线 | 原来是整墙散文；证据挨着主张，交替避免六条变成一个可以直接划过去的图案 |
+| 正文改短条目 | 同上 |
+| 截图转 WebP（1.6MB → 44K，37×） | 首屏那张是 LCP，原先还标了 lazy，导致最重要的图最后才到 |
+
+### 三个必须记住的技术坑
+
+1. **中文栈里宋体在前 → 拉丁字母是宋体渲染的**（细、小）。「macOS」比旁边的汉字小一号就是这个原因。
+   拉丁字体必须排在 CJK 前面，并 `size-adjust: 112%`——
+   CJK 字形填满 em 框，拉丁只占 x-height + ascender，同样字号下视觉上就是小。
+2. **`ch` 是「0」的宽度，是拉丁单位。** 用它给中文标题设 measure，会把标题压成窄窄的四行。
+   中文要用 `em`。
+3. **Markdown 里单独一行的图片仍是 inline**，mistune 会把 `<figure>` 包进 `<p>`。
+   这是无效 HTML（浏览器会强行断开），并且**静默地让所有针对 figure 的兄弟选择器失效**。
+
+### 一个流程坑（害我误判两次）
+
+「轮询 URL 直到出现某字符串」在**字符串本来就在**时会立刻通过。
+只改了 HTML 时去等 CSS 哈希 → 循环秒过 → 下一张截图拍的是上一次部署。
+据此我先后判定「某条 CSS 规则没生效」和「某个选择器没匹配」，**两条都是错的**。
+已改为 `scripts/wait-for-deploy.sh`，按 commit SHA 等 Actions 的 Pages 部署。
+（注意：**不能用 `repos/*/pages/builds/latest`**，那是旧的分支构建 API，
+在走 Actions 部署的仓库上会一直报上一个 commit；也不能用
+`--workflow "pages build and deployment"`，那个动态 workflow 在仓库里没有文件。）
+
+### 已验证 / 未验证
+
+**实测**：`.hero + .shot` 匹配成功、`max-height` 计算值 623.76px = 46vh；
+下载按钮 `44px` 高（苹果触控目标）；桌面两栏 `420px 420px`；
+浅色最低对比度 4.92:1、深色 5.54:1；CI 已转绿。
+
+**未验证**：**真实手机视口**。`resize_window` 报成功但 `innerWidth` 仍是 2323，
+窗口没有真的缩小；浏览器标签页在这一轮里多次注入超时。
+断点（760 / 480）、44px 目标、安全区、窄屏单列都写了，但没在真机宽度下看过。
+
 ## HUMAN QUEUE
 
 | # | 事项 | 卡住什么 |
@@ -109,3 +152,4 @@ canonical / hreflang / og:url / JSON-LD 全部已指向 zifei.info——
 | 1 | **撤销并重发 app 专用密码**（appleid.apple.com）——它出现在 2026-08-15 的对话记录里 | 安全，非阻塞 |
 | 2 | **录一段真人操作的 demo**（拖亮度滑条、切分辨率、下钻返回）——合成事件进不了面板命中区。已有的 `docs/tour.gif` 是页面序列合成的，能表现结构但没有真实交互 | README / 首页的动态素材 |
 | 3 | 决定要不要注册 `candela.app` 域名 | 只影响 canonical，Pages 可先上 |
+| 4 | **用手机打开 https://zifei.info/Candela/ 看一眼**——我这边窗口缩不下去，手机版式始终没验到 | 移动端 |
