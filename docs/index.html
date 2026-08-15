@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=2d1eeff6">
+<link rel="stylesheet" href="styles.css?v=9ac7ad37">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
  "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
@@ -79,36 +79,81 @@ work on every display, presets, and virtual screens.</p>
 </div>
 
 <p><figure class="shot"><img src="shots/panel-root.webp" alt="The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings." width="1380" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.</figcaption></figure></p>
-<h2 id="what-macos-leaves-out">What macOS leaves out</h2>
-<p>Plug a monitor into a Mac and three things stop working the way they do on the
-built-in display. The brightness keys adjust nothing. The resolution list offers a
-handful of blurry options and hides the sharp ones. And there is no way to move every
-display at once, so a dim room means walking a slider across two or three panels.</p>
-<p>Candela puts all three back, and does it in a panel that behaves like Control Centre
-rather than a preferences window.</p>
-<div class="entries">
+<p><span class="sect-label">01 · What macOS leaves out</span></p>
+<h2 id="three-things-stop-working">Three things stop working</h2>
+<p class="sect-lede">Plug a monitor into a Mac and the brightness keys adjust nothing, the resolution
+list offers a handful of blurry options and hides the sharp ones, and there is no way
+to move every display at once. Candela puts all three back, in a panel that behaves
+like Control Centre rather than a preferences window.</p>
 
+<div class="row">
+<figure class="row-figure"><img src="shots/panel-root.webp" alt="Candela's panel: each connected display with its own brightness slider, and a Combined slider driving all of them" width="1380" height="1482" loading="lazy" decoding="async"></figure>
+<div>
 <h3>Brightness that reaches the backlight</h3>
-<p>DDC/CI over the video cable, the same channel the monitor's own buttons use. Displays that refuse DDC fall back to gamma dimming, and the panel says which one you are getting.</p>
 
-<h3>Brightness keys, on any display</h3>
-<p>F1 and F2 can follow the pointer, drive every display, drive them as one, or drive only the ones you pick.</p>
-
-<h3>Sharp HiDPI on any monitor</h3>
-<p>The scaled resolutions macOS hides on third-party displays, including the crisp ones a 1440p or 4K panel is capable of.</p>
-
-<h3>Displays that match each other</h3>
-<p>One slider for the whole desk, with a per-display floor you calibrate by eye so nothing goes black while its neighbour is still lit.</p>
-
-<h3>Presets</h3>
-<p>Save a whole desk — resolutions, brightness, arrangement — and restore it in one click.</p>
-
-<h3>Virtual displays and Sidecar</h3>
-<p>Create a virtual screen for recording or remote work, and connect an iPad as an extra display without opening System Settings.</p>
-
+<ul>
+<li>DDC/CI over the video cable — the same channel the monitor's own buttons use</li>
+<li>Displays that refuse DDC fall back to gamma dimming, marked <em>Software</em> so you know</li>
+<li>Volume too, on monitors that answer for it</li>
+</ul>
+</div>
 </div>
 
-<h2 id="free-means-free">Free means free</h2>
+<div class="row">
+<figure class="row-figure"><img src="shots/panel-settings.webp" alt="Candela's settings, showing the brightness-key row and its current target" width="1380" height="934" loading="lazy" decoding="async"></figure>
+<div>
+<h3>Brightness keys, on any display</h3>
+
+<ul>
+<li>Follow the pointer, drive every display, or drive them all as one</li>
+<li>Or only the displays you pick, leaving a TV or a colour-critical panel alone</li>
+<li>One Accessibility permission, no restart</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img src="shots/panel-allResolutions.webp" alt="Candela's full resolution list for one display, with the sharp modes marked" width="1380" height="1708" loading="lazy" decoding="async"></figure>
+<div>
+<h3>Sharp HiDPI on any monitor</h3>
+
+<ul>
+<li>The 2×-rendered modes macOS hides on third-party displays</li>
+<li>A 1440p or 4K panel becomes readable <em>and</em> sharp, instead of one or the other</li>
+<li>Refresh rate on the same page, so a scaled mode cannot quietly cost you 60 Hz</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img src="shots/panel-display.webp" alt="A display's own page in Candela, with the combined-brightness floor control" width="1380" height="1482" loading="lazy" decoding="async"></figure>
+<div>
+<h3>Displays that match each other</h3>
+
+<ul>
+<li>One slider for the whole desk</li>
+<li>Plus a floor you calibrate by eye, per display, because the same percentage does
+not make two panels emit the same light</li>
+<li>Nothing goes black while its neighbour is still lit</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img src="shots/panel-tools.webp" alt="Candela's tools page: arrangement, virtual displays and Sidecar" width="1380" height="624" loading="lazy" decoding="async"></figure>
+<div>
+<h3>Presets, arrangement, virtual screens</h3>
+
+<ul>
+<li>Save a whole desk — resolutions, brightness, arrangement — and restore it in a click</li>
+<li>Drag displays into position without opening System Settings</li>
+<li>Create a virtual screen for recording, or connect an iPad over Sidecar</li>
+</ul>
+</div>
+</div>
+
+<p><span class="sect-label">02 · What it costs</span></p>
+<h2 id="nothing-and-there-is-no-second-tier">Nothing, and there is no second tier</h2>
 <p>There is no Pro tier, no licence key, no daily limit, and no feature held back. The
 whole app is MIT-licensed and the source is on GitHub. If it is useful, <a href="https://ko-fi.com/iamzifei">Ko-fi</a> is
 there; nothing in the app changes if you never click it.</p>
@@ -119,20 +164,23 @@ for a lifetime licence, with the free build capped at 100 brightness adjustments
 day. Both are good software. Candela's answer to &quot;which features do I get&quot; is simply
 &quot;all of them&quot;.</p>
 <p><a href="candela-vs-betterdisplay.html">Read the full comparison →</a></p>
-<h2 id="guides">Guides</h2>
+<p><span class="sect-label">03 · Guides</span></p>
+<h2 id="start-here">Start here</h2>
 <ul>
 <li><a href="fix-blurry-external-monitor-macos.html">Fix a blurry external monitor on macOS</a> — why text looks soft on a 1440p or 4K display, and what actually sharpens it</li>
 <li><a href="enable-hidpi-mac.html">How to enable HiDPI on a Mac</a> — what HiDPI is, and how to turn it on for a display macOS will not offer it to</li>
 <li><a href="mac-brightness-keys-external-monitor.html">Make the brightness keys work on an external monitor</a> — F1 and F2 on any display, and the permission that makes it possible</li>
 <li><a href="sync-brightness-multiple-monitors-mac.html">Sync brightness across multiple monitors</a> — one slider for the whole desk, and how to make panels actually match</li>
 </ul>
-<h2 id="installing">Installing</h2>
+<p><span class="sect-label">04 · Installing</span></p>
+<h2 id="two-ways">Two ways</h2>
 <p>Download the DMG and drag Candela to Applications, or use Homebrew:</p>
 <pre><code>brew install --cask iamzifei/tap/candela
 </code></pre>
 <p>Candela is signed with a Developer ID and notarised by Apple, so it opens without
 right-click warnings.</p>
-<h2 id="requirements">Requirements</h2>
+<p><span class="sect-label">05 · Requirements</span></p>
+<h2 id="what-you-need">What you need</h2>
 <ul>
 <li>macOS 26 or later</li>
 <li>Apple silicon</li>

@@ -31,37 +31,77 @@ schema: |
 
 ![Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。](shots/panel-root.webp)
 
-## macOS 没给你的三件事
+<span class="sect-label">01 · macOS 没给你的</span>
 
-把显示器插到 Mac 上，有三件事立刻不像内置屏那样正常了：亮度键按下去毫无反应；
-分辨率列表只给几个发虚的选项，把清晰的那些藏了起来；想把整张桌子调暗，
-只能一块屏一块屏地拖滑条。
+## 有三件事立刻不正常
 
-Candela 把这三件事补回来，而且做成一个像控制中心那样的面板，不是一个设置窗口。
+<p class="sect-lede">把显示器插到 Mac 上：亮度键按下去毫无反应；分辨率列表只给几个发虚的选项，
+把清晰的那些藏了起来；想把整张桌子调暗，只能一块屏一块屏地拖。
+Candela 把这三件事补回来，而且做成一个像控制中心那样的面板，不是一个设置窗口。</p>
 
-<div class="entries">
-
+<div class="row">
+<figure class="row-figure"><img src="../shots/panel-root.webp" alt="Candela 面板：每块显示器各自的亮度滑条，以及驱动全部屏幕的合并滑条" width="1380" height="1482" loading="lazy" decoding="async"></figure>
+<div>
 <h3>调的是背光，不是画面</h3>
-<p>走视频线上的 DDC/CI，和显示器自己的按键是同一条通道。遇到拒绝 DDC 的屏幕会退回软件调光，并在面板上明确标出来。</p>
 
-<h3>亮度键作用于任意屏幕</h3>
-<p>F1／F2 可以跟随鼠标所在屏幕、作用于全部屏幕、把所有屏幕当成一块调，或者只调你指定的那几块。</p>
-
-<h3>任意显示器都能上 HiDPI</h3>
-<p>把 macOS 对第三方显示器隐藏的清晰缩放档位放出来，包括 1440p 与 4K 面板本来就能做到的那些。</p>
-
-<h3>让多块屏真的看起来一样</h3>
-<p>一条滑条管住整张桌子，再给每块屏校一个下限——不会出现一块还亮着、另一块已经全黑。</p>
-
-<h3>预设</h3>
-<p>把整套配置——分辨率、亮度、排列——存下来，一键恢复。</p>
-
-<h3>虚拟显示器与 Sidecar</h3>
-<p>建一块虚拟屏用于录制或远程，把 iPad 接成扩展屏，都不用打开系统设置。</p>
+- 走视频线上的 DDC/CI，和显示器自己的按键是同一条通道
+- 拒绝 DDC 的屏幕退回软件调光，并标出 *Software*，让你知道现在是哪一种
+- 支持 DDC 音量的显示器，音量也一起管
 
 </div>
+</div>
 
-## 免费就是免费
+<div class="row">
+<figure class="row-figure"><img src="../shots/panel-settings.webp" alt="Candela 的设置页，显示亮度键一行及其当前作用目标" width="1380" height="934" loading="lazy" decoding="async"></figure>
+<div>
+<h3>亮度键作用于任意屏幕</h3>
+
+- 跟随鼠标、作用于全部屏幕，或把所有屏幕当成一个整体
+- 也可以只作用于你指定的那几块，放过电视或色彩基准屏
+- 只需一个「辅助功能」权限，不用重启
+
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img src="../shots/panel-allResolutions.webp" alt="Candela 中某块显示器的完整分辨率列表，清晰档位已标出" width="1380" height="1708" loading="lazy" decoding="async"></figure>
+<div>
+<h3>任意显示器都能上 HiDPI</h3>
+
+- 放出 macOS 对第三方显示器隐藏的 2× 渲染档位
+- 1440p 或 4K 面板可以既看得清、又足够锐利，而不是二选一
+- 刷新率就在同一页，缩放档不会悄悄把 60 Hz 吃掉
+
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img src="../shots/panel-display.webp" alt="Candela 中某块显示器的详情页，含合并亮度下限校准" width="1380" height="1482" loading="lazy" decoding="async"></figure>
+<div>
+<h3>让多块屏真的看起来一样</h3>
+
+- 一条滑条管住整张桌子
+- 再加上每块屏用眼睛校一次的下限——同一个百分比并不会让两块面板发出同样的光
+- 不会出现一块还亮着、另一块已经全黑
+
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img src="../shots/panel-tools.webp" alt="Candela 的工具页：排列、虚拟显示器与 Sidecar" width="1380" height="624" loading="lazy" decoding="async"></figure>
+<div>
+<h3>预设、排列、虚拟屏</h3>
+
+- 把整套配置——分辨率、亮度、排列——存下来，一键恢复
+- 拖动显示器改变位置，不用打开系统设置
+- 建一块虚拟屏用于录制，或者把 iPad 接成扩展屏
+
+</div>
+</div>
+
+<span class="sect-label">02 · 它要多少钱</span>
+
+## 不要钱，也没有第二档
 
 没有 Pro 版，没有激活码，没有每日次数上限，也没有留一手的功能。整个 app 以 MIT 开源，
 代码在 GitHub 上。觉得有用的话 [Ko-fi] 在那儿；你永远不点，app 也不会有任何变化。
@@ -73,14 +113,18 @@ Candela 对「我能用到哪些功能」的回答就一个字：全部。
 
 [看完整对比 →](candela-vs-betterdisplay.html)
 
-## 指南
+<span class="sect-label">03 · 指南</span>
+
+## 从这里开始
 
 - [外接显示器发虚怎么修](fix-blurry-external-monitor-macos.html) —— 1440p / 4K 上字为什么糊，真正管用的是哪几步
 - [Mac 如何开启 HiDPI](enable-hidpi-mac.html) —— HiDPI 到底是什么，以及怎么给 macOS 不肯给的显示器打开它
 - [让亮度键能控制外接显示器](mac-brightness-keys-external-monitor.html) —— F1／F2 作用于任意屏幕，以及那一个必需的权限
 - [多块显示器亮度同步](sync-brightness-multiple-monitors-mac.html) —— 一条滑条管全部，以及怎么让不同面板真的看起来一致
 
-## 安装
+<span class="sect-label">04 · 安装</span>
+
+## 两种方式
 
 下载 DMG 拖进「应用程序」，或者用 Homebrew：
 
@@ -90,7 +134,9 @@ brew install --cask iamzifei/tap/candela
 
 Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「无法验证开发者」的拦截。
 
-## 系统要求
+<span class="sect-label">05 · 系统要求</span>
+
+## 你需要什么
 
 - macOS 26 或更新
 - Apple 芯片

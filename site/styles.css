@@ -95,11 +95,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Chinese wants a little tracking that Latin does not, and the font stack in the
-   other order. Scoped to the element rather than the page, so a Chinese phrase
-   inside an English sentence is not tracked out on its own. */
+/* Latin inside Chinese text was being drawn by Songti SC, because Songti was first
+   in the stack and it does contain Latin glyphs — thin, small, Song-style ones. That
+   is why "macOS" looked a size smaller than the characters beside it. The Latin face
+   goes first so it wins for Latin, and CJK falls through to Songti.
+   
+   It also has to be scaled up. A CJK glyph fills its em box; a Latin one occupies
+   only x-height plus ascender, so at the same nominal size it reads smaller. 112%
+   is what makes Charter's lowercase sit level with Songti's characters. */
+@font-face {
+  font-family: "Charter Mixed";
+  src: local("Charter"), local("Charter Roman"), local("Georgia");
+  size-adjust: 112%;
+}
 :lang(zh-Hans), :lang(zh-Hant), :lang(zh) {
-  font-family: var(--serif-cjk), var(--serif-en);
+  font-family: "Charter Mixed", var(--serif-cjk);
   letter-spacing: .35px;
   line-break: strict;
 }
@@ -113,19 +123,29 @@ a:hover { border-bottom-color: var(--blue); }
 
 /* ---------- masthead ---------- */
 
+/* A floating bar rather than a full-width band: it detaches from the page, which is
+   what lets a masthead stay available without becoming part of the reading surface.
+   Solid parchment and a hairline instead of a blur — kami rules out backdrop-filter,
+   and an opaque bar over paper is what a printed masthead does anyway. */
 .nav {
-  background: var(--parchment);
-  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: var(--s3);
+  z-index: 20;
+  padding: 0 var(--s4);
+  margin-bottom: calc(var(--s3) * -1);
 }
 
 .nav-inner {
   max-width: 62rem;
   margin: 0 auto;
-  padding: var(--s3) var(--s5);
+  padding: var(--s2) var(--s3) var(--s2) var(--s5);
   display: flex;
   align-items: center;
   gap: var(--s4);
   flex-wrap: wrap;
+  background: var(--parchment);
+  border: 1px solid var(--border);
+  border-radius: 999px;
 }
 
 .wordmark {
@@ -188,9 +208,9 @@ a:hover { border-bottom-color: var(--blue); }
 .wrap {
   max-width: var(--measure);
   margin: 0 auto;
-  padding: var(--section) var(--s5) var(--s12);
+  padding: calc(var(--section) + var(--s6)) var(--s5) var(--s12);
 }
-.wrap:has(> .hero) { max-width: 52rem; }
+.wrap:has(> .hero) { max-width: 58rem; }
 
 h1, h2, h3 {
   color: var(--ink);
@@ -343,15 +363,13 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 /* No eyebrow above the headline. The line it carried — free, open source — is in
    the note under the buttons, where it is one of several facts rather than a label
    the headline has to be introduced by. */
-.hero h1 { max-width: 22ch; margin-inline: auto; }
-/* CJK sets about twice as much meaning per character, so the same `ch` measure that
-   balances an English headline over two lines splits a Chinese one over three and
-   leaves a conjunction stranded at the end of a line. A narrower measure puts the
-   break at the clause instead. `balance` is also the wrong algorithm here: it
-   equalises line lengths without knowing where a Chinese phrase can be divided. */
+.hero h1 { max-width: 24ch; margin-inline: auto; }
+/* A `ch` is the width of a zero, so a measure set in `ch` is a Latin measure. Applied
+   to Chinese it collapsed the headline into a narrow four-line column. CJK characters
+   are a full em wide, so the same headline needs a measure counted in ems. */
 :lang(zh-Hans) .hero h1,
 :lang(zh-Hant) .hero h1 {
-  max-width: 15ch;
+  max-width: 17em;
   text-wrap: pretty;
 }
 .hero p {
@@ -413,6 +431,86 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   }
   .entries h3 { break-after: avoid; }
   .entries p { break-inside: avoid; }
+}
+
+/* ---------- magazine devices ---------- */
+
+/* A numbered running head above each section. Not decoration: on a page this long
+   the number is how a reader knows where they are and how much is left, which is the
+   one thing that earns a label above a heading. The heading still carries the
+   meaning; the number carries the position. */
+.sect-label {
+  display: block;
+  margin: var(--section) 0 var(--s2);
+  font-size: 12px;
+  letter-spacing: .8px;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+.sect-label + h2 { margin-top: 0; }
+.sect-lede {
+  margin: 0 0 var(--s8);
+  color: var(--ink-3);
+  max-width: 40rem;
+}
+
+/* Image and text side by side, alternating which side the picture takes. Reading a
+   column of prose is work; a page that puts the evidence next to the claim lets the
+   eye rest between them, and alternating stops six of them becoming a pattern the
+   reader scrolls past. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s12);
+  align-items: center;
+  padding: var(--s8) 0;
+}
+.row:nth-child(even) .row-figure { order: 2; }
+.row h3 { margin: 0 0 var(--s3); font-size: 19px; }
+.row ul { margin: 0; }
+.row li { font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+.row-figure { margin: 0; }
+.row-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+/* The divider between rows: a hairline with a mark set into it, the way a printed
+   page separates two items in the same sequence. */
+.row + .row { position: relative; }
+.row + .row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--border-soft);
+}
+.row + .row::after {
+  content: "❖";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  padding: 0 var(--s3);
+  background: var(--parchment);
+  color: var(--ink-4);
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: var(--s5);
+    padding: var(--s6) 0;
+  }
+  /* On one column the picture always leads: alternation is a two-column device, and
+     stacked it just makes every other item start with text for no reason. */
+  .row:nth-child(even) .row-figure { order: 0; }
+  .sect-label { margin-top: var(--section); }
 }
 
 /* ---------- colophon ---------- */
