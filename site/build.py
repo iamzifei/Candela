@@ -145,6 +145,17 @@ class Renderer(mistune.HTMLRenderer):
         return (f'<figure class="shot"><img src="{url}" alt="{alt}"{size} '
                 f'{loading} decoding="async">{cap}</figure>')
 
+    def paragraph(self, text: str) -> str:
+        # A figure is block-level, but an image alone on a line is still an inline in
+        # Markdown, so mistune wrapped every screenshot in a <p>. That is invalid —
+        # the browser closes the paragraph before the figure and opens another after
+        # it — and it silently breaks any sibling selector aimed at the figure, which
+        # is how a rule sizing the picture under the hero turned out to match nothing.
+        stripped = text.strip()
+        if stripped.startswith("<figure") and stripped.endswith("</figure>"):
+            return stripped + "\n"
+        return f"<p>{text}</p>\n"
+
     def block_code(self, code: str, info=None) -> str:
         return f'<pre><code>{html.escape(code)}</code></pre>\n'
 
