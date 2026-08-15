@@ -111,8 +111,11 @@ PLIST
 # changed on every build.
 xattr -cr "$APP"
 if [ -z "${CANDELA_SIGN_ID:-}" ]; then
+  # `|| true` is load-bearing: grep exits 1 when it matches nothing, and under
+  # `set -e` that kills the script here. CI has no certificate, so this turned
+  # every run of the release dry run red the moment cert auto-detection was added.
   CANDELA_SIGN_ID="$(security find-identity -v -p codesigning 2>/dev/null \
-      | grep -m1 -o '"Developer ID Application: [^"]*"' | tr -d '"')"
+      | grep -m1 -o '"Developer ID Application: [^"]*"' | tr -d '"' || true)"
 fi
 if [ -n "${CANDELA_SIGN_ID:-}" ]; then
   echo "==> Signing (Developer ID: $CANDELA_SIGN_ID, hardened runtime)…"

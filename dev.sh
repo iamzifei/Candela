@@ -63,8 +63,12 @@ if [ -n "${CANDELA_SIGN_ID:-}" ]; then
 else
     # -v filters to valid identities; a Developer ID cert is one, so this is safe here
     # (it is NOT safe for the self-signed case below, which -v excludes as untrusted).
+    # `|| true` is load-bearing: grep exits 1 when it matches nothing, and under
+    # `set -e` that kills the script at the assignment. Which means the ad-hoc
+    # fallback below — the whole point of the branch — was unreachable on any
+    # machine without a Developer ID certificate, including every contributor's.
     SIGN_ID="$(security find-identity -v -p codesigning 2>/dev/null \
-        | grep -m1 -o '"Developer ID Application: [^"]*"' | tr -d '"')"
+        | grep -m1 -o '"Developer ID Application: [^"]*"' | tr -d '"' || true)"
     if [ -z "$SIGN_ID" ] && security find-identity -p codesigning 2>/dev/null | grep -qF "Candela Dev"; then
         SIGN_ID="Candela Dev"
     fi
