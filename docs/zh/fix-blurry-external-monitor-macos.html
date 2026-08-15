@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mac 外接显示器发虚怎么修</title>
+<meta name="description" content="内置屏清清楚楚，外接显示器上的字却发虚。这是 macOS 在 1440p 和 4K 显示器上的既定行为，以及真正能让它变清晰的四步。">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/zh/fix-blurry-external-monitor-macos.html">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/fix-blurry-external-monitor-macos.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/fix-blurry-external-monitor-macos.html">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/fix-blurry-external-monitor-macos.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mac 外接显示器发虚怎么修">
+<meta property="og:description" content="内置屏清清楚楚，外接显示器上的字却发虚。这是 macOS 在 1440p 和 4K 显示器上的既定行为，以及真正能让它变清晰的四步。">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/zh/fix-blurry-external-monitor-macos.html">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card-zh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mac 外接显示器发虚怎么修">
+<meta name="twitter:description" content="内置屏清清楚楚，外接显示器上的字却发虚。这是 macOS 在 1440p 和 4K 显示器上的既定行为，以及真正能让它变清晰的四步。">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card-zh.png">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../styles.css">
+
+
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="../"><img src="../icon.png" alt="" width="26" height="26">Candela</a>
+    <nav class="nav-links">
+      <a href="../zh/candela-vs-betterdisplay.html">对比</a>
+      <a href="../zh/fix-blurry-external-monitor-macos.html" class="hide-sm">指南</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/fix-blurry-external-monitor-macos.html" hreflang="en">English</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">在 Ko-fi 支持</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1 id="mac-外接显示器发虚怎么修">Mac 外接显示器发虚怎么修</h1>
+<p><strong>先给结论：</strong> 你的 Mac 几乎肯定在用一个非整数倍的缩放驱动这块显示器——
+每个字先按一个尺寸画出来，再重采样到另一个尺寸。解法是给 macOS 一个它能按 2× 渲染、
+再干净缩小的分辨率，也就是 HiDPI；而在大多数第三方显示器上，macOS 默认不给你这个选项。</p>
+<p>这不是线的问题，也不是你的眼睛。好显示器配好线一样会这样，
+而且这是 Mac 用户对非苹果显示器最集中的抱怨。</p>
+<h2 id="为什么会这样">为什么会这样</h2>
+<p>macOS 把界面按逻辑尺寸的两倍渲染，再把这张图缩放到面板上。
+Retina 的 MacBook 屏幕恰好是逻辑分辨率的 2×，缩放比是 1:1，每个像素都落在像素上。</p>
+<p>27 寸 1440p 显示器上，macOS 认定它是普通密度，按 1× 绘制。字并没有被重采样，
+所以严格说是「清晰」的，但又小又细——因为这些字形本来就是为 2× 设计的。
+当你为了让界面变大而选一个「看起来像 1920×1080」的缩放档，
+macOS 会按 3840×2160 渲染再压进 2560×1440——这是个分数比，
+每个字的笔画边缘都落在像素之间。你看到的发虚就来自这里。</p>
+<p>4K 显示器是同一个问题的另一面：清晰档位是「看起来像 1920×1080」，很多人嫌太大，
+于是选了缩放档，把买这块面板换来的清晰度又丢掉了。</p>
+<h2 id="真正管用的四步-按顺序">真正管用的四步，按顺序</h2>
+<h3 id="1-先确认线材带宽够">1. 先确认线材带宽够</h3>
+<p>改任何设置之前：4K 显示器因为线材不够而跑在 30 Hz，观感也常被描述成「发虚」。
+在「系统设置 → 显示器」里确认刷新率是显示器支持的数值。
+如果 60 Hz 的面板显示为 30 Hz，先换线，别的都先别动。</p>
+<h3 id="2-用面板能精确渲染的分辨率">2. 用面板能精确渲染的分辨率</h3>
+<p>4K 显示器上，「看起来像 1920×1080」是像素完美的档位。1440p 上，原生分辨率就是清晰那档。
+如果这两者之一你能接受，到这里就结束了，不需要任何软件。</p>
+<p>多数人会觉得一个太大一个太小。下一步就是为这种情况准备的。</p>
+<h3 id="3-打开-hidpi-缩放">3. 打开 HiDPI 缩放</h3>
+<p>HiDPI 会给 macOS 一些它平时不对第三方显示器开放的中间档位：
+1440p 显示器可以跑「看起来像 1706×960」或「2048×1152」，同时仍然按 2× 渲染、按干净比例缩放。
+字在你真正看得舒服的尺寸下依然锐利。</p>
+<p>macOS 没有给这件事任何开关。Candela 加了一个：</p>
+<p><figure class="shot"><img src="../shots/panel-display.png" alt="Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。</figcaption></figure></p>
+<p>打开 Candela 的面板，点进你的显示器，打开 <strong>Smooth scaling</strong>。
+macOS 会要求管理员密码，屏幕会闪一次——那是显示模式列表正在重建。
+之后 <strong>Resolution</strong> 里会出现新的缩放档位，挑一个，拿一段正文对比一下。</p>
+<p><a href="enable-hidpi-mac.html">完整 HiDPI 指南 →</a></p>
+<h3 id="4-检查显示器自己的锐化">4. 检查显示器自己的锐化</h3>
+<p>很多显示器出厂时把 <em>Sharpness</em>（锐度）设在中值以上，这会给文字加上一圈光晕，
+观感恰恰是「糊」。在显示器的 OSD 菜单里把锐度调回中间值。
+顺便，如果显示器有 <em>PC</em> 或 <em>sRGB</em> 输入模式，就用它——
+面向电视的模式会做额外处理，让文字更软。</p>
+<h2 id="没用的做法">没用的做法</h2>
+<p><strong>关掉字体平滑。</strong> <code>defaults write -g AppleFontSmoothing -int 0</code> 流传很广，
+但它主要是让字变细，而不是变清晰。它治的是「渲染倍率不对」的症状。
+先把分辨率弄对；如果之后你仍嫌字太细，再考虑它。</p>
+<p><strong>再换一根线。</strong> 刷新率对了之后，线就不是你的问题了。</p>
+<p><strong>把分辨率开到超过原生。</strong> 1440p 面板就是 1440 行像素。
+渲染更多不会凭空产生细节，只会吃 GPU，还可能引入它自己的重采样。</p>
+<h2 id="怎么确认修好了">怎么确认修好了</h2>
+<p>在外接屏上放一个文字密集的窗口，盯住小写字母的横向笔画——「e」的横杠、「r」的顶端。
+分数缩放下，这些笔画是灰的，而且每个字母略有不同；干净缩放下，它们锐利且完全一致。</p>
+<p>再对这块屏截图。如果 PNG 的像素尺寸正好是「看起来像」那个分辨率的两倍，
+说明你在按 2× 渲染并干净缩放。</p>
+<h2 id="相关">相关</h2>
+<ul>
+<li><a href="enable-hidpi-mac.html">Mac 如何开启 HiDPI</a></li>
+<li><a href="mac-brightness-keys-external-monitor.html">让亮度键能控制外接显示器</a></li>
+<li><a href="candela-vs-betterdisplay.html">Candela、BetterDisplay、Lunar 对比</a></li>
+</ul>
+<p><a href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 Candela</a> —— 免费、开源、macOS 26。</p>
+
+</main>
+<footer class="site-footer">
+  <p>Candela 是 MIT 许可下的自由软件。 Fork 自同为 MIT 许可的 Crisp。
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+</script>
+</body>
+</html>

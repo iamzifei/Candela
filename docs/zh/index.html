@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candela — macOS 免费显示器控制工具</title>
+<meta name="description" content="开源的 macOS 菜单栏工具：外接显示器的 HiDPI 清晰缩放、DDC 硬件亮度、多屏亮度同步、预设与虚拟显示器。全部功能免费，没有 Pro 版。">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/zh/">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Candela — macOS 免费显示器控制工具">
+<meta property="og:description" content="开源的 macOS 菜单栏工具：外接显示器的 HiDPI 清晰缩放、DDC 硬件亮度、多屏亮度同步、预设与虚拟显示器。全部功能免费，没有 Pro 版。">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/zh/">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card-zh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Candela — macOS 免费显示器控制工具">
+<meta name="twitter:description" content="开源的 macOS 菜单栏工具：外接显示器的 HiDPI 清晰缩放、DDC 硬件亮度、多屏亮度同步、预设与虚拟显示器。全部功能免费，没有 Pro 版。">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card-zh.png">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
+ "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+ "url":"https://iamzifei.github.io/Candela/zh/",
+ "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
+ "screenshot":"https://iamzifei.github.io/Candela/shots/panel-root.png",
+ "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
+ "isAccessibleForFree":true}
+</script>
+
+
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="../"><img src="../icon.png" alt="" width="26" height="26">Candela</a>
+    <nav class="nav-links">
+      <a href="../zh/candela-vs-betterdisplay.html">对比</a>
+      <a href="../zh/fix-blurry-external-monitor-macos.html" class="hide-sm">指南</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/" hreflang="en">English</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">在 Ko-fi 支持</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="hero">
+<span class="kicker">免费 · 开源</span>
+
+<h1 id="macos-藏起来的显示器设置-都在这一个面板里">macOS 藏起来的显示器设置，都在这一个面板里</h1>
+<p>外接显示器在 Mac 上被砍掉的那些控制——真正的 DDC 硬件亮度、清晰的 HiDPI 缩放、
+能作用于任意屏幕的亮度快捷键、预设、虚拟显示器——Candela 全部补回来。</p>
+<div class="actions">
+<a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
+<a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">在 Ko-fi 支持</a>
+</div>
+
+<p class="note">macOS 26 · Apple 芯片 · MIT 许可 · 没有 Pro 版，不需要激活码</p>
+</div>
+
+<p><figure class="shot"><img src="../shots/panel-root.png" alt="Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。" loading="lazy" decoding="async"><figcaption>Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。</figcaption></figure></p>
+<h2 id="macos-没给你的三件事">macOS 没给你的三件事</h2>
+<p>把显示器插到 Mac 上，有三件事立刻不像内置屏那样正常了：亮度键按下去毫无反应；
+分辨率列表只给几个发虚的选项，把清晰的那些藏了起来；想把整张桌子调暗，
+只能一块屏一块屏地拖滑条。</p>
+<p>Candela 把这三件事补回来，而且做成一个像控制中心那样的面板，不是一个设置窗口。</p>
+<div class="grid">
+<div class="card">
+<h3>调的是背光，不是画面</h3>
+<p>走视频线上的 DDC/CI，和显示器自己的按键是同一条通道。遇到拒绝 DDC 的屏幕会退回软件调光，并在面板上明确标出来。</p>
+</div>
+<div class="card">
+<h3>亮度键作用于任意屏幕</h3>
+<p>F1／F2 可以跟随鼠标所在屏幕、作用于全部屏幕、把所有屏幕当成一块调，或者只调你指定的那几块。</p>
+</div>
+<div class="card">
+<h3>任意显示器都能上 HiDPI</h3>
+<p>把 macOS 对第三方显示器隐藏的清晰缩放档位放出来，包括 1440p 与 4K 面板本来就能做到的那些。</p>
+</div>
+<div class="card">
+<h3>让多块屏真的看起来一样</h3>
+<p>一条滑条管住整张桌子，再给每块屏校一个下限——不会出现一块还亮着、另一块已经全黑。</p>
+</div>
+<div class="card">
+<h3>预设</h3>
+<p>把整套配置——分辨率、亮度、排列——存下来，一键恢复。</p>
+</div>
+<div class="card">
+<h3>虚拟显示器与 Sidecar</h3>
+<p>建一块虚拟屏用于录制或远程，把 iPad 接成扩展屏，都不用打开系统设置。</p>
+</div>
+</div>
+
+<h2 id="免费就是免费">免费就是免费</h2>
+<p>没有 Pro 版，没有激活码，没有每日次数上限，也没有留一手的功能。整个 app 以 MIT 开源，
+代码在 GitHub 上。觉得有用的话 <a href="https://ko-fi.com/iamzifei">Ko-fi</a> 在那儿；你永远不点，app 也不会有任何变化。</p>
+<p>这也是和同类工具最主要的区别。<a href="https://betterdisplay.pro/">BetterDisplay</a> 的免费版相当能打，但把灵活 HiDPI 缩放、
+虚拟屏、断开显示器、高级快捷键留给了 21.99 美元的 Pro。<a href="https://lunar.fyi/">Lunar</a> 同样开源，
+终身授权 23 美元，免费版限制为每天 100 次亮度调节。两个都是好软件。
+Candela 对「我能用到哪些功能」的回答就一个字：全部。</p>
+<p><a href="candela-vs-betterdisplay.html">看完整对比 →</a></p>
+<h2 id="指南">指南</h2>
+<ul>
+<li><a href="fix-blurry-external-monitor-macos.html">外接显示器发虚怎么修</a> —— 1440p / 4K 上字为什么糊，真正管用的是哪几步</li>
+<li><a href="enable-hidpi-mac.html">Mac 如何开启 HiDPI</a> —— HiDPI 到底是什么，以及怎么给 macOS 不肯给的显示器打开它</li>
+<li><a href="mac-brightness-keys-external-monitor.html">让亮度键能控制外接显示器</a> —— F1／F2 作用于任意屏幕，以及那一个必需的权限</li>
+<li><a href="sync-brightness-multiple-monitors-mac.html">多块显示器亮度同步</a> —— 一条滑条管全部，以及怎么让不同面板真的看起来一致</li>
+</ul>
+<h2 id="安装">安装</h2>
+<p>下载 DMG 拖进「应用程序」，或者用 Homebrew：</p>
+<pre><code>brew install --cask iamzifei/tap/candela
+</code></pre>
+<p>Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「无法验证开发者」的拦截。</p>
+<h2 id="系统要求">系统要求</h2>
+<ul>
+<li>macOS 26 或更新</li>
+<li>Apple 芯片</li>
+<li>亮度键需要一个「辅助功能」权限，第一次启用该功能时 macOS 会主动询问</li>
+<li>外接显示器的硬件亮度需要显示器自身的 OSD 菜单里开启 DDC/CI。
+多数显示器出厂即开启；少数机型以及部分 USB-C 扩展坞不会透传这个通道</li>
+</ul>
+
+</main>
+<footer class="site-footer">
+  <p>Candela 是 MIT 许可下的自由软件。 Fork 自同为 MIT 许可的 Crisp。
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+</script>
+</body>
+</html>

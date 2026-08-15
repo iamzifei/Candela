@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mac 亮度键控制外接显示器</title>
+<meta name="description" content="Mac 接了外接显示器后 F1／F2 毫无反应。这是 macOS 的既定行为，以及如何让亮度键作用于任意显示器、按了还不动时该查什么。">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/zh/mac-brightness-keys-external-monitor.html">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/mac-brightness-keys-external-monitor.html">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mac 亮度键控制外接显示器">
+<meta property="og:description" content="Mac 接了外接显示器后 F1／F2 毫无反应。这是 macOS 的既定行为，以及如何让亮度键作用于任意显示器、按了还不动时该查什么。">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/zh/mac-brightness-keys-external-monitor.html">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card-zh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mac 亮度键控制外接显示器">
+<meta name="twitter:description" content="Mac 接了外接显示器后 F1／F2 毫无反应。这是 macOS 的既定行为，以及如何让亮度键作用于任意显示器、按了还不动时该查什么。">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card-zh.png">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../styles.css">
+
+
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="../"><img src="../icon.png" alt="" width="26" height="26">Candela</a>
+    <nav class="nav-links">
+      <a href="../zh/candela-vs-betterdisplay.html">对比</a>
+      <a href="../zh/fix-blurry-external-monitor-macos.html" class="hide-sm">指南</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html" hreflang="en">English</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">在 Ko-fi 支持</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1 id="让亮度键能控制外接显示器">让亮度键能控制外接显示器</h1>
+<p><strong>先给结论：</strong> macOS 只把亮度键送给内置屏。没有东西坏掉——
+只是从这两个键到第三方显示器之间，系统里根本没有那条通路。
+需要一个 app 拦下这次按键，把它翻译成显示器听得懂的 DDC 指令，
+而拦截按键需要一个「辅助功能」权限。</p>
+<h2 id="为什么按了没反应">为什么按了没反应</h2>
+<p>亮度键不是普通按键。它们产生的是系统级事件，macOS 内部处理后直接交给内置面板的背光驱动。
+外接显示器的背光不在这条路上：它在显示线的另一端，由 DDC/CI 控制——
+一套和视频信号跑在同一根线上的小型指令协议。</p>
+<p>所以在 Mac mini 或合盖使用的 MacBook 上，这两个键根本无处可去；
+在开盖的 MacBook 上，它们调的是你没在看的那块笔记本屏。</p>
+<h2 id="设置">设置</h2>
+<ol>
+<li><a href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 Candela</a>，从菜单栏打开面板。</li>
+<li>进入 <strong>Settings</strong>。</li>
+<li>打开 <strong>Use brightness keys on external displays</strong>。</li>
+<li>macOS 会请求「辅助功能」权限。授予它——这正是让 app 在系统消费掉按键之前看到它的机制。
+不需要重启。</li>
+</ol>
+<p><figure class="shot"><img src="../shots/panel-settings.png" alt="Candela 的设置页，显示亮度键一行及其当前作用目标。" loading="lazy" decoding="async"><figcaption>Candela 的设置页，显示亮度键一行及其当前作用目标。</figcaption></figure></p>
+<p>授权之后，这一行会变成作用目标选择器。</p>
+<h2 id="选择亮度键控制谁">选择亮度键控制谁</h2>
+<p>这件事没有唯一正确答案，所以 Candela 给了四种，并记住你的选择。</p>
+<p><strong>跟随鼠标。</strong> 调整鼠标当前所在的那块屏。精确，也是「几块屏各司其职」的桌面上的合理默认——
+代价是按之前得先把鼠标移过去。</p>
+<p><strong>全部已连接显示器。</strong> 每块屏都按相同步长移动。简单，直到它们开始漂移：
+先到 0 的那块停住，其他继续走，之后再也回不到一致。</p>
+<p><strong>所有屏幕作为一个整体。</strong> 亮度键移动的是一个合并后的总量，每块屏被驱动到它在其中的对应位置。
+如果你想让整张桌子作为一个单位一起亮起、一起暗下去，选这个——
+两端都锁在一起，不会分叉。它也会遵循
+<a href="sync-brightness-multiple-monitors-mac.html">多显示器亮度同步</a>里讲的逐屏校准。</p>
+<p><strong>仅指定的显示器。</strong> 你自己挑哪些屏参与。适合桌上有一台电视，
+或者有一块你绝不希望被碰的色彩基准屏。</p>
+<h2 id="按了还是没反应">按了还是没反应</h2>
+<p>有两种完全不同的故障，从外面看一模一样，按顺序排查。</p>
+<p><strong>权限给了但毫无动静。</strong> 打开「系统设置 → 隐私与安全性 → 辅助功能」。
+如果 Candela 在列表里、开关也是开的，键却仍然是死的，那这条记录已经失效了——
+macOS 把授权绑定在<strong>当初请求它的那一份已签名的 app</strong> 上，
+旧版本留下的记录和现在这一份对不上。用「−」把 Candela 从列表里删掉，
+再重新启用该功能，让它重新询问一次。</p>
+<p><strong>一块屏有反应，另一块没有。</strong> 那不是键盘问题，是 DDC 问题，见下一节。</p>
+<p><strong>还有别的 app 也在拦这两个键。</strong> MonitorControl、BetterDisplay、Lunar 都会拦。
+两个同时跑就会出现跳两格或者互相打架。只留一个。</p>
+<h2 id="某块显示器完全不理会亮度">某块显示器完全不理会亮度</h2>
+<p>有些显示器拒绝 DDC/CI。Candela 检测到拒绝后会退回软件调光，
+并在面板上把那块屏标成 <strong>Software</strong>，
+让你能区分「背光动了」和「画面变暗了」。</p>
+<p><figure class="shot"><img src="../shots/panel-root.png" alt="Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。" loading="lazy" decoding="async"><figcaption>Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。</figcaption></figure></p>
+<p>按发生概率从高到低试三件事：</p>
+<ol>
+<li><strong>在显示器自己的菜单里打开 DDC/CI。</strong> 部分型号出厂是关的。
+通常在 <em>Settings</em>、<em>Other Settings</em> 或 <em>OSD</em> 下，各家叫法不同。</li>
+<li><strong>把显示器直连 Mac。</strong> 扩展坞和 hub 是最常见的原因：
+很多能完美传视频，却把 DDC 通道丢了。直连能调、过坞不能调，答案就是坞。</li>
+<li><strong>换显示器上的另一个接口。</strong> 有些显示器的 DDC 在 DisplayPort 或 USB-C 上可用，
+HDMI 上不行。</li>
+</ol>
+<p>如果都不行，软件调光仍然能让这块屏变暗——它改的是画面而不是背光，
+所以低亮度下黑位会略微上浮，但仍是一个可用的亮度控制。</p>
+<h2 id="相关">相关</h2>
+<ul>
+<li><a href="sync-brightness-multiple-monitors-mac.html">多块显示器亮度同步</a></li>
+<li><a href="fix-blurry-external-monitor-macos.html">Mac 外接显示器发虚怎么修</a></li>
+<li><a href="candela-vs-betterdisplay.html">Candela、BetterDisplay、Lunar 对比</a></li>
+</ul>
+
+</main>
+<footer class="site-footer">
+  <p>Candela 是 MIT 许可下的自由软件。 Fork 自同为 MIT 许可的 Crisp。
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+</script>
+</body>
+</html>

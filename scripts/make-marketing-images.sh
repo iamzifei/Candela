@@ -1,0 +1,110 @@
+#!/bin/bash
+set -euo pipefail
+
+# Produces every image the website and the README use that is not a raw screenshot:
+# the site icon, the two Open Graph cards, and the README banner.
+#
+# Reproducible on purpose. The previous set was inherited from the upstream project
+# and showed its interface and its name — the kind of thing that survives a rename
+# because nobody re-opens a PNG to check what is in it. Regenerating from the current
+# screenshots means the marketing images cannot drift from the app the way a
+# hand-made file does.
+#
+# Run scripts/capture-screenshots.sh first; this composites its output.
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SHOTS="$ROOT/docs/shots"
+OUT="$ROOT/docs"
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
+
+command -v magick >/dev/null || { echo "error: ImageMagick not installed (brew install imagemagick)" >&2; exit 1; }
+[ -f "$SHOTS/panel-root.png" ] || { echo "error: run scripts/capture-screenshots.sh first" >&2; exit 1; }
+
+SF="/System/Library/Fonts/SFNS.ttf"
+# The gradient the screenshots were taken against, so a card and the panel inside it
+# are lit the same way.
+GRAD_FROM="#2a3049"
+GRAD_TO="#3d3555"
+
+echo "==> Site icon"
+swift "$ROOT/scripts/rasterize-svg.swift" "$ROOT/design/candela-icon-light.svg" 256 "$OUT/icon.png"
+
+# Crop each screenshot down to the panel itself. The inset is measured, not assumed:
+# see scripts/trim-panel.py for why calculating it from the capture geometry produced
+# marketing images with the panel inside a visible box.
+panel_cutout() {  # <height-in-px> <output>
+  local target=$1 out=$2
+  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-root.png" "$TMP/trimmed.png" >/dev/null
+  magick "$TMP/trimmed.png" -resize "x${target}" "$out"
+}
+
+# card <width> <height> <line1> <line2> <subhead> <footline> <output>
+card() {
+  local w=$1 h=$2 line1=$3 line2=$4 subhead=$5 footline=$6 out=$7
+
+  # Type scale, derived from the card height so both card sizes stay in proportion.
+  local head_pt=$((h * 11 / 100))
+  local head_lead=$((head_pt * 118 / 100))
+  local sub_pt=$((h * 45 / 1000))
+  local foot_pt=$((h * 36 / 1000))
+  local pad=$((h * 12 / 100))
+
+  local head_y=$((h / 2 - head_lead / 2 - sub_pt))
+  local sub_y=$((head_y + head_lead * 2 + sub_pt / 2))
+  local foot_y=$((sub_y + sub_pt * 2))
+
+  magick -size "${w}x${h}" gradient:"$GRAD_FROM"-"$GRAD_TO" "$TMP/bg.png"
+  panel_cutout $((h - pad * 2)) "$TMP/panel.png"
+  swift "$ROOT/scripts/rasterize-svg.swift" "$ROOT/design/candela-icon-light.svg" 128 "$TMP/icon.png"
+
+  # No drop shadow. The obvious `-shadow` incantation rendered a blurred rectangle
+  # LIGHTER than the gradient behind it, framing the panel in exactly the box the
+  # rounded corners exist to avoid. The cutout has real alpha (verified: corner
+  # pixels are srgba(0,0,0,0)), and a glass panel on a soft gradient does not need
+  # a shadow to separate from it.
+  magick "$TMP/bg.png" \
+    "$TMP/panel.png" \
+    -gravity northeast -geometry +"$pad"+"$pad" -composite \
+    \( "$TMP/icon.png" -resize 72x72 \) -gravity northwest -geometry +"$pad"+"$((pad * 55 / 100))" -composite \
+    -font "$SF" -gravity northwest \
+    -fill "#e6e9f5" -pointsize $((h * 5 / 100)) \
+      -annotate +"$((pad + 92))"+"$((pad * 55 / 100 + 18))" "Candela" \
+    -fill white -pointsize "$head_pt" \
+      -annotate +"$pad"+"$head_y" "$line1" \
+      -annotate +"$pad"+"$((head_y + head_lead))" "$line2" \
+    -fill "#c3c9e2" -pointsize "$sub_pt" -annotate +"$pad"+"$sub_y" "$subhead" \
+    -fill "#f2a03d" -pointsize "$foot_pt" -annotate +"$pad"+"$foot_y" "$footline" \
+    "$out"
+  echo "    $out"
+}
+
+echo "==> Open Graph cards"
+card 1200 630 \
+  "Display control" "macOS leaves out" \
+  "HiDPI scaling · DDC brightness · presets" \
+  "Free and open source · macOS 26" \
+  "$OUT/og-card.png"
+
+card 1200 630 \
+  "macOS 藏起来的" "显示器设置" \
+  "HiDPI 清晰缩放 · DDC 硬件亮度 · 预设" \
+  "免费开源 · macOS 26" \
+  "$OUT/og-card-zh.png"
+
+echo "==> README banner"
+card 1280 480 \
+  "Every display control" "macOS hides" \
+  "One menu bar panel. Free, open source, no Pro tier." \
+  "macOS 26 · Apple silicon · MIT" \
+  "$OUT/banner.png"
+
+echo "==> Download badge"
+magick -size 320x64 xc:none \
+  -fill "#2f6df6" -draw "roundrectangle 0,0 319,63 12,12" \
+  -font "$SF" -fill white -gravity center -pointsize 24 \
+  -annotate +0+0 "Download for macOS" \
+  "$OUT/download-macos.png"
+echo "    $OUT/download-macos.png"
+
+echo "Done."

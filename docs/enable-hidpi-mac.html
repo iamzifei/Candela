@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to enable HiDPI on a Mac</title>
+<meta name="description" content="What HiDPI scaling is, why macOS hides it on third-party monitors, and how to turn it on so a 1440p or 4K display renders text at Retina sharpness.">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/enable-hidpi-mac.html">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/enable-hidpi-mac.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/enable-hidpi-mac.html">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/enable-hidpi-mac.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How to enable HiDPI on a Mac">
+<meta property="og:description" content="What HiDPI scaling is, why macOS hides it on third-party monitors, and how to turn it on so a 1440p or 4K display renders text at Retina sharpness.">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/enable-hidpi-mac.html">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to enable HiDPI on a Mac">
+<meta name="twitter:description" content="What HiDPI scaling is, why macOS hides it on third-party monitors, and how to turn it on so a 1440p or 4K display renders text at Retina sharpness.">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card.png">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('candela-lang')) return;
+    var zh = (navigator.languages || [navigator.language || '']).some(function (l) {
+      return /^zh\b/i.test(l);
+    });
+    if (zh && !location.pathname.match(/\/zh\//)) {
+      localStorage.setItem('candela-lang', 'zh');
+      location.replace('https://iamzifei.github.io/Candela/zh/enable-hidpi-mac.html');
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="./"><img src="icon.png" alt="" width="26" height="26">Candela</a>
+    <nav class="nav-links">
+      <a href="candela-vs-betterdisplay.html">Compare</a>
+      <a href="fix-blurry-external-monitor-macos.html" class="hide-sm">Guides</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/zh/enable-hidpi-mac.html" hreflang="zh-Hans">中文</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1 id="how-to-enable-hidpi-on-a-mac">How to enable HiDPI on a Mac</h1>
+<p><strong>The short version:</strong> HiDPI means macOS renders the interface at 2× and scales the
+result down, which is what makes text look sharp on a Retina screen. macOS enables it
+automatically on Apple displays and on some third-party ones, and hides it on the
+rest. Turning it on takes one switch in Candela, an administrator password, and one
+screen flash.</p>
+<h2 id="what-hidpi-actually-is">What HiDPI actually is</h2>
+<p>Every element on screen has a logical size — a menu bar is 24 points tall whether the
+display is dense or not. HiDPI draws each of those points as a 2×2 block of pixels, so
+the same interface is described with four times the detail. Curves get smooth edges,
+text gets real letterforms instead of approximations.</p>
+<p>The important part is the <em>ratio</em>. When the rendered image is scaled to the panel by a
+clean factor, every pixel lands on a pixel. When it is scaled by 1.5 or 1.33, glyph
+edges land between pixels and get averaged, which is the soft look people describe as
+blurry.</p>
+<p>So HiDPI is not &quot;higher resolution&quot;. It is rendering at a size the panel can reproduce
+without guessing.</p>
+<h2 id="why-macos-hides-it">Why macOS hides it</h2>
+<p>macOS decides whether to offer HiDPI modes from the display's EDID — the description
+a monitor sends about itself, including its physical size. From that it computes a
+pixel density and decides whether the display is &quot;Retina class&quot;.</p>
+<p>A 27-inch 1440p monitor works out at about 109 pixels per inch, comfortably under the
+threshold, so macOS offers only 1× modes. A 27-inch 4K monitor at about 163 ppi is
+over it, and gets HiDPI — but only the modes Apple chose to expose, which usually
+means one that is too large and one that is too small.</p>
+<p>Some monitors also report their physical size incorrectly, which pushes a display that
+should qualify below the line.</p>
+<p>None of this is a setting, and there is no checkbox in System Settings.</p>
+<h2 id="turning-it-on">Turning it on</h2>
+<h3 id="with-candela">With Candela</h3>
+<ol>
+<li><a href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download Candela</a> and open it. It lives in the menu bar.</li>
+<li>Click the monitor you want in the panel.</li>
+<li>Turn on <strong>Smooth scaling</strong>.</li>
+<li>Enter your administrator password when macOS asks, and expect the screen to flash
+once — the display list is being rebuilt.</li>
+<li>Open <strong>Resolution</strong> and pick from the new modes.</li>
+</ol>
+<p><figure class="shot"><img src="shots/panel-display.png" alt="The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes." loading="lazy" decoding="async"><figcaption>The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes.</figcaption></figure></p>
+<p>The full mode list is a page of its own, with every resolution the display can take
+and the sharp ones marked:</p>
+<p><figure class="shot"><img src="shots/panel-allResolutions.png" alt="Candela&#x27;s full resolution list for one display." loading="lazy" decoding="async"><figcaption>Candela&#x27;s full resolution list for one display.</figcaption></figure></p>
+<h3 id="the-manual-route">The manual route</h3>
+<p>There is a long-standing approach involving a display-override plist under
+<code>/Library/Displays/Contents/Resources/Overrides</code>, keyed by the monitor's vendor and
+product ID, which declares the scaled modes you want. It works, and it is worth
+knowing that it exists, but it means disabling SIP on modern macOS, hand-editing a
+plist, and redoing it whenever you change monitors. That is why tools exist.</p>
+<h2 id="which-resolution-to-pick">Which resolution to pick</h2>
+<p>A 27-inch 1440p display has three sensible HiDPI options:</p>
+<table>
+<thead>
+<tr>
+  <th>Looks like</th>
+  <th>Rendered at</th>
+  <th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1280 × 720</td>
+  <td>2560 × 1440</td>
+  <td>Perfectly sharp, very large</td>
+</tr>
+<tr>
+  <td>1706 × 960</td>
+  <td>3412 × 1920</td>
+  <td>Sharp, comfortable — the usual choice</td>
+</tr>
+<tr>
+  <td>2048 × 1152</td>
+  <td>4096 × 2304</td>
+  <td>Sharp, small; costs the most GPU</td>
+</tr>
+</tbody>
+</table>
+<p>On a 27-inch 4K display, &quot;looks like 1920×1080&quot; is the native 2× mode and the sharpest
+possible; &quot;looks like 2560×1440&quot; is the popular compromise.</p>
+<p>Try the middle option first. Read a paragraph, then try one step in each direction —
+this is a comfort judgement, not a correctness one.</p>
+<h2 id="the-costs-honestly">The costs, honestly</h2>
+<p><strong>GPU and power.</strong> Rendering at 4096×2304 to display 2048×1152 is real work. On a
+laptop on battery, with several displays, you may notice it. If the fans spin up
+after enabling HiDPI, step down one mode.</p>
+<p><strong>Refresh rate.</strong> A very high scaled mode can exceed what the connection can carry at
+your refresh rate, and macOS will silently pick a lower one. After changing
+resolution, check the refresh rate is still what you expect.</p>
+<p><strong>Not every display benefits.</strong> A 24-inch 1080p panel does not have the pixels to make
+HiDPI look better; it will mostly look larger and cost GPU time.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>No new modes appeared.</strong> Some displays need reconnecting after the switch, or the
+mode list needs a moment to rebuild. Unplug and replug, or check whether a dock is in
+the chain — some hubs give macOS an incomplete EDID.</p>
+<p><strong>Everything is enormous now.</strong> The new mode defaulted low. Open <strong>Resolution</strong> and
+pick a higher &quot;looks like&quot; value.</p>
+<p><strong>It reverted after sleep.</strong> Save the configuration as a preset in Candela and apply
+it after waking; some displays renegotiate on wake and macOS falls back.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="fix-blurry-external-monitor-macos.html">Fix a blurry external monitor on macOS</a></li>
+<li><a href="sync-brightness-multiple-monitors-mac.html">Sync brightness across multiple monitors</a></li>
+<li><a href="candela-vs-betterdisplay.html">Candela vs BetterDisplay vs Lunar</a></li>
+</ul>
+
+</main>
+<footer class="site-footer">
+  <p>Candela is free software under the MIT licence. Forked from Crisp, which is also MIT.
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+</script>
+</body>
+</html>

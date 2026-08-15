@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brightness keys for an external monitor on Mac</title>
+<meta name="description" content="F1 and F2 do nothing when your Mac is driving an external display. Here is why, how to make them control any monitor, and what to do when the keys still will not respond.">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/mac-brightness-keys-external-monitor.html">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Brightness keys for an external monitor on Mac">
+<meta property="og:description" content="F1 and F2 do nothing when your Mac is driving an external display. Here is why, how to make them control any monitor, and what to do when the keys still will not respond.">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/mac-brightness-keys-external-monitor.html">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Brightness keys for an external monitor on Mac">
+<meta name="twitter:description" content="F1 and F2 do nothing when your Mac is driving an external display. Here is why, how to make them control any monitor, and what to do when the keys still will not respond.">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card.png">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('candela-lang')) return;
+    var zh = (navigator.languages || [navigator.language || '']).some(function (l) {
+      return /^zh\b/i.test(l);
+    });
+    if (zh && !location.pathname.match(/\/zh\//)) {
+      localStorage.setItem('candela-lang', 'zh');
+      location.replace('https://iamzifei.github.io/Candela/zh/mac-brightness-keys-external-monitor.html');
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="./"><img src="icon.png" alt="" width="26" height="26">Candela</a>
+    <nav class="nav-links">
+      <a href="candela-vs-betterdisplay.html">Compare</a>
+      <a href="fix-blurry-external-monitor-macos.html" class="hide-sm">Guides</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/zh/mac-brightness-keys-external-monitor.html" hreflang="zh-Hans">中文</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1 id="make-the-brightness-keys-work-on-an-external-monitor">Make the brightness keys work on an external monitor</h1>
+<p><strong>The short version:</strong> macOS routes the brightness keys to the built-in display only.
+Nothing is broken — there is simply no code path from those keys to a third-party
+monitor. An app has to intercept the key press and translate it into a DDC command the
+monitor understands, which needs one Accessibility permission.</p>
+<h2 id="why-the-keys-do-nothing">Why the keys do nothing</h2>
+<p>The brightness keys are not ordinary keys. They generate system-level events that
+macOS handles internally and sends straight to the built-in panel's backlight driver.
+An external monitor's backlight is not on that path: it is behind the display cable,
+controlled by DDC/CI, a small command protocol that runs over the same wire as the
+video signal.</p>
+<p>So on a Mac mini or a clamshell MacBook, the keys have nothing to talk to at all. On
+an open MacBook with a monitor attached, they adjust the laptop screen you are not
+looking at.</p>
+<h2 id="setting-it-up">Setting it up</h2>
+<ol>
+<li><a href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download Candela</a> and open the panel from the menu bar.</li>
+<li>Go to <strong>Settings</strong>.</li>
+<li>Turn on <strong>Use brightness keys on external displays</strong>.</li>
+<li>macOS asks for Accessibility permission. Grant it — this is what lets an app see a
+key press before the system consumes it. No restart is needed.</li>
+</ol>
+<p><figure class="shot"><img src="shots/panel-settings.png" alt="Candela&#x27;s settings, showing the brightness-key row and its current target." loading="lazy" decoding="async"><figcaption>Candela&#x27;s settings, showing the brightness-key row and its current target.</figcaption></figure></p>
+<p>Once granted, the row becomes a target picker.</p>
+<h2 id="choosing-what-the-keys-control">Choosing what the keys control</h2>
+<p>There is no single right answer, so Candela offers four and remembers which you chose.</p>
+<p><strong>Follow the pointer.</strong> The keys adjust whichever display the cursor is on. Precise,
+and the right default for a desk where the monitors serve different purposes — but you
+have to move the mouse before you press.</p>
+<p><strong>All connected displays.</strong> Every display moves by the same step. Simple, until they
+drift apart: a display that hits zero stops while the others keep going, and nothing
+brings them back into line.</p>
+<p><strong>All displays together.</strong> The keys move a single combined level, and each display is
+driven to its share of it. This is the one to choose if you want the whole desk to
+brighten and dim as one unit — the displays stay locked at both ends instead of
+diverging. It also honours the per-display calibration described in
+<a href="sync-brightness-multiple-monitors-mac.html">syncing brightness across monitors</a>.</p>
+<p><strong>Selected displays only.</strong> You pick which displays participate. Useful when one
+screen is a TV or a colour-critical panel you never want touched.</p>
+<h2 id="when-the-keys-still-do-not-work">When the keys still do not work</h2>
+<p>Two very different failures look identical from the outside, so check them in order.</p>
+<p><strong>The permission is granted but nothing happens.</strong> Look at System Settings → Privacy &amp;
+Security → Accessibility. If Candela is listed and switched on and the keys are still
+dead, the entry is stale — macOS binds the grant to the exact signed copy of the app
+that asked for it, and an entry left over from an earlier version no longer matches.
+Remove Candela from the list with the &quot;−&quot; button and enable the feature again so it
+re-asks.</p>
+<p><strong>One display responds, another does not.</strong> That is not a keyboard problem, it is a
+DDC problem — see below.</p>
+<p><strong>Another app is also redirecting them.</strong> MonitorControl, BetterDisplay and Lunar all
+intercept the same keys. Two of them running at once produces double steps or a
+fight. Keep one.</p>
+<h2 id="when-one-monitor-ignores-brightness-entirely">When one monitor ignores brightness entirely</h2>
+<p>Some displays refuse DDC/CI. When Candela detects a refusal it falls back to dimming
+the picture in software and marks that display <strong>Software</strong> in the panel, so you can
+tell the difference between &quot;the backlight moved&quot; and &quot;the image got darker&quot;.</p>
+<p><figure class="shot"><img src="shots/panel-root.png" alt="Candela&#x27;s panel, with the Software badge on a display that refuses DDC." loading="lazy" decoding="async"><figcaption>Candela&#x27;s panel, with the Software badge on a display that refuses DDC.</figcaption></figure></p>
+<p>Three things to try, in order of how often they are the cause:</p>
+<ol>
+<li><strong>Turn DDC/CI on in the monitor's own menu.</strong> It is off by default on some models.
+Look under <em>Settings</em>, <em>Other Settings</em>, or <em>OSD</em> — the name varies by
+manufacturer.</li>
+<li><strong>Connect the monitor directly to the Mac.</strong> Docks and hubs are the most common
+cause: many pass video perfectly and drop the DDC channel. If brightness works on a
+direct cable and not through the dock, the dock is the answer.</li>
+<li><strong>Try the other port on the monitor.</strong> On some displays DDC works over DisplayPort
+or USB-C but not over HDMI.</li>
+</ol>
+<p>If none of that helps, the software fallback still dims the display — it changes the
+image rather than the backlight, so blacks lift slightly at low levels, but it is a
+usable brightness control.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="sync-brightness-multiple-monitors-mac.html">Sync brightness across multiple monitors</a></li>
+<li><a href="fix-blurry-external-monitor-macos.html">Fix a blurry external monitor on macOS</a></li>
+<li><a href="candela-vs-betterdisplay.html">Candela vs BetterDisplay vs Lunar</a></li>
+</ul>
+
+</main>
+<footer class="site-footer">
+  <p>Candela is free software under the MIT licence. Forked from Crisp, which is also MIT.
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+</script>
+</body>
+</html>

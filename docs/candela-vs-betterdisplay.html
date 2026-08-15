@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candela vs BetterDisplay vs Lunar (2026)</title>
+<meta name="description" content="An honest comparison of three macOS display utilities: what each one costs, what the free tiers hold back, and which is the right fit for HiDPI scaling, DDC brightness and multi-monitor setups.">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/candela-vs-betterdisplay.html">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Candela vs BetterDisplay vs Lunar (2026)">
+<meta property="og:description" content="An honest comparison of three macOS display utilities: what each one costs, what the free tiers hold back, and which is the right fit for HiDPI scaling, DDC brightness and multi-monitor setups.">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Candela vs BetterDisplay vs Lunar (2026)">
+<meta name="twitter:description" content="An honest comparison of three macOS display utilities: what each one costs, what the free tiers hold back, and which is the right fit for HiDPI scaling, DDC brightness and multi-monitor setups.">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card.png">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('candela-lang')) return;
+    var zh = (navigator.languages || [navigator.language || '']).some(function (l) {
+      return /^zh\b/i.test(l);
+    });
+    if (zh && !location.pathname.match(/\/zh\//)) {
+      localStorage.setItem('candela-lang', 'zh');
+      location.replace('https://iamzifei.github.io/Candela/zh/candela-vs-betterdisplay.html');
+    }
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="./"><img src="icon.png" alt="" width="26" height="26">Candela</a>
+    <nav class="nav-links">
+      <a href="candela-vs-betterdisplay.html">Compare</a>
+      <a href="fix-blurry-external-monitor-macos.html" class="hide-sm">Guides</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/zh/candela-vs-betterdisplay.html" hreflang="zh-Hans">中文</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<h1 id="candela-vs-betterdisplay-vs-lunar">Candela vs BetterDisplay vs Lunar</h1>
+<p><strong>Short answer:</strong> BetterDisplay has the deepest feature set and charges $21.99 for the
+parts most people want. Lunar is the best at <em>automatic</em> brightness — ambient light,
+location, sync with the built-in display — and charges $23. Candela does the core job
+of both, gives every feature away under MIT, and is deliberately narrower: macOS 26,
+Apple silicon, no automation engine.</p>
+<p>All three are worth having. Which one you want depends on whether you are paying for
+depth, for automation, or for neither.</p>
+<h2 id="at-a-glance">At a glance</h2>
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th>Candela</th>
+  <th>BetterDisplay</th>
+  <th>Lunar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Price</td>
+  <td><strong>Free, all features</strong></td>
+  <td>Free tier + Pro $21.99</td>
+  <td>Free tier + Pro $23</td>
+</tr>
+<tr>
+  <td>Open source</td>
+  <td>Yes, MIT</td>
+  <td>Source on GitHub</td>
+  <td>Yes</td>
+</tr>
+<tr>
+  <td>Flexible HiDPI scaling</td>
+  <td><span class="yes">Free</span></td>
+  <td>Pro only</td>
+  <td><span class="no">—</span></td>
+</tr>
+<tr>
+  <td>DDC brightness / volume</td>
+  <td><span class="yes">Free</span></td>
+  <td><span class="yes">Free</span></td>
+  <td>Free, capped at 100 adjustments a day</td>
+</tr>
+<tr>
+  <td>Virtual / custom screens</td>
+  <td><span class="yes">Free</span></td>
+  <td>Pro only</td>
+  <td><span class="no">—</span></td>
+</tr>
+<tr>
+  <td>Disconnect a display</td>
+  <td><span class="yes">Free</span></td>
+  <td>Pro only</td>
+  <td><span class="no">—</span></td>
+</tr>
+<tr>
+  <td>Brightness-key redirection</td>
+  <td><span class="yes">Free</span></td>
+  <td>Pro only (advanced shortcuts)</td>
+  <td><span class="yes">Free</span></td>
+</tr>
+<tr>
+  <td>Ambient / automatic brightness</td>
+  <td><span class="no">—</span></td>
+  <td>Yes</td>
+  <td><strong>Its speciality</strong></td>
+</tr>
+<tr>
+  <td>Sync with built-in display</td>
+  <td>Yes</td>
+  <td>Yes</td>
+  <td><strong>Its speciality</strong></td>
+</tr>
+<tr>
+  <td>Requires</td>
+  <td>macOS 26, Apple silicon</td>
+  <td>macOS 13+, Intel &amp; Apple silicon</td>
+  <td>macOS 11+, Intel &amp; Apple silicon</td>
+</tr>
+</tbody>
+</table>
+<p>Prices checked against each project's own site in August 2026 and may vary by region.</p>
+<h2 id="what-the-free-tiers-actually-hold-back">What the free tiers actually hold back</h2>
+<p>This is the part comparison tables usually blur, so here it is plainly.</p>
+<p><strong>BetterDisplay's</strong> free build is genuinely useful — DDC brightness, volume, EDID
+work. What Pro unlocks is the list its own site publishes: flexible HiDPI scaling,
+XDR/HDR brightness upscaling, custom virtual screens, HDR virtual screens,
+disconnecting and reconnecting displays, and advanced custom keyboard shortcuts. If
+you came looking for sharp scaling on a 1440p monitor, that is the paid feature.</p>
+<p><strong>Lunar's</strong> free build is not feature-limited so much as rate-limited: 100 brightness
+adjustments and 100 action calls per day. That is fine for a slider you touch a few
+times, and restrictive for anything automatic — which is what Lunar is for. Sync
+Mode, Sensor Mode, Location Mode, XDR Brightness and Shortcuts automation are Pro.</p>
+<p><strong>Candela</strong> has no tier. There is nothing to unlock, and nothing that stops working
+on the hundred-and-first adjustment.</p>
+<h2 id="where-each-one-is-genuinely-better">Where each one is genuinely better</h2>
+<p><strong>Choose BetterDisplay</strong> if you have an Intel Mac or an older macOS, or if you need
+EDID overrides, picture-in-picture, streaming a display, or the long tail of options
+it has accumulated over years. It is the most capable of the three by a wide margin,
+and $21.99 once is a fair price for it.</p>
+<p><strong>Choose Lunar</strong> if what you actually want is for brightness to <em>manage itself</em>.
+Its ambient-light sensor mode, sync-with-built-in mode and location-based curves are
+better than anything the other two do, and its Shortcuts integration makes brightness
+scriptable. Candela has no automation engine and does not pretend to.</p>
+<p><strong>Choose Candela</strong> if you want the everyday controls — brightness, sharp scaling,
+brightness keys, presets — without a purchase decision, and you are on a current Mac.
+Also if you want to read the code that is talking to your monitor over I2C, which is
+a reasonable thing to want from software that writes to your hardware.</p>
+<h2 id="where-candela-is-different-not-just-cheaper">Where Candela is different, not just cheaper</h2>
+<p><strong>Displays that match each other, not just move together.</strong> Every one of these apps
+can send the same percentage to two monitors. That does not make them look the same:
+panels differ in output at full brightness and in how their backlight responds on the
+way down, and macOS reports no absolute figure to normalise against. The visible
+failure is at the bottom — a monitor dimmed over DDC keeps a backlight floor and is
+still lit at zero, while one dimmed in software goes nearly black. Candela lets you
+calibrate that floor by eye, once per display, and then the combined slider keeps them
+together. <a href="sync-brightness-multiple-monitors-mac.html">How it works →</a></p>
+<p><figure class="shot"><img src="shots/panel-display.png" alt="The display page in Candela, showing the combined-brightness floor control for one monitor." loading="lazy" decoding="async"><figcaption>The display page in Candela, showing the combined-brightness floor control for one monitor.</figcaption></figure></p>
+<p><strong>It tells you when brightness is faked.</strong> If a monitor refuses DDC — some do, and
+some USB-C docks do not pass the channel through — Candela dims the picture instead of
+the backlight, and puts a <em>Software</em> badge on that display's slider. Silent fallback
+is how &quot;brightness works but looks wrong&quot; turns into an hour of debugging.</p>
+<p><strong>A panel, not a preferences window.</strong> Controls are grouped on separate surfaces with
+drill-down pages, the way Control Centre does it, instead of one long scroll of
+collapsible sections.</p>
+<h2 id="what-candela-does-not-do">What Candela does not do</h2>
+<p>Stated plainly, because a comparison that only lists strengths is an advertisement:</p>
+<ul>
+<li><strong>No Intel support, and macOS 26 only.</strong> It is built against the macOS 26 SDK and
+its DDC path is Apple silicon's. If you are on Ventura or an Intel Mac, this is not
+the app; BetterDisplay is.</li>
+<li><strong>No ambient-light automation.</strong> No sensor mode, no location curves, no
+sync-to-sunset. Lunar owns this.</li>
+<li><strong>No EDID override, PIP, or display streaming.</strong></li>
+<li><strong>Fewer years of edge cases.</strong> BetterDisplay has been handling odd monitors and odd
+docks since 2021. Candela is new, and new software meets fewer monitors.</li>
+</ul>
+<h2 id="frequently-asked">Frequently asked</h2>
+<p><strong>Is Candela really free, or free-for-now?</strong>
+MIT-licensed and on GitHub. A future version could never retroactively close the
+source that is already published, and anyone can fork it.</p>
+<p><strong>Can I run more than one of these at once?</strong>
+Not on brightness. Two apps writing DDC to the same monitor fight each other and the
+brightness visibly oscillates. Pick one for brightness; the rest can coexist.</p>
+<p><strong>Why does my monitor not respond to brightness at all?</strong>
+Its DDC/CI setting is off, or something in the chain is not passing the channel
+through. Check the monitor's own on-screen menu first — it is usually under <em>Settings</em>
+or <em>Other Settings</em> — then try connecting it directly to the Mac instead of through a
+dock or hub.</p>
+<p><strong>Does any of this work over USB-C or Thunderbolt?</strong>
+Yes, when the cable or dock passes the DDC channel. Direct connections are the most
+reliable; cheap hubs are the usual culprit when a display works for video but not for
+brightness.</p>
+<hr />
+<p><a href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download Candela</a> ·
+<a href="https://betterdisplay.pro/">BetterDisplay</a> ·
+<a href="https://lunar.fyi/">Lunar</a></p>
+
+</main>
+<footer class="site-footer">
+  <p>Candela is free software under the MIT licence. Forked from Crisp, which is also MIT.
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+</script>
+</body>
+</html>

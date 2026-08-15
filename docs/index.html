@@ -3,176 +3,165 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-site-verification" content="Pb7coFWl3eF3E_6mT6jdH6sbJYJ5VY3iLoSKt-bNy2w">
-<title>Crisp: Free BetterDisplay &amp; Lunar alternative for macOS</title>
-<meta name="description" content="Crisp is a free, open-source, lightweight alternative to BetterDisplay and Lunar for macOS: DDC brightness, HiDPI scaling, presets, virtual displays, and arrangement, all in the menu bar.">
-<meta property="og:title" content="Crisp: Free BetterDisplay &amp; Lunar alternative for macOS">
-<meta property="og:description" content="A free, open-source alternative to BetterDisplay and Lunar: DDC brightness, HiDPI scaling, presets, virtual displays, and arrangement, all in the menu bar.">
-<meta property="og:image" content="https://didriksg.github.io/Crisp/og-card.png">
+<title>Candela — free display control for macOS</title>
+<meta name="description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
+<link rel="canonical" href="https://iamzifei.github.io/Candela/">
+<link rel="alternate" hreflang="en" href="https://iamzifei.github.io/Candela/">
+<link rel="alternate" hreflang="zh-Hans" href="https://iamzifei.github.io/Candela/zh/">
+<link rel="alternate" hreflang="x-default" href="https://iamzifei.github.io/Candela/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Candela — free display control for macOS">
+<meta property="og:description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
+<meta property="og:url" content="https://iamzifei.github.io/Candela/">
+<meta property="og:image" content="https://iamzifei.github.io/Candela/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://didriksg.github.io/Crisp/">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Crisp: Free BetterDisplay &amp; Lunar alternative for macOS">
-<meta name="twitter:description" content="A free, open-source alternative to BetterDisplay and Lunar: DDC brightness, HiDPI scaling, presets, virtual displays, and arrangement, all in the menu bar.">
-<meta name="twitter:image" content="https://didriksg.github.io/Crisp/og-card.png">
-<link rel="canonical" href="https://didriksg.github.io/Crisp/">
-<link rel="alternate" hreflang="en" href="https://didriksg.github.io/Crisp/">
-<link rel="alternate" hreflang="zh-Hans" href="https://didriksg.github.io/Crisp/zh.html">
-<link rel="alternate" hreflang="x-default" href="https://didriksg.github.io/Crisp/">
+<meta name="twitter:title" content="Candela — free display control for macOS">
+<meta name="twitter:description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
+<meta name="twitter:image" content="https://iamzifei.github.io/Candela/og-card.png">
 <link rel="icon" href="icon.png">
+<link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Crisp","operatingSystem":"macOS 14+","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://didriksg.github.io/Crisp/","downloadUrl":"https://github.com/didriksg/Crisp/releases/latest/download/Crisp.dmg","screenshot":"https://didriksg.github.io/Crisp/screenshot.png","softwareLicense":"https://github.com/didriksg/Crisp/blob/main/LICENSE","author":{"@type":"Person","name":"Didrik Galteland","url":"https://github.com/didriksg"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
+ "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+ "url":"https://iamzifei.github.io/Candela/",
+ "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
+ "screenshot":"https://iamzifei.github.io/Candela/shots/panel-root.png",
+ "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
+ "isAccessibleForFree":true}
 </script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoObject","name":"Crisp menu bar demo","description":"A tour of Crisp, a free macOS menu bar app for HiDPI scaling, DDC brightness, presets and display arrangement.","thumbnailUrl":"https://didriksg.github.io/Crisp/screenshot.png","uploadDate":"2026-07-31T12:00:00+02:00","contentUrl":"https://didriksg.github.io/Crisp/demo.mp4","width":1920,"height":1080}
+
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('candela-lang')) return;
+    var zh = (navigator.languages || [navigator.language || '']).some(function (l) {
+      return /^zh\b/i.test(l);
+    });
+    if (zh && !location.pathname.match(/\/zh\//)) {
+      localStorage.setItem('candela-lang', 'zh');
+      location.replace('https://iamzifei.github.io/Candela/zh/');
+    }
+  } catch (e) {}
+})();
 </script>
-<script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
 <header class="nav">
   <div class="nav-inner">
-    <a class="wordmark" href="index.html"><img src="icon.png" alt="">Crisp</a>
+    <a class="wordmark" href="./"><img src="icon.png" alt="" width="26" height="26">Candela</a>
     <nav class="nav-links">
-      <a href="crisp-vs-betterdisplay.html">Compare</a>
-      <a href="fix-blurry-external-monitor-macos.html" class="hide-sm">Guide</a>
-      <a href="https://github.com/didriksg/Crisp">GitHub</a>
-      <a href="zh.html">中文</a>
+      <a href="candela-vs-betterdisplay.html">Compare</a>
+      <a href="fix-blurry-external-monitor-macos.html" class="hide-sm">Guides</a>
+      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <a class="lang" href="https://iamzifei.github.io/Candela/zh/" hreflang="zh-Hans">中文</a>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
     </nav>
   </div>
 </header>
+<main class="wrap">
+<div class="hero">
+<span class="kicker">Free and open source</span>
 
-<main>
-  <section class="hero">
-    <img class="icon" src="icon.png" alt="Crisp icon">
-    <h1>Every display control macOS hides, in one menu bar panel.</h1>
-    <p class="sub">Free, open-source external monitor control for your Mac: sharp scaling, hardware brightness and presets, including what BetterDisplay and Lunar charge for.</p>
-    <div class="actions">
-      <a class="btn primary" href="https://github.com/didriksg/Crisp/releases/latest/download/Crisp.dmg">Download for macOS</a>
-      <a class="btn secondary" href="https://github.com/didriksg/Crisp">View on GitHub</a>
-    </div>
-    <div class="brew" onclick="navigator.clipboard.writeText('brew install --cask didriksg/tap/crisp');this.querySelector('.hint').textContent='copied'">
-      <span class="prompt">$</span> brew install --cask didriksg/tap/crisp
-      <span class="hint">click to copy</span>
-    </div>
-    <p class="note">Open source (MIT), listed in <a href="https://github.com/jaywcjlove/awesome-mac">awesome-mac</a>.</p>
-    <div class="frame reveal">
-      <video class="demo" src="demo.mp4" width="1920" height="1080" autoplay muted loop playsinline controls preload="metadata"></video>
-    </div>
-  </section>
+<h1 id="every-display-control-macos-hides-in-one-menu-bar-panel">Every display control macOS hides, in one menu bar panel</h1>
+<p>Candela gives external monitors on your Mac the controls the system keeps for the
+built-in screen: real brightness over DDC, sharp HiDPI scaling, brightness keys that
+work on every display, presets, and virtual screens.</p>
+<div class="actions">
+<a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
+<a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
+</div>
 
-  <section class="block">
-    <div class="wrap story">
-      <p>macOS treats Apple displays as first-class and everyone else's monitors as an afterthought: text renders blurry or tiny, the brightness keys go dead, and the controls that could fix it stay hidden. Crisp closes that gap, so any monitor feels first-class. <a href="fix-blurry-external-monitor-macos.html">Blurry monitor right now? Start here.</a></p>
-    </div>
-  </section>
+<p class="note">macOS 26 · Apple silicon · MIT licence · no Pro tier, no licence key</p>
+</div>
 
-  <section class="block tint" id="features">
-    <div class="wrap">
-      <h2>One panel. Every display, dialed in.</h2>
-      <div class="grid">
-        <div class="card reveal"><h3>HiDPI on any display</h3><p>Retina-style scaled resolutions on external monitors, sharp instead of blurry or undersized, automatic on 2K+ and always at the panel's full refresh rate.</p></div>
-        <div class="card reveal"><h3>Smooth scaling</h3><p>Fine-tune how large everything looks in small steps, well beyond the handful of scaled sizes macOS offers. The flexible scaling people install BetterDisplay for, built in.</p></div>
-        <div class="card reveal"><h3>Brightness everywhere</h3><p>Hardware DDC control with software fallback, and brightness keys that dim the display under your cursor, all displays, or a subset.</p></div>
-        <div class="card reveal"><h3>Extra Brightness</h3><p>Push XDR MacBooks and HDR monitors past 100% by unlocking their HDR brightness reserve. The feature BetterDisplay sells as brightness upscaling, free.</p></div>
-        <div class="card reveal"><h3>Monitor volume</h3><p>Control the built-in speakers of external monitors over DDC, with a slider per display and the keyboard volume keys when the monitor is your audio output.</p></div>
-        <div class="card reveal"><h3>Presets</h3><p>Save whole display setups, resolution, brightness, arrangement, and apply them in one click.</p></div>
-        <div class="card reveal"><h3>Arrangement</h3><p>Drag-to-arrange canvas and one-click main display switching.</p></div>
-        <div class="card reveal"><h3>Native toggles</h3><p>Flip macOS Dark Mode, Night Shift, and True Tone right from the panel, no System Settings trip.</p></div>
-        <div class="card reveal"><h3>Color</h3><p>ICC profile switching, HDR on/off per display, plus gamma, contrast, and gain adjustment.</p></div>
-        <div class="card reveal"><h3>Virtual displays</h3><p>Create HiDPI virtual screens for streaming, sidecar setups, or headless Macs.</p></div>
-        <div class="card reveal"><h3>Extras</h3><p>Combined brightness slider, auto brightness sync, keep awake, notch hiding, launch at login.</p></div>
-      </div>
-    </div>
-  </section>
+<p><figure class="shot"><img src="shots/panel-root.png" alt="The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings." loading="lazy" decoding="async"><figcaption>The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.</figcaption></figure></p>
+<h2 id="what-macos-leaves-out">What macOS leaves out</h2>
+<p>Plug a monitor into a Mac and three things stop working the way they do on the
+built-in display. The brightness keys adjust nothing. The resolution list offers a
+handful of blurry options and hides the sharp ones. And there is no way to move every
+display at once, so a dim room means walking a slider across two or three panels.</p>
+<p>Candela puts all three back, and does it in a panel that behaves like Control Centre
+rather than a preferences window.</p>
+<div class="grid">
+<div class="card">
+<h3>Brightness that reaches the backlight</h3>
+<p>DDC/CI over the video cable, the same channel the monitor's own buttons use. Displays that refuse DDC fall back to gamma dimming, and the panel says which one you are getting.</p>
+</div>
+<div class="card">
+<h3>Brightness keys, on any display</h3>
+<p>F1 and F2 can follow the pointer, drive every display, drive them as one, or drive only the ones you pick.</p>
+</div>
+<div class="card">
+<h3>Sharp HiDPI on any monitor</h3>
+<p>The scaled resolutions macOS hides on third-party displays, including the crisp ones a 1440p or 4K panel is capable of.</p>
+</div>
+<div class="card">
+<h3>Displays that match each other</h3>
+<p>One slider for the whole desk, with a per-display floor you calibrate by eye so nothing goes black while its neighbour is still lit.</p>
+</div>
+<div class="card">
+<h3>Presets</h3>
+<p>Save a whole desk — resolutions, brightness, arrangement — and restore it in one click.</p>
+</div>
+<div class="card">
+<h3>Virtual displays and Sidecar</h3>
+<p>Create a virtual screen for recording or remote work, and connect an iPad as an extra display without opening System Settings.</p>
+</div>
+</div>
 
-  <section class="block">
-    <div class="wrap">
-      <h2>Everything a click away in the menu bar.</h2>
-      <div class="showcase reveal">
-        <div class="frame">
-          <img class="shot" src="screenshot.png" alt="Crisp menu bar panel" width="708" height="966" loading="lazy">
-        </div>
-      </div>
-      <p style="text-align:center;color:var(--text);font-size:16px;margin:48px auto 0;max-width:600px">
-        Crisp is free, and every feature stays free. The best way to support it costs nothing: star it on GitHub or tell a friend. If you'd also like to chip in toward keeping it signed and notarized for everyone (that runs on a $99/year Apple Developer membership), there's <a href="https://github.com/sponsors/didriksg">GitHub Sponsors</a>, <a href="https://ko-fi.com/didriksg">Ko-fi</a>, and <a href="https://ifdian.net/a/didriksg">爱发电</a>.<br>
-        <span class="note">Completely optional, but you'll have my heartfelt thanks.</span>
-      </p>
-    </div>
-  </section>
+<h2 id="free-means-free">Free means free</h2>
+<p>There is no Pro tier, no licence key, no daily limit, and no feature held back. The
+whole app is MIT-licensed and the source is on GitHub. If it is useful, <a href="https://ko-fi.com/iamzifei">Ko-fi</a> is
+there; nothing in the app changes if you never click it.</p>
+<p>That is the main difference from the alternatives. <a href="https://betterdisplay.pro/">BetterDisplay</a> gives away a
+capable free tier but keeps flexible HiDPI scaling, virtual screens, display
+disconnect and advanced shortcuts for Pro at $21.99. <a href="https://lunar.fyi/">Lunar</a> is open source and $23
+for a lifetime licence, with the free build capped at 100 brightness adjustments a
+day. Both are good software. Candela's answer to &quot;which features do I get&quot; is simply
+&quot;all of them&quot;.</p>
+<p><a href="candela-vs-betterdisplay.html">Read the full comparison →</a></p>
+<h2 id="guides">Guides</h2>
+<ul>
+<li><a href="fix-blurry-external-monitor-macos.html">Fix a blurry external monitor on macOS</a> — why text looks soft on a 1440p or 4K display, and what actually sharpens it</li>
+<li><a href="enable-hidpi-mac.html">How to enable HiDPI on a Mac</a> — what HiDPI is, and how to turn it on for a display macOS will not offer it to</li>
+<li><a href="mac-brightness-keys-external-monitor.html">Make the brightness keys work on an external monitor</a> — F1 and F2 on any display, and the permission that makes it possible</li>
+<li><a href="sync-brightness-multiple-monitors-mac.html">Sync brightness across multiple monitors</a> — one slider for the whole desk, and how to make panels actually match</li>
+</ul>
+<h2 id="installing">Installing</h2>
+<p>Download the DMG and drag Candela to Applications, or use Homebrew:</p>
+<pre><code>brew install --cask iamzifei/tap/candela
+</code></pre>
+<p>Candela is signed with a Developer ID and notarised by Apple, so it opens without
+right-click warnings.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>macOS 26 or later</li>
+<li>Apple silicon</li>
+<li>For brightness keys: one Accessibility permission, which macOS asks for the first
+time you enable the feature</li>
+<li>For hardware brightness on an external display: DDC/CI enabled in the monitor's own
+on-screen menu. Most monitors ship with it on; a few, and some USB-C docks, do not
+pass it through</li>
+</ul>
 
-  <section class="block tint">
-    <div class="wrap">
-      <div class="faq-split">
-      <div>
-        <h2>FAQ</h2>
-        <p class="faq-intro">Something else? <a href="https://github.com/didriksg/Crisp/issues">Ask on GitHub</a>.</p>
-      </div>
-      <div class="prose">
-        <details>
-          <summary>Is Crisp really free?</summary>
-          <p>Yes. Every feature is free: no Pro tier, no license key, no trial, and no daily limits. The whole app is open source under the MIT license.</p>
-        </details>
-        <details>
-          <summary>Is Crisp safe to install?</summary>
-          <p>Yes. Every release is signed and notarized by Apple, the full source code is public on <a href="https://github.com/didriksg/Crisp">GitHub</a>, and a Microsoft Defender review confirmed it contains no malware and no telemetry.</p>
-        </details>
-        <details>
-          <summary>What does Crisp require?</summary>
-          <p>macOS 14 (Sonoma) or later, on both Apple Silicon and Intel Macs. A few extras, like disconnecting a display from the menu, are Apple Silicon only.</p>
-        </details>
-        <details>
-          <summary>How is Crisp different from BetterDisplay and Lunar?</summary>
-          <p>The features people usually pay for elsewhere, flexible HiDPI scaling, DDC brightness, XDR/HDR extra brightness, presets, and arrangement, are all free in Crisp. See the full side-by-side: <a href="crisp-vs-betterdisplay.html">Crisp vs BetterDisplay, Lunar &amp; MonitorControl</a>.</p>
-        </details>
-      </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap">
-      <p>Free and open source, MIT licensed. Requires macOS 14 or later.</p>
-      <p>Began as a fork of <a href="https://github.com/huberdf/FreeDisplay">FreeDisplay</a>, thanks for the spark.</p>
-      <p>Compare: <a href="crisp-vs-betterdisplay.html">Crisp vs BetterDisplay, Lunar &amp; MonitorControl</a></p>
-      <p>Guide: <a href="fix-blurry-external-monitor-macos.html">Why is my external monitor blurry or tiny on a Mac?</a></p>
-      <p><a href="mac-hidpi.html">中文指南：为什么外接显示器在 Mac 上发虚，以及怎么修</a></p>
-    </div>
-  </footer>
 </main>
-
+<footer class="site-footer">
+  <p>Candela is free software under the MIT licence. Forked from Crisp, which is also MIT.
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
 <script>
-  var els = document.querySelectorAll('.reveal');
-  if (window.IntersectionObserver && els.length) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function (el) { io.observe(el); });
-  } else {
-    els.forEach(function (el) { el.classList.add('in'); });
-  }
-  (function () {
-    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll('.prose details').forEach(function (d) {
-      var s = d.querySelector('summary'), a = null;
-      s.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (a) a.cancel();
-        var opening = !d.open;
-        d.classList.toggle('faq-open', opening);
-        if (reduce) { d.open = opening; return; }
-        if (opening) {
-          d.open = true;
-          a = d.animate([{ height: s.offsetHeight + 'px' }, { height: d.scrollHeight + 'px' }], { duration: 260, easing: 'ease' });
-          a.onfinish = function () { a = null; };
-        } else {
-          a = d.animate([{ height: d.offsetHeight + 'px' }, { height: s.offsetHeight + 'px' }], { duration: 240, easing: 'ease', fill: 'forwards' });
-          a.onfinish = function () { d.open = false; a.cancel(); a = null; };
-        }
-      });
-    });
-  })();
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
 </script>
 </body>
 </html>

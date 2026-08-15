@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://iamzifei.github.io/Candela/sitemap.xml
