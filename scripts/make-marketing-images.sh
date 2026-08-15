@@ -19,7 +19,7 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
 command -v magick >/dev/null || { echo "error: ImageMagick not installed (brew install imagemagick)" >&2; exit 1; }
-[ -f "$SHOTS/panel-root.png" ] || { echo "error: run scripts/capture-screenshots.sh first" >&2; exit 1; }
+[ -f "$SHOTS/panel-root-plate.png" ] || { echo "error: run scripts/capture-screenshots.sh first" >&2; exit 1; }
 
 # Charter is the site's text face and ships with macOS; the marketing images should
 # not be the one place the brand speaks in a different voice.
@@ -37,12 +37,15 @@ ACCENT="#c2a878"
 echo "==> Site icon"
 swift "$ROOT/scripts/rasterize-svg.swift" "$ROOT/design/candela-icon-light.svg" 256 "$OUT/icon.png"
 
-# Crop each screenshot down to the panel itself. The inset is measured, not assumed:
+# The `-plate` captures, not the ones with the menu bar: a card has a headline, and
+# a menu bar in the same frame is a second subject competing with it. The full-context
+# shots are for the website and the README, where the desktop is the point.
+# Crop each plate down to the panel itself. The inset is measured, not assumed:
 # see scripts/trim-panel.py for why calculating it from the capture geometry produced
 # marketing images with the panel inside a visible box.
 panel_cutout() {  # <height-in-px> <output>
   local target=$1 out=$2
-  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-root.png" "$TMP/trimmed.png" >/dev/null
+  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-root-plate.png" "$TMP/trimmed.png" >/dev/null
   magick "$TMP/trimmed.png" -resize "x${target}" "$out"
 }
 
@@ -124,8 +127,8 @@ echo "==> Page tour GIF"
 TOUR=(root display allResolutions tools settings)
 frames=()
 for page in "${TOUR[@]}"; do
-  [ -f "$SHOTS/panel-$page.png" ] || continue
-  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-$page.png" "$TMP/tour-$page.png" >/dev/null
+  [ -f "$SHOTS/panel-$page-plate.png" ] || continue
+  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-$page-plate.png" "$TMP/tour-$page.png" >/dev/null
   # One canvas size for every frame, so the GIF does not jump as pages change height.
   magick "$TMP/tour-$page.png" -resize x760 \
     -background none -gravity north -extent 460x760 "$TMP/frame-$page.png"

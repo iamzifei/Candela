@@ -43,7 +43,7 @@ open_panel() {
   osascript -e 'tell application "System Events" to tell process "Candela" to click menu bar item 1 of menu bar 2' >/dev/null 2>&1 || true
 }
 
-wait_for_panel() {  # echoes "id x y w h", or nothing after ~6s
+wait_for_panel() {  # echoes "id x y w h display_top display_right", or nothing
   for _ in $(seq 1 12); do
     if id=$(python3 "$ROOT/scripts/candela-window-id.py" 2>/dev/null); then
       printf '%s' "$id"; return 0
@@ -68,11 +68,20 @@ for page in "${PAGES[@]}"; do
     win=$(wait_for_panel) || { echo "  $page: panel never opened" >&2; failed=1; continue; }
   fi
 
-  read -r _id x y w h <<< "$win"
-  # A rectangle, not -l<id>: see candela-window-id.py. Margin on three sides only —
-  # the menu bar sits above everything including the backdrop, so any top margin
-  # catches a strip of whatever other status items happen to be installed.
-  screencapture -x -R"$((x-16)),$y,$((w+32)),$((h+16))" "$OUT/panel-$page.png"
+  read -r _id x y w h top right <<< "$win"
+  # Two captures per page, because they are for different things.
+  #
+  # `panel-<page>.png` includes the menu bar and the desktop: this is a menu bar
+  # app, and a shot cropped tight to the panel removes the one piece of context that
+  # says where it lives. It is what goes on the website and in the README.
+  # Out to the display's right edge, so the menu bar ends where it really ends and
+  # the clock is whole. Stopping partway across it cuts the clock in half, which
+  # reads as a mistake rather than as a crop.
+  screencapture -x -R"$((x-140)),$top,$((right - x + 140)),$((h + y - top + 40))" "$OUT/panel-$page.png"
+  # `panel-<page>-plate.png` is the panel alone, for compositing into the banner and
+  # the Open Graph cards, where a menu bar would be a second subject competing with
+  # the headline.
+  screencapture -x -R"$((x-16)),$y,$((w+32)),$((h+16))" "$OUT/panel-$page-plate.png"
   size=$(sips -g pixelWidth -g pixelHeight "$OUT/panel-$page.png" | awk '/pixel/ {printf "%s ", $2}')
   echo "  $page  ${size}->  $OUT/panel-$page.png"
 done

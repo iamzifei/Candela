@@ -50,22 +50,52 @@ final class BackdropController {
     }
 }
 
-/// A soft diagonal gradient in the website's own palette — kami's warm neutrals
+/// A generated wallpaper, in the website's own palette — kami's warm neutrals
 /// (Olive #504e49 through Dark Warm #3d3d3a), not the cool blue-violet this used to
 /// be. A screenshot is a plate on a page, and a cool-blue plate on a parchment page
 /// reads as borrowed from somewhere else.
 ///
-/// Mid-tone rather than black or white: the panel is glass and picks up whatever it
-/// sits on, so a flat extreme makes it look washed out or silhouetted instead of
-/// like the material it is. Dark enough that a light panel still separates from it.
+/// Generated rather than photographed, and generated rather than using whatever the
+/// machine's own wallpaper happens to be: the screenshots go on a public site, and a
+/// personal desktop picture is not something to publish by accident. Drawing it also
+/// means the same shot can be taken again in a year and look identical.
+///
+/// A flat gradient reads as a CSS background rather than a desk. The soft off-centre
+/// glow and the vignette are what make it read as a picture — which is the point of
+/// including the desktop at all.
 final class BackdropView: NSView {
     override func draw(_ dirtyRect: NSRect) {
-        let gradient = NSGradient(colors: [
+        let base = NSGradient(colors: [
             NSColor(calibratedRed: 0.314, green: 0.306, blue: 0.286, alpha: 1),  // #504e49
             NSColor(calibratedRed: 0.267, green: 0.263, blue: 0.251, alpha: 1),
-            NSColor(calibratedRed: 0.239, green: 0.239, blue: 0.227, alpha: 1),  // #3d3d3a
+            NSColor(calibratedRed: 0.212, green: 0.212, blue: 0.200, alpha: 1),
         ])
-        gradient?.draw(in: bounds, angle: 35)
+        base?.draw(in: bounds, angle: 35)
+
+        // A warm light source high on the RIGHT. Status items live in the top-right
+        // corner, so that is the part of the desktop a panel screenshot actually
+        // contains — a glow placed on the left was cropped out of every shot and the
+        // wallpaper came back looking like a flat fill.
+        let glow = NSGradient(colors: [
+            NSColor(calibratedRed: 0.78, green: 0.68, blue: 0.48, alpha: 0.52),
+            NSColor(calibratedRed: 0.56, green: 0.49, blue: 0.38, alpha: 0.22),
+            NSColor(calibratedRed: 0.30, green: 0.29, blue: 0.27, alpha: 0.0),
+        ])
+        let centre = NSPoint(x: bounds.width * 0.74, y: bounds.height * 0.86)
+        glow?.draw(fromCenter: centre, radius: 0,
+                   toCenter: centre, radius: bounds.width * 0.75,
+                   options: [])
+
+        // And a vignette, so the corners settle and the panel sits in the light.
+        let vignette = NSGradient(colors: [
+            NSColor(calibratedWhite: 0, alpha: 0.0),
+            NSColor(calibratedWhite: 0, alpha: 0.06),
+            NSColor(calibratedWhite: 0, alpha: 0.42),
+        ])
+        let mid = NSPoint(x: bounds.width * 0.6, y: bounds.height * 0.55)
+        vignette?.draw(fromCenter: mid, radius: 0,
+                       toCenter: mid, radius: max(bounds.width, bounds.height) * 0.66,
+                       options: [])
     }
 }
 
