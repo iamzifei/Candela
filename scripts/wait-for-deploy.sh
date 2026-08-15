@@ -29,8 +29,10 @@ START=$(date +%s)
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-# The stylesheet and one page per language: between them they cover a change to the
-# design, to the generator, and to the content of either translation.
+# One file: a fingerprint of the whole published tree, written by site/build.py.
+# Naming individual files was the previous version's mistake — it compared the
+# stylesheet and the two home pages, so a commit that only DELETED pages left all
+# three identical and the wait passed while the removed pages were still served.
 check_one() {  # <url> <local path>
   curl -fsS -o "$TMP/live" "$1" 2>/dev/null || return 1
   cmp -s "$TMP/live" "$ROOT/docs/$2"
@@ -38,9 +40,7 @@ check_one() {  # <url> <local path>
 
 printf '==> Waiting for %s to serve this build' "$SITE"
 while true; do
-  if check_one "$SITE/styles.css" "styles.css" \
-     && check_one "$SITE/" "index.html" \
-     && check_one "$SITE/zh/" "zh/index.html"; then
+  if check_one "$SITE/build-id.txt" "build-id.txt"; then
     echo " — live"
     exit 0
   fi

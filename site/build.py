@@ -420,6 +420,19 @@ def build(out: Path) -> None:
     # GitHub Pages runs Jekyll by default, which ignores files starting with an
     # underscore and can rewrite things unpredictably. This turns it off.
     (out / ".nojekyll").write_text("", encoding="utf-8")
+    # A fingerprint of everything published. The deploy-wait compares this one file,
+    # which makes it sensitive to any change at all — including a deletion, which is
+    # what the previous version missed: it compared three named files, and a commit
+    # that only removed pages left all three identical, so the wait passed instantly
+    # while the removed pages were still being served.
+    digest = hashlib.sha256()
+    for path in sorted(out.rglob("*")):
+        if path.is_dir() or path.name == "build-id.txt":
+            continue
+        digest.update(str(path.relative_to(out)).encode())
+        digest.update(hashlib.sha256(path.read_bytes()).digest())
+    (out / "build-id.txt").write_text(digest.hexdigest() + "\n", encoding="utf-8")
+
     print(f"built {len(pages)} pages into {out}")
 
 
