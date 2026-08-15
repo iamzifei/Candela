@@ -6,9 +6,9 @@ schema: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
    "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"https://iamzifei.github.io/Candela/zh/",
+   "url":"https://zifei.info/Candela/zh/",
    "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"https://iamzifei.github.io/Candela/shots/panel-root.png",
+   "screenshot":"https://zifei.info/Candela/shots/panel-root.png",
    "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
    "isAccessibleForFree":true}
   </script>

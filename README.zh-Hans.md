@@ -15,9 +15,9 @@
 [![Apple silicon](https://img.shields.io/badge/Apple%20silicon-required-lightgrey)](#系统要求)
 [![License](https://img.shields.io/github/license/iamzifei/Candela?color=3fb950)](LICENSE)
 
-[官网](https://iamzifei.github.io/Candela/zh/) ·
-[与 BetterDisplay、Lunar 对比](https://iamzifei.github.io/Candela/zh/candela-vs-betterdisplay.html) ·
-[使用指南](https://iamzifei.github.io/Candela/zh/fix-blurry-external-monitor-macos.html) ·
+[官网](https://zifei.info/Candela/zh/) ·
+[与 BetterDisplay、Lunar 对比](https://zifei.info/Candela/zh/candela-vs-betterdisplay.html) ·
+[使用指南](https://zifei.info/Candela/zh/fix-blurry-external-monitor-macos.html) ·
 **[English](README.md)**
 
 </div>
@@ -68,7 +68,7 @@ BetterDisplay 功能最全，但大多数人真正想要的那几项（包括灵
 免费版每天限 100 次调节。Candela 把两者的核心功能都做了并全部免费，
 代价是做得更窄——只支持 macOS 26 与 Apple 芯片，没有自动化引擎。
 
-[完整对比，包括 Candela 做不到的部分 →](https://iamzifei.github.io/Candela/zh/candela-vs-betterdisplay.html)
+[完整对比，包括 Candela 做不到的部分 →](https://zifei.info/Candela/zh/candela-vs-betterdisplay.html)
 
 ## 系统要求
 

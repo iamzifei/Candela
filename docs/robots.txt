@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://iamzifei.github.io/Candela/sitemap.xml
+Sitemap: https://zifei.info/Candela/sitemap.xml

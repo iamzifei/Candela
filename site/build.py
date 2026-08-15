@@ -29,7 +29,11 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "site" / "content"
 OUT = ROOT / "docs"
 
-SITE = "https://iamzifei.github.io/Candela"
+# The account's Pages site has a CNAME of zifei.info, so every project page under it
+# serves from https://zifei.info/<repo>/ and the github.io address 301-redirects here.
+# Verified against the Pages API rather than assumed: a canonical URL that redirects
+# tells search engines the wrong home for every page on the site.
+SITE = "https://zifei.info/Candela"
 REPO = "https://github.com/iamzifei/Candela"
 DOWNLOAD = f"{REPO}/releases/latest/download/Candela.dmg"
 KOFI = "https://ko-fi.com/iamzifei"

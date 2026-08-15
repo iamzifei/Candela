@@ -16,9 +16,9 @@ DDC brightness, brightness keys that work on any display, presets and virtual sc
 [![License](https://img.shields.io/github/license/iamzifei/Candela?color=3fb950)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/iamzifei/Candela/total?label=downloads&color=2f81f7)](https://github.com/iamzifei/Candela/releases)
 
-[Website](https://iamzifei.github.io/Candela/) ·
-[Compare with BetterDisplay & Lunar](https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html) ·
-[Guides](https://iamzifei.github.io/Candela/fix-blurry-external-monitor-macos.html) ·
+[Website](https://zifei.info/Candela/) ·
+[Compare with BetterDisplay & Lunar](https://zifei.info/Candela/candela-vs-betterdisplay.html) ·
+[Guides](https://zifei.info/Candela/fix-blurry-external-monitor-macos.html) ·
 **[中文](README.zh-Hans.md)**
 
 </div>
@@ -73,7 +73,7 @@ charges $23, with the free build capped at 100 adjustments a day. Candela does t
 job of both and gives every feature away, at the cost of being narrower — macOS 26,
 Apple silicon, no automation engine.
 
-[Full comparison, including what Candela does not do →](https://iamzifei.github.io/Candela/candela-vs-betterdisplay.html)
+[Full comparison, including what Candela does not do →](https://zifei.info/Candela/candela-vs-betterdisplay.html)
 
 ## Requirements
 
