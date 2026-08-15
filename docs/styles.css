@@ -96,6 +96,12 @@ a:hover { text-decoration: underline; }
   white-space: nowrap;
 }
 .nav-links > a:hover { background: var(--line); color: var(--ink); text-decoration: none; }
+/* `.nav-links > a` is a more specific selector than `.btn-dl`, so without matching
+   its specificity the download button rendered dark grey text on blue — legible
+   enough to miss in a screenshot, and the least readable element on the page. */
+.nav-links > a.btn-dl { color: #fff; }
+.nav-links > a.btn-dl:hover { background: var(--accent-ink); color: #fff; }
+.nav-links > a.btn-kofi:hover { background: transparent; color: var(--warm); }
 .nav-links .lang { font-variant-numeric: tabular-nums; }
 
 .btn {
@@ -181,6 +187,12 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.6rem 0; }
 }
 .shot img {
   max-width: 100%;
+  /* The panel screenshots are tall and narrow. Constrained only by width, the one
+     at the top of the home page filled the entire viewport and pushed every word of
+     the page below the fold — the reader saw a picture and had to scroll to learn
+     what it was of. Height is the binding dimension for a portrait image. */
+  max-height: 66vh;
+  width: auto;
   height: auto;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
