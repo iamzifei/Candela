@@ -50,15 +50,20 @@ final class BackdropController {
     }
 }
 
-/// A soft diagonal gradient. Mid-tone rather than black or white: the glass picks up
-/// its surroundings, and a flat extreme makes the panel read as either washed out or
-/// silhouetted rather than as the material it is.
+/// A soft diagonal gradient in the website's own palette — kami's warm neutrals
+/// (Olive #504e49 through Dark Warm #3d3d3a), not the cool blue-violet this used to
+/// be. A screenshot is a plate on a page, and a cool-blue plate on a parchment page
+/// reads as borrowed from somewhere else.
+///
+/// Mid-tone rather than black or white: the panel is glass and picks up whatever it
+/// sits on, so a flat extreme makes it look washed out or silhouetted instead of
+/// like the material it is. Dark enough that a light panel still separates from it.
 final class BackdropView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let gradient = NSGradient(colors: [
-            NSColor(calibratedRed: 0.16, green: 0.19, blue: 0.28, alpha: 1),
-            NSColor(calibratedRed: 0.30, green: 0.26, blue: 0.38, alpha: 1),
-            NSColor(calibratedRed: 0.18, green: 0.28, blue: 0.34, alpha: 1),
+            NSColor(calibratedRed: 0.314, green: 0.306, blue: 0.286, alpha: 1),  // #504e49
+            NSColor(calibratedRed: 0.267, green: 0.263, blue: 0.251, alpha: 1),
+            NSColor(calibratedRed: 0.239, green: 0.239, blue: 0.227, alpha: 1),  // #3d3d3a
         ])
         gradient?.draw(in: bounds, angle: 35)
     }

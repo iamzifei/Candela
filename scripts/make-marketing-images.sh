@@ -21,11 +21,18 @@ trap 'rm -rf "$TMP"' EXIT
 command -v magick >/dev/null || { echo "error: ImageMagick not installed (brew install imagemagick)" >&2; exit 1; }
 [ -f "$SHOTS/panel-root.png" ] || { echo "error: run scripts/capture-screenshots.sh first" >&2; exit 1; }
 
-SF="/System/Library/Fonts/SFNS.ttf"
-# The gradient the screenshots were taken against, so a card and the panel inside it
-# are lit the same way.
-GRAD_FROM="#2a3049"
-GRAD_TO="#3d3555"
+# Charter is the site's text face and ships with macOS; the marketing images should
+# not be the one place the brand speaks in a different voice.
+SF="/System/Library/Fonts/Supplemental/Charter.ttc"
+[ -f "$SF" ] || SF="/System/Library/Fonts/Supplemental/Georgia.ttf"
+[ -f "$SF" ] || SF="/System/Library/Fonts/SFNS.ttf"
+# kami's warm neutrals, matching both the website and the backdrop the screenshots
+# were taken against, so a card and the panel inside it are lit the same way.
+GRAD_FROM="#504e49"
+GRAD_TO="#3d3d3a"
+INK="#f5f4ed"        # parchment, used as the type colour on these dark plates
+INK_SOFT="#c9c6bb"
+ACCENT="#c2a878"
 
 echo "==> Site icon"
 swift "$ROOT/scripts/rasterize-svg.swift" "$ROOT/design/candela-icon-light.svg" 256 "$OUT/icon.png"
@@ -68,13 +75,13 @@ card() {
     -gravity northeast -geometry +"$pad"+"$pad" -composite \
     \( "$TMP/icon.png" -resize 72x72 \) -gravity northwest -geometry +"$pad"+"$((pad * 55 / 100))" -composite \
     -font "$SF" -gravity northwest \
-    -fill "#e6e9f5" -pointsize $((h * 5 / 100)) \
+    -fill "$INK_SOFT" -pointsize $((h * 5 / 100)) \
       -annotate +"$((pad + 92))"+"$((pad * 55 / 100 + 18))" "Candela" \
-    -fill white -pointsize "$head_pt" \
+    -fill "$INK" -pointsize "$head_pt" \
       -annotate +"$pad"+"$head_y" "$line1" \
       -annotate +"$pad"+"$((head_y + head_lead))" "$line2" \
-    -fill "#c3c9e2" -pointsize "$sub_pt" -annotate +"$pad"+"$sub_y" "$subhead" \
-    -fill "#f2a03d" -pointsize "$foot_pt" -annotate +"$pad"+"$foot_y" "$footline" \
+    -fill "$INK_SOFT" -pointsize "$sub_pt" -annotate +"$pad"+"$sub_y" "$subhead" \
+    -fill "$ACCENT" -pointsize "$foot_pt" -annotate +"$pad"+"$foot_y" "$footline" \
     "$out"
   echo "    $out"
 }
@@ -101,8 +108,8 @@ card 1280 480 \
 
 echo "==> Download badge"
 magick -size 320x64 xc:none \
-  -fill "#2f6df6" -draw "roundrectangle 0,0 319,63 12,12" \
-  -font "$SF" -fill white -gravity center -pointsize 24 \
+  -fill "#1b365d" -draw "roundrectangle 0,0 319,63 6,6" \
+  -font "$SF" -fill "#f5f4ed" -gravity center -pointsize 24 \
   -annotate +0+0 "Download for macOS" \
   "$OUT/download-macos.png"
 echo "    $OUT/download-macos.png"
@@ -127,6 +134,6 @@ done
 # Frames before the alpha settings: those are operators, and an operator with no
 # images loaded yet is an error rather than a default.
 magick -delay 130 -loop 0 "${frames[@]}" \
-  -background "#2f3350" -alpha remove -alpha off \
+  -background "#45443f" -alpha remove -alpha off \
   -layers optimize "$OUT/tour.gif"
 echo "    $OUT/tour.gif ($(du -h "$OUT/tour.gif" | cut -f1))"
