@@ -174,7 +174,7 @@ a:hover { border-bottom-color: var(--blue); }
   padding: 0 var(--s4);
 }
 .nav-links > a.btn-dl:hover { background: var(--blue-light); color: var(--parchment); }
-.nav-links > a.btn-kofi { box-shadow: inset 0 0 0 1px var(--border); }
+.nav-links > a.btn-kofi { border: 1px solid var(--border); }
 .nav-links > a.btn-kofi:hover { background: var(--sand); }
 
 @media (max-width: 760px) {
@@ -252,13 +252,13 @@ code {
   font-family: var(--mono);
   font-size: .88em;
   background: var(--ivory);
-  box-shadow: inset 0 0 0 1px var(--border-soft);
-  padding: .1em .35em;
+  border: 1px solid var(--border-soft);
+  padding: .05em .3em;
   border-radius: 2px;
 }
 pre {
   background: var(--ivory);
-  box-shadow: inset 0 0 0 1px var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--s4) var(--s5);
   overflow-x: auto;
@@ -266,7 +266,7 @@ pre {
   font-size: 14px;
   line-height: 1.5;
 }
-pre code { background: none; box-shadow: none; padding: 0; }
+pre code { background: none; border: 0; padding: 0; }
 
 hr {
   border: 0;
@@ -289,9 +289,9 @@ figure.shot {
   width: auto;
   height: auto;
   border-radius: var(--radius);
-  /* A ring, not a drop shadow: kami treats shadows as a compositing trick, and a
-     hairline is what separates a plate from the page in print. */
-  box-shadow: 0 0 0 1px var(--border);
+  /* A hairline, not a drop shadow: kami treats shadows as a compositing trick, and
+     a rule is what separates a plate from the page in print. */
+  border: 1px solid var(--border);
 }
 .shot figcaption {
   margin-top: var(--s3);
@@ -340,14 +340,9 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   text-align: center;
   padding: 0 0 var(--s6);
 }
-.hero .kicker {
-  display: block;
-  font-size: 12px;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--ink-4);
-  margin-bottom: var(--s5);
-}
+/* No eyebrow above the headline. The line it carried — free, open source — is in
+   the note under the buttons, where it is one of several facts rather than a label
+   the headline has to be introduced by. */
 .hero h1 { max-width: 22ch; margin-inline: auto; }
 .hero p {
   font-size: 19px;
@@ -372,28 +367,43 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 }
 .hero .actions .btn-dl { background: var(--blue); color: var(--parchment); }
 .hero .actions .btn-dl:hover { background: var(--blue-light); }
-.hero .actions .btn-kofi { color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--border); }
+.hero .actions .btn-kofi { color: var(--ink-3); border: 1px solid var(--border); }
 .hero .actions .btn-kofi:hover { background: var(--sand); color: var(--ink); }
 .hero .note { font-size: 12px; color: var(--ink-4); margin: 0; }
 
-/* Cells divided by hairlines, the way a printed contents page is, rather than
-   floating cards each with its own shadow. */
-.grid {
-  display: grid;
-  gap: 1px;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+/* The home page's capabilities were a grid of six equal cards, which is the lazy
+   container: it makes every claim the same size and the same shape, so none of them
+   is read. Set as an editorial list instead — each entry a heading and a sentence,
+   divided by a hairline the way a printed contents page is — they can be scanned in
+   order and the longer ones are allowed to be longer. */
+.entries {
   margin: var(--s8) 0 var(--s6);
-  background: var(--border);
-  box-shadow: 0 0 0 1px var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
+  border-top: 1px solid var(--border);
 }
-.card {
-  background: var(--ivory);
-  padding: var(--s5);
+.entries h3 {
+  margin: 0;
+  padding-top: var(--s5);
+  font-size: 17px;
 }
-.card h3 { margin: 0 0 var(--s2); font-size: 15px; }
-.card p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-3); }
+.entries p {
+  margin: var(--s1) 0 0;
+  padding-bottom: var(--s5);
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--ink-3);
+  max-width: 38rem;
+}
+.entries p:last-child { border-bottom: 0; }
+
+@media (min-width: 860px) {
+  /* Two columns of the same list on a wide screen, still hairline-divided rather
+     than boxed — the reading order stays vertical within each column. */
+  .entries {
+    column-count: 2;
+    column-gap: var(--s12);
+  }
+  .entries h3 { break-after: avoid; }
+  .entries p { break-inside: avoid; }
+}
 
 /* ---------- colophon ---------- */
 

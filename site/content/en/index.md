@@ -15,7 +15,6 @@ schema: |
 ---
 
 <div class="hero">
-<span class="kicker">Free and open source</span>
 
 # Every display control macOS hides, in one menu bar panel
 
@@ -43,31 +42,26 @@ display at once, so a dim room means walking a slider across two or three panels
 Candela puts all three back, and does it in a panel that behaves like Control Centre
 rather than a preferences window.
 
-<div class="grid">
-<div class="card">
+<div class="entries">
+
 <h3>Brightness that reaches the backlight</h3>
 <p>DDC/CI over the video cable, the same channel the monitor's own buttons use. Displays that refuse DDC fall back to gamma dimming, and the panel says which one you are getting.</p>
-</div>
-<div class="card">
+
 <h3>Brightness keys, on any display</h3>
 <p>F1 and F2 can follow the pointer, drive every display, drive them as one, or drive only the ones you pick.</p>
-</div>
-<div class="card">
+
 <h3>Sharp HiDPI on any monitor</h3>
 <p>The scaled resolutions macOS hides on third-party displays, including the crisp ones a 1440p or 4K panel is capable of.</p>
-</div>
-<div class="card">
+
 <h3>Displays that match each other</h3>
 <p>One slider for the whole desk, with a per-display floor you calibrate by eye so nothing goes black while its neighbour is still lit.</p>
-</div>
-<div class="card">
+
 <h3>Presets</h3>
 <p>Save a whole desk — resolutions, brightness, arrangement — and restore it in one click.</p>
-</div>
-<div class="card">
+
 <h3>Virtual displays and Sidecar</h3>
 <p>Create a virtual screen for recording or remote work, and connect an iPad as an extra display without opening System Settings.</p>
-</div>
+
 </div>
 
 ## Free means free
