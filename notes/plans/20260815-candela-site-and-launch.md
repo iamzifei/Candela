@@ -112,9 +112,21 @@ canonical / hreflang / og:url / JSON-LD 全部已指向 zifei.info——
 
 发布说明草稿：`/Users/james/Dev/candela/notes/releases/v0.1.0.md`
 
-- [ ] **需要 James 拍板**：`CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes/releases/v0.1.0.md --publish`
-- [ ] 发布前先过一遍本文件末尾的 9 条真机回归清单——编译通过不等于能用
-- [ ] 发布后：`brew install --cask iamzifei/tap/candela` 实装一次
+- [x] **v0.1.0 已发布**（2026-08-16）：https://github.com/iamzifei/Candela/releases/tag/v0.1.0
+- [x] 真机功能回归由 James 完成（含语言切换）
+- [x] 发布后实测（**用真实下载链路，不是本地产物**）：
+      DMG sha256 与 cask 记录逐位一致；`spctl` 判 **accepted · Notarized Developer ID**；
+      `brew fetch --cask iamzifei/tap/candela` 通过（tap 解析、URL、校验和均正确）
+
+### 发布时抓到的一个严重隐患
+
+`gh release create` 没带 `--repo`，而 gh 会从 git remote 解析仓库——
+这个工作副本有 `upstream` 指向 fork 来源，**gh 解析到的是 `didriksg/Crisp`**
+（`gh repo view` 实测返回上游）。也就是说发布步骤一直在试图把 Candela 的 release
+**发到别人的仓库上**。是没有写权限救了这一次；gh 报的是「可能缺 workflow scope」，
+那是猜测，还把排查方向带偏了。
+
+前置检查本来就从 `origin` 算出了正确仓库，只是发布命令没用它。已改为显式 `--repo`。
 
 ### 发布目录的清理（2026-08-15）
 
