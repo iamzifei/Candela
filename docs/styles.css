@@ -213,10 +213,11 @@ a:hover { border-bottom-color: var(--blue); }
     padding: var(--s1) var(--s2) var(--s1) var(--s4);
     gap: var(--s2);
   }
-  .nav-links > a.hide-sm,
-  .nav-links > a.btn-kofi,
-  .nav-links > a[href^="https://github.com"],
-  .nav-links > a[href$="candela-vs-betterdisplay.html"] { display: none; }
+  /* Marked with a class, not matched on href. Hiding "the GitHub link" by
+     `[href^="https://github.com"]` also hid the download button, whose URL is a
+     GitHub release asset — so the phone lost the one action the page is for. */
+  .nav-links > a.nav-secondary,
+  .nav-links > a.btn-kofi { display: none; }
   .nav-links > a { padding: 0 var(--s2); font-size: 13px; }
   .nav-links > a.btn-dl { padding: 0 var(--s3); }
   .wordmark { font-size: 19px; }

@@ -242,9 +242,9 @@ def nav(page: Page, by_slug: dict) -> str:
   <div class="nav-inner">
     <a class="wordmark" href="{home}"><img src="{up}icon.png" alt="" width="26" height="26"><span>Candela</span></a>
     <nav class="nav-links">
-      <a href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
-      <a href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html" class="hide-sm">{t['nav_guides']}</a>
-      <a href="{REPO}" rel="noopener">{t['nav_github']}</a>
+      <a class="nav-secondary" href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
+      <a class="nav-secondary" href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html">{t['nav_guides']}</a>
+      <a class="nav-secondary" href="{REPO}" rel="noopener">{t['nav_github']}</a>
       <a class="lang" href="{SITE}/{counterpart.path}" hreflang="{LANGS[other]['hreflang']}">{LANGS[page.lang]['switch']}</a>
       <a class="btn btn-kofi" href="{KOFI}" rel="noopener">{t['kofi']}</a>
       <a class="btn btn-dl" href="{DOWNLOAD}">{t['download']}</a>
