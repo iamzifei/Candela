@@ -590,7 +590,12 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
      breaks words across lines — 显示器 split after 显示, 面板里 split after 面.
      Latin at the same size fits forty-odd characters and breaks at spaces, so it
      does not have the problem and does not need the change. */
-  :lang(zh-Hans) h1, :lang(zh-Hant) h1 { font-size: clamp(25px, 7.2vw, 34px); }
+  /* `balance` rather than `pretty` here: pretty optimises only the last line, which
+     left 设置 alone on line two. Balanced, the two lines carry a phrase each. */
+  :lang(zh-Hans) h1, :lang(zh-Hant) h1 {
+    font-size: clamp(25px, 7.2vw, 34px);
+    text-wrap: balance;
+  }
   :lang(zh-Hans) h2, :lang(zh-Hant) h2 { font-size: 20px; }
   .wrap { padding: var(--s8) var(--s5) var(--s8); }
   .shot img { max-height: none; }
