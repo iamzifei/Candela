@@ -14,12 +14,13 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SHOTS="$ROOT/docs/shots"
+PLATES="$ROOT/assets/plates"
 OUT="$ROOT/docs"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
 command -v magick >/dev/null || { echo "error: ImageMagick not installed (brew install imagemagick)" >&2; exit 1; }
-[ -f "$SHOTS/panel-root-plate.webp" ] || { echo "error: run scripts/capture-screenshots.sh first" >&2; exit 1; }
+[ -f "$PLATES/panel-root-plate.webp" ] || { echo "error: run scripts/capture-screenshots.sh first" >&2; exit 1; }
 
 # Charter is the site's text face and ships with macOS; the marketing images should
 # not be the one place the brand speaks in a different voice.
@@ -45,7 +46,7 @@ swift "$ROOT/scripts/rasterize-svg.swift" "$ROOT/design/candela-icon-light.svg" 
 # marketing images with the panel inside a visible box.
 panel_cutout() {  # <height-in-px> <output>
   local target=$1 out=$2
-  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-root-plate.webp" "$TMP/trimmed.png" >/dev/null
+  python3 "$ROOT/scripts/trim-panel.py" "$PLATES/panel-root-plate.webp" "$TMP/trimmed.png" >/dev/null
   magick "$TMP/trimmed.png" -resize "x${target}" "$out"
 }
 
@@ -127,8 +128,8 @@ echo "==> Page tour GIF"
 TOUR=(root display allResolutions tools settings)
 frames=()
 for page in "${TOUR[@]}"; do
-  [ -f "$SHOTS/panel-$page-plate.webp" ] || continue
-  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-$page-plate.webp" "$TMP/tour-$page.png" >/dev/null
+  [ -f "$PLATES/panel-$page-plate.webp" ] || continue
+  python3 "$ROOT/scripts/trim-panel.py" "$PLATES/panel-$page-plate.webp" "$TMP/tour-$page.png" >/dev/null
   # One canvas size for every frame, so the GIF does not jump as pages change height.
   magick "$TMP/tour-$page.png" -resize x760 \
     -background none -gravity north -extent 460x760 "$TMP/frame-$page.png"

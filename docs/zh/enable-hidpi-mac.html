@@ -69,9 +69,9 @@ HiDPI 把每个点画成 2×2 的像素块，于是同一套界面用四倍的�
 <li>macOS 询问时输入管理员密码，屏幕会闪一次——显示模式列表正在重建。</li>
 <li>打开 <strong>Resolution</strong>，在新出现的档位里选。</li>
 </ol>
-<figure class="shot"><img src="../shots/panel-display.webp" alt="Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。" width="1380" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。</figcaption></figure>
+<figure class="shot"><img src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1380w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。" width="1380" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。</figcaption></figure>
 <p>完整模式列表是单独一页，列出这块屏能接受的全部分辨率，并标出其中清晰的那些：</p>
-<figure class="shot"><img src="../shots/panel-allResolutions.webp" alt="Candela 中某块显示器的完整分辨率列表。" width="1380" height="1708" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器的完整分辨率列表。</figcaption></figure>
+<figure class="shot"><img src="../shots/panel-allResolutions.webp" srcset="../shots/panel-allResolutions-480.webp 480w, ../shots/panel-allResolutions-960.webp 960w, ../shots/panel-allResolutions.webp 1380w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 中某块显示器的完整分辨率列表。" width="1380" height="1708" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器的完整分辨率列表。</figcaption></figure>
 <h3 id="手动做法">手动做法</h3>
 <p>有一个流传已久的方案：在 <code>/Library/Displays/Contents/Resources/Overrides</code> 下放一个
 按显示器厂商 ID 与产品 ID 命名的 plist，在里面声明你想要的缩放档位。

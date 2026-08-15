@@ -19,12 +19,16 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${1:-$ROOT/docs/shots}"
+# The panel-alone captures are build inputs for the banner and the Open Graph cards,
+# not something any page links to. They live outside docs/ so the published site
+# contains only what it serves.
+PLATES="$ROOT/assets/plates"
 APP="${CANDELA_APP:-/Applications/Candela.app}"
 BIN="$APP/Contents/MacOS/Candela"
 PAGES=(root display allResolutions tools settings arrangement virtualDisplays)
 
 [ -x "$BIN" ] || { echo "error: $BIN not found (run ./dev.sh first)" >&2; exit 1; }
-mkdir -p "$OUT"
+mkdir -p "$OUT" "$PLATES"
 
 # Photograph the panel against a controlled backdrop rather than the desk. The panel
 # is glass and samples what is behind it, so shots taken on a working desktop have
@@ -81,7 +85,7 @@ for page in "${PAGES[@]}"; do
   # `panel-<page>-plate.png` is the panel alone, for compositing into the banner and
   # the Open Graph cards, where a menu bar would be a second subject competing with
   # the headline.
-  screencapture -x -R"$((x-16)),$y,$((w+32)),$((h+16))" "$OUT/panel-$page-plate.png"
+  screencapture -x -R"$((x-16)),$y,$((w+32)),$((h+16))" "$PLATES/panel-$page-plate.png"
   size=$(sips -g pixelWidth -g pixelHeight "$OUT/panel-$page.png" | awk '/pixel/ {printf "%s ", $2}')
   echo "  $page  ${size}->  $OUT/panel-$page.png"
 done
@@ -100,12 +104,28 @@ osascript -e 'quit app "Candela"' >/dev/null 2>&1 || true
 # shifting as the pictures arrive.
 echo "==> Converting to WebP"
 : > "$OUT/manifest.txt"
-for png in "$OUT"/panel-*.png; do
+for png in "$OUT"/panel-*.png "$PLATES"/panel-*.png; do
   [ -f "$png" ] || continue
   webp="${png%.png}.webp"
   magick "$png" -quality 90 "$webp"
   read -r w h <<< "$(magick identify -format "%w %h" "$webp")"
-  echo "$(basename "$webp") $w $h" >> "$OUT/manifest.txt"
+
+  # Narrower copies for srcset. A phone was downloading the full-width image and,
+  # worse, decoding it: 1380x1482 is two million pixels, which is roughly 8 MB in
+  # memory once decoded, and the home page carries six of them. The bytes were
+  # already small; the decode was not.
+  # Only the published images get narrow variants; nothing requests a responsive
+  # plate.
+  variants=""
+  for target in 480 960; do
+    if [ "$w" -gt "$target" ] && [ "${webp#$PLATES}" = "$webp" ]; then
+      magick "$webp" -resize "${target}x" -quality 88 "${webp%.webp}-${target}.webp"
+      variants="$variants ${target}"
+    fi
+  done
+  if [ "${webp#$PLATES}" = "$webp" ]; then
+    echo "$(basename "$webp") $w $h${variants:+ }${variants# }" >> "$OUT/manifest.txt"
+  fi
   rm -f "$png"
 done
 sort -o "$OUT/manifest.txt" "$OUT/manifest.txt"

@@ -49,7 +49,7 @@
 <h2 id="一次调动所有屏幕">一次调动所有屏幕</h2>
 <p>打开 Candela 的面板，用 <strong>Combined</strong> 滑条。它驱动所有已连接的显示器；
 把亮度键的作用目标设为「所有屏幕作为一个整体」也是同一件事。</p>
-<figure class="shot"><img src="../shots/panel-root.webp" alt="Candela 面板：每块屏各自的滑条，以及驱动全部屏幕的 Combined 滑条。" width="1380" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 面板：每块屏各自的滑条，以及驱动全部屏幕的 Combined 滑条。</figcaption></figure>
+<figure class="shot"><img src="../shots/panel-root.webp" srcset="../shots/panel-root-480.webp 480w, ../shots/panel-root-960.webp 960w, ../shots/panel-root.webp 1380w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 面板：每块屏各自的滑条，以及驱动全部屏幕的 Combined 滑条。" width="1380" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 面板：每块屏各自的滑条，以及驱动全部屏幕的 Combined 滑条。</figcaption></figure>
 <p>合并后的量是一个<strong>比例</strong>而不是绝对值，所以有额外亮度余量的屏用它自己的余量，
 没有的那块也不必假装有。夹紧发生在合并量上而不是逐屏进行——
 这正是「一块屏见了底停住、另一块还在 40，之后再也回不到一致」这种情况不会发生的原因。</p>
@@ -83,7 +83,7 @@ Candela 把信号取该指数的倒数次幂，让软件路径回到和硬件路
 所以你是在和旁边那台直接对比。</li>
 <li>看起来一致时松手。就这样：数值已保存，这块屏也会被放回你开始之前的亮度。</li>
 </ol>
-<figure class="shot"><img src="../shots/panel-display.webp" alt="Candela 中某块显示器页面上的合并亮度下限控件。" width="1380" height="1482" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器页面上的合并亮度下限控件。</figcaption></figure>
+<figure class="shot"><img src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1380w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 中某块显示器页面上的合并亮度下限控件。" width="1380" height="1482" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器页面上的合并亮度下限控件。</figcaption></figure>
 <p>从此以后，合并滑条和亮度键都会让每块屏走它自己的下限。
 它们会一起抵达最低点，回升时也保持一致。</p>
 <p>这个设置按物理显示器保存，拔插重连后仍在；

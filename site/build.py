@@ -179,12 +179,45 @@ def read_image_sizes() -> dict[str, tuple[int, int]]:
     sizes = {}
     for line in manifest.read_text(encoding="utf-8").splitlines():
         parts = line.split()
-        if len(parts) == 3:
-            sizes[parts[0]] = (int(parts[1]), int(parts[2]))
+        if len(parts) >= 3:
+            sizes[parts[0]] = (int(parts[1]), int(parts[2]),
+                               [int(w) for w in parts[3:]])
     return sizes
 
 
-IMAGE_SIZES: dict[str, tuple[int, int]] = {}
+IMAGE_SIZES: dict[str, tuple[int, int, list[int]]] = {}
+
+
+# Applied to the finished HTML rather than at the point each image is written,
+# because the screenshots arrive two ways: the hero and the article figures come
+# through Markdown, and the home page's alternating rows are hand-written <img>
+# tags. One pass over the output covers both and cannot get them out of step.
+IMG_TAG = re.compile(r'<img ([^>]*?)src="([^"]*shots/([^"/]+))"([^>]*?)>')
+
+
+def add_srcset(html_text: str) -> str:
+    def repl(m: re.Match) -> str:
+        before, src, name, after = m.groups()
+        entry = IMAGE_SIZES.get(name)
+        if not entry:
+            return m.group(0)
+        width, _height, variants = entry
+        if not variants:
+            return m.group(0)
+        base = src[: -len(".webp")]
+        candidates = [f"{base}-{w}.webp {w}w" for w in variants]
+        candidates.append(f"{src} {width}w")
+        # Two layouts, two answers. A row image sits in one half of a two-column
+        # grid on a wide screen and fills the column on a narrow one; everything
+        # else is a single figure in the text column. Telling the browser 900px for
+        # a picture that renders at 420 makes it fetch twice the image it needs.
+        in_row = 'data-row=' in before or 'data-row=' in after
+        sizes = ("(max-width: 760px) 92vw, 420px" if in_row
+                 else "(max-width: 760px) 92vw, 900px")
+        return (f'<img {before}src="{src}" srcset="{", ".join(candidates)}" '
+                f'sizes="{sizes}"{after}>')
+
+    return IMG_TAG.sub(repl, html_text)
 
 
 def read_pages() -> list[Page]:
@@ -287,9 +320,16 @@ LANG_REDIRECT = """<script>
 </script>"""
 
 
+ROW_FIGURE = re.compile(r'(<figure class="row-figure">\s*<img )')
+
+
 def render(page: Page, by_slug: dict) -> str:
     t = UI[page.lang]
     body = make_markdown(page.depth)(page.body_md)
+    # Mark the row images so add_srcset can tell them apart; the class lives on the
+    # figure, and a regex over <img> alone cannot see its parent.
+    body = ROW_FIGURE.sub(r'\1data-row="1" ', body)
+    body = add_srcset(body)
     counterpart = by_slug.get(("zh", page.slug)) or by_slug.get(("zh", "index"))
     redirect = ""
     if page.lang == DEFAULT_LANG and counterpart:
