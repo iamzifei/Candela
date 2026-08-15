@@ -97,10 +97,37 @@ canonical / hreflang / og:url / JSON-LD 全部已指向 zifei.info——
    只按宽度约束不够，要按高度。
 3. `styles.css` **没有缓存失效机制**，修好的样式对老访客不可见。已改为内容哈希查询串。
 
-### S6 — 发布（未做）
+### S6 — 发布
 
-- [ ] `CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes.md --publish`
-- [ ] 验证 `spctl` 判 accepted、`brew install --cask iamzifei/tap/candela` 能装
+**除了最后一步，全部实测跑通（2026-08-15）：**
+
+| 检查 | 结果 |
+|---|---|
+| Apple 公证 | `status: Accepted` |
+| 票据装订 | `The staple and validate action worked!` |
+| `spctl`（构建产物） | **accepted · source=Notarized Developer ID** |
+| `spctl`（DMG 里取出的那份） | **accepted** |
+| hardened runtime | `flags=0x10000(runtime)` |
+| DMG | 2.2 MB |
+
+发布说明草稿：`/Users/james/Dev/candela/notes/releases/v0.1.0.md`
+
+- [ ] **需要 James 拍板**：`CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes/releases/v0.1.0.md --publish`
+- [ ] 发布前先过一遍本文件末尾的 9 条真机回归清单——编译通过不等于能用
+- [ ] 发布后：`brew install --cask iamzifei/tap/candela` 实装一次
+
+### 发布目录的清理（2026-08-15）
+
+`docs/` 既是开发文档目录又是 Pages 根目录，于是设计文档、构建指南、**以及我的计划文件**
+全部可被公开访问（实测均为 200）。已移到 `notes/`，线上现在全部 404。
+**扫描确认没有任何凭据外泄**，但计划文件里确实讨论了「有哪些凭据」。
+
+⚠️ **这与全局约定「计划放 `<项目>/docs/plans/`」冲突**——冲突来自 Pages 的目录占用，
+不是偏好。若日后改用可指定目录的 Pages workflow，`docs/` 腾出来就能搬回去。
+理由写在 `notes/README.md`。
+
+顺带修掉：`BUILDING.md` 里的编译命令引用 `Crisp/Crisp-Bridging-Header.h`，
+**那个路径不存在，照着敲会直接失败**。
 
 ## S7 — 视觉方向改为 kami + 杂志编排（2026-08-15 下午）
 
