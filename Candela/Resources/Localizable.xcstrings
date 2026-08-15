@@ -566,6 +566,22 @@
         }
       }
     },
+    "Candela reads its language once at launch, so the new one applies after it restarts." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Candela 只在启动时读取一次语言设置，重启后新语言才会生效。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Candela 只在啟動時讀取一次語言設定，重新啟動後新語言才會生效。"
+          }
+        }
+      }
+    },
     "Candela v%@" : {
       "shouldTranslate" : false
     },
@@ -1866,6 +1882,22 @@
         }
       }
     },
+    "Later" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍后"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍後"
+          }
+        }
+      }
+    },
     "Launch at Login" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2632,6 +2664,38 @@
         }
       }
     },
+    "Relaunch" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新启动"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新啟動"
+          }
+        }
+      }
+    },
+    "Relaunch to change the language?" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新启动以切换语言？"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新啟動以切換語言？"
+          }
+        }
+      }
+    },
     "Replace the stored values above with this display's current settings" : {
       "localizations" : {
         "zh-Hans" : {
@@ -2938,7 +3002,6 @@
       }
     },
     "Support Candela" : {
-      "extractionState" : "stale",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {

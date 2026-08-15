@@ -103,9 +103,7 @@ Candela is and will stay completely free — no Pro tier, no licence key, no lim
 one running cost is the $99/year Apple Developer Program, which is what makes signing
 and notarising possible so the app installs without warnings.
 
-- [GitHub Sponsors](https://github.com/sponsors/iamzifei)
 - [Ko-fi](https://ko-fi.com/iamzifei)
-- [爱发电 (Afdian)](https://ifdian.net/a/iamzifei)
 
 Entirely optional. Nothing in the app changes either way.
 

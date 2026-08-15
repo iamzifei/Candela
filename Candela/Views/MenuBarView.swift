@@ -330,75 +330,19 @@ struct UpdateRow: View {
 /// update row, the genre standard for free apps. Never a popup or launch-time
 /// nag, and every feature stays free.
 struct SupportRow: View {
-    // Owned by the parent (SettingsView) so its panel-close handler can collapse
-    // it; a private @State here would survive the reset and reopen still expanded,
-    // unlike every other submenu.
-    @Binding var expanded: Bool
-
+    /// Ko-fi is the only channel, so this is a link, not a disclosure that opens to
+    /// reveal one row. The GitHub Sponsors and Afdian rows are gone: they were
+    /// carried over from the fork's own set, and offering a channel that is not
+    /// actually set up sends a supporter to a page that cannot take their money.
     private let kofi = "https://ko-fi.com/iamzifei"
-    private let afdian = "https://ifdian.net/a/iamzifei"
-    private let github = "https://github.com/sponsors/iamzifei"
 
-    /// A supporter's payment region can't be detected reliably in a sideloaded
-    /// app (no App Store storefront; Locale.current.region is only a formatting
-    /// hint mainland users often switch away), so the submenu lists them all and
-    /// lets them pick. Mainland China can't complete the Stripe-based checkouts
-    /// (Ko-fi, GitHub Sponsors) and needs Afdian's WeChat/Alipay, so the hint only
-    /// ORDERS the list, surfacing the likely option first; none is ever hidden.
-    private var prefersChinese: Bool {
-        Locale.current.region?.identifier == "CN"
-            || Bundle.main.preferredLocalizations.first?.hasPrefix("zh-Hans") == true
-    }
-
-    /// Afdian's own brand name is 爱发电; the "(Afdian)" romanization only helps a
-    /// non-Chinese reader, so drop it when the UI itself is Chinese (keyed on the UI
-    /// language, not region: an English UI in CN still needs the handle).
-    private var afdianTitle: String {
-        Bundle.main.preferredLocalizations.first?.hasPrefix("zh") == true
-            ? "爱发电" : "爱发电 (Afdian)"
-    }
-
-    var body: some View {
-        VStack(spacing: 0) {
-            ExpandableRow(
-                icon: "heart.fill",
-                iconColor: .pink,
-                label: "Support Candela",
-                isExpanded: $expanded
-            )
-
-            // Always laid out so the curtain glides the links open with the panel
-            // spring, instead of popping to full height while the row animates.
-            // prefersChinese only orders the rows (static per launch), so branching
-            // on it here doesn't affect the reveal.
-            VStack(spacing: 0) {
-                if prefersChinese {
-                    SupportLinkRow(title: afdianTitle, url: afdian)
-                    SupportLinkRow(title: "Ko-fi", url: kofi)
-                    SupportLinkRow(title: "GitHub Sponsors", url: github)
-                } else {
-                    SupportLinkRow(title: "Ko-fi", url: kofi)
-                    SupportLinkRow(title: "GitHub Sponsors", url: github)
-                    SupportLinkRow(title: afdianTitle, url: afdian)
-                }
-            }
-            .padding(.leading, 8)
-            .curtainReveal(expanded)
-        }
-    }
-}
-
-/// One external-link row inside the Support submenu: a label with the ↗ affordance
-/// that opens the platform's page in the browser. Brand names are verbatim so they
-/// are never localized or number-grouped.
-private struct SupportLinkRow: View {
-    let title: String
-    let url: String
     @State private var isHovered = false
 
     var body: some View {
-        HStack {
-            Text(verbatim: title)
+        HStack(spacing: 8) {
+            MenuItemIcon(systemName: "heart.fill", color: .pink, active: true)
+                .accessibilityHidden(true)
+            Text("Support Candela")
                 .font(.body)
             Spacer()
             Image(systemName: "arrow.up.forward")
@@ -411,14 +355,15 @@ private struct SupportLinkRow: View {
         .menuRowHover(isHovered)
         .contentShape(Rectangle())
         .onTapGesture {
-            guard let link = URL(string: url) else { return }
+            guard let link = URL(string: kofi) else { return }
             NSWorkspace.shared.open(link)
         }
         .onHover { hovering in
             isHovered = hovering
             if hovering { NSCursor.pointingHand.push() } else { NSCursor.pop() }
         }
-        .accessibilityLabel(Text(verbatim: title))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("Support Candela"))
         .accessibilityAddTraits(.isButton)
     }
 }
@@ -430,8 +375,8 @@ struct SettingsView: View {
     // SettingsView stays mounted (only height-clipped) across panel opens, so the
     // support submenu's expansion must be reset explicitly on close like every
     // other section, or it reopens still expanded.
-    @State private var showSupport = false
     @State private var showBrightnessKeys = false
+    @State private var showLanguage = false
     // Accessibility trust drives which Brightness Keys UI shows (toggle vs target menu).
     // AXIsProcessTrusted() isn't observable and the panel content mounts once, so re-read
     // it on every open (below) or the section shows a stale state after the user grants or
@@ -649,6 +594,8 @@ struct SettingsView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 5)
 
+            LanguageRow(expanded: $showLanguage)
+
             SectionDivider()
 
             Text("Candela v\(UpdateService.shared.currentVersion)")
@@ -659,7 +606,7 @@ struct SettingsView: View {
             // Optional support link, tucked next to the version stamp where
             // "about" info lives. Muted, but with a link affordance so it doesn't
             // read as static text, no popup, no launch nag; every feature stays free.
-            SupportRow(expanded: $showSupport)
+            SupportRow()
         }
         .padding(.vertical, 6)
         .onReceive(NotificationCenter.default.publisher(for: .candelaPanelDidOpen)) { _ in
@@ -681,7 +628,6 @@ struct SettingsView: View {
             if isTrusted { BrightnessKeyService.shared.start() }  // re-arm if trust became effective post-launch (upgrade zombie)
         }
         .onReceive(NotificationCenter.default.publisher(for: .candelaPanelDidClose)) { _ in
-            showSupport = false
             showBrightnessKeys = false
         }
     }

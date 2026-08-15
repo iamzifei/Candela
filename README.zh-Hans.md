@@ -97,9 +97,7 @@ Candela 现在免费，以后也会一直免费——没有 Pro 版、没有激�
 它唯一的持续成本是每年 99 美元的 Apple 开发者计划，
 正是它让签名与公证成为可能，你安装时才不会看到警告。
 
-- [GitHub Sponsors](https://github.com/sponsors/iamzifei)
 - [Ko-fi](https://ko-fi.com/iamzifei)
-- [爱发电](https://ifdian.net/a/iamzifei)
 
 完全自愿。给或不给，app 都不会有任何区别。
 
