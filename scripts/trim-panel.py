@@ -37,10 +37,16 @@ def gray_row_means(path: Path, width: int, height: int) -> list[int]:
 
 
 def span(means: list[int]) -> tuple[int, int]:
-    """First and last index whose value is above the midpoint of the range."""
+    """First and last index whose value is above the midpoint of the range.
+
+    A small range means there is no edge to find on this axis, which is not a
+    failure: on the shorter pages the panel reaches both the top and the bottom of
+    the capture, so the whole axis is panel. Treating that as an error rejected
+    exactly the pages that needed no trimming.
+    """
     lo, hi = min(means), max(means)
     if hi - lo < 30:
-        raise SystemExit("no clear panel edge found — was this captured over the backdrop?")
+        return 0, len(means) - 1
     threshold = (lo + hi) / 2
     above = [i for i, v in enumerate(means) if v > threshold]
     return above[0], above[-1]

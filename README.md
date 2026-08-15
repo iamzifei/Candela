@@ -32,6 +32,12 @@ display at once. Candela puts all three back.
 
 <img src="docs/shots/panel-root.png" alt="The Candela panel: each connected display with its own brightness slider, a combined slider, and rows for presets, tools and settings" width="360">
 
+<div align="center">
+
+<img src="docs/tour.gif" alt="A tour of Candela's pages: the root panel, a display's own page, the full resolution list, tools and settings" width="300">
+
+</div>
+
 ## Install
 
 ```sh

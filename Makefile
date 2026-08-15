@@ -36,14 +36,15 @@ SWIFTC_FLAGS := -O -target arm64-apple-macos26.0 -swift-version 5 -strict-concur
                 -Xlinker -undefined -Xlinker dynamic_lookup
 
 .DEFAULT_GOAL := help
-.PHONY: help dev compile test lint loc-check hant-check check build dmg release clean
+.PHONY: help dev compile test lint loc-check hant-check site site-check check build dmg release clean
 
 help:
 	@echo "Candela — make targets:"
 	@echo "  make dev        compile + swap into /Applications/Candela.app + relaunch (dev.sh)"
 	@echo "  make compile    compile ./Candela-bin only, no swap (quick build check)"
 	@echo "  make test       generate the Xcode project and run unit tests"
-	@echo "  make check      lint + tests + localization keys, everything CI enforces"
+	@echo "  make check      lint + tests + localization keys + site, everything CI enforces"
+	@echo "  make site       rebuild docs/ from site/content (the website)"
 	@echo "  make build      signed arm64 DMG, no Xcode (scripts/release.sh v$(VERSION))"
 	@echo "  make dmg        DMG via Xcode (scripts/build-dmg.sh)"
 	@echo "  make release ARGS=\"vX.Y.Z notes.md --publish\"   full release (scripts/release.sh)"
@@ -91,8 +92,16 @@ hant-check:
 	python3 scripts/add-zh-Hant.py --check
 
 # Everything CI enforces (lint + build + tests + localization keys), locally.
-check: lint test loc-check hant-check
-	@echo "check passed: lint clean, tests green, localization keys complete"
+# The website in docs/ is generated from site/content. This fails if docs/ was
+# edited by hand, which would be silently reverted by the next build.
+site:
+	python3 site/build.py
+
+site-check:
+	python3 site/build.py --check
+
+check: lint test loc-check hant-check site-check
+	@echo "check passed: lint clean, tests green, localization keys complete, site in sync"
 
 build:
 	./scripts/release.sh v$(VERSION)

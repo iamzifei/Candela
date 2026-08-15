@@ -35,17 +35,17 @@
 - [x] `notarytool store-credentials candela-notary`（**实测** Credentials validated）
 - [x] 代码推送 main
 
-### S2 — 素材（截图 / 录屏）
+### S2 — 素材（截图 / 录屏）✅ 完成
 合成点击进不了面板的 SwiftUI 命中区（本项目已多次实测），所以：
-- [ ] 加一个调试用的初始路由环境变量，让每个页面都能被无头截图
-- [ ] 逐页截图：根面板、显示器详情页、全部分辨率、Tools、Settings、Sidecar
-- [ ] banner 图（README 顶部）
-- [ ] demo GIF：由路由切换序列合成（能表现下钻导航；**滑条拖动这类需要真人**）
-- [ ] OG card（1200×630）英文 + 中文
+- [x] 加一个调试用的初始路由环境变量，让每个页面都能被无头截图
+- [x] 逐页截图：根面板、显示器详情页、全部分辨率、Tools、Settings、Sidecar
+- [x] banner 图（README 顶部）
+- [x] demo GIF：由路由切换序列合成（能表现下钻导航；**滑条拖动这类需要真人**）
+- [x] OG card（1200×630）英文 + 中文
 
 **验收**：每张图里出现的是 Candela 当前的卡片式面板，不是 Crisp 旧界面。
 
-### S3 — 站点骨架
+### S3 — 站点骨架 ✅ 完成
 - [ ] `docs/styles.css` 沿用（它是通用的，无品牌字样）→ 核对后决定
 - [ ] `docs/index.html` 重写（EN）
 - [ ] `docs/zh/index.html`（简中）
@@ -54,7 +54,7 @@
 - [ ] 顶部固定：下载按钮 + Ko-fi（https://ko-fi.com/iamzifei）
 - [ ] `sitemap.xml`、`robots.txt`、canonical、hreflang 全部指向 iamzifei/Candela
 
-### S4 — 文章（每篇 EN + 中文，共 5 篇 × 2）
+### S4 — 文章 ✅ 完成（6 页 × 2 语言 = 12 页）
 | # | slug | 目标关键词 |
 |---|---|---|
 | 1 | `candela-vs-betterdisplay.html` | betterdisplay alternative / lunar alternative / free |
@@ -71,7 +71,7 @@
 - 内链到其他文章与首页；外链到权威来源（Apple 文档、VESA DDC/CI 规范）
 - 不写 Candela 做不到的事；**竞品对比只写可验证的事实**（价格、许可、是否开源）
 
-### S5 — README
+### S5 — README ✅ 完成
 - [ ] banner 图 / demo
 - [ ] 中英切换（`README.md` + `README.zh-Hans.md`，顶部互链）
 - [ ] 修掉 `macOS 14+` 徽章（**实际是 macOS 26 only**，现在是错的）
@@ -82,10 +82,35 @@
 - [ ] `CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes.md --publish`
 - [ ] 验证：`spctl` 判 accepted、`brew install --cask iamzifei/tap/candela` 能装
 
+## 上线状态（2026-08-15 实测）
+
+- 仓库：https://github.com/iamzifei/Candela （public）
+- tap：https://github.com/iamzifei/homebrew-tap （空，首发时自动种 cask）
+- 公证凭据：钥匙串 profile `candela-notary`，**实测** `Credentials validated`
+- **站点已上线**：https://zifei.info/Candela/ 返回 200
+
+⚠️ **站点域名不是 github.io。** 账号主站 `iamzifei.github.io` 的 CNAME 是 `zifei.info`，
+所以项目页服务于 `https://zifei.info/Candela/`，github.io 地址会 301 跳过来。
+canonical / hreflang / og:url / JSON-LD 全部已指向 zifei.info——
+拿一个会跳转的地址当 canonical，等于告诉搜索引擎每一页的家都在错的地方。
+
+### 已在真实浏览器里验证并修掉的三件事
+
+1. 导航栏下载按钮是**深灰字配蓝底**——`.nav-links > a` 的选择器优先级压过了 `.btn-dl`。
+   本地看文件看不出来。
+2. 首屏截图**占满整个视口**，全部文字被推到折叠线以下。面板截图是竖长的，
+   只按宽度约束不够，要按高度。
+3. `styles.css` **没有缓存失效机制**，修好的样式对老访客不可见。已改为内容哈希查询串。
+
+### S6 — 发布（未做）
+
+- [ ] `CANDELA_NOTARY_PROFILE=candela-notary ./scripts/release.sh v0.1.0 notes.md --publish`
+- [ ] 验证 `spctl` 判 accepted、`brew install --cask iamzifei/tap/candela` 能装
+
 ## HUMAN QUEUE
 
 | # | 事项 | 卡住什么 |
 |---|---|---|
 | 1 | **撤销并重发 app 专用密码**（appleid.apple.com）——它出现在 2026-08-15 的对话记录里 | 安全，非阻塞 |
-| 2 | 录一段真人操作的 demo（拖亮度滑条、切分辨率）——合成事件进不了面板命中区 | S2 的动态素材 |
+| 2 | **录一段真人操作的 demo**（拖亮度滑条、切分辨率、下钻返回）——合成事件进不了面板命中区。已有的 `docs/tour.gif` 是页面序列合成的，能表现结构但没有真实交互 | README / 首页的动态素材 |
 | 3 | 决定要不要注册 `candela.app` 域名 | 只影响 canonical，Pages 可先上 |

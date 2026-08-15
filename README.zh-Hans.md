@@ -30,6 +30,12 @@
 
 <img src="docs/shots/panel-root.png" alt="Candela 面板：每块显示器各自的亮度滑条、驱动全部屏幕的合并滑条，以及预设、工具与设置" width="360">
 
+<div align="center">
+
+<img src="docs/tour.gif" alt="Candela 的页面导览：根面板、单个显示器的详情页、完整分辨率列表、工具与设置" width="300">
+
+</div>
+
 ## 安装
 
 ```sh

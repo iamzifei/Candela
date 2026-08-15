@@ -108,3 +108,25 @@ magick -size 320x64 xc:none \
 echo "    $OUT/download-macos.png"
 
 echo "Done."
+
+echo "==> Page tour GIF"
+# A tour of the pages, not a recording of someone using them. Synthetic clicks do not
+# reach this panel's hit targets, so a real interaction capture — dragging a slider,
+# watching a fade — has to be recorded by hand. This shows the drill-down structure,
+# which is the thing a still screenshot cannot: that the panel has pages.
+TOUR=(root display allResolutions tools settings)
+frames=()
+for page in "${TOUR[@]}"; do
+  [ -f "$SHOTS/panel-$page.png" ] || continue
+  python3 "$ROOT/scripts/trim-panel.py" "$SHOTS/panel-$page.png" "$TMP/tour-$page.png" >/dev/null
+  # One canvas size for every frame, so the GIF does not jump as pages change height.
+  magick "$TMP/tour-$page.png" -resize x760 \
+    -background none -gravity north -extent 460x760 "$TMP/frame-$page.png"
+  frames+=("$TMP/frame-$page.png")
+done
+# Frames before the alpha settings: those are operators, and an operator with no
+# images loaded yet is an error rather than a default.
+magick -delay 130 -loop 0 "${frames[@]}" \
+  -background "#2f3350" -alpha remove -alpha off \
+  -layers optimize "$OUT/tour.gif"
+echo "    $OUT/tour.gif ($(du -h "$OUT/tour.gif" | cut -f1))"
