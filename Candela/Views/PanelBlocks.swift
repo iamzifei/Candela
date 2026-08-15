@@ -198,6 +198,20 @@ struct PanelCard<Content: View>: View {
     }
 }
 
+/// Space between two groups of rows on a page.
+///
+/// The root panel separates its groups with `PanelCard`, which draws a surface and
+/// takes the gap for free. A page cannot do the same: each row here is its own
+/// canvas block so it can reveal and collapse independently, and one card cannot
+/// span several blocks. Without something between them, Resolution, Refresh Rate,
+/// Colour Profile and the display actions all ran together as a single list —
+/// nothing said where one subject ended and the next began.
+struct PanelGroupGap: View {
+    var body: some View {
+        Color.clear.frame(height: 14)
+    }
+}
+
 /// The top row of any page below the root: a back chevron and the page's title.
 ///
 /// The chevron and the title are one target, as they are in Settings and in

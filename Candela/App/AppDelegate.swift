@@ -1054,9 +1054,17 @@ private struct PanelBlockFactory {
             }
         ] : []
 
-        return [header]
+        // Gaps between subjects, not between rows: how the display renders, how
+        // bright it sits, how it reproduces colour, and what to do with it are four
+        // different questions, and on one page they were reading as one long list.
+        let gap = { (id: String) in
+            self.block("gap-\(id)-\(uuid)") { PanelGroupGap() }
+        }
+
+        return [header, gap("head")]
             + modeBlocks(for: display, detailOpen: open)
-            + calibration
+            + (calibration.isEmpty ? [gap("mode")] : [gap("mode")] + calibration)
+            + [gap("cal")]
             + colorBlocks(for: display, detailOpen: open)
     }
 
@@ -1135,6 +1143,7 @@ private struct PanelBlockFactory {
             }) {
                 ImageBodyBlock(display: display, state: state)
             },
+            block("gap-color-\(uuid)") { PanelGroupGap() },
             detail("dtail", uuid: uuid, isOpen: detailOpen) {
                 DetailTailBlock(display: display)
             }
