@@ -1,199 +1,305 @@
 /* Candela — site styles.
-   Copied to docs/styles.css by site/build.py; edit this file, not that one. */
+   Copied to docs/styles.css by site/build.py; edit this file, not that one.
+
+   The visual language is kami (紙): an editorial paper system — warm parchment
+   canvas, serif-led hierarchy, ink-blue used sparingly, and print fidelity rather
+   than the compositing tricks that mark a page as a web page. Its explicit
+   prohibitions are honoured here: no #ffffff page background, no cool blue-greys,
+   no weights above 500, no italic, no sans-serif for headings or body, no
+   backdrop-filter, no drop shadows, no round-disc bullets.
+
+   Where kami and Apple's guidance disagree, they are disagreeing about different
+   things. kami governs how the page looks; Apple's guidance is followed where it
+   governs how the page behaves — 44px minimum touch targets, relative units that
+   respect the reader's text size, real contrast, reduced-motion, safe areas, and
+   nothing that only works on hover. */
 
 :root {
-  --bg: #fbfbfd;
-  --surface: #ffffff;
-  --ink: #16181d;
-  --ink-soft: #5b6270;
-  --line: #e3e6ec;
-  --accent: #2f6df6;
-  --accent-ink: #1a4bc4;
-  --warm: #f2a03d;          /* the icon's luminance arc */
-  --good: #1f9d55;
-  --bad: #c2413a;
-  --radius: 14px;
-  --wrap: 44rem;
-  --shadow: 0 1px 2px rgba(16, 18, 24, .05), 0 8px 28px rgba(16, 18, 24, .07);
+  /* Surfaces */
+  --parchment: #f5f4ed;
+  --ivory: #faf9f5;
+  --sand: #e8e6dc;
+
+  /* Text, four levels */
+  --ink: #141413;
+  --ink-2: #3d3d3a;
+  --ink-3: #504e49;
+  --ink-4: #6b6a64;
+
+  /* Accent, kept under 5% of the surface */
+  --blue: #1b365d;
+  --blue-light: #2d5a8a;
+
+  --good: #4a6b3a;
+  --warn: #8a6b1f;
+  --danger: #8a3a30;
+
+  --border: #e8e6dc;
+  --border-soft: #e5e3d8;
+
+  /* Spacing */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 20px; --s6: 24px; --s8: 32px; --s12: 48px;
+  --section: 72px;
+
+  --radius: 8px;
+  --radius-sm: 4px;
+  --measure: 34rem;   /* ~66 characters at this size: the readable line length */
+
+  --serif-en: Charter, "Bitstream Charter", Georgia, "Palatino Linotype", Palatino,
+              "Times New Roman", serif;
+  --serif-cjk: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", STSong,
+               "Hiragino Mincho ProN", YuMincho, SimSun, serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1115;
-    --surface: #171a21;
-    --ink: #e8eaf0;
-    --ink-soft: #9aa3b4;
-    --line: #262b35;
-    --accent: #6f9bff;
-    --accent-ink: #9dbaff;
-    --warm: #f6b662;
-    --good: #4ac07d;
-    --bad: #e4736c;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 32px rgba(0, 0, 0, .45);
+    /* kami's own dark surfaces: warm, not the cool blue-grey it forbids. */
+    --parchment: #141413;
+    --ivory: #1c1c1a;
+    --sand: #30302e;
+    --ink: #edece6;
+    --ink-2: #d3d1c9;
+    --ink-3: #b3b1a8;
+    --ink-4: #8f8d84;
+    --blue: #8fb3dd;
+    --blue-light: #a9c6e8;
+    --good: #8fb377;
+    --warn: #d0a94e;
+    --danger: #d38b83;
+    --border: #30302e;
+    --border-soft: #2a2a28;
   }
 }
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 17px/1.68 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--parchment);
+  color: var(--ink-2);
+  font-family: var(--serif-en), var(--serif-cjk);
+  /* 17px is Apple's body size and kami's `lg` step — the one place the two systems
+     name the same number. 1.55 is the top of kami's reading range, which suits a
+     screen better than the denser end. */
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 400;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* Chinese wants a little tracking that Latin does not, and the font stack in the
+   other order. Scoped to the element rather than the page, so a Chinese phrase
+   inside an English sentence is not tracked out on its own. */
+:lang(zh-Hans), :lang(zh-Hant), :lang(zh) {
+  font-family: var(--serif-cjk), var(--serif-en);
+  letter-spacing: .35px;
+  line-break: strict;
+}
 
-/* ---------- navigation ---------- */
+a {
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--blue) 30%, transparent);
+}
+a:hover { border-bottom-color: var(--blue); }
+
+/* ---------- masthead ---------- */
 
 .nav {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid var(--line);
+  background: var(--parchment);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav-inner {
-  max-width: 68rem;
+  max-width: 62rem;
   margin: 0 auto;
-  padding: .55rem 1.1rem;
+  padding: var(--s3) var(--s5);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--s4);
+  flex-wrap: wrap;
 }
 
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  font-weight: 650;
-  font-size: 1.05rem;
+  gap: var(--s2);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.2px;
   color: var(--ink);
-  letter-spacing: -.01em;
+  border-bottom: 0;
 }
-.wordmark img { border-radius: 6px; }
+.wordmark img { border-radius: var(--radius-sm); }
 
 .nav-links {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: .35rem;
+  gap: var(--s1);
   flex-wrap: wrap;
 }
 .nav-links > a {
-  padding: .35rem .6rem;
-  border-radius: 8px;
-  color: var(--ink-soft);
-  font-size: .92rem;
+  /* 44px minimum target: the padding, not the type size, is what makes a link
+     tappable on a phone. */
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--s3);
+  border-radius: var(--radius-sm);
+  border-bottom: 0;
+  color: var(--ink-3);
+  font-size: 14px;
   white-space: nowrap;
 }
-.nav-links > a:hover { background: var(--line); color: var(--ink); text-decoration: none; }
-/* `.nav-links > a` is a more specific selector than `.btn-dl`, so without matching
-   its specificity the download button rendered dark grey text on blue — legible
-   enough to miss in a screenshot, and the least readable element on the page. */
-.nav-links > a.btn-dl { color: #fff; }
-.nav-links > a.btn-dl:hover { background: var(--accent-ink); color: #fff; }
-.nav-links > a.btn-kofi:hover { background: transparent; color: var(--warm); }
-.nav-links .lang { font-variant-numeric: tabular-nums; }
+.nav-links > a:hover { color: var(--ink); background: var(--sand); }
+.nav-links .lang { color: var(--ink-4); }
 
 .btn {
-  border-radius: 9px;
-  font-weight: 560;
-  font-size: .92rem;
-  padding: .42rem .82rem;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
 }
-.btn-dl { background: var(--accent); color: #fff; }
-.btn-dl:hover { background: var(--accent-ink); color: #fff; text-decoration: none; }
-.btn-kofi { border: 1px solid var(--line); color: var(--ink-soft); }
-.btn-kofi:hover { border-color: var(--warm); color: var(--warm); text-decoration: none; }
+.nav-links > a.btn-dl {
+  background: var(--blue);
+  color: var(--parchment);
+  padding: 0 var(--s4);
+}
+.nav-links > a.btn-dl:hover { background: var(--blue-light); color: var(--parchment); }
+.nav-links > a.btn-kofi { box-shadow: inset 0 0 0 1px var(--border); }
+.nav-links > a.btn-kofi:hover { background: var(--sand); }
 
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .hide-sm { display: none; }
   .nav-links .btn-kofi { display: none; }
+  .nav-inner { padding: var(--s2) var(--s4); }
 }
 
-/* ---------- page body ---------- */
+/* ---------- the page ---------- */
 
 .wrap {
-  max-width: var(--wrap);
+  max-width: var(--measure);
   margin: 0 auto;
-  padding: 2.6rem 1.1rem 4rem;
+  padding: var(--section) var(--s5) var(--s12);
 }
-.wrap.wide, .wrap:has(> .hero) { max-width: 60rem; }
+.wrap:has(> .hero) { max-width: 52rem; }
+
+h1, h2, h3 {
+  color: var(--ink);
+  font-weight: 500;      /* kami has no bold; 500 is the top of its range */
+  text-wrap: balance;
+}
 
 h1 {
-  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.75rem);
+  font-size: clamp(32px, 4.6vw, 48px);
   line-height: 1.14;
-  letter-spacing: -.022em;
-  margin: 0 0 .7rem;
+  letter-spacing: -1.2px;
+  margin: 0 0 var(--s5);
 }
 h2 {
-  font-size: 1.42rem;
-  line-height: 1.28;
-  letter-spacing: -.012em;
-  margin: 2.6rem 0 .7rem;
-  padding-top: .3rem;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -.3px;
+  margin: var(--section) 0 var(--s3);
 }
-h3 { font-size: 1.1rem; margin: 1.8rem 0 .5rem; }
-p { margin: 0 0 1.05rem; }
-ul, ol { margin: 0 0 1.05rem; padding-left: 1.35rem; }
-li { margin: .3rem 0; }
-strong { font-weight: 620; }
+h3 {
+  font-size: 17px;
+  line-height: 1.35;
+  margin: var(--s8) 0 var(--s2);
+}
+:lang(zh-Hans) h1, :lang(zh-Hant) h1 { letter-spacing: -.5px; }
+
+p { margin: 0 0 var(--s5); }
+strong { font-weight: 500; color: var(--ink); }
+em { font-style: normal; color: var(--ink); }   /* kami: no italic anywhere */
+
+/* The opening paragraph carries the answer; it reads as a standfirst. */
+.wrap > p:first-of-type {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+ul, ol { margin: 0 0 var(--s5); padding-left: 0; list-style: none; }
+li { margin: var(--s2) 0; padding-left: var(--s5); position: relative; }
+/* An en dash, not a round disc — kami rules those out, and a mark set in ink reads
+   as typography rather than as an interface element. */
+ul > li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--ink-4);
+}
+ol { counter-reset: item; }
+ol > li { counter-increment: item; }
+ol > li::before {
+  content: counter(item) ".";
+  position: absolute;
+  left: 0;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+}
 
 code {
-  font: .89em/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
-  background: var(--line);
-  padding: .12em .38em;
-  border-radius: 5px;
+  font-family: var(--mono);
+  font-size: .88em;
+  background: var(--ivory);
+  box-shadow: inset 0 0 0 1px var(--border-soft);
+  padding: .1em .35em;
+  border-radius: 2px;
 }
 pre {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--ivory);
+  box-shadow: inset 0 0 0 1px var(--border);
   border-radius: var(--radius);
-  padding: .9rem 1rem;
+  padding: var(--s4) var(--s5);
   overflow-x: auto;
-  margin: 0 0 1.2rem;
+  margin: 0 0 var(--s5);
+  font-size: 14px;
+  line-height: 1.5;
 }
-pre code { background: none; padding: 0; }
+pre code { background: none; box-shadow: none; padding: 0; }
 
-/* Lead paragraph: the answer, before the article explains it. */
-.wrap > p:first-of-type {
-  font-size: 1.09rem;
-  color: var(--ink-soft);
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--section) 0;
 }
 
-hr { border: 0; border-top: 1px solid var(--line); margin: 2.6rem 0; }
+/* ---------- plates ---------- */
 
-/* ---------- figures ---------- */
-
-.shot {
-  margin: 1.6rem 0 1.8rem;
+figure.shot {
+  margin: var(--s8) 0;
   text-align: center;
 }
 .shot img {
   max-width: 100%;
-  /* The panel screenshots are tall and narrow. Constrained only by width, the one
-     at the top of the home page filled the entire viewport and pushed every word of
-     the page below the fold — the reader saw a picture and had to scroll to learn
-     what it was of. Height is the binding dimension for a portrait image. */
-  max-height: 66vh;
+  /* Panel screenshots are tall and narrow; constrained only by width, the one at the
+     top of the home page filled the whole viewport and pushed every word below the
+     fold. Height is the binding dimension for a portrait image. */
+  max-height: 62vh;
   width: auto;
   height: auto;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  /* A ring, not a drop shadow: kami treats shadows as a compositing trick, and a
+     hairline is what separates a plate from the page in print. */
+  box-shadow: 0 0 0 1px var(--border);
 }
 .shot figcaption {
-  margin-top: .55rem;
-  font-size: .86rem;
-  color: var(--ink-soft);
+  margin-top: var(--s3);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-4);
+  max-width: 28rem;
+  margin-inline: auto;
 }
 
 /* ---------- tables ---------- */
@@ -201,68 +307,138 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.6rem 0; }
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 1.4rem;
-  font-size: .95rem;
+  margin: 0 0 var(--s6);
+  font-size: 14px;
+  line-height: 1.45;
 }
 th, td {
   text-align: left;
-  padding: .6rem .7rem;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
+  padding: var(--s3) var(--s4) var(--s3) 0;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: baseline;
 }
-th { font-weight: 620; color: var(--ink); }
-tbody tr:hover { background: color-mix(in srgb, var(--line) 45%, transparent); }
+thead th {
+  color: var(--ink);
+  font-weight: 500;
+  border-bottom: 1px solid var(--ink-4);
+  padding-bottom: var(--s2);
+}
+tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 
-/* Wide comparison tables scroll inside themselves rather than the page. */
-table { display: block; overflow-x: auto; white-space: normal; }
-@media (min-width: 700px) { table { display: table; } }
+/* A wide table scrolls inside itself rather than making the page scroll sideways. */
+@media (max-width: 700px) {
+  table { display: block; overflow-x: auto; }
+  table th, table td { min-width: 8rem; }
+}
 
-/* ---------- home page ---------- */
+.yes { color: var(--good); }
+.no  { color: var(--ink-4); }
 
-.hero { text-align: center; padding: 1rem 0 .5rem; }
+/* ---------- home ---------- */
+
+.hero {
+  text-align: center;
+  padding: 0 0 var(--s6);
+}
 .hero .kicker {
-  display: inline-block;
-  font-size: .82rem;
-  letter-spacing: .04em;
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: var(--warm);
-  margin-bottom: .8rem;
+  color: var(--ink-4);
+  margin-bottom: var(--s5);
 }
-.hero p { font-size: 1.12rem; color: var(--ink-soft); max-width: 34rem; margin-inline: auto; }
-.hero .actions { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1.4rem 0 .5rem; }
-.hero .actions .btn { padding: .62rem 1.15rem; font-size: 1rem; }
-.hero .note { font-size: .86rem; color: var(--ink-soft); }
+.hero h1 { max-width: 22ch; margin-inline: auto; }
+.hero p {
+  font-size: 19px;
+  color: var(--ink-3);
+  max-width: 32rem;
+  margin-inline: auto;
+}
+.hero .actions {
+  display: flex;
+  gap: var(--s3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: var(--s8) 0 var(--s4);
+}
+.hero .actions .btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--s6);
+  font-size: 15px;
+  border-bottom: 0;
+}
+.hero .actions .btn-dl { background: var(--blue); color: var(--parchment); }
+.hero .actions .btn-dl:hover { background: var(--blue-light); }
+.hero .actions .btn-kofi { color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--border); }
+.hero .actions .btn-kofi:hover { background: var(--sand); color: var(--ink); }
+.hero .note { font-size: 12px; color: var(--ink-4); margin: 0; }
 
+/* Cells divided by hairlines, the way a printed contents page is, rather than
+   floating cards each with its own shadow. */
 .grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  margin: 1.6rem 0 2rem;
+  gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin: var(--s8) 0 var(--s6);
+  background: var(--border);
+  box-shadow: 0 0 0 1px var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 .card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.05rem 1.15rem;
+  background: var(--ivory);
+  padding: var(--s5);
 }
-.card h3 { margin: 0 0 .35rem; font-size: 1rem; }
-.card p { margin: 0; font-size: .93rem; color: var(--ink-soft); }
+.card h3 { margin: 0 0 var(--s2); font-size: 15px; }
+.card p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-3); }
 
-.yes { color: var(--good); font-weight: 620; }
-.no  { color: var(--bad); }
-
-/* ---------- footer ---------- */
+/* ---------- colophon ---------- */
 
 .site-footer {
-  border-top: 1px solid var(--line);
-  padding: 1.6rem 1.1rem 2.6rem;
+  border-top: 1px solid var(--border);
+  padding: var(--s8) var(--s5) var(--s12);
   text-align: center;
-  color: var(--ink-soft);
-  font-size: .88rem;
+  color: var(--ink-4);
+  font-size: 12px;
+  line-height: 1.4;
 }
 .site-footer p { margin: 0; }
+.site-footer a { color: var(--ink-3); border-bottom-color: var(--border); }
+.site-footer a:hover { color: var(--ink); }
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 760px) {
+  :root { --section: 48px; }
+  body { font-size: 16px; }
+  .wrap { padding: var(--s8) var(--s5) var(--s8); }
+  .shot img { max-height: none; }
+}
+
+@media (max-width: 480px) {
+  :root { --section: 32px; }
+  .wrap { padding: var(--s6) var(--s4) var(--s8); }
+  .hero .actions .btn { width: 100%; justify-content: center; }
+}
+
+/* Respect the safe area on notched phones held in landscape. */
+@supports (padding: max(0px)) {
+  .nav-inner, .wrap, .site-footer {
+    padding-left: max(var(--s5), env(safe-area-inset-left));
+    padding-right: max(var(--s5), env(safe-area-inset-right));
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { animation: none !important; transition: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@media print {
+  .nav, .site-footer { display: none; }
+  body { background: #fff; font-size: 11pt; }
+  .wrap { max-width: none; padding: 0; }
 }
