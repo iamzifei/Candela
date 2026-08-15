@@ -205,7 +205,13 @@ echo "    repo $REPO, tap $TAP_REPO, tag $TAG — ok"
 sed -i '' "s/MARKETING_VERSION: \"[^\"]*\"/MARKETING_VERSION: \"${VERSION}\"/" project.yml
 
 echo "==> Creating GitHub release ${TAG}…"
-gh release create "$TAG" --title "Candela ${TAG}" --notes-file "$NOTES" "$DMG"
+# --repo is not optional here. This repository has an `upstream` remote pointing at
+# the project it was forked from, and gh resolves a bare command to THAT: checked,
+# `gh repo view` reports didriksg/Crisp from this working copy. So this command was
+# trying to publish Candela's release onto someone else's repository, and only the
+# lack of write access there stopped it — the error gh printed was a misleading
+# guess about token scopes. $REPO is derived from `origin` in the pre-flight above.
+gh release create "$TAG" --repo "$REPO" --title "Candela ${TAG}" --notes-file "$NOTES" "$DMG"
 
 echo "==> Bumping Homebrew tap…"
 # First release: the tap has no cask yet, so seed it from packaging/candela.rb
