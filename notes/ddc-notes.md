@@ -1,20 +1,20 @@
 # DDC/CI field notes
 
 Findings from a 2026-08 debugging session with two externals on an M4 Max
-(each on its own passive DP 1.4 to USB-C cable), plus the defenses Crisp
+(each on its own passive DP 1.4 to USB-C cable), plus the defenses Candela
 ships as a result. Read this before touching DDCService or chasing a
 "brightness slider does nothing" report.
 
 ## The stack
 
-- `Crisp/Services/DDCService.swift`: raw DDC/CI. On Apple Silicon this is
+- `Candela/Services/DDCService.swift`: raw DDC/CI. On Apple Silicon this is
   IOAVService I2C against DCPAVServiceProxy registry nodes, paired to
   displays by nearest-identity traversal plus vendor/product/serial
   matching. Validates every reply's header AND checksum. Quarantines a
   display's reads after 6 consecutive raw failures (10 min expiry, fresh
   probe window after). The whole display-to-channel map is flushed on any
   display reconfiguration (IDs get reshuffled with no removal event).
-- `Crisp/Services/BrightnessService.swift`: routing. DDC when it works,
+- `Candela/Services/BrightnessService.swift`: routing. DDC when it works,
   full-range software gamma when `ddcAvailable` latches false (3
   consecutive failed writes), and full-range software gamma while a
   display is in HDR mode (`hdrDimmedDisplays`, pushed by
@@ -65,7 +65,7 @@ write restarts the fade. Seen on other Dells too; accepted as a quirk.
 1. Open the monitor's OSD menu briefly (documented to wake a stale DDC
    handler; no power cycle needed).
 2. Replug the video cable (forces re-enumeration; also clears every
-   Crisp-side cache and latch via the reconfiguration path).
+   app-side cache and latch via the reconfiguration path).
 3. Pull the monitor's POWER cord ~10s (standby is not enough; the DDC
    controller stays powered). This is the only cure for a fully deaf
    controller, and per ddcutil's tracker even it is not guaranteed.

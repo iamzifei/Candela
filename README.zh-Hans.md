@@ -112,7 +112,7 @@ open Candela.xcodeproj
 ```
 
 快速的「改—编译—跑」循环（只需命令行工具，不需要完整 Xcode）以及打包 DMG 的方式，
-见 [docs/BUILDING.md](docs/BUILDING.md)。
+见 [notes/BUILDING.md](notes/BUILDING.md)。
 
 `docs/` 下的网站是生成的——改 `site/content/`，然后运行 `python3 site/build.py`。
 

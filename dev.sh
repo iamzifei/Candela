@@ -4,7 +4,7 @@
 # Compiles the binary with swiftc, swaps it into the installed /Applications/Candela.app,
 # syncs the version from project.yml, re-signs (stable identity if present, else ad
 # hoc), and relaunches. One command.
-# For a release DMG (needs full Xcode) use ./build.sh instead. See docs/BUILDING.md.
+# For a release DMG (needs full Xcode) use ./build.sh instead. See notes/BUILDING.md.
 #
 # Override the target app with:  CANDELA_APP=/path/to/Candela.app ./dev.sh
 set -euo pipefail

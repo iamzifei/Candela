@@ -65,7 +65,7 @@ Toggle row, then native controls. No "boost" concept surfaces in the UI.
 - Persistence: toggle state and brightness level are remembered per display
   UUID and survive app restart, reconnect, and sleep/wake.
 
-Doctrine check (docs/DESIGN.md): adjustment stays a slider (Panels HIG), the
+Doctrine check (notes/DESIGN.md): adjustment stays a slider (Panels HIG), the
 row uses the uniform 26pt icon chip (Menus HIG all-or-none), on/off attribute
 is a switch consistent with existing rows, no new panel depth.
 

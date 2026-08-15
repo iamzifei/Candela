@@ -7,7 +7,7 @@ import Combine
 // one click away (not nested under a "Display Mode" popup), and refresh rate is
 // its own section, shown only when the current resolution offers more than one.
 //
-// Split into canvas blocks (docs/panel-resize.md): the header rows, the
+// Split into canvas blocks (notes/panel-resize.md): the header rows, the
 // dropdown lists, and the trailing rows are separate PanelBlocks, so opening a
 // dropdown animates a clip over content that rendered once at natural height —
 // no SwiftUI geometry animates per frame. The shared mutable state (pending

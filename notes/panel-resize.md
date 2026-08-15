@@ -1,6 +1,6 @@
 # Panel resize: the split-canvas architecture
 
-Why Crisp's menu panel animates height the way it does. Every claim here was
+Why Candela's menu panel animates height the way it does. Every claim here was
 established by instrumented experiment (os.log traces, spike apps, forensic
 probes) on macOS 26, on 120Hz and 165Hz displays, August 2026. Do not
 "simplify" this code without rereading the failure map below; each rule exists
@@ -137,7 +137,7 @@ Every rule, with the observation that forced it:
 
 Spike app (`Spike2`, scratchpad, not in repo) validated the block machinery:
 135 animations / 3032 ticks of adversarial spamming with zero painted steps
-off-curve. The static-window migration was validated in Crisp itself under
+off-curve. The static-window migration was validated in this codebase before the rename, under
 forensic logging: spam sessions with rapid mid-flight reversals produced zero
 missed ticks and no off-curve steps, and hand-testing on a 165Hz display could
 no longer provoke a jump. The MenuBarExtra control spike (`Spike`) documents

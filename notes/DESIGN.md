@@ -1,12 +1,16 @@
 # Design doctrine
 
-Why Crisp looks and behaves the way it does, grounded in what Apple actually
+<!-- Written for Crisp, the project Candela forked from, and carried over with the
+     name corrected. The reasoning and the Apple sources are unchanged; what the
+     document describes is this app. -->
+
+Why Candela looks and behaves the way it does, grounded in what Apple actually
 documents. This is our core design reference: when a UI decision is unclear,
 check it against the frame and element rules below before inventing something.
 
-## What Crisp is
+## What Candela is
 
-Crisp is a **trailing-side menu bar extra**: a status item on the right of the
+Candela is a **trailing-side menu bar extra**: a status item on the right of the
 menu bar (near the notch), not an app menu on the left and not a Dock app. It
 runs as `LSUIElement` and its click opens a custom `NSPanel` styled as a
 Control Center-class glass panel: brightness sliders, resolution and refresh
@@ -26,13 +30,13 @@ assumed. Sources are linked so the reasoning can be re-checked.
    `.window` style is described as: "For more complex or data rich menu bar
    extras, you can use the `window` style, which displays a popover-like window
    from the menu bar icon that contains standard controls. You define the layout
-   and contents of those controls." That is Crisp's exact shape. We use a custom
+   and contents of those controls." That is Candela's exact shape. We use a custom
    `NSPanel` instead of the SwiftUI scene (for positioning and glass control),
    but the design intent is the documented one.
 
 2. **Menu vs popover.** The HIG menu bar extras guidance: a menu bar extra shows
    an icon, and uses a menu when the content is simple, a popover/window when it
-   is too rich for a menu. Crisp is the rich case, so a panel is correct rather
+   is too rich for a menu. Candela is the rich case, so a panel is correct rather
    than an `NSMenu`.
 
 3. **Menus.** The [Menus HIG](https://developer.apple.com/design/human-interface-guidelines/menus)
@@ -70,7 +74,7 @@ multi-module glass panel itself. That surface is private system UI. The
 documented third-party analogs are the MenuBarExtra `.window` popover and the
 single Control Center control tile.
 
-So Crisp sits on the documented shape and dresses it to feel like Control
+So Candela sits on the documented shape and dresses it to feel like Control
 Center. That is legitimate emulation of system UI, and the point of this doc is
 to keep the emulation honest: every element inside the panel should trace to a
 documented rule (Menus, Panels, Materials), even though the overall Control
@@ -125,7 +129,7 @@ preset.
 - The Refresh Rate section icon (`speedometer`) is the weakest glyph; a better
   symbol would tighten the icon set.
 - ~~If SwiftUI's `MenuBarExtra` `.window` ever matches our custom panel on
-  positioning and glass, migrating onto it would put Crisp on the exact
+  positioning and glass, migrating onto it would put Candela on the exact
   documented path instead of emulating it with a custom `NSPanel`.~~
   Resolved August 2026: an isolated spike showed `MenuBarExtra` `.window`
   jumps during animated resize on macOS 26 at any duration, on top of its

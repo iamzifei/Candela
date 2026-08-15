@@ -1,7 +1,7 @@
 import SwiftUI
 import AppKit
 
-// The panel's content, decomposed into split-canvas blocks (docs/panel-resize.md).
+// The panel's content, decomposed into split-canvas blocks (notes/panel-resize.md).
 // Each block renders at its natural size and never animates its own geometry;
 // the AppKit canvas animates the clips and the window. Nested reveals INSIDE a
 // block (Support, Brightness Keys targets, resolution lists) still use the

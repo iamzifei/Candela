@@ -8,7 +8,7 @@ import os.log
 /// Borderless key-capable panel for the menu bar UI.
 /// Owning the panel (instead of MenuBarExtra's window) removes the WindowServer
 /// zoom-in materialization and gives us native-menu open behavior. All resize
-/// animation lives in PanelCanvas (docs/panel-resize.md); the panel itself is
+/// animation lives in PanelCanvas (notes/panel-resize.md); the panel itself is
 /// just the shell.
 final class MenuPanel: NSPanel {
     var onCancel: (() -> Void)?
@@ -401,7 +401,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     /// in to mask one-time on-screen costs; later shows are instant.
     private var hasShownOnce = false
 
-    /// Split-canvas resize engine and the shared section state (docs/panel-resize.md).
+    /// Split-canvas resize engine and the shared section state (notes/panel-resize.md).
     private let canvas = PanelCanvas()
     private let sectionState = PanelSectionState()
     private var canvasCancellables = Set<AnyCancellable>()
@@ -974,7 +974,7 @@ private struct PanelBlockFactory {
     // Each section of a display's page is its own block: the canvas animates a
     // reveal as a clip over content that rendered once at natural height, so
     // nothing re-renders per frame (the 120Hz fix for the nested dropdowns;
-    // docs/panel-resize.md). Controllers hold the state sibling blocks share; the
+    // notes/panel-resize.md). Controllers hold the state sibling blocks share; the
     // block hosts retain them. Each carries the shaded band the one-piece detail
     // view had, painted on the clip layer (banded) so a reveal fade dims only the
     // content, never the band.

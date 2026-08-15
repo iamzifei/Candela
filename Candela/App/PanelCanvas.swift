@@ -3,7 +3,7 @@ import SwiftUI
 import os.log
 
 // The split-canvas panel resize engine. Architecture and the failure map that
-// forced every rule here: docs/panel-resize.md. In short: the window frame is
+// forced every rule here: notes/panel-resize.md. In short: the window frame is
 // the ONLY animator; SwiftUI never animates geometry; blocks are stacked by
 // explicit integral frames each tick, so content below a toggling section
 // rides the window edge atomically.
@@ -62,7 +62,7 @@ final class PanelViewport: FlippedView {
 }
 
 /// Vsync-locked critically damped spring on a scalar (the blocks' total
-/// height). Every rule is load-bearing (docs/panel-resize.md):
+/// height). Every rule is load-bearing (notes/panel-resize.md):
 /// frame-paced time (one refresh period per tick, never wall time), a link
 /// created once and never invalidated, velocity carry across retargets.
 /// Main-actor isolated: the link is created from a view, ticks on the main run

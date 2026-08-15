@@ -454,7 +454,7 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 
 ## Phase 6 — 上游同步机制 ✅ 完成 2026-08-14
 
-- [x] `/Users/james/Dev/candela/docs/UPSTREAM.md`
+- [x] `/Users/james/Dev/candela/notes/UPSTREAM.md`
 - [x] **实际演练过一次合并**（上游当前 0 条新提交，所以造了四类代表性改动来演练）
 
 ### 演练的真实结果（不是预测）

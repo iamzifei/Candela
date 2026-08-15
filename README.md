@@ -118,7 +118,7 @@ open Candela.xcodeproj
 ```
 
 For the fast edit-compile-run loop (Command Line Tools only, no full Xcode) and for
-building a distributable DMG, see [docs/BUILDING.md](docs/BUILDING.md).
+building a distributable DMG, see [notes/BUILDING.md](notes/BUILDING.md).
 
 The website in `docs/` is generated — edit `site/content/`, then run
 `python3 site/build.py`.

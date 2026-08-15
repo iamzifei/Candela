@@ -1,6 +1,6 @@
 import SwiftUI
 
-// The expanded per-display detail, split into canvas blocks (docs/panel-resize.md):
+// The expanded per-display detail, split into canvas blocks (notes/panel-resize.md):
 // the mode section (DisplayModeListView.swift), then the preset / color-profile
 // section, image adjustment, and the trailing toggle rows below. Each dropdown
 // is its own block so the canvas animates its reveal as a clip over content that
