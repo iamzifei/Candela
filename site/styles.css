@@ -585,6 +585,13 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 @media (max-width: 760px) {
   :root { --section: 48px; }
   body { font-size: 16px; }
+  /* Chinese needs a smaller display size than Latin at the same column width. At
+     32px in a 335px column a Chinese headline fits ten characters to a line, which
+     breaks words across lines — 显示器 split after 显示, 面板里 split after 面.
+     Latin at the same size fits forty-odd characters and breaks at spaces, so it
+     does not have the problem and does not need the change. */
+  :lang(zh-Hans) h1, :lang(zh-Hant) h1 { font-size: clamp(25px, 7.2vw, 34px); }
+  :lang(zh-Hans) h2, :lang(zh-Hant) h2 { font-size: 20px; }
   .wrap { padding: var(--s8) var(--s5) var(--s8); }
   .shot img { max-height: none; }
 }
