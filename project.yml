@@ -19,6 +19,12 @@ targets:
       - path: Candela
         excludes:
           - "**/*.md"
+      # The layered icon, so an Xcode build produces the same icon the release
+      # script does. Without it this target compiled the asset-catalog placeholder —
+      # the grey grid — and because LaunchServices resolves com.candela.app to
+      # whichever bundle it knows about, that placeholder was what System Settings
+      # drew for Candela in the Privacy list while /Applications had the real thing.
+      - path: Candela.icon
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.candela.app
@@ -43,7 +49,7 @@ targets:
         # resolved-at-runtime instead of hard-linking a private framework path.
         OTHER_LDFLAGS: "-Wl,-U,_SLSConfigureDisplayEnabled -Wl,-U,_SLSGetDisplayList"
         GENERATE_INFOPLIST_FILE: YES
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_APPICON_NAME: Candela
   CandelaTests:
     type: bundle.unit-test
     platform: macOS
