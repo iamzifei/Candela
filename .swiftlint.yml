@@ -34,12 +34,18 @@ type_name:
     - Fn              # local typealias for dlsym'd C function signatures
 
 # The larger view/service files predate linting; generous caps keep noise down.
+# Actual peak 529 (BrightnessService); the threshold sits one step above it so
+# existing code passes and new code cannot quietly grow past what is here.
 type_body_length:
-  warning: 700
+  warning: 560
+# Actual peak 1267 (AppDelegate); the threshold sits one step above it so
+# existing code passes and new code cannot quietly grow past what is here.
 file_length:
-  warning: 1400
+  warning: 1300
+# Actual peak 66 (BrightnessService); the threshold sits one step above it so
+# existing code passes and new code cannot quietly grow past what is here.
 function_body_length:
-  warning: 175
+  warning: 80
 cyclomatic_complexity:
   warning: 15
 function_parameter_count:
