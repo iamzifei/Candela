@@ -277,6 +277,11 @@ struct ExpandableRow: View {
             }
         }
         .onHover { isHovered = $0 }
+        // Combine first. Without it the label lands on every child instead of on the
+        // row, so VoiceOver announced "Resolution, collapsed" three times in a row —
+        // once per text element inside it — and a reader tabbing through heard the
+        // same control repeatedly with no way to tell them apart.
+        .accessibilityElement(children: .combine)
         .accessibilityLabel(isExpanded ? "\(localizedLabel), expanded" : "\(localizedLabel), collapsed")
         .accessibilityHint("Click to expand or collapse this section")
         .accessibilityAddTraits(.isButton)
@@ -489,6 +494,11 @@ struct SettingsView: View {
                         Spacer()
                     }
                 }
+                // Explicit: a Toggle whose label is an HStack of an icon and a Text does
+                // not reliably hand that Text to VoiceOver here — the control was
+                // announced as an unnamed checkbox, so a screen-reader user heard its
+                // state without ever hearing what it was.
+                .accessibilityLabel(Text("Show Combined Brightness"))
                 .toggleStyle(.switch)
                 .controlSize(.small)
                 .padding(.horizontal, 12)
@@ -511,6 +521,11 @@ struct SettingsView: View {
                         Spacer()
                     }
                 }
+                // Explicit: a Toggle whose label is an HStack of an icon and a Text does
+                // not reliably hand that Text to VoiceOver here — the control was
+                // announced as an unnamed checkbox, so a screen-reader user heard its
+                // state without ever hearing what it was.
+                .accessibilityLabel(Text("Show Volume Sliders"))
                 .toggleStyle(.switch)
                 .controlSize(.small)
                 .padding(.horizontal, 12)
@@ -589,6 +604,11 @@ struct SettingsView: View {
                     Spacer()
                 }
             }
+            // Explicit: a Toggle whose label is an HStack of an icon and a Text does
+            // not reliably hand that Text to VoiceOver here — the control was
+            // announced as an unnamed checkbox, so a screen-reader user heard its
+            // state without ever hearing what it was.
+            .accessibilityLabel(Text("Launch at Login"))
             .toggleStyle(.switch)
             .controlSize(.small)
             .padding(.horizontal, 12)
@@ -696,6 +716,8 @@ struct DisplayRowView: View {
                 Label("Copy Display Name", systemImage: "doc.on.doc")
             }
         }
+        // Combined, for the same reason as ExpandableRow: the row was announced twice.
+        .accessibilityElement(children: .combine)
         .accessibilityLabel(Text(verbatim: "Display: \(display.name)\(display.isMain ? NSLocalizedString(", main display", comment: "") : "")\(isExpanded ? NSLocalizedString(", expanded", comment: "") : NSLocalizedString(", collapsed", comment: ""))"))
         .accessibilityHint("Click to expand the control panel")
         .accessibilityAddTraits(.isButton)

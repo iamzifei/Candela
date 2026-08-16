@@ -329,6 +329,11 @@ struct ModeTailBlock: View {
                 }
             }
         }
+                // Explicit: a Toggle whose label is an HStack of an icon and a Text does
+                // not reliably hand that Text to VoiceOver here — the control was
+                // announced as an unnamed checkbox, so a screen-reader user heard its
+                // state without ever hearing what it was.
+                .accessibilityLabel(Text("Smooth scaling"))
         .toggleStyle(.switch)
         .controlSize(.small)
         .padding(.horizontal, 12)

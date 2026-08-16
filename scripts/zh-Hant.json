@@ -1,7 +1,9 @@
 {
   "%@ (Default)": "%@（預設）",
   "%@ (low resolution)": "%@（低解析度）",
+  "%@ brightness": "%@ 亮度",
   "%@ color": "%@",
+  "%@ volume": "%@ 音量",
   "%@, collapsed": "%@，已收合",
   "%@, disconnected": "%@，已中斷連線",
   "%@, expanded": "%@，已展開",

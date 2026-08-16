@@ -21,7 +21,7 @@ struct VolumeSliderView: View {
                 }
             }
             .controlSize(.small)
-            .accessibilityLabel("Speaker volume")
+            .accessibilityLabel(Text("\(display.name) volume"))
             .accessibilityValue("\(Int(localVolume))%")
             .onChange(of: localVolume) { _, newValue in
                 guard isDragging else { return }

@@ -181,7 +181,10 @@ struct BrightnessSliderView: View {
                     }
                 }
                 .controlSize(.small)
-                .accessibilityLabel("Display brightness")
+                // Named with its display: a desk with two monitors has two sliders, and
+                // "Display brightness" twice tells a VoiceOver user nothing about which
+                // one they are about to change.
+                .accessibilityLabel(Text("\(display.name) brightness"))
                 .accessibilityValue("\(Int(localBrightness))%")
                 .onChange(of: localBrightness) { _, newValue in
                     guard isDragging else { return }
