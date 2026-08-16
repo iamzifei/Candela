@@ -35,6 +35,14 @@ OUT = ROOT / "docs"
 # Verified against the Pages API rather than assumed: a canonical URL that redirects
 # tells search engines the wrong home for every page on the site.
 SITE = "https://zifei.info/Candela"
+
+# Moving to Candela's own domain is this one line, plus setting the same name in the
+# repository's Pages settings. Everything else follows: canonical, hreflang, og:url,
+# JSON-LD, the sitemap and robots.txt are all computed from SITE, and the CNAME file
+# below is written whenever SITE is an apex domain rather than a path under someone
+# else's site. GitHub then 301-redirects the old zifei.info/Candela/* addresses to
+# the new domain by itself, which is what carries the existing search results across.
+CUSTOM_DOMAIN = re.match(r"https://([^/]+)$", SITE)
 REPO = "https://github.com/iamzifei/Candela"
 DOWNLOAD = f"{REPO}/releases/latest/download/Candela.dmg"
 KOFI = "https://ko-fi.com/iamzifei"
@@ -193,6 +201,8 @@ IMAGE_SIZES: dict[str, tuple[int, int, list[int]]] = {}
 # through Markdown, and the home page's alternating rows are hand-written <img>
 # tags. One pass over the output covers both and cannot get them out of step.
 IMG_TAG = re.compile(r'<img ([^>]*?)src="([^"]*shots/([^"/]+))"([^>]*?)>')
+# Strips a hand-written width/height so the manifest's can replace it.
+SIZE_ATTR = re.compile(r'\s*(?:width|height)="\d+"')
 
 
 def add_srcset(html_text: str) -> str:
@@ -201,9 +211,20 @@ def add_srcset(html_text: str) -> str:
         entry = IMAGE_SIZES.get(name)
         if not entry:
             return m.group(0)
-        width, _height, variants = entry
+        width, height, variants = entry
+
+        # Intrinsic size is taken from the manifest and overwrites whatever the page
+        # said, rather than trusting the hand-written attributes. Those go stale
+        # silently: re-shooting the screenshots changed every panel's height, the
+        # numbers in the Markdown still described the old batch, and a wrong
+        # width/height pair is worse than none at all — the browser reserves a box
+        # of the wrong shape and the page jumps when the real picture lands.
+        before = SIZE_ATTR.sub("", before)
+        after = SIZE_ATTR.sub("", after)
+        before = f'width="{width}" height="{height}" ' + before.lstrip()
+
         if not variants:
-            return m.group(0)
+            return f'<img {before}src="{src}"{after}>'
         base = src[: -len(".webp")]
         candidates = [f"{base}-{w}.webp {w}w" for w in variants]
         candidates.append(f"{src} {width}w")
@@ -276,7 +297,12 @@ def head(page: Page, by_slug: dict) -> str:
         for (l, s), p in sorted(by_slug.items()) if s == page.slug
     )
     default = by_slug.get((DEFAULT_LANG, page.slug))
-    schema = m.get("schema", "")
+    # The JSON-LD block is written in the page's front matter, so it is the one
+    # place a URL can still be typed by hand — and it was: every schema block
+    # carried a literal zifei.info address, which a change of domain would have
+    # left pointing at the old site while every other tag moved. {{SITE}} is
+    # substituted here so the structured data cannot disagree with the canonical.
+    schema = m.get("schema", "").replace("{{SITE}}", SITE)
     return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
@@ -345,6 +371,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>"""
 
     return f"""<!doctype html>
@@ -414,12 +456,28 @@ def build(out: Path) -> None:
     if (OUT / "shots").exists() and out != OUT:
         shutil.copytree(OUT / "shots", out / "shots", dirs_exist_ok=True)
 
+    # The hero video. Only the web-ready encodes are published: the 12 MB master and
+    # the raw per-segment footage stay in assets/ so the served tree carries nothing
+    # a visitor will not download. Copied from assets/ rather than committed twice,
+    # so re-exporting the film updates the site by rebuilding it.
+    video_out = out / "video"
+    video_out.mkdir(parents=True, exist_ok=True)
+    for name in ("hero-1080.mp4", "hero-1080.webm", "poster.webp", "poster.jpg"):
+        src = ROOT / "assets" / "video" / name
+        if src.exists():
+            shutil.copyfile(src, video_out / name)
+
     (out / "sitemap.xml").write_text(sitemap(pages), encoding="utf-8")
     (out / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     # GitHub Pages runs Jekyll by default, which ignores files starting with an
     # underscore and can rewrite things unpredictably. This turns it off.
     (out / ".nojekyll").write_text("", encoding="utf-8")
+    # Pages reads the custom domain from this file, and rewrites it if you set the
+    # domain in the web UI instead — so it is generated from SITE rather than hand
+    # written, and the two cannot drift apart.
+    if CUSTOM_DOMAIN:
+        (out / "CNAME").write_text(CUSTOM_DOMAIN.group(1) + "\n", encoding="utf-8")
     # A fingerprint of everything published. The deploy-wait compares this one file,
     # which makes it sensitive to any change at all — including a deletion, which is
     # what the previous version missed: it compared three named files, and a commit

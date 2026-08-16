@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="Mac 接了外接显示器后 F1／F2 毫无反应。这是 macOS 的既定行为，以及如何让亮度键作用于任意显示器、按了还不动时该查什么。">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card-zh.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=49b4eafe">
+<link rel="stylesheet" href="../styles.css?v=840cb746">
 
 
 </head>
@@ -60,7 +60,7 @@
 <li>macOS 会请求「辅助功能」权限。授予它——这正是让 app 在系统消费掉按键之前看到它的机制。
 不需要重启。</li>
 </ol>
-<figure class="shot"><img src="../shots/panel-settings.webp" srcset="../shots/panel-settings-480.webp 480w, ../shots/panel-settings-960.webp 960w, ../shots/panel-settings.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 的设置页，显示亮度键一行及其当前作用目标。" width="1456" height="1006" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 的设置页，显示亮度键一行及其当前作用目标。</figcaption></figure>
+<figure class="shot"><img width="1386" height="1146" src="../shots/panel-settings.webp" srcset="../shots/panel-settings-480.webp 480w, ../shots/panel-settings-960.webp 960w, ../shots/panel-settings.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 的设置页，显示亮度键一行及其当前作用目标。" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 的设置页，显示亮度键一行及其当前作用目标。</figcaption></figure>
 <p>授权之后，这一行会变成作用目标选择器。</p>
 <h2 id="选择亮度键控制谁">选择亮度键控制谁</h2>
 <p>这件事没有唯一正确答案，所以 Candela 给了四种，并记住你的选择。</p>
@@ -88,7 +88,7 @@ macOS 把授权绑定在<strong>当初请求它的那一份已签名的 app</str
 <p>有些显示器拒绝 DDC/CI。Candela 检测到拒绝后会退回软件调光，
 并在面板上把那块屏标成 <strong>Software</strong>，
 让你能区分「背光动了」和「画面变暗了」。</p>
-<figure class="shot"><img src="../shots/panel-root.webp" srcset="../shots/panel-root-480.webp 480w, ../shots/panel-root-960.webp 960w, ../shots/panel-root.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。" width="1456" height="1482" loading="lazy" decoding="async"><figcaption>Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。</figcaption></figure>
+<figure class="shot"><img width="1386" height="1658" src="../shots/panel-root.webp" srcset="../shots/panel-root-480.webp 480w, ../shots/panel-root-960.webp 960w, ../shots/panel-root.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。" loading="lazy" decoding="async"><figcaption>Candela 面板，拒绝 DDC 的那块显示器上带有 Software 标记。</figcaption></figure>
 <p>按发生概率从高到低试三件事：</p>
 <ol>
 <li><strong>在显示器自己的菜单里打开 DDC/CI。</strong> 部分型号出厂是关的。
@@ -127,6 +127,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

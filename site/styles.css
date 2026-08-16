@@ -237,7 +237,10 @@ a:hover { border-bottom-color: var(--blue); }
   margin: 0 auto;
   padding: calc(var(--section) + var(--s6)) var(--s5) var(--s12);
 }
-.wrap:has(> .hero) { max-width: 58rem; }
+.wrap:has(> .hero) {
+  max-width: 58rem;
+  padding-top: var(--section);
+}
 
 h1, h2, h3 {
   color: var(--ink);
@@ -384,7 +387,6 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 /* The picture under the hero is an introduction, not the section itself. At the
    figure default it filled the viewport on its own and pushed the first sentence of
    the page below the fold — which is the same mistake as before in a smaller size. */
-.hero + .shot img { max-height: 46vh; }
 
 /* ---------- home ---------- */
 
@@ -415,7 +417,7 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   gap: var(--s3);
   justify-content: center;
   flex-wrap: wrap;
-  margin: var(--s8) 0 var(--s4);
+  margin: var(--s6) 0 var(--s4);
 }
 .hero .actions .btn {
   min-height: 44px;
@@ -430,6 +432,66 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 .hero .actions .btn-kofi { color: var(--ink-3); border: 1px solid var(--border); }
 .hero .actions .btn-kofi:hover { background: var(--sand); color: var(--ink); }
 .hero .note { font-size: 12px; color: var(--ink-4); margin: 0; }
+
+/* ---------- the film ---------- */
+
+/* The demo is the one thing on this page that moves, so it is handled as the plate
+   the hero hands you rather than as an effect: the same hairline and caption the
+   screenshots get, and no shadow. It is wider than the measure because it is
+   landscape where every screenshot is portrait — a menu bar panel photographed on a
+   whole desk, which is the thing the still shots cannot show. */
+.hero + .film { margin-top: var(--s8); }
+
+.film {
+  margin-block: var(--s12) var(--section);
+  /* Where the prose wants a measure, a 16:9 frame wants width — so the film steps
+     out of the text column. Bounded by the viewport rather than set free, because a
+     film that runs to both edges on a laptop stops reading as a plate on a page. */
+  width: min(68rem, 100vw - 3rem);
+  position: relative;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.film-frame {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Reserved from the intrinsic ratio, so the page does not reflow when the film
+     arrives — the same job the width/height pair does on every screenshot. */
+  aspect-ratio: 16 / 9;
+  background: var(--sand);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.film figcaption {
+  margin-top: var(--s3);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-4);
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  /* A 16:9 desktop recording is at its worst on a phone: the panel inside it is a
+     fraction of an already narrow screen. Shrinking it further inside the text
+     column would be the wrong answer, so here it breaks the margins and takes the
+     full width. The detail work is handed to the portrait screenshots below, which
+     are the right shape for this screen and stay legible at it. */
+  .film {
+    width: 100vw;
+    left: 50%;
+    translate: -50% 0;
+    margin-inline: 0;
+    margin-block: var(--s8) var(--s12);
+  }
+  .film-frame {
+    border-inline: 0;
+    border-radius: 0;
+  }
+  .film figcaption { padding-inline: var(--s5); }
+}
 
 /* The home page's capabilities were a grid of six equal cards, which is the lazy
    container: it makes every claim the same size and the same shape, so none of them

@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="HiDPI 缩放到底是什么、macOS 为什么对第三方显示器隐藏它，以及怎么打开它让 1440p 或 4K 显示器达到 Retina 级的文字锐度。">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card-zh.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=49b4eafe">
+<link rel="stylesheet" href="../styles.css?v=840cb746">
 
 
 </head>
@@ -69,9 +69,9 @@ HiDPI 把每个点画成 2×2 的像素块，于是同一套界面用四倍的�
 <li>macOS 询问时输入管理员密码，屏幕会闪一次——显示模式列表正在重建。</li>
 <li>打开 <strong>Resolution</strong>，在新出现的档位里选。</li>
 </ol>
-<figure class="shot"><img src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。" width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。</figcaption></figure>
+<figure class="shot"><img width="1386" height="1520" src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 的显示器详情页：分辨率、刷新率，以及用于增加 HiDPI 档位的平滑缩放开关。</figcaption></figure>
 <p>完整模式列表是单独一页，列出这块屏能接受的全部分辨率，并标出其中清晰的那些：</p>
-<figure class="shot"><img src="../shots/panel-allResolutions.webp" srcset="../shots/panel-allResolutions-480.webp 480w, ../shots/panel-allResolutions-960.webp 960w, ../shots/panel-allResolutions.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 中某块显示器的完整分辨率列表。" width="1456" height="1708" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器的完整分辨率列表。</figcaption></figure>
+<figure class="shot"><img width="1386" height="1708" src="../shots/panel-allResolutions.webp" srcset="../shots/panel-allResolutions-480.webp 480w, ../shots/panel-allResolutions-960.webp 960w, ../shots/panel-allResolutions.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 中某块显示器的完整分辨率列表。" loading="lazy" decoding="async"><figcaption>Candela 中某块显示器的完整分辨率列表。</figcaption></figure>
 <h3 id="手动做法">手动做法</h3>
 <p>有一个流传已久的方案：在 <code>/Library/Displays/Contents/Resources/Overrides</code> 下放一个
 按显示器厂商 ID 与产品 ID 命名的 plist，在里面声明你想要的缩放档位。
@@ -149,6 +149,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

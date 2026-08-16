@@ -25,3 +25,12 @@ Candela-dev.app/
 # The SVG sources next to them ARE tracked; these are just for eyeballing.
 design/*.png
 design/icon-candidates/*.png
+
+# Demo-video sources. The raw per-segment takes (183 MB of 4K screen recording) and
+# the 12 MB master export are both reproducible — the takes by re-running
+# ./scripts/record-demo.sh, the master by re-exporting the ChatCut project named in
+# notes/plans/20260816-candela-domain-site-v2.md. What the site actually serves is
+# the small web encodes beside them, and those ARE tracked, because site/build.py
+# copies them into docs/ and `build.py --check` fails if they are missing.
+assets/footage/
+assets/video/candela-hero-60s.mp4

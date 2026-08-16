@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="One slider for every display on your Mac — and why sending two monitors the same percentage does not make them look the same, plus the one calibration that fixes it.">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=49b4eafe">
+<link rel="stylesheet" href="styles.css?v=840cb746">
 
 <script>
 (function () {
@@ -64,7 +64,7 @@ one-time, per-display calibration by eye.</p>
 <p>Open Candela's panel and use the <strong>Combined</strong> slider. It drives every connected
 display, and the brightness keys can do the same thing if you set their target to
 <em>All displays together</em>.</p>
-<figure class="shot"><img src="shots/panel-root.webp" srcset="shots/panel-root-480.webp 480w, shots/panel-root-960.webp 960w, shots/panel-root.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela&#x27;s panel with per-display sliders and a Combined slider that drives all of them." width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela&#x27;s panel with per-display sliders and a Combined slider that drives all of them.</figcaption></figure>
+<figure class="shot"><img width="1386" height="1658" src="shots/panel-root.webp" srcset="shots/panel-root-480.webp 480w, shots/panel-root-960.webp 960w, shots/panel-root.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela&#x27;s panel with per-display sliders and a Combined slider that drives all of them." loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela&#x27;s panel with per-display sliders and a Combined slider that drives all of them.</figcaption></figure>
 <p>The combined level is a proportion, not an absolute value, so a display with extra
 headroom uses its extra headroom and a plain one does not have to pretend it has any.
 Clamping happens on the combined level rather than per display, which is what stops
@@ -104,7 +104,7 @@ comparing directly against the monitor beside it.</li>
 <li>Stop when they match. That is it: the value is saved, and the display is returned
 to where it was sitting before you started.</li>
 </ol>
-<figure class="shot"><img src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="The combined-brightness floor control on a display&#x27;s page in Candela." width="1456" height="1482" loading="lazy" decoding="async"><figcaption>The combined-brightness floor control on a display&#x27;s page in Candela.</figcaption></figure>
+<figure class="shot"><img width="1386" height="1520" src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="The combined-brightness floor control on a display&#x27;s page in Candela." loading="lazy" decoding="async"><figcaption>The combined-brightness floor control on a display&#x27;s page in Candela.</figcaption></figure>
 <p>From then on, the combined slider and the brightness keys route every display through
 its own floor. They arrive at the bottom together, and they stay together on the way
 back up.</p>
@@ -153,6 +153,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

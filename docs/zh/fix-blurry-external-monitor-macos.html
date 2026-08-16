@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="内置屏清清楚楚，外接显示器上的字却发虚。这是 macOS 在 1440p 和 4K 显示器上的既定行为，以及真正能让它变清晰的四步。">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card-zh.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=49b4eafe">
+<link rel="stylesheet" href="../styles.css?v=840cb746">
 
 
 </head>
@@ -71,7 +71,7 @@ macOS 会按 3840×2160 渲染再压进 2560×1440——这是个分数比，
 1440p 显示器可以跑「看起来像 1706×960」或「2048×1152」，同时仍然按 2× 渲染、按干净比例缩放。
 字在你真正看得舒服的尺寸下依然锐利。</p>
 <p>macOS 没有给这件事任何开关。Candela 加了一个：</p>
-<figure class="shot"><img src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。" width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。</figcaption></figure>
+<figure class="shot"><img width="1386" height="1520" src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。" loading="eager" fetchpriority="high" decoding="async"><figcaption>Candela 中某块显示器的详情页，包含分辨率行与「平滑缩放」开关。</figcaption></figure>
 <p>打开 Candela 的面板，点进你的显示器，打开 <strong>Smooth scaling</strong>。
 macOS 会要求管理员密码，屏幕会闪一次——那是显示模式列表正在重建。
 之后 <strong>Resolution</strong> 里会出现新的缩放档位，挑一个，拿一段正文对比一下。</p>
@@ -121,6 +121,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

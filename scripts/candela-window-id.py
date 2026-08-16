@@ -64,6 +64,14 @@ def main() -> int:
         # the wide, tall one.
         if bounds.get("Width", 0) < 200 or bounds.get("Height", 0) < 120:
             continue
+        # A dismissed panel does not leave the window list. It stays there, keeps its
+        # last geometry, and still reports kCGWindowIsOnscreen = True — it is simply
+        # faded to alpha 0. Filtering on "on screen" alone therefore reports a panel
+        # that is not on the screen, and a caller that trusts it captures the desktop
+        # or, worse, clicks into whatever window is behind it. Alpha is the property
+        # that actually distinguishes the two.
+        if float(window.get("kCGWindowAlpha", 0)) < 0.5:
+            continue
         # id x y w h — the caller needs the bounds too: a window-ID capture gets
         # the panel's own buffer, which does NOT include what the glass is sampling,
         # so the material comes out flat grey. A rectangle capture over a controlled

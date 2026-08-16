@@ -36,7 +36,15 @@ final class BackdropController {
             )
             window.isOpaque = true
             window.hasShadow = false
-            window.ignoresMouseEvents = true
+            // Still shots are taken with no clicking, so letting clicks fall through
+            // costs nothing there. A recording is different: it drives the panel with
+            // synthetic clicks, and if the panel closes early — it dismisses on focus
+            // loss — every remaining click lands on whatever real window the backdrop
+            // is hiding. Set CANDELA_BACKDROP_BLOCK=1 and the backdrop swallows them
+            // instead, so a failed take is a boring take rather than a click into
+            // someone's open document.
+            window.ignoresMouseEvents =
+                ProcessInfo.processInfo.environment["CANDELA_BACKDROP_BLOCK"] != "1"
             // Above normal windows, below the status-item panel we are photographing.
             window.level = NSWindow.Level(
                 rawValue: Int(CGWindowLevelForKey(.floatingWindow)) - 1)

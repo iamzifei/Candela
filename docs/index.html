@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=49b4eafe">
+<link rel="stylesheet" href="styles.css?v=840cb746">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
  "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
@@ -32,6 +32,14 @@
  "screenshot":"https://zifei.info/Candela/shots/panel-root.webp",
  "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
  "isAccessibleForFree":true}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject",
+ "name":"Candela — a sixty-second tour",
+ "description":"A silent sixty-second recording of Candela on macOS: opening the panel from the menu bar, DDC brightness on one display and then all of them at once, the full HiDPI resolution list, brightness-key targets, tools, and Dark Mode.",
+ "thumbnailUrl":"https://zifei.info/Candela/video/poster.jpg",
+ "contentUrl":"https://zifei.info/Candela/video/hero-1080.mp4",
+ "uploadDate":"2026-08-16","duration":"PT1M"}
 </script>
 
 <script>
@@ -67,9 +75,9 @@
 <div class="hero">
 
 <h1 id="every-display-control-macos-hides-in-one-menu-bar-panel">Every display control macOS hides, in one menu bar panel</h1>
-<p>Candela gives external monitors on your Mac the controls the system keeps for the
-built-in screen: real brightness over DDC, sharp HiDPI scaling, brightness keys that
-work on every display, presets, and virtual screens.</p>
+<p>Everything macOS keeps for the built-in screen, given back to every monitor on your
+desk — real brightness over DDC, sharp HiDPI scaling, and brightness keys that work
+anywhere.</p>
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
@@ -78,7 +86,16 @@ work on every display, presets, and virtual screens.</p>
 <p class="note">macOS 26 · Apple silicon · MIT licence · no Pro tier, no licence key</p>
 </div>
 
-<figure class="shot"><img src="shots/panel-root.webp" srcset="shots/panel-root-480.webp 480w, shots/panel-root-960.webp 960w, shots/panel-root.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings." width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.</figcaption></figure>
+<figure class="film">
+<video class="film-frame" poster="video/poster.webp" width="1920" height="1080"
+       autoplay muted loop playsinline preload="none"
+       aria-label="A sixty-second silent recording of Candela in use: the panel opening from the menu bar, brightness sliders moving one display and then every display at once, the full HiDPI resolution list, the brightness-key targets, the tools page, and Dark Mode switching the whole system.">
+<source src="video/hero-1080.webm" type="video/webm">
+<source src="video/hero-1080.mp4" type="video/mp4">
+</video>
+<figcaption>Sixty seconds, no sound. Every frame is the shipping app on a real desk.</figcaption>
+</figure>
+
 <div class="sect-label">01 · What macOS leaves out</div>
 
 <h2 id="three-things-stop-working">Three things stop working</h2>
@@ -88,7 +105,7 @@ to move every display at once. Candela puts all three back, in a panel that beha
 like Control Centre rather than a preferences window.</p>
 
 <div class="row">
-<figure class="row-figure"><img data-row="1" src="shots/panel-root.webp" srcset="shots/panel-root-480.webp 480w, shots/panel-root-960.webp 960w, shots/panel-root.webp 1456w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's panel: each connected display with its own brightness slider, and a Combined slider driving all of them" width="1380" height="1482" loading="lazy" decoding="async"></figure>
+<figure class="row-figure"><img width="1386" height="1658" data-row="1" src="shots/panel-root.webp" srcset="shots/panel-root-480.webp 480w, shots/panel-root-960.webp 960w, shots/panel-root.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's panel: each connected display with its own brightness slider, and a Combined slider driving all of them" loading="lazy" decoding="async"></figure>
 <div>
 <h3>Brightness that reaches the backlight</h3>
 
@@ -101,7 +118,7 @@ like Control Centre rather than a preferences window.</p>
 </div>
 
 <div class="row">
-<figure class="row-figure"><img data-row="1" src="shots/panel-settings.webp" srcset="shots/panel-settings-480.webp 480w, shots/panel-settings-960.webp 960w, shots/panel-settings.webp 1456w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's settings, showing the brightness-key row and its current target" width="1380" height="934" loading="lazy" decoding="async"></figure>
+<figure class="row-figure"><img width="1386" height="1146" data-row="1" src="shots/panel-settings.webp" srcset="shots/panel-settings-480.webp 480w, shots/panel-settings-960.webp 960w, shots/panel-settings.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's settings, showing the brightness-key row and its current target" loading="lazy" decoding="async"></figure>
 <div>
 <h3>Brightness keys, on any display</h3>
 
@@ -114,7 +131,7 @@ like Control Centre rather than a preferences window.</p>
 </div>
 
 <div class="row">
-<figure class="row-figure"><img data-row="1" src="shots/panel-allResolutions.webp" srcset="shots/panel-allResolutions-480.webp 480w, shots/panel-allResolutions-960.webp 960w, shots/panel-allResolutions.webp 1456w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's full resolution list for one display, with the sharp modes marked" width="1380" height="1708" loading="lazy" decoding="async"></figure>
+<figure class="row-figure"><img width="1386" height="1708" data-row="1" src="shots/panel-allResolutions.webp" srcset="shots/panel-allResolutions-480.webp 480w, shots/panel-allResolutions-960.webp 960w, shots/panel-allResolutions.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's full resolution list for one display, with the sharp modes marked" loading="lazy" decoding="async"></figure>
 <div>
 <h3>Sharp HiDPI on any monitor</h3>
 
@@ -127,7 +144,7 @@ like Control Centre rather than a preferences window.</p>
 </div>
 
 <div class="row">
-<figure class="row-figure"><img data-row="1" src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 420px" alt="A display's own page in Candela, with the combined-brightness floor control" width="1380" height="1482" loading="lazy" decoding="async"></figure>
+<figure class="row-figure"><img width="1386" height="1520" data-row="1" src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="A display's own page in Candela, with the combined-brightness floor control" loading="lazy" decoding="async"></figure>
 <div>
 <h3>Displays that match each other</h3>
 
@@ -141,7 +158,7 @@ not make two panels emit the same light</li>
 </div>
 
 <div class="row">
-<figure class="row-figure"><img data-row="1" src="shots/panel-tools.webp" srcset="shots/panel-tools-480.webp 480w, shots/panel-tools-960.webp 960w, shots/panel-tools.webp 1456w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's tools page: arrangement, virtual displays and Sidecar" width="1380" height="624" loading="lazy" decoding="async"></figure>
+<figure class="row-figure"><img width="1386" height="732" data-row="1" src="shots/panel-tools.webp" srcset="shots/panel-tools-480.webp 480w, shots/panel-tools-960.webp 960w, shots/panel-tools.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela's tools page: arrangement, virtual displays and Sidecar" loading="lazy" decoding="async"></figure>
 <div>
 <h3>Presets, arrangement, virtual screens</h3>
 
@@ -216,6 +233,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

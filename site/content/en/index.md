@@ -6,11 +6,19 @@ schema: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
    "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"https://zifei.info/Candela/",
+   "url":"{{SITE}}/",
    "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"https://zifei.info/Candela/shots/panel-root.webp",
+   "screenshot":"{{SITE}}/shots/panel-root.webp",
    "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
    "isAccessibleForFree":true}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"VideoObject",
+   "name":"Candela — a sixty-second tour",
+   "description":"A silent sixty-second recording of Candela on macOS: opening the panel from the menu bar, DDC brightness on one display and then all of them at once, the full HiDPI resolution list, brightness-key targets, tools, and Dark Mode.",
+   "thumbnailUrl":"{{SITE}}/video/poster.jpg",
+   "contentUrl":"{{SITE}}/video/hero-1080.mp4",
+   "uploadDate":"2026-08-16","duration":"PT1M"}
   </script>
 ---
 
@@ -18,9 +26,9 @@ schema: |
 
 # Every display control macOS hides, in one menu bar panel
 
-Candela gives external monitors on your Mac the controls the system keeps for the
-built-in screen: real brightness over DDC, sharp HiDPI scaling, brightness keys that
-work on every display, presets, and virtual screens.
+Everything macOS keeps for the built-in screen, given back to every monitor on your
+desk — real brightness over DDC, sharp HiDPI scaling, and brightness keys that work
+anywhere.
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
@@ -30,7 +38,15 @@ work on every display, presets, and virtual screens.
 <p class="note">macOS 26 · Apple silicon · MIT licence · no Pro tier, no licence key</p>
 </div>
 
-![The Candela panel: each connected display with its own brightness slider, a combined slider for all of them, and rows for presets, tools and settings.](shots/panel-root.webp)
+<figure class="film">
+<video class="film-frame" poster="video/poster.webp" width="1920" height="1080"
+       autoplay muted loop playsinline preload="none"
+       aria-label="A sixty-second silent recording of Candela in use: the panel opening from the menu bar, brightness sliders moving one display and then every display at once, the full HiDPI resolution list, the brightness-key targets, the tools page, and Dark Mode switching the whole system.">
+<source src="video/hero-1080.webm" type="video/webm">
+<source src="video/hero-1080.mp4" type="video/mp4">
+</video>
+<figcaption>Sixty seconds, no sound. Every frame is the shipping app on a real desk.</figcaption>
+</figure>
 
 <div class="sect-label">01 · What macOS leaves out</div>
 

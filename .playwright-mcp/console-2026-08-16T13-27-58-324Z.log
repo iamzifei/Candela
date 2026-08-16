@@ -1,0 +1,3 @@
+[  433338ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8123/shots/panel-allResolutions-480.webp:0
+[  434071ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8123/shots/panel-display-480.webp:0
+[  434572ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8123/shots/panel-tools-480.webp:0

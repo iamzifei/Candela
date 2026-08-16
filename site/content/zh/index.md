@@ -6,11 +6,19 @@ schema: |
   {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
    "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"https://zifei.info/Candela/zh/",
+   "url":"{{SITE}}/zh/",
    "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"https://zifei.info/Candela/shots/panel-root.webp",
+   "screenshot":"{{SITE}}/shots/panel-root.webp",
    "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
    "isAccessibleForFree":true}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"VideoObject",
+   "name":"Candela 六十秒演示",
+   "description":"六十秒无声录屏：从菜单栏拉出 Candela 面板，调整单块显示器与全部显示器的 DDC 硬件亮度，展开完整 HiDPI 分辨率列表，设置亮度键作用目标，打开工具页并切换深色模式。",
+   "thumbnailUrl":"{{SITE}}/video/poster.jpg",
+   "contentUrl":"{{SITE}}/video/hero-1080.mp4",
+   "uploadDate":"2026-08-16","duration":"PT1M"}
   </script>
 ---
 
@@ -18,8 +26,8 @@ schema: |
 
 # macOS 藏起来的显示器设置
 
-全都在菜单栏的这一个面板里：真正的 DDC 硬件亮度、清晰的 HiDPI 缩放、
-能作用于任意屏幕的亮度快捷键、预设，以及虚拟显示器。
+macOS 只留给内置屏幕的那些控制，还给桌上的每一块显示器：真正的 DDC 硬件亮度、
+清晰的 HiDPI 缩放，以及在任意屏幕上都管用的亮度键。
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
@@ -29,7 +37,15 @@ schema: |
 <p class="note">macOS 26 · Apple 芯片 · MIT 许可 · 没有 Pro 版，不需要激活码</p>
 </div>
 
-![Candela 面板：每块显示器一张卡片，各自有亮度滑条，下方是驱动所有屏幕的合并滑条，以及预设、工具与设置。](shots/panel-root.webp)
+<figure class="film">
+<video class="film-frame" poster="../video/poster.webp" width="1920" height="1080"
+       autoplay muted loop playsinline preload="none"
+       aria-label="六十秒无声录屏：从菜单栏拉出面板，拖动单块显示器的亮度滑条，再用合并滑条同时调整所有屏幕，展开完整的 HiDPI 分辨率列表，切换亮度键的作用目标，打开工具页，最后切换深色模式。">
+<source src="../video/hero-1080.webm" type="video/webm">
+<source src="../video/hero-1080.mp4" type="video/mp4">
+</video>
+<figcaption>六十秒，无声。每一帧都是已发布版本在真实桌面上的样子。</figcaption>
+</figure>
 
 <div class="sect-label">01 · macOS 没给你的</div>
 

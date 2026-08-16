@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="What HiDPI scaling is, why macOS hides it on third-party monitors, and how to turn it on so a 1440p or 4K display renders text at Retina sharpness.">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=49b4eafe">
+<link rel="stylesheet" href="styles.css?v=840cb746">
 
 <script>
 (function () {
@@ -92,10 +92,10 @@ should qualify below the line.</p>
 once — the display list is being rebuilt.</li>
 <li>Open <strong>Resolution</strong> and pick from the new modes.</li>
 </ol>
-<figure class="shot"><img src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes." width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes.</figcaption></figure>
+<figure class="shot"><img width="1386" height="1520" src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes." loading="eager" fetchpriority="high" decoding="async"><figcaption>The display page in Candela: resolution, refresh rate, and the smooth-scaling switch that adds HiDPI modes.</figcaption></figure>
 <p>The full mode list is a page of its own, with every resolution the display can take
 and the sharp ones marked:</p>
-<figure class="shot"><img src="shots/panel-allResolutions.webp" srcset="shots/panel-allResolutions-480.webp 480w, shots/panel-allResolutions-960.webp 960w, shots/panel-allResolutions.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela&#x27;s full resolution list for one display." width="1456" height="1708" loading="lazy" decoding="async"><figcaption>Candela&#x27;s full resolution list for one display.</figcaption></figure>
+<figure class="shot"><img width="1386" height="1708" src="shots/panel-allResolutions.webp" srcset="shots/panel-allResolutions-480.webp 480w, shots/panel-allResolutions-960.webp 960w, shots/panel-allResolutions.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="Candela&#x27;s full resolution list for one display." loading="lazy" decoding="async"><figcaption>Candela&#x27;s full resolution list for one display.</figcaption></figure>
 <h3 id="the-manual-route">The manual route</h3>
 <p>There is a long-standing approach involving a display-override plist under
 <code>/Library/Displays/Contents/Resources/Overrides</code>, keyed by the monitor's vendor and
@@ -178,6 +178,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="An honest comparison of three macOS display utilities: what each one costs, what the free tiers hold back, and which is the right fit for HiDPI scaling, DDC brightness and multi-monitor setups.">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=49b4eafe">
+<link rel="stylesheet" href="styles.css?v=840cb746">
 
 <script>
 (function () {
@@ -171,7 +171,7 @@ failure is at the bottom — a monitor dimmed over DDC keeps a backlight floor a
 still lit at zero, while one dimmed in software goes nearly black. Candela lets you
 calibrate that floor by eye, once per display, and then the combined slider keeps them
 together. <a href="sync-brightness-multiple-monitors-mac.html">How it works →</a></p>
-<figure class="shot"><img src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="The display page in Candela, showing the combined-brightness floor control for one monitor." width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>The display page in Candela, showing the combined-brightness floor control for one monitor.</figcaption></figure>
+<figure class="shot"><img width="1386" height="1520" src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="The display page in Candela, showing the combined-brightness floor control for one monitor." loading="eager" fetchpriority="high" decoding="async"><figcaption>The display page in Candela, showing the combined-brightness floor control for one monitor.</figcaption></figure>
 <p><strong>It tells you when brightness is faked.</strong> If a monitor refuses DDC — some do, and
 some USB-C docks do not pass the channel through — Candela dims the picture instead of
 the backlight, and puts a <em>Software</em> badge on that display's slider. Silent fallback
@@ -232,6 +232,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
-panel-allResolutions.webp 1456 1708 480 960
-panel-arrangement.webp 1456 816 480 960
-panel-display.webp 1456 1482 480 960
-panel-root.webp 1456 1482 480 960
-panel-settings.webp 1456 1006 480 960
-panel-tools.webp 1456 732 480 960
-panel-virtualDisplays.webp 1456 566 480 960
+panel-allResolutions.webp 1386 1708 480 960
+panel-arrangement.webp 1386 816 480 960
+panel-display.webp 1386 1520 480 960
+panel-root.webp 1386 1658 480 960
+panel-settings.webp 1386 1146 480 960
+panel-tools.webp 1386 732 480 960
+panel-virtualDisplays.webp 1386 566 480 960

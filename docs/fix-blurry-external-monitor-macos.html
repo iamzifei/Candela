@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="Text looks soft on your external display and the built-in screen looks perfect. Here is why macOS does that on 1440p and 4K monitors, and the four things that actually sharpen it.">
 <meta name="twitter:image" content="https://zifei.info/Candela/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=49b4eafe">
+<link rel="stylesheet" href="styles.css?v=840cb746">
 
 <script>
 (function () {
@@ -94,7 +94,7 @@ third-party displays: a 1440p monitor can run at &quot;looks like 1706×960&quot
 &quot;looks like 2048×1152&quot; while still rendering at 2× and scaling by a clean ratio.
 Text stays sharp at a size you can actually read.</p>
 <p>macOS has no user-facing switch for this. Candela adds one:</p>
-<figure class="shot"><img src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1456w" sizes="(max-width: 760px) 92vw, 900px" alt="The display page in Candela, with the resolution row and the smooth-scaling switch." width="1456" height="1482" loading="eager" fetchpriority="high" decoding="async"><figcaption>The display page in Candela, with the resolution row and the smooth-scaling switch.</figcaption></figure>
+<figure class="shot"><img width="1386" height="1520" src="shots/panel-display.webp" srcset="shots/panel-display-480.webp 480w, shots/panel-display-960.webp 960w, shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 900px" alt="The display page in Candela, with the resolution row and the smooth-scaling switch." loading="eager" fetchpriority="high" decoding="async"><figcaption>The display page in Candela, with the resolution row and the smooth-scaling switch.</figcaption></figure>
 <p>Open Candela's panel, click your monitor, and turn on <strong>Smooth scaling</strong>. macOS asks
 for an administrator password and the screen flashes once while the display list is
 rebuilt. New scaled resolutions then appear under <strong>Resolution</strong> — pick one and
@@ -150,6 +150,22 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
   });
 });
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>
