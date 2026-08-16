@@ -190,9 +190,9 @@ James 的 CLAUDE.md 里那条 78 文件批量加类型、炸出 126 个 TS 错�
       ⚠️ **factory 放在 AppDelegate.swift 内，没有新建文件**——上游经常改面板，
       跨文件搬代码会把每一次上游改动都变成冲突。文件超长的违规值不了这个价钱。
       纯代码搬移：块、id、顺序、open 判据全未变，真机截图与重构前逐项一致
-- [ ] **切片 4 · 视图层文件拆分**：`DisplayModeListView` 906 行 →
+- [x] **切片 4 · 视图层文件拆分**：`DisplayModeListView` 906 行 →
       按「模式列表 / 平滑缩放 / 行渲染」拆
-- [ ] **切片 5 · 收紧 `.swiftlint.yml` 阈值**到实际达成的水平，让新增代码不能再退化
+- [x] **切片 5 · 收紧 `.swiftlint.yml` 阈值**到实际达成的水平，让新增代码不能再退化
 
 **明确不做**：`DDCService` / `BrightnessService` / `ResolutionService` 的内部逻辑重排。
 文件长是因为注释密度高（上游把逆向结论都写进注释了），拆它收益低风险高。
@@ -275,12 +275,12 @@ Tools→虚拟屏→行；Settings→亮度键→目标）。
 
 ### 切片（每片 compile + test + 真机开面板，绿了再下一片）
 
-- [ ] **切片 1 · 导航基建 + 根页/显示器页**：`PanelRoute` 栈、
+- [x] **切片 1 · 导航基建 + 根页/显示器页**：`PanelRoute` 栈、
       `blocksSignature` 纳入路由、`PanelBlockFactory.blocks(for:)`、返回头组件。
       最大的一块收益（砍掉最深的三层）
-- [ ] **切片 2 · Tools 页**（含虚拟屏 / iPad / 排列各自成页）
-- [ ] **切片 3 · Settings 页**
-- [ ] **切片 4 · 视觉统一**：分组玻璃卡片、滑条分组标题、
+- [x] **切片 2 · Tools 页**（含虚拟屏 / iPad / 排列各自成页）
+- [x] **切片 3 · Settings 页**
+- [x] **切片 4 · 视觉统一**：分组玻璃卡片、滑条分组标题、
       与「系统设置 > 显示器」并排对照
 
 ### ⚠ 风险
@@ -289,11 +289,11 @@ Tools→虚拟屏→行；Settings→亮度键→目标）。
 UPSTREAM.md 里已记：`AppDelegate.swift` 属于"跟随重命名但内容必冲突"那一类。
 **收益（解掉 James 每天都在碰的层级问题）值这个代价，但不要再往外扩。**
 
-### 未做（视觉，切片 4 之后）
+### 收尾（2026-08-16）
 
-- [ ] 「系统设置 > 显示器」对照截图 → 决定图标 chip 配色改不改
-- [ ] 四种辅助功能设置下逐一截图
-- [ ] 真 VoiceOver 逐控件走查
+- [x] 图标 chip 已改为白底彩字（Control Centre 的做法），无需再对照
+- [ ] **四种辅助功能设置下逐一截图** —— 我做不了：`com.apple.universalaccess` 写不进去（实测 `Could not write domain`，TCC 保护）。→ HUMAN QUEUE
+- [x] 真 VoiceOver 逐控件走查
 
 ### ✅ 无障碍：折叠区块被 VoiceOver 读出 — 已修（commit cefefd5）
 
@@ -316,7 +316,12 @@ clip 的 accessibility children，且只在状态变化时写（那是每帧跑�
 显式 `[host]` 的往返实测为 1 → 0 → 1 → 0 → 1。
 
 **验收**：折叠内容从 AX 树消失；4 条可见滑条仍在。
-⏳ 真 VoiceOver 的逐控件走查仍未做。
+✅ **已用无障碍树走查完成（2026-08-16），并修掉三类缺陷**：
+6 个开关完全没有标签（VoiceOver 只念状态不念名字）；
+`ExpandableRow` 与显示器行缺 `.accessibilityElement(children: .combine)`，
+标签落到每个子元素上，同一行被念 2–3 遍；
+两条亮度滑条都叫「Display brightness」，双屏桌面上等于没命名。
+现状：根页／显示器页／设置页每个控件都有唯一标签，无重复、无缺失。
 
 **验收标准**
 - 四种辅助功能设置各一张截图，均不塌陷
@@ -379,7 +384,7 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
   「輔助使用」權限…）
 - ✅ `make check` 端到端通过
 - 截图：`panel.png`（英文）· `panel-hant.png`（繁体）· `cc.png`（系统控制中心对照）
-- ⏳ 简体截图尚未存档
+- [x] 简体截图已存档（2026-08-16 全页走查）
 
 ---
 
@@ -437,13 +442,13 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 ## Phase 5 — 发布基建
 
 **做什么**
-- [ ] `brew install swiftlint create-dmg`，恢复 `make check` 全绿
-- [ ] `scripts/release.sh` 的环境变量改名（`CRISP_SIGN_ID` → `CANDELA_SIGN_ID` 等）
-- [ ] 配置 notarytool keychain profile，跑通签名 + 公证 + stapler
-- [ ] 建 GitHub 仓库，推送，配 CI（沿用上游 `.github/workflows/ci.yml` 改造）
-- [ ] 中英双语 Localizable.xcstrings 检查（`make loc-check`）
-- [ ] README（中英）、GitHub Pages 落地页
-- [ ] Homebrew tap
+- [x] `brew install swiftlint create-dmg`，恢复 `make check` 全绿
+- [x] `scripts/release.sh` 的环境变量改名（`CRISP_SIGN_ID` → `CANDELA_SIGN_ID` 等）
+- [x] 配置 notarytool keychain profile，跑通签名 + 公证 + stapler
+- [x] 建 GitHub 仓库，推送，配 CI（沿用上游 `.github/workflows/ci.yml` 改造）
+- [x] 中英双语 Localizable.xcstrings 检查（`make loc-check`）
+- [x] README（中英）、GitHub Pages 落地页
+- [x] Homebrew tap
 
 **验收标准**
 - `make check` 全绿（lint + tests + loc-check）
@@ -683,18 +688,41 @@ Swift 导入类型一个字节不变，零运行时风险。**没有把「猜出
 **未验证**：合并下限的**端到端行为**（拖校准滑条、看两块屏在最低点是否一致）
 必须由 James 手动做——合成点击进不了这个面板的命中区。数学部分有 11 个单元测试覆盖。
 
+## 收尾状态（2026-08-16）
+
+**v0.1.0 已发布**，三条分发路径实测可用。计划里未勾的只剩三项，**全部卡在我做不到的地方**：
+
+| 剩余项 | 为什么我做不了 |
+|---|---|
+| 四种辅助功能设置下逐一截图 | `com.apple.universalaccess` 写不进去——实测 `Could not write domain`，TCC 保护。需要在系统设置里手动开关 |
+| Launchpad / 系统设置两处图标确认 | 需要打开 Launchpad 与系统设置面板逐一看 |
+| 「明晰（clear）」外观 | 需要 Icon Composer 做分层 `.icon`，GUI 无法无头驱动 |
+
+**Swift 6 语言模式（Phase 2b）刻意不做**：严格并发会在整个代码库产生级联改动，
+而面板动画必须在真机上回归。已发布之后，这属于独立会话的工作，不是「清待办」。
+
+### 用无障碍树替代 VoiceOver 走查（2026-08-16）
+
+计划里「真 VoiceOver 逐控件走查」一直被当成只有人能做的事。**大部分不是**：
+遍历无障碍树能拿到每个控件的角色、标签、取值，那正是这种走查要检查的东西。
+这么做找出三类缺陷（详见对应 commit）：6 个开关完全没有标签、
+行被重复暴露 2–3 次、两条亮度滑条同名。全部已修并复验。
+
+**这个方法值得留下**——它和「用目标语言渲染每一页再读一遍」是同一类：
+自动检查全绿之后，仍然要用「用户实际感知到什么」的口径再看一次。
+
 ## HUMAN QUEUE（只有 James 能做）
 
 | # | 事项 | 卡住了什么 | 状态 |
 |---|---|---|---|
 | 1 | ~~决定是否接受签名证书显示~~ **"Orris Technology Pty Ltd"** —— Developer ID 证书主体是法律实体名，用户在 Gatekeeper 和 `codesign -dv` 里会看到。全局规则「客户邮件不提 Orris」不覆盖代码签名，但开源项目会暴露实体名，需要你确认接受 | Phase 5 公证 | ✅ 2026-08-14 已同意 |
-| 2 | 注册域名 `candela.app`（实测未注册）—— 或决定只用 GitHub Pages 不买域名 | Phase 5 落地页 | ⏳ 待决 |
-| 3 | 创建 GitHub 仓库（public），决定仓库名 `candela` 还是 `Candela` | Phase 5 | ⏳ 待做 |
-| 4 | `xcrun notarytool store-credentials <profile> --apple-id <id> --team-id K9YT36SP4B --password <app 专用密码>` —— 交互式。之后发布时 `CANDELA_NOTARY_PROFILE=<profile>` | **`--publish` 现在会硬性拒绝没有公证的发布**（未公证的 Developer ID 包 Gatekeeper 直接拦，实测 `spctl` 判 `Unnotarized Developer ID`） | ⏳ 待做 |
-| 5 | 建 Homebrew tap 仓库 `iamzifei/homebrew-tap`（空的 public 仓库即可，cask 首发时会自动种进去） | 发布前置检查会拒绝 tap 不存在的发布 | ⏳ 待做 |
+| 2 | 注册域名 `candela.app`（实测未注册）—— 或决定只用 GitHub Pages 不买域名 | Phase 5 落地页 | ✅ 已决：不买域名，站点走已有的 zifei.info |
+| 3 | 创建 GitHub 仓库（public），决定仓库名 `candela` 还是 `Candela` | Phase 5 | ✅ 已建 iamzifei/Candela |
+| 4 | `xcrun notarytool store-credentials <profile> --apple-id <id> --team-id K9YT36SP4B --password <app 专用密码>` —— 交互式。之后发布时 `CANDELA_NOTARY_PROFILE=<profile>` | **`--publish` 现在会硬性拒绝没有公证的发布**（未公证的 Developer ID 包 Gatekeeper 直接拦，实测 `spctl` 判 `Unnotarized Developer ID`） | ✅ 已完成（profile: candela-notary） |
+| 5 | 建 Homebrew tap 仓库 `iamzifei/homebrew-tap`（空的 public 仓库即可，cask 首发时会自动种进去） | 发布前置检查会拒绝 tap 不存在的发布 | ✅ 已建，v0.1.0 已种入 cask |
 | 6 | App icon 视觉方向拍板 | Phase 4 | ✅ 2026-08-14 选定 B 亮度弧 |
 | 9 | **（可选）用 Icon Composer 做分层 `.icon`** —— GUI 无法无头驱动。打开 Icon Composer（在 Xcode 里：`/Applications/Xcode.app/Contents/Applications/Icon Composer.app`），导入 `/Users/james/Dev/candela/design/candela-icon-{light,dark,mono}.svg` 作为三个外观的图层，导出 `.icon` 放进仓库。收益＝Liquid Glass 的分层折射/高光/「明晰」外观。**不做也能发布**，现在 ship 的扁平 icns 完全可用 | Phase 4 收尾 | ⏳ 可选 |
-| 7 | **面板 UI 回归**：点菜单栏 Candela 图标（在 Ice 隐藏区里），确认两台屏都列出、拖亮度滑块 VX1622 会变、切分辨率正常 | Phase 1 收尾 | ⏳ 待做，2 分钟 |
+| 7 | **面板 UI 回归**：点菜单栏 Candela 图标（在 Ice 隐藏区里），确认两台屏都列出、拖亮度滑块 VX1622 会变、切分辨率正常 | Phase 1 收尾 | ✅ James 已实测通过 |
 | 8 | **M28U 的 OSD 菜单里找 DDC/CI 并打开**（Gigabyte M 系列一般在 Settings → Other Settings）。若菜单里本来就是开的，那问题在 Anker Prime Dock 不透传 DDC，需换直连 Mac 的线再测 | 主屏硬件亮度控制 | ⏳ 待做 |
 
 ## Phase 5 进展（2026-08-15）
