@@ -5,10 +5,19 @@ actively maintained. Its display-control layer is the reason this fork exists, s
 staying close to it is worth the merge cost rather than something to avoid.
 
 ```sh
-git fetch upstream
+git fetch upstream --no-tags
 git log --oneline HEAD..upstream/main     # what's new
 git merge upstream/main
 ```
+
+`--no-tags` matters. Crisp tags its releases `v1.0.0` through `v1.4.1`, and a
+plain `git fetch upstream` copies all of them into this repository, where they
+name commits that were never a Candela release. Candela's own versions start at
+`v0.1.0` and will reach `v1.0.0` eventually — at which point an inherited tag of
+the same name is not just noise but a collision. The twelve that came across with
+the original fork have been deleted; keep the flag so they stay gone. There is
+also `git config remote.upstream.tagOpt --no-tags`, which makes it the default,
+but that is per-clone and does not travel with the repository.
 
 The conflicts below are not hypothetical — this is the result of a rehearsal,
 merging synthetic upstream changes representing each category into the fork and
