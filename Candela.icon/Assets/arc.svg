@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs><linearGradient id="sweep" x1="0.08" y1="0.95" x2="0.92" y2="0.05">
+  <stop offset="0" stop-color="#8492C4"/><stop offset="1" stop-color="#FFD166"/>
+</linearGradient></defs>
+<path d="M 330.70 671.24 A 243.96 243.96 0 1 1 693.30 671.24" fill="none"
+      stroke="url(#sweep)" stroke-width="107" stroke-linecap="round"/>
+</svg>

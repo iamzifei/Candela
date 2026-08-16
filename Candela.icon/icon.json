@@ -1,0 +1,14 @@
+{
+  "supported-platforms": { "squares": ["macOS"] },
+  "fill": {
+    "linear-gradient": ["srgb:0.259,0.322,0.549,1", "srgb:0.137,0.184,0.361,1"]
+  },
+  "groups": [
+    {
+      "layers": [
+        { "image-name": "arc.svg", "name": "Arc" },
+        { "image-name": "dot.svg", "name": "Dot" }
+      ]
+    }
+  ]
+}

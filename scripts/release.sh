@@ -48,20 +48,40 @@ swiftc -O -parse-as-library -target "arm64-apple-macos26.0" \
   -Xlinker -U -Xlinker _SLSGetDisplayList \
   $SRC -o "$APP/Contents/MacOS/Candela"
 
-echo "==> Building app icon from asset catalog…"
-ICONSET="$BUILD/AppIcon.iconset"; mkdir -p "$ICONSET"
-ICONS="Candela/Assets.xcassets/AppIcon.appiconset"
-cp "$ICONS/icon_16.png"   "$ICONSET/icon_16x16.png"
-cp "$ICONS/icon_32.png"   "$ICONSET/icon_16x16@2x.png"
-cp "$ICONS/icon_32.png"   "$ICONSET/icon_32x32.png"
-cp "$ICONS/icon_64.png"   "$ICONSET/icon_32x32@2x.png"
-cp "$ICONS/icon_128.png"  "$ICONSET/icon_128x128.png"
-cp "$ICONS/icon_256.png"  "$ICONSET/icon_128x128@2x.png"
-cp "$ICONS/icon_256.png"  "$ICONSET/icon_256x256.png"
-cp "$ICONS/icon_512.png"  "$ICONSET/icon_256x256@2x.png"
-cp "$ICONS/icon_512.png"  "$ICONSET/icon_512x512.png"
-cp "$ICONS/icon_1024.png" "$ICONSET/icon_512x512@2x.png"
-iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns"
+echo "==> Building app icon…"
+# actool compiles Candela.icon straight into what a real Xcode build produces: an
+# Assets.car carrying the layered icon, a flat Candela.icns fallback, and the
+# CFBundleIconName / CFBundleIconFile keys. The layers are what make the icon a
+# macOS 26 icon rather than a picture of one — the rounded container, the material,
+# the specular highlight and the shadow are the system's, and it can render the
+# tinted and clear appearances because it has separable parts to light.
+#
+# It falls back to the flat iconset when Xcode is absent, so a contributor with only
+# the Command Line Tools still gets a DMG with an icon on it.
+ICON_PARTIAL="$BUILD/icon-partial.plist"
+if xcrun --find actool >/dev/null 2>&1; then
+  xcrun actool "$ROOT/Candela.icon" --compile "$APP/Contents/Resources" \
+    --platform macosx --minimum-deployment-target 26.0 --app-icon Candela \
+    --output-partial-info-plist "$ICON_PARTIAL" >/dev/null
+  ICON_NAME="Candela"
+  echo "    layered icon compiled (Assets.car + Candela.icns)"
+else
+  echo "    actool not found — flat iconset only"
+  ICONSET="$BUILD/AppIcon.iconset"; mkdir -p "$ICONSET"
+  ICONS="Candela/Assets.xcassets/AppIcon.appiconset"
+  cp "$ICONS/icon_16.png"   "$ICONSET/icon_16x16.png"
+  cp "$ICONS/icon_32.png"   "$ICONSET/icon_16x16@2x.png"
+  cp "$ICONS/icon_32.png"   "$ICONSET/icon_32x32.png"
+  cp "$ICONS/icon_64.png"   "$ICONSET/icon_32x32@2x.png"
+  cp "$ICONS/icon_128.png"  "$ICONSET/icon_128x128.png"
+  cp "$ICONS/icon_256.png"  "$ICONSET/icon_128x128@2x.png"
+  cp "$ICONS/icon_256.png"  "$ICONSET/icon_256x256.png"
+  cp "$ICONS/icon_512.png"  "$ICONSET/icon_256x256@2x.png"
+  cp "$ICONS/icon_512.png"  "$ICONSET/icon_512x512.png"
+  cp "$ICONS/icon_1024.png" "$ICONSET/icon_512x512@2x.png"
+  iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns"
+  ICON_NAME="AppIcon"
+fi
 
 echo "==> Compiling localizations from the String Catalog…"
 # The CLT ship no xcstringstool, so generate <lang>.lproj/Localizable.strings
@@ -81,7 +101,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 	<key>CFBundleDisplayName</key><string>Candela</string>
 	<key>CFBundleIdentifier</key><string>com.candela.app</string>
 	<key>CFBundleExecutable</key><string>Candela</string>
-	<key>CFBundleIconFile</key><string>AppIcon</string>
+	<key>CFBundleIconFile</key><string>${ICON_NAME}</string>
+	<key>CFBundleIconName</key><string>${ICON_NAME}</string>
 	<key>CFBundlePackageType</key><string>APPL</string>
 	<key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
 	<key>CFBundleDevelopmentRegion</key><string>en</string>
