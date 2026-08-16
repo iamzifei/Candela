@@ -31,7 +31,7 @@ targets:
         # Without an explicit MARKETING_VERSION the generated Info.plist omits
         # CFBundleShortVersionString and the app self-reports 1.0.0 forever,
         # which keeps the update banner visible even on the latest release.
-        MARKETING_VERSION: "0.1.0"
+        MARKETING_VERSION: "0.1.1"
         CURRENT_PROJECT_VERSION: "1"
         INFOPLIST_KEY_LSUIElement: true
         INFOPLIST_KEY_NSHumanReadableCopyright: "Candela - Free & Open Source"
