@@ -30,11 +30,12 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "site" / "content"
 OUT = ROOT / "docs"
 
-# The account's Pages site has a CNAME of zifei.info, so every project page under it
-# serves from https://zifei.info/<repo>/ and the github.io address 301-redirects here.
-# Verified against the Pages API rather than assumed: a canonical URL that redirects
-# tells search engines the wrong home for every page on the site.
-SITE = "https://zifei.info/Candela"
+# Candela's own domain, registered 2026-08-17. It replaces the previous address,
+# https://zifei.info/Candela — a path under the account's personal Pages site.
+# Setting the same name in the repository's Pages settings makes GitHub 301-redirect
+# every old address to the matching new one, which is what carries the pages that
+# were already indexed across rather than starting them again from zero.
+SITE = "https://getcandela.app"
 
 # Moving to Candela's own domain is this one line, plus setting the same name in the
 # repository's Pages settings. Everything else follows: canonical, hreflang, og:url,
