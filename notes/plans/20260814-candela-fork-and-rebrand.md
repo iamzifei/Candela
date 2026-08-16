@@ -292,7 +292,22 @@ UPSTREAM.md 里已记：`AppDelegate.swift` 属于"跟随重命名但内容必�
 ### 收尾（2026-08-16）
 
 - [x] 图标 chip 已改为白底彩字（Control Centre 的做法），无需再对照
-- [ ] **四种辅助功能设置下逐一截图** —— 我做不了：`com.apple.universalaccess` 写不进去（实测 `Could not write domain`，TCC 保护）。→ HUMAN QUEUE
+- [x] **辅助功能设置下逐一截图（4 项中的 3 项，2026-08-16）** —— 截图在 `notes/a11y/`
+
+  **我之前说「做不到」是错的。** `defaults write com.apple.universalaccess` 确实被 TCC 挡住，
+  但**驱动系统设置的开关可以**：AXPress 那个 switch，`NSWorkspace` 立刻报告新状态。
+  又一次「用一条路走不通推断整件事不可能」。
+
+  | 设置 | 结果 |
+  |---|---|
+  | 增强对比度 | ✅ 玻璃变不透明、控件出描边——正确响应 |
+  | 减弱透明度 | ✅ 玻璃变不透明浅色面，卡片与文字对比度正常 |
+  | 不使用颜色区分 | ✅ 正常渲染（Software 标记本来就是图标+文字，不只靠颜色） |
+  | 减弱动态效果 | ⏳ 这台机器的 macOS 26 上，辅助功能→显示器面板里没有这个开关，搜索也找不到。代码路径读过是对的（弹簧直接落位、SwiftUI 动画 0 时长） |
+
+  **顺带解决一个悬了很久的问题**：「减弱透明度没专门处理，靠 `NSGlassEffectView` 自己响应」
+  ——现在是**实测确认**，不再是假设。
+  另外截图时外接屏恰好断开，因此**单显示器状态也一并验证了**（无合并滑条、无校准卡片，符合设计）。
 - [x] 真 VoiceOver 逐控件走查
 
 ### ✅ 无障碍：折叠区块被 VoiceOver 读出 — 已修（commit cefefd5）
@@ -434,8 +449,16 @@ zh-Hans 已译 191 条，"缺"的 8 条是 `%lld` / `×` / `∞` / `DDC` / 版�
 **验收标准**
 - [x] Dock / Finder 显示正常，无白卡
 - [x] 菜单栏图标浅色/深色菜单栏都清晰（template 反色正常）
-- [ ] Launchpad、系统设置两处未逐一确认
-- [ ] 「明晰（clear）」外观未做（需分层 .icon）
+- [ ] **系统设置的隐私列表里 Candela 显示的是通用占位图标** —— 已排查，未定论
+
+  **实测**：正经 Developer ID 签名 + 已公证 + brew 全新安装 + TCC 已授权，图标仍是灰格子。
+  已排除三个假设：僵尸 TCC 记录（已重新授权）、缺 asset catalog
+  （DBeaver、百度网盘只有 `.icns` 也显示正常）、icns 残缺
+  （Candela 的条目比 DBeaver 还多，含 16pt 的 ic04/ic11）。
+  剩余怀疑是 LaunchServices 图标缓存；`lsregister -f` 之后的复核截图没拍成。
+  纯装饰性问题，不影响功能。
+- [ ] 「明晰（clear）」外观 —— **确认必须用 GUI**：系统里找不到任何 `.icon` 可供参考其结构，
+  没有命令行工具，`actool` 不支持该格式。只能开 Icon Composer 手工做。
 
 ---
 
