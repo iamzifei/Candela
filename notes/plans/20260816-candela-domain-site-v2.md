@@ -1,6 +1,6 @@
 ---
 project: Candela
-status: in-progress
+status: done
 created: 2026-08-16
 owner: James (Zifei Gong)
 repo: /Users/james/Dev/candela
@@ -44,13 +44,22 @@ Google Registry 查证）」。**这条是错的。** 那次查的是 `www.regis
 
 ## 阶段
 
-### P0 — 域名与 DNS
-- [ ] `get_purchase_quote` 取报价 → 向 James 复述条款 → 显式批准后 `buy_domain`
-- [ ] **HUMAN QUEUE**：WHOIS 注册人信息（姓名 / 邮箱 / +E.164 电话 / 街道 / 城市 / 州 / 邮编 / 国家）——没有这个下不了单
-- [ ] DNS：4 条 A 记录指 GitHub Pages，`www` CNAME
-- [ ] 仓库 Settings → Pages 自定义域名 = getcandela.app，勾选 Enforce HTTPS
-- [ ] 全站 URL 迁移：canonical / hreflang / og:url / JSON-LD / sitemap / robots / README 徽章与链接
-- [ ] 验证：新域名 200 + 证书有效；旧地址 301 到新域名（**实测，不是推断**）
+### P0 — 域名与 DNS ✅ 完成 2026-08-17
+- [x] **getcandela.app 已注册**（Vercel，Orris team，2027-08-17 到期，续费 $15/年）
+- [x] DNS：apex 4×A + 4×AAAA 指 GitHub Pages，`www` CNAME → `iamzifei.github.io`（`vercel dns add`）
+- [x] Pages 自定义域名 + Enforce HTTPS（`gh api`），证书 `approved`
+- [x] 全站 URL 迁移 + 两个 README 的链接
+- [x] **实测**：新域名及 /zh/、文章页、视频、截图、sitemap 全部 200；
+      `zifei.info/Candela/*` **逐页** 301 到对应新 URL；`www` 与 `http` 均 301 到 apex；
+      线上 mp4 的 sha256 与本地产物逐位一致
+
+⚠️ **agent 不能代购域名**（本次实测）：MCP token 报权限不足；`vercel domains buy` 直接返回
+`purchase_requires_user` —— *"Agents must not purchase domains on behalf of a user"*。
+这是 Vercel 的产品策略，不是可配置项。**购买必须 James 本人交互执行**；
+买完之后 `vercel dns add` 与 `gh api ... /pages` 都可由 agent 完成。
+
+顺带发现：Vercel 新建 zone 的默认 CAA 已包含 `letsencrypt.org`，
+所以 GitHub Pages 签证书没被挡——**若 CAA 少了这条，HTTPS 会静默签不出来**。
 
 ### P1 — 素材（视频 + 截图）✅ 完成 2026-08-16
 - [x] `scripts/record-demo.sh`：受控底衬 + AX 定位 + 真实鼠标事件，6 段素材
@@ -116,14 +125,12 @@ canonical / hreflang / og:url / JSON-LD / sitemap / robots / CNAME 全部自动�
    Vercel 不存档注册人资料，每次下单都要提供。
    费用：$9.99 首年，自动续费默认开启（约 $14/年），**不可退**，扣 Orris 默认卡。
 2. 真机 iPhone Safari 打开首页，确认影片自动播放且不发烫（模拟器测不出耗电）
-3. 推送前决定：`docs/` 的 5.1 MB 里有 3.4 MB 是视频，确认接受入库
+3. ~~推送前决定 docs/ 体积~~ —— 已推送（`b458814`），`docs/` 5.1 MB
 
-## 域名到位后的收尾清单（每步都要实测，不要推断）
+## 剩下的（只有 James 能做）
 
-1. `site/build.py` 的 `SITE` 改为 `https://getcandela.app`，跑 `python3 site/build.py`
-2. Vercel DNS：4 条 A 记录指 GitHub Pages（185.199.108–111.153），`www` CNAME 到 `iamzifei.github.io`
-3. 仓库 Settings → Pages → 自定义域名填 `getcandela.app`，等 DNS 校验通过后勾选 Enforce HTTPS
-4. 实测新域名返回 200 且证书有效
-5. **实测** `curl -I https://zifei.info/Candela/` 返回 301 且 Location 指向新域名
-6. README.md / README.zh-Hans.md 里的 zifei.info 链接与徽章一并替换
-7. GSC 提交新 sitemap，并做一次地址变更
+1. **Google Search Console**：为 getcandela.app 建资源、提交 `https://getcandela.app/sitemap.xml`。
+   ⚠️ GSC 的「地址变更」工具只适用于整站搬迁的资源；这里旧站是 `zifei.info` 下的一个目录，
+   **用不了那个工具**，靠的是已经生效的逐页 301 + 新 sitemap。
+2. **真机 iPhone Safari** 打开 https://getcandela.app 确认影片自动播放且不发烫。
+3. M28U 的 OSD 里开 DDC/CI（与本次无关，但演示视频里仍标着 Software）。
