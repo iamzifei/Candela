@@ -127,10 +127,35 @@ canonical / hreflang / og:url / JSON-LD / sitemap / robots / CNAME 全部自动�
 2. 真机 iPhone Safari 打开首页，确认影片自动播放且不发烫（模拟器测不出耗电）
 3. ~~推送前决定 docs/ 体积~~ —— 已推送（`b458814`），`docs/` 5.1 MB
 
+### P4 — Search Console ✅ 完成 2026-08-17
+- [x] 域名资源 `sc-domain:getcandela.app` 已建并验证（DNS TXT，`permissionLevel: siteOwner`）
+- [x] sitemap 已提交：`isPending false` · **0 errors / 0 warnings** · **submitted 12**（中英各 6 页）
+- [x] 验证方式：TXT `google-site-verification=ETSzEpCJFObPPTkPprR_bVQR_bBJzpKjtZwx6ljBAqQ`
+      （`vercel dns add`，记录 id `rec_d481d87048b3d6bcc6a7f8ee`）
+
+🔴 **这条 TXT 记录不能删** —— GSC 要求长期保留，删掉会掉验证。
+
+**发现：旧站从来没进过 GSC。** 该账号下 22 个资源全是 `sc-domain:`，`zifei.info` 不在其中，
+所以这不是「迁移」而是全新收录——GSC 的「地址变更」工具本来也用不上（它只适用于整站搬迁的资源，
+旧站只是 zifei.info 下的一个目录）。已生效的逐页 301 会把爬虫带过来。
+
+#### agent 在这条链路上能做什么、不能做什么（实测）
+| 步骤 | agent 可否 |
+|---|---|
+| 买域名 | ❌ Vercel 策略禁止（`Agents must not purchase domains on behalf of a user`） |
+| 加 DNS 记录 | ✅ `vercel dns add` |
+| 配 Pages 自定义域名 + 强制 HTTPS | ✅ `gh api repos/<o>/<r>/pages` |
+| 建 GSC 资源 / 提交 sitemap | ❌ 本机 token 只有 `webmasters.readonly`，写入实测 403 |
+| 查 GSC 资源与 sitemap 状态 | ✅ 只读 token 够用，可用来事后核验 |
+
+⚠️ **浏览器自动化这次没跑通**：Claude in Chrome 扩展在 Dia 上，`list_connected_browsers` 正常，
+但所有涉及标签页/页面的调用一律超时，且侧边栏并无待批准提示。两次归因（连接不稳 / 待授权）
+都被用户否掉，最后走的是人工点击 + agent 补 DNS 的分工。**下次别在这上面反复试**。
+
 ## 剩下的（只有 James 能做）
 
-1. **Google Search Console**：为 getcandela.app 建资源、提交 `https://getcandela.app/sitemap.xml`。
-   ⚠️ GSC 的「地址变更」工具只适用于整站搬迁的资源；这里旧站是 `zifei.info` 下的一个目录，
-   **用不了那个工具**，靠的是已经生效的逐页 301 + 新 sitemap。
-2. **真机 iPhone Safari** 打开 https://getcandela.app 确认影片自动播放且不发烫。
-3. M28U 的 OSD 里开 DDC/CI（与本次无关，但演示视频里仍标着 Software）。
+1. **真机 iPhone Safari** 打开 https://getcandela.app 确认影片自动播放且不发烫。
+2. M28U 的 OSD 里开 DDC/CI（与本次无关，但演示视频里仍标着 Software）。
+3. 可选：把 `~/.claude/skills/ga4/.env` 的 Google token 扩到 `webmasters` 写权限，
+   以后建资源/提交 sitemap 就能全程 API。**代价是同一 token 会获得名下 22 个资源的写权限**，
+   而它被 `/gsc-weekly` 等自动化共用——所以没有替你做这个决定。
