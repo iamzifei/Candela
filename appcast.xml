@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Candela</title>
+    <link>https://raw.githubusercontent.com/iamzifei/Candela/main/appcast.xml</link>
+    <description>Most recent Candela updates.</description>
+    <language>en</language>
+    <item>
+      <title>0.1.2</title>
+      <pubDate>Tue, 18 Aug 2026 12:22:43 -0000</pubDate>
+      <sparkle:version>0.1.2</sparkle:version>
+      <sparkle:shortVersionString>0.1.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/iamzifei/Candela/releases/download/v0.1.2/Candela.dmg" sparkle:edSignature="KA0wUIV8MW4VNnKFLKULlnxx8vQ39ZL/KaXhBNLNGOdvUbj4HUAIp8DhDdkzhS7gM56KhJAxJd5Z/gMIehwSCA==" length="4620536" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
