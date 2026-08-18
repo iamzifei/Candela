@@ -48,9 +48,10 @@ REPO = "https://github.com/iamzifei/Candela"
 DOWNLOAD = f"{REPO}/releases/latest/download/Candela.dmg"
 KOFI = "https://ko-fi.com/james_ai/tip"
 UPSTREAM = "https://github.com/didriksg/Crisp"
-# The other menu bar app. Someone who liked one is the likeliest person to want the
-# other, so each site carries a link to its sibling.
+# The other two menu bar apps. Someone who liked one is the likeliest person to want
+# another, so each of the three sites links to the other two.
 SIBLING = "https://audioswitch.dev"
+SIBLING_2 = "https://getclipstack.app"
 
 # Language codes are BCP 47 because that is what hreflang takes; the directory for
 # the default language is the site root, so its URLs have no prefix at all.
@@ -562,6 +563,7 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     <a href="{link_to('fix-blurry-external-monitor-macos', page, by_slug)}">{t['nav_guides']}</a>
     <a href="{REPO}" rel="noopener">{t['nav_github']}</a>
     <a href="{SIBLING}" rel="noopener">{t['nav_sibling']}</a>
+    <a href="{SIBLING_2}" rel="noopener">ClipStack</a>
     <a href="{KOFI}" rel="noopener">Ko-fi</a>
   </nav>
   {lang_picker(page, by_slug, "footer-langs")}
@@ -606,7 +608,7 @@ def build(out: Path) -> None:
     # scripts/capture-screenshots.sh. Copying rather than symlinking, because
     # GitHub Pages serves the tree as-is and does not follow links.
     shutil.copyfile(ROOT / "site" / "styles.css", out / "styles.css")
-    for asset in ("icon.png", "og-card.png", "og-card-zh.png", "download-macos.png", "audioswitch.png"):
+    for asset in ("icon.png", "og-card.png", "og-card-zh.png", "download-macos.png", "audioswitch.png", "clipstack.png"):
         src = OUT / asset
         if src.exists() and out != OUT:
             shutil.copyfile(src, out / asset)

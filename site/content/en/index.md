@@ -171,13 +171,22 @@ right-click warnings.
 
 <div class="sect-label">06 · Also from me</div>
 
-## The other menu bar app
+## The other two menu bar apps
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
 <span class="sibling-name">AudioSwitch</span>
 <span class="sibling-desc">Every audio input and output in one panel — switch devices, set volume, mute, watch a live microphone meter, and kill the mic outright. Free, MIT, Apple silicon.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://getclipstack.app" rel="noopener">
+<img src="clipstack.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">ClipStack</span>
+<span class="sibling-desc">Every clipboard entry kept and searchable, a ⇧⌘V away — text, images and files, with the ones you keep reaching for pinned. Nothing leaves the Mac. Free, MIT, Apple silicon.</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

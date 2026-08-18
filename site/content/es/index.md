@@ -165,13 +165,22 @@ clic derecho.
 
 <div class="sect-label">06 · También mío</div>
 
-## La otra app de la barra de menús
+## Las otras dos apps de la barra de menús
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
 <span class="sibling-name">AudioSwitch</span>
 <span class="sibling-desc">Todas las entradas y salidas de audio en un panel — cambiar de dispositivo, volumen, silencio, un medidor de nivel del micrófono en vivo y un interruptor para apagar el micrófono del todo. Gratis, MIT, Apple silicon.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://getclipstack.app" rel="noopener">
+<img src="../clipstack.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">ClipStack</span>
+<span class="sibling-desc">Todo lo que copiaste se conserva y se busca, en ⇧⌘V — texto, imágenes y archivos, con lo habitual fijado. Nada sale del Mac. Gratis, MIT, Apple silicon.</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

@@ -480,10 +480,13 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
      full width. The detail work is handed to the portrait screenshots below, which
      are the right shape for this screen and stay legible at it. */
   .film {
-    width: 100vw;
-    left: 50%;
-    translate: -50% 0;
-    margin-inline: 0;
+    /* Full bleed measured from the column's own padding rather than from 100vw:
+       where a scrollbar is present, 100vw counts it, so the centred break-out hung
+       about 8px past each edge and gave the page a horizontal scroll. */
+    width: auto;
+    left: auto;
+    translate: none;
+    margin-inline: calc(-1 * var(--s5));
     margin-block: var(--s8) var(--s12);
   }
   .film-frame {
@@ -703,6 +706,10 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   color: inherit;
   min-height: 44px;
 }
+
+/* Two of them now: the rule between rows does the separating, so the second one
+   does not also push itself away from the first. */
+.sibling + .sibling { margin-top: 0; }
 
 .sibling img { width: 44px; height: 44px; border-radius: var(--radius); flex: none; }
 .sibling-text { min-width: 0; }

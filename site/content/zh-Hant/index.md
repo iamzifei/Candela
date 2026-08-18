@@ -154,15 +154,24 @@ Candela 使用 Developer ID 簽署並經過 Apple 公證，打開時不會有「
 - 外接螢幕的硬體亮度需要在螢幕自己的 OSD 選單裡開啟 DDC/CI。
   多數螢幕出廠即開啟；少數機型以及部分 USB-C 擴充座不會傳遞這個通道
 
-<div class="sect-label">06 · 我的另一個</div>
+<div class="sect-label">06 · 我的另外兩個</div>
 
-## 同一條選單列上的另一個 App
+## 同一條選單列上的另外兩個 App
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
 <span class="sibling-name">AudioSwitch</span>
 <span class="sibling-desc">所有音訊輸入與輸出都在同一個面板：切換裝置、調音量、靜音、即時麥克風電平，還有一個麥克風硬開關。免費、MIT、Apple 晶片原生。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://getclipstack.app" rel="noopener">
+<img src="../clipstack.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">ClipStack</span>
+<span class="sibling-desc">複製過的內容都還在：⇧⌘V 叫出、可搜尋的剪貼簿歷史，文字、圖片、檔案都能翻回來，常用的可以釘選。全部只留在本機。免費、MIT、Apple 晶片原生。</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

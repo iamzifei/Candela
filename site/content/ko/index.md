@@ -156,15 +156,24 @@ Candela는 Developer ID로 서명되고 Apple의 공증을 받았기 때문에 �
 - 외장 디스플레이의 하드웨어 밝기에는 모니터 자체 OSD 메뉴에서 DDC/CI가 켜져 있어야 합니다.
   대부분의 모니터는 기본으로 켜져 있지만, 일부 기종과 일부 USB-C 독은 이 채널을 전달하지 않습니다
 
-<div class="sect-label">06 · 제가 만든 다른 앱</div>
+<div class="sect-label">06 · 제가 만든 다른 두 앱</div>
 
-## 같은 메뉴 막대의 다른 앱
+## 같은 메뉴 막대의 다른 두 앱
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
 <span class="sibling-name">AudioSwitch</span>
 <span class="sibling-desc">모든 오디오 입력과 출력을 한 패널에 —— 장치 전환, 음량, 음소거, 실시간 마이크 레벨 미터, 마이크 완전 차단 스위치. 무료, MIT, Apple 실리콘 네이티브.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://getclipstack.app" rel="noopener">
+<img src="../clipstack.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">ClipStack</span>
+<span class="sibling-desc">복사한 것은 모두 남습니다. ⇧⌘V로 여는 검색 가능한 클립보드 기록 —— 텍스트, 이미지, 파일, 자주 쓰는 항목은 고정. 아무것도 Mac을 떠나지 않습니다. 무료, MIT, Apple 실리콘 네이티브.</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

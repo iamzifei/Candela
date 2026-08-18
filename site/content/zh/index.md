@@ -160,15 +160,24 @@ Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「
 - 外接显示器的硬件亮度需要显示器自身的 OSD 菜单里开启 DDC/CI。
   多数显示器出厂即开启；少数机型以及部分 USB-C 扩展坞不会透传这个通道
 
-<div class="sect-label">06 · 我的另一个</div>
+<div class="sect-label">06 · 我的另外两个</div>
 
-## 同一条菜单栏上的另一个 App
+## 同一条菜单栏上的另外两个 App
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
 <span class="sibling-name">AudioSwitch</span>
 <span class="sibling-desc">所有音频输入和输出在同一个面板里：切换设备、调音量、静音、实时麦克风电平，还有一个麦克风硬开关。免费、MIT、Apple 芯片原生。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://getclipstack.app" rel="noopener">
+<img src="../clipstack.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">ClipStack</span>
+<span class="sibling-desc">复制过的内容都还在：⇧⌘V 呼出、可搜索的剪贴板历史，文字、图片、文件都能翻回来，常用的可以置顶。全部只留在本机。免费、MIT、Apple 芯片原生。</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

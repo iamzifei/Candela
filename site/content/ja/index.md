@@ -158,15 +158,24 @@ Candela は Developer ID で署名され Apple の公証を受けているので
 - 外部ディスプレイのハードウェア輝度には、モニタ側の OSD メニューで DDC/CI が有効になっている
   必要があります。多くのモニタは初期状態で有効ですが、一部の機種や USB-C ドックは通しません
 
-<div class="sect-label">06 · 私のもう 1 つのアプリ</div>
+<div class="sect-label">06 · 私のもう 2 つのアプリ</div>
 
-## 同じメニューバーのもう 1 つ
+## 同じメニューバーのもう 2 つ
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
 <span class="sibling-name">AudioSwitch</span>
 <span class="sibling-desc">すべてのオーディオ入力と出力を 1 つのパネルに —— デバイスの切り替え、音量、ミュート、リアルタイムのマイクレベルメーター、マイクの完全オフスイッチ。無料、MIT、Apple シリコンネイティブ。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://getclipstack.app" rel="noopener">
+<img src="../clipstack.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">ClipStack</span>
+<span class="sibling-desc">コピーしたものはすべて残ります。⇧⌘V で開く検索可能なクリップボード履歴 —— テキストも画像もファイルも、よく使うものはピン留めできます。Mac の外には出ません。無料、MIT、Apple シリコンネイティブ。</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>
