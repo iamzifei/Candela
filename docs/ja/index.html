@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candela — macOS のディスプレイ設定を無料で取り戻す</title>
+<meta name="description" content="外部モニタのための macOS メニューバーアプリ（オープンソース）: くっきりした HiDPI スケーリング、DDC によるハードウェア輝度、複数ディスプレイの輝度同期、プリセットと仮想ディスプレイ。すべて無料で、Pro 版はありません。">
+<link rel="canonical" href="https://getcandela.app/ja/">
+<link rel="alternate" hreflang="de" href="https://getcandela.app/de/">
+<link rel="alternate" hreflang="en" href="https://getcandela.app/">
+<link rel="alternate" hreflang="es" href="https://getcandela.app/es/">
+<link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/">
+<link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/">
+<link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/">
+<link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/">
+<link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/">
+<link rel="alternate" hreflang="x-default" href="https://getcandela.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Candela — macOS のディスプレイ設定を無料で取り戻す">
+<meta property="og:description" content="外部モニタのための macOS メニューバーアプリ（オープンソース）: くっきりした HiDPI スケーリング、DDC によるハードウェア輝度、複数ディスプレイの輝度同期、プリセットと仮想ディスプレイ。すべて無料で、Pro 版はありません。">
+<meta property="og:url" content="https://getcandela.app/ja/">
+<meta property="og:image" content="https://getcandela.app/og-card-zh.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Candela — macOS のディスプレイ設定を無料で取り戻す">
+<meta name="twitter:description" content="外部モニタのための macOS メニューバーアプリ（オープンソース）: くっきりした HiDPI スケーリング、DDC によるハードウェア輝度、複数ディスプレイの輝度同期、プリセットと仮想ディスプレイ。すべて無料で、Pro 版はありません。">
+<meta name="twitter:image" content="https://getcandela.app/og-card-zh.png">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../styles.css?v=2af5dd5c">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
+ "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+ "url":"https://getcandela.app/ja/",
+ "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
+ "screenshot":"https://getcandela.app/shots/panel-root.webp",
+ "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
+ "isAccessibleForFree":true}
+</script>
+
+
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="../"><img src="../icon.png" alt="" width="26" height="26"><span>Candela</span></a>
+    <nav class="nav-links">
+      <a class="nav-secondary" href="https://getcandela.app/candela-vs-betterdisplay.html">比較</a>
+      <a class="nav-secondary" href="https://getcandela.app/fix-blurry-external-monitor-macos.html">ガイド</a>
+      <a class="nav-secondary" href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+      <details class="lang-menu">
+        <summary aria-label="Language">日本語</summary>
+        <nav class="lang-menu-list" aria-label="Language"><a class="lang" href="https://getcandela.app/" hreflang="en" data-lang="en">English</a><a class="lang" href="https://getcandela.app/zh/" hreflang="zh-Hans" data-lang="zh">简体中文</a><a class="lang" href="https://getcandela.app/zh-Hant/" hreflang="zh-Hant" data-lang="zh-Hant">繁體中文</a><span class="lang-current">日本語</span><a class="lang" href="https://getcandela.app/ko/" hreflang="ko" data-lang="ko">한국어</a><a class="lang" href="https://getcandela.app/de/" hreflang="de" data-lang="de">Deutsch</a><a class="lang" href="https://getcandela.app/fr/" hreflang="fr" data-lang="fr">Français</a><a class="lang" href="https://getcandela.app/es/" hreflang="es" data-lang="es">Español</a></nav>
+      </details>
+      <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi で支援</a>
+      <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">macOS 版をダウンロード</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<div class="hero">
+
+<h1 id="macos-隠-設定-1">macOS が隠しているディスプレイ設定を、1 つのメニューバーパネルに</h1>
+<p>macOS が内蔵ディスプレイのためだけに残している機能を、机の上のすべてのモニタへ —— DDC による
+実際の輝度調整、くっきりした HiDPI スケーリング、そしてどこでも効く輝度キー。</p>
+<div class="actions">
+<a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">macOS 版をダウンロード</a>
+<a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi で支援</a>
+</div>
+
+<p class="note">macOS 26 · Apple シリコン · MIT ライセンス · Pro 版なし、ライセンスキーなし</p>
+</div>
+
+<figure class="film">
+<video class="film-frame" poster="../video/poster.webp" width="1920" height="1080"
+       autoplay muted loop playsinline preload="none"
+       aria-label="Candela を実際に使っている 60 秒の無音録画: メニューバーからパネルを開き、1 台ずつ、次に全ディスプレイ一括で輝度を動かし、HiDPI 解像度の全リスト、輝度キーの対象、ツールページ、そしてシステム全体のダークモード切り替え。">
+<source src="../video/hero-1080.webm" type="video/webm">
+<source src="../video/hero-1080.mp4" type="video/mp4">
+</video>
+<figcaption>60 秒、無音。すべて実際に配布しているアプリの、実際の机の上の映像です。</figcaption>
+</figure>
+
+<div class="sect-label">01 · macOS が用意しないもの</div>
+
+<h2 id="3-動">3 つのことが動かなくなる</h2>
+<p class="sect-lede">Mac にモニタをつなぐと、輝度キーは何も変えられず、解像度リストはぼやけた選択肢をいくつか出す
+だけで、くっきりしたモードは隠されます。しかも全ディスプレイをまとめて動かす方法がありません。
+Candela はその 3 つを取り戻します。環境設定のウインドウではなく、コントロールセンターのように
+ふるまうパネルとして。</p>
+
+<div class="row">
+<figure class="row-figure"><img width="1386" height="1658" data-row="1" src="../shots/panel-root.webp" srcset="../shots/panel-root-480.webp 480w, ../shots/panel-root-960.webp 960w, ../shots/panel-root.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela のパネル: 接続中の各ディスプレイの輝度スライダーと、すべてを動かす合成スライダー" loading="lazy" decoding="async"></figure>
+<div>
+<h3>バックライトまで届く輝度</h3>
+
+<ul>
+<li>映像ケーブル経由の DDC/CI —— モニタ本体のボタンが使うのと同じ経路</li>
+<li>DDC に応じないディスプレイはガンマ調光にフォールバックし、<em>Software</em> と表示されます</li>
+<li>応答するモニタなら音量も同じパネルから</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img width="1386" height="1146" data-row="1" src="../shots/panel-settings.webp" srcset="../shots/panel-settings-480.webp 480w, ../shots/panel-settings-960.webp 960w, ../shots/panel-settings.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela の設定。輝度キーの行と現在の対象が表示されている" loading="lazy" decoding="async"></figure>
+<div>
+<h3>どのディスプレイでも効く輝度キー</h3>
+
+<ul>
+<li>ポインタを追う、全ディスプレイを動かす、あるいはすべてを 1 つとして動かす</li>
+<li>選んだディスプレイだけに効かせて、テレビや色にシビアなパネルは除外することも</li>
+<li>必要なのは「アクセシビリティ」の許可 1 つだけ。再起動は不要</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img width="1386" height="1708" data-row="1" src="../shots/panel-allResolutions.webp" srcset="../shots/panel-allResolutions-480.webp 480w, ../shots/panel-allResolutions-960.webp 960w, ../shots/panel-allResolutions.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela に表示された 1 台分の全解像度リスト。くっきりしたモードに印が付いている" loading="lazy" decoding="async"></figure>
+<div>
+<h3>どのモニタでも、くっきり HiDPI</h3>
+
+<ul>
+<li>サードパーティ製ディスプレイで macOS が隠している 2× レンダリングのモード</li>
+<li>1440p や 4K のパネルが、読みやすさと解像感のどちらかではなく両方を得られます</li>
+<li>リフレッシュレートも同じページ。スケーリングのせいで気づかぬうちに 60 Hz に落ちることがありません</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img width="1386" height="1520" data-row="1" src="../shots/panel-display.webp" srcset="../shots/panel-display-480.webp 480w, ../shots/panel-display-960.webp 960w, ../shots/panel-display.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela の 1 台分のページ。合成輝度の下限設定がある" loading="lazy" decoding="async"></figure>
+<div>
+<h3>互いに揃うディスプレイ</h3>
+
+<ul>
+<li>机全体を 1 本のスライダーで</li>
+<li>さらにディスプレイごとに目で合わせる下限値を —— 同じパーセントでも 2 枚のパネルが同じ明るさで
+光るとは限らないからです</li>
+<li>隣がまだ点いているのに片方だけ真っ暗、ということが起きません</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<figure class="row-figure"><img width="1386" height="732" data-row="1" src="../shots/panel-tools.webp" srcset="../shots/panel-tools-480.webp 480w, ../shots/panel-tools-960.webp 960w, ../shots/panel-tools.webp 1386w" sizes="(max-width: 760px) 92vw, 420px" alt="Candela のツールページ: 配置、仮想ディスプレイ、Sidecar" loading="lazy" decoding="async"></figure>
+<div>
+<h3>プリセット、配置、仮想ディスプレイ</h3>
+
+<ul>
+<li>解像度・輝度・配置を含む机の状態をまるごと保存し、ワンクリックで復元</li>
+<li>システム設定を開かずにディスプレイの位置をドラッグで変更</li>
+<li>収録用の仮想ディスプレイを作る、あるいは Sidecar で iPad をつなぐ</li>
+</ul>
+</div>
+</div>
+
+<div class="sect-label">02 · 価格について</div>
+
+<h2 id="無料-上位版">無料で、上位版もありません</h2>
+<p>Pro 版もライセンスキーも 1 日あたりの回数制限もなく、出し惜しみしている機能もありません。
+アプリ全体が MIT ライセンスで、ソースは GitHub にあります。役に立ったなら <a href="https://ko-fi.com/iamzifei">Ko-fi</a> がありますが、
+一度も押さなくてもアプリの動作は何ひとつ変わりません。</p>
+<p>これが他の選択肢との一番の違いです。<a href="https://betterdisplay.pro/">BetterDisplay</a> は無料版もよくできていますが、柔軟な HiDPI
+スケーリング、仮想ディスプレイ、ディスプレイの切断、高度なショートカットは 21.99 ドルの Pro 向けに
+残しています。<a href="https://lunar.fyi/">Lunar</a> はオープンソースで買い切り 23 ドル、無料版は輝度調整が 1 日 100 回までです。
+どちらも良いソフトウェアです。「どの機能が使えるのか」という問いに対する Candela の答えは、
+単に「全部」です。</p>
+<p><a href="../candela-vs-betterdisplay.html">詳しい比較を読む →</a>（英語）</p>
+<div class="sect-label">03 · ガイド</div>
+
+<h2 id="">まずはここから</h2>
+<p>以下のガイドは現在、英語と簡体字中国語で提供しています:</p>
+<ul>
+<li><a href="../fix-blurry-external-monitor-macos.html">外部モニタのにじみを直す</a> —— 1440p や 4K でテキストが甘く見える理由と、実際に効く対処</li>
+<li><a href="../enable-hidpi-mac.html">Mac で HiDPI を有効にする</a> —— HiDPI とは何か、macOS が提示してくれないディスプレイでどう有効化するか</li>
+<li><a href="../mac-brightness-keys-external-monitor.html">外部モニタで輝度キーを効かせる</a> —— どのディスプレイでも F1・F2 を使うために必要な許可</li>
+<li><a href="../sync-brightness-multiple-monitors-mac.html">複数モニタの輝度を同期する</a> —— 机全体を 1 本のスライダーで、そして本当に揃える方法</li>
+</ul>
+<div class="sect-label">04 · インストール</div>
+
+<h2 id="2-方法">2 つの方法</h2>
+<p>DMG をダウンロードして Candela を「アプリケーション」にドラッグするか、Homebrew を使います:</p>
+<pre><code>brew install --cask iamzifei/tap/candela
+</code></pre>
+<p>Candela は Developer ID で署名され Apple の公証を受けているので、右クリックでの回避操作なしに開きます。</p>
+<div class="sect-label">05 · 動作条件</div>
+
+<h2 id="必要">必要なもの</h2>
+<ul>
+<li>macOS 26 以降</li>
+<li>Apple シリコン</li>
+<li>輝度キーには「アクセシビリティ」の許可が 1 つ必要です。機能を初めて有効にするときに macOS が尋ねます</li>
+<li>外部ディスプレイのハードウェア輝度には、モニタ側の OSD メニューで DDC/CI が有効になっている
+必要があります。多くのモニタは初期状態で有効ですが、一部の機種や USB-C ドックは通しません</li>
+</ul>
+<div class="sect-label">06 · 私のもう 1 つのアプリ</div>
+
+<h2 id="同-1">同じメニューバーのもう 1 つ</h2>
+<a class="sibling" href="https://audioswitch.dev" rel="noopener">
+<img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">AudioSwitch</span>
+<span class="sibling-desc">すべてのオーディオ入力と出力を 1 つのパネルに —— デバイスの切り替え、音量、ミュート、リアルタイムのマイクレベルメーター、マイクの完全オフスイッチ。無料、MIT、Apple シリコンネイティブ。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+
+</main>
+<footer class="site-footer">
+  <nav class="footer-nav">
+    <a href="https://getcandela.app/candela-vs-betterdisplay.html">比較</a>
+    <a href="https://getcandela.app/fix-blurry-external-monitor-macos.html">ガイド</a>
+    <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
+    <a href="https://audioswitch.dev" rel="noopener">AudioSwitch</a>
+    <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a>
+  </nav>
+  <nav class="footer-langs" aria-label="Language"><a class="lang" href="https://getcandela.app/" hreflang="en" data-lang="en">English</a><a class="lang" href="https://getcandela.app/zh/" hreflang="zh-Hans" data-lang="zh">简体中文</a><a class="lang" href="https://getcandela.app/zh-Hant/" hreflang="zh-Hant" data-lang="zh-Hant">繁體中文</a><span class="lang-current">日本語</span><a class="lang" href="https://getcandela.app/ko/" hreflang="ko" data-lang="ko">한국어</a><a class="lang" href="https://getcandela.app/de/" hreflang="de" data-lang="de">Deutsch</a><a class="lang" href="https://getcandela.app/fr/" hreflang="fr" data-lang="fr">Français</a><a class="lang" href="https://getcandela.app/es/" hreflang="es" data-lang="es">Español</a></nav>
+  <p>Candela は MIT ライセンスの自由ソフトウェアです。 同じく MIT の Crisp からの派生です。
+     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
+     <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
+     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a></p>
+</footer>
+<script>
+document.querySelectorAll('a.lang').forEach(function (a) {
+  a.addEventListener('click', function () {
+    try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The demo autoplays, because a silent hero loop that waits for a click is a hero
+// loop nobody watches. Someone who has told their system they want less motion has
+// already answered that question, so they get the poster frame and a control bar
+// rather than a decision made on their behalf. There is no CSS-only way to do this:
+// prefers-reduced-motion cannot suppress the autoplay attribute.
+(function () {
+  var film = document.querySelector('.film-frame');
+  if (!film) return;
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    film.autoplay = false;
+    film.removeAttribute('autoplay');
+    film.setAttribute('controls', '');
+    film.pause();
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

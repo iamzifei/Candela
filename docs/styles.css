@@ -711,3 +711,66 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 .sibling-go { margin-left: auto; flex: none; color: var(--ink-4); }
 .sibling:hover .sibling-name,
 .sibling:hover .sibling-go { color: var(--blue-light); }
+
+/* Language ------------------------------------------------------------------
+   Eight languages is too many for a row of links in the masthead, so the
+   header carries a disclosure and the footer carries the full list. The footer
+   copy is the one that matters to a crawler; the header one is for the reader
+   who is already here and reading the wrong language. */
+.lang-menu { position: relative; font-size: 13px; }
+
+.lang-menu > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0 var(--s2);
+  line-height: 44px;
+  color: var(--ink-3);
+}
+
+.lang-menu > summary::-webkit-details-marker { display: none; }
+.lang-menu > summary::after { content: " ⌄"; color: var(--ink-4); }
+.lang-menu[open] > summary { color: var(--ink); }
+
+.lang-menu-list {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+  padding: var(--s2) 0;
+  background: var(--ivory);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.lang-menu-list a,
+.lang-menu-list .lang-current {
+  padding: var(--s2) var(--s4);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink-2);
+}
+
+.lang-menu-list .lang-current { color: var(--ink-4); }
+.lang-menu-list a:hover { background: var(--sand); color: var(--ink); }
+
+.footer-langs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s2) var(--s5);
+  margin-top: var(--s4);
+  font-size: 13px;
+}
+
+.footer-langs a { color: var(--ink-3); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.footer-langs a:hover { color: var(--blue-light); }
+.footer-langs .lang-current { color: var(--ink-4); min-height: 44px; display: inline-flex; align-items: center; }
+
+@media (max-width: 760px) {
+  .nav-links > .lang-menu { display: none; }
+}

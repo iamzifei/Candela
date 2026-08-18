@@ -55,10 +55,21 @@ SIBLING = "https://audioswitch.dev"
 # Language codes are BCP 47 because that is what hreflang takes; the directory for
 # the default language is the site root, so its URLs have no prefix at all.
 LANGS = {
-    "en": {"hreflang": "en", "dir": "", "label": "English", "switch": "中文"},
-    "zh": {"hreflang": "zh-Hans", "dir": "zh/", "label": "简体中文", "switch": "English"},
+    "en": {"hreflang": "en", "dir": "", "label": "English", "locale": "en_US"},
+    "zh": {"hreflang": "zh-Hans", "dir": "zh/", "label": "简体中文", "locale": "zh_CN"},
+    "zh-Hant": {"hreflang": "zh-Hant", "dir": "zh-Hant/", "label": "繁體中文", "locale": "zh_TW"},
+    "ja": {"hreflang": "ja", "dir": "ja/", "label": "日本語", "locale": "ja_JP"},
+    "ko": {"hreflang": "ko", "dir": "ko/", "label": "한국어", "locale": "ko_KR"},
+    "de": {"hreflang": "de", "dir": "de/", "label": "Deutsch", "locale": "de_DE"},
+    "fr": {"hreflang": "fr", "dir": "fr/", "label": "Français", "locale": "fr_FR"},
+    "es": {"hreflang": "es", "dir": "es/", "label": "Español", "locale": "es_ES"},
 }
 DEFAULT_LANG = "en"
+
+# The long guides stay in English and Simplified Chinese. Everywhere else the
+# language has a home page and nothing more, so a link to a guide has to fall
+# back rather than 404 — see `link_to`.
+FULL_LANGS = ("en", "zh")
 
 UI = {
     "en": {
@@ -88,6 +99,90 @@ UI = {
         "footer_fork": "Fork 自同为 MIT 许可的 Crisp。",
         "toc": "本页内容",
         "updated": "更新于",
+    },
+    "zh-Hant": {
+        "download": "下載 macOS 版",
+        "kofi": "在 Ko-fi 支持",
+        "nav_compare": "比較",
+        "nav_guides": "指南",
+        "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
+        "free": "免費且開源",
+        "requires": "需要 macOS 26 · Apple 晶片",
+        "footer_built": "Candela 是 MIT 授權下的自由軟體。",
+        "footer_fork": "Fork 自同為 MIT 授權的 Crisp。",
+        "toc": "本頁內容",
+        "updated": "更新於",
+    },
+    "ja": {
+        "download": "macOS 版をダウンロード",
+        "kofi": "Ko-fi で支援",
+        "nav_compare": "比較",
+        "nav_guides": "ガイド",
+        "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
+        "free": "無料・オープンソース",
+        "requires": "macOS 26 · Apple シリコンが必要",
+        "footer_built": "Candela は MIT ライセンスの自由ソフトウェアです。",
+        "footer_fork": "同じく MIT の Crisp からの派生です。",
+        "toc": "このページの内容",
+        "updated": "更新日",
+    },
+    "ko": {
+        "download": "macOS용 다운로드",
+        "kofi": "Ko-fi에서 후원",
+        "nav_compare": "비교",
+        "nav_guides": "가이드",
+        "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
+        "free": "무료 오픈 소스",
+        "requires": "macOS 26 · Apple 실리콘 필요",
+        "footer_built": "Candela는 MIT 라이선스의 자유 소프트웨어입니다.",
+        "footer_fork": "같은 MIT 라이선스의 Crisp에서 갈라져 나왔습니다.",
+        "toc": "이 페이지의 내용",
+        "updated": "업데이트",
+    },
+    "de": {
+        "download": "Für macOS laden",
+        "kofi": "Auf Ko-fi unterstützen",
+        "nav_compare": "Vergleich",
+        "nav_guides": "Anleitungen",
+        "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
+        "free": "Kostenlos und quelloffen",
+        "requires": "Erfordert macOS 26 · Apple Silicon",
+        "footer_built": "Candela ist freie Software unter der MIT-Lizenz.",
+        "footer_fork": "Abgeleitet von Crisp, das ebenfalls MIT-lizenziert ist.",
+        "toc": "Auf dieser Seite",
+        "updated": "Aktualisiert",
+    },
+    "fr": {
+        "download": "Télécharger pour macOS",
+        "kofi": "Soutenir sur Ko-fi",
+        "nav_compare": "Comparatif",
+        "nav_guides": "Guides",
+        "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
+        "free": "Gratuit et open source",
+        "requires": "Nécessite macOS 26 · Apple silicon",
+        "footer_built": "Candela est un logiciel libre sous licence MIT.",
+        "footer_fork": "Dérivé de Crisp, également sous MIT.",
+        "toc": "Sur cette page",
+        "updated": "Mis à jour",
+    },
+    "es": {
+        "download": "Descargar para macOS",
+        "kofi": "Apoyar en Ko-fi",
+        "nav_compare": "Comparativa",
+        "nav_guides": "Guías",
+        "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
+        "free": "Gratis y de código abierto",
+        "requires": "Requiere macOS 26 · Apple silicon",
+        "footer_built": "Candela es software libre bajo licencia MIT.",
+        "footer_fork": "Derivado de Crisp, también con licencia MIT.",
+        "toc": "En esta página",
+        "updated": "Actualizado",
     },
 }
 
@@ -259,20 +354,59 @@ def read_pages() -> list[Page]:
     return pages
 
 
+def link_to(slug: str, page: Page, by_slug: dict) -> str:
+    """URL for `slug` in the reader's language, falling back to English.
+
+    Only English and Simplified Chinese carry the long guides. A German reader
+    following "Anleitungen" should land on the English guide rather than a 404,
+    so the fallback is a real page in another language, addressed absolutely
+    because it lives in a different directory depth.
+    """
+    target = by_slug.get((page.lang, slug))
+    if target:
+        up = "../" if page.depth else ""
+        return f"{up}{LANGS[page.lang]['dir']}{slug}.html"
+    fallback = by_slug.get((DEFAULT_LANG, slug))
+    return f"{SITE}/{fallback.path}" if fallback else f"{SITE}/"
+
+
+def lang_picker(page: Page, by_slug: dict, css_class: str) -> str:
+    """Every language, each pointing at this page or that language's home.
+
+    Written as links rather than a <select>: they are crawlable, they work
+    without JavaScript, and the footer copy of the list is what tells a search
+    engine the other languages exist.
+    """
+    items = []
+    for lang, meta in LANGS.items():
+        if lang == page.lang:
+            items.append(f'<span class="lang-current">{meta["label"]}</span>')
+            continue
+        target = by_slug.get((lang, page.slug)) or by_slug.get((lang, "index"))
+        if not target:
+            continue
+        items.append(
+            f'<a class="lang" href="{SITE}/{target.path}" hreflang="{meta["hreflang"]}"'
+            f' data-lang="{lang}">{meta["label"]}</a>'
+        )
+    return f'<nav class="{css_class}" aria-label="Language">' + "".join(items) + "</nav>"
+
+
 def nav(page: Page, by_slug: dict) -> str:
     t = UI[page.lang]
     up = "../" if page.depth else ""
     home = up if page.depth else "./"
-    other = "zh" if page.lang == "en" else "en"
-    counterpart = by_slug.get((other, page.slug)) or by_slug.get((other, "index"))
     return f"""<header class="nav">
   <div class="nav-inner">
     <a class="wordmark" href="{home}"><img src="{up}icon.png" alt="" width="26" height="26"><span>Candela</span></a>
     <nav class="nav-links">
-      <a class="nav-secondary" href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
-      <a class="nav-secondary" href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html">{t['nav_guides']}</a>
+      <a class="nav-secondary" href="{link_to('candela-vs-betterdisplay', page, by_slug)}">{t['nav_compare']}</a>
+      <a class="nav-secondary" href="{link_to('fix-blurry-external-monitor-macos', page, by_slug)}">{t['nav_guides']}</a>
       <a class="nav-secondary" href="{REPO}" rel="noopener">{t['nav_github']}</a>
-      <a class="lang" href="{SITE}/{counterpart.path}" hreflang="{LANGS[other]['hreflang']}">{LANGS[page.lang]['switch']}</a>
+      <details class="lang-menu">
+        <summary aria-label="Language">{LANGS[page.lang]['label']}</summary>
+        {lang_picker(page, by_slug, "lang-menu-list")}
+      </details>
       <a class="btn btn-kofi" href="{KOFI}" rel="noopener">{t['kofi']}</a>
       <a class="btn btn-dl" href="{DOWNLOAD}">{t['download']}</a>
     </nav>
@@ -323,7 +457,7 @@ def head(page: Page, by_slug: dict) -> str:
 <meta property="og:image" content="{SITE}/{og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="{'en_US' if page.lang == 'en' else 'zh_CN'}">
+<meta property="og:locale" content="{LANGS[page.lang]['locale']}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
@@ -333,19 +467,29 @@ def head(page: Page, by_slug: dict) -> str:
 {schema}"""
 
 
-# Sends a first-time visitor whose browser is Chinese to the Chinese page, and never
-# again after that. Without the memory it would fight anyone who deliberately clicks
-# "English": they would land on English and be bounced straight back.
+# Sends a first-time visitor to the page in their own language, and never again
+# after that. Without the memory it would fight anyone who deliberately picks
+# English: they would land on English and be bounced straight back.
 LANG_REDIRECT = """<script>
 (function () {
   try {
     if (localStorage.getItem('candela-lang')) return;
-    var zh = (navigator.languages || [navigator.language || '']).some(function (l) {
-      return /^zh\\b/i.test(l);
-    });
-    if (zh && !location.pathname.match(/\\/zh\\//)) {
-      localStorage.setItem('candela-lang', 'zh');
-      location.replace(ZH_URL);
+    var urls = LANG_URLS;
+    var wanted = navigator.languages || [navigator.language || ''];
+    for (var i = 0; i < wanted.length; i++) {
+      var tag = String(wanted[i]).toLowerCase();
+      var pick = null;
+      if (tag.indexOf('zh') === 0) {
+        pick = /hant|tw|hk|mo/.test(tag) ? 'zh-Hant' : 'zh';
+      } else {
+        pick = tag.split('-')[0];
+      }
+      if (pick === 'en') return;
+      if (urls[pick]) {
+        localStorage.setItem('candela-lang', pick);
+        location.replace(urls[pick]);
+        return;
+      }
     }
   } catch (e) {}
 })();
@@ -362,14 +506,20 @@ def render(page: Page, by_slug: dict) -> str:
     # figure, and a regex over <img> alone cannot see its parent.
     body = ROW_FIGURE.sub(r'\1data-row="1" ', body)
     body = add_srcset(body)
-    counterpart = by_slug.get(("zh", page.slug)) or by_slug.get(("zh", "index"))
     redirect = ""
-    if page.lang == DEFAULT_LANG and counterpart:
-        redirect = LANG_REDIRECT.replace("ZH_URL", f"'{SITE}/{counterpart.path}'")
+    if page.lang == DEFAULT_LANG:
+        urls = {}
+        for lang in LANGS:
+            if lang == DEFAULT_LANG:
+                continue
+            target = by_slug.get((lang, page.slug)) or by_slug.get((lang, "index"))
+            if target:
+                urls[lang] = f"{SITE}/{target.path}"
+        if urls:
+            as_js = "{" + ",".join(f'"{k}":"{v}"' for k, v in urls.items()) + "}"
+            redirect = LANG_REDIRECT.replace("LANG_URLS", as_js)
 
     up = "../" if page.depth else ""
-    other = "zh" if page.lang == "en" else "en"
-    footer_counterpart = by_slug.get((other, page.slug)) or by_slug.get((other, "index"))
 
     remember = """<script>
 document.querySelectorAll('a.lang').forEach(function (a) {
@@ -408,13 +558,13 @@ document.querySelectorAll('a.lang').forEach(function (a) {
 </main>
 <footer class="site-footer">
   <nav class="footer-nav">
-    <a href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
-    <a href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html">{t['nav_guides']}</a>
+    <a href="{link_to('candela-vs-betterdisplay', page, by_slug)}">{t['nav_compare']}</a>
+    <a href="{link_to('fix-blurry-external-monitor-macos', page, by_slug)}">{t['nav_guides']}</a>
     <a href="{REPO}" rel="noopener">{t['nav_github']}</a>
     <a href="{SIBLING}" rel="noopener">{t['nav_sibling']}</a>
     <a href="{KOFI}" rel="noopener">Ko-fi</a>
-    <a class="lang" href="{SITE}/{footer_counterpart.path}" hreflang="{LANGS[other]['hreflang']}">{LANGS[page.lang]['switch']}</a>
   </nav>
+  {lang_picker(page, by_slug, "footer-langs")}
   <p>{t['footer_built']} {t['footer_fork']}
      <a href="{REPO}" rel="noopener">GitHub</a> ·
      <a href="{UPSTREAM}" rel="noopener">Crisp</a> ·

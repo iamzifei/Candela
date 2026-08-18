@@ -6,8 +6,14 @@
 <title>Candela — free display control for macOS</title>
 <meta name="description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
 <link rel="canonical" href="https://getcandela.app/">
+<link rel="alternate" hreflang="de" href="https://getcandela.app/de/">
 <link rel="alternate" hreflang="en" href="https://getcandela.app/">
+<link rel="alternate" hreflang="es" href="https://getcandela.app/es/">
+<link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/">
+<link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/">
+<link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/">
 <link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/">
+<link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/">
 <link rel="alternate" hreflang="x-default" href="https://getcandela.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Candela — free display control for macOS">
@@ -22,7 +28,7 @@
 <meta name="twitter:description" content="A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier.">
 <meta name="twitter:image" content="https://getcandela.app/og-card.png">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="styles.css?v=bcc85ef5">
+<link rel="stylesheet" href="styles.css?v=2af5dd5c">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
  "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
@@ -46,12 +52,22 @@
 (function () {
   try {
     if (localStorage.getItem('candela-lang')) return;
-    var zh = (navigator.languages || [navigator.language || '']).some(function (l) {
-      return /^zh\b/i.test(l);
-    });
-    if (zh && !location.pathname.match(/\/zh\//)) {
-      localStorage.setItem('candela-lang', 'zh');
-      location.replace('https://getcandela.app/zh/');
+    var urls = {"zh":"https://getcandela.app/zh/","zh-Hant":"https://getcandela.app/zh-Hant/","ja":"https://getcandela.app/ja/","ko":"https://getcandela.app/ko/","de":"https://getcandela.app/de/","fr":"https://getcandela.app/fr/","es":"https://getcandela.app/es/"};
+    var wanted = navigator.languages || [navigator.language || ''];
+    for (var i = 0; i < wanted.length; i++) {
+      var tag = String(wanted[i]).toLowerCase();
+      var pick = null;
+      if (tag.indexOf('zh') === 0) {
+        pick = /hant|tw|hk|mo/.test(tag) ? 'zh-Hant' : 'zh';
+      } else {
+        pick = tag.split('-')[0];
+      }
+      if (pick === 'en') return;
+      if (urls[pick]) {
+        localStorage.setItem('candela-lang', pick);
+        location.replace(urls[pick]);
+        return;
+      }
     }
   } catch (e) {}
 })();
@@ -65,7 +81,10 @@
       <a class="nav-secondary" href="candela-vs-betterdisplay.html">Compare</a>
       <a class="nav-secondary" href="fix-blurry-external-monitor-macos.html">Guides</a>
       <a class="nav-secondary" href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
-      <a class="lang" href="https://getcandela.app/zh/" hreflang="zh-Hans">中文</a>
+      <details class="lang-menu">
+        <summary aria-label="Language">English</summary>
+        <nav class="lang-menu-list" aria-label="Language"><span class="lang-current">English</span><a class="lang" href="https://getcandela.app/zh/" hreflang="zh-Hans" data-lang="zh">简体中文</a><a class="lang" href="https://getcandela.app/zh-Hant/" hreflang="zh-Hant" data-lang="zh-Hant">繁體中文</a><a class="lang" href="https://getcandela.app/ja/" hreflang="ja" data-lang="ja">日本語</a><a class="lang" href="https://getcandela.app/ko/" hreflang="ko" data-lang="ko">한국어</a><a class="lang" href="https://getcandela.app/de/" hreflang="de" data-lang="de">Deutsch</a><a class="lang" href="https://getcandela.app/fr/" hreflang="fr" data-lang="fr">Français</a><a class="lang" href="https://getcandela.app/es/" hreflang="es" data-lang="es">Español</a></nav>
+      </details>
       <a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Support on Ko-fi</a>
       <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
     </nav>
@@ -233,8 +252,8 @@ pass it through</li>
     <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a>
     <a href="https://audioswitch.dev" rel="noopener">AudioSwitch</a>
     <a href="https://ko-fi.com/iamzifei" rel="noopener">Ko-fi</a>
-    <a class="lang" href="https://getcandela.app/zh/" hreflang="zh-Hans">中文</a>
   </nav>
+  <nav class="footer-langs" aria-label="Language"><span class="lang-current">English</span><a class="lang" href="https://getcandela.app/zh/" hreflang="zh-Hans" data-lang="zh">简体中文</a><a class="lang" href="https://getcandela.app/zh-Hant/" hreflang="zh-Hant" data-lang="zh-Hant">繁體中文</a><a class="lang" href="https://getcandela.app/ja/" hreflang="ja" data-lang="ja">日本語</a><a class="lang" href="https://getcandela.app/ko/" hreflang="ko" data-lang="ko">한국어</a><a class="lang" href="https://getcandela.app/de/" hreflang="de" data-lang="de">Deutsch</a><a class="lang" href="https://getcandela.app/fr/" hreflang="fr" data-lang="fr">Français</a><a class="lang" href="https://getcandela.app/es/" hreflang="es" data-lang="es">Español</a></nav>
   <p>Candela is free software under the MIT licence. Forked from Crisp, which is also MIT.
      <a href="https://github.com/iamzifei/Candela" rel="noopener">GitHub</a> ·
      <a href="https://github.com/didriksg/Crisp" rel="noopener">Crisp</a> ·
