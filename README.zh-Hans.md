@@ -11,6 +11,8 @@
 
 [<img src="docs/download-macos.png" alt="下载 macOS 版 Candela" width="200">](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/iamzifei)
+
 [![Platform](https://img.shields.io/badge/macOS-26%2B-blue)](#系统要求)
 [![Apple silicon](https://img.shields.io/badge/Apple%20silicon-required-lightgrey)](#系统要求)
 [![License](https://img.shields.io/github/license/iamzifei/Candela?color=3fb950)](LICENSE)

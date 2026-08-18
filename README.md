@@ -11,6 +11,8 @@ DDC brightness, brightness keys that work on any display, presets and virtual sc
 
 [<img src="docs/download-macos.png" alt="Download Candela for macOS" width="200">](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/iamzifei)
+
 [![Platform](https://img.shields.io/badge/macOS-26%2B-blue)](#requirements)
 [![Apple silicon](https://img.shields.io/badge/Apple%20silicon-required-lightgrey)](#requirements)
 [![License](https://img.shields.io/github/license/iamzifei/Candela?color=3fb950)](LICENSE)
