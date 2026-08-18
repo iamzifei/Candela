@@ -34,3 +34,5 @@ design/icon-candidates/*.png
 # copies them into docs/ and `build.py --check` fails if they are missing.
 assets/footage/
 assets/video/candela-hero-60s.mp4
+vendor/
+Candela-bin

@@ -40,10 +40,15 @@ rm -rf "$BUILD"; mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 # arm64 only, not universal: DDC on this app runs through IOAVService, which is
 # the Apple Silicon path. An x86_64 slice would build but could not control an
 # external monitor's backlight, so shipping one would only mislead Intel users.
+echo "==> Vendoring Sparkle…"
+"$ROOT/scripts/fetch-sparkle.sh"
+
 echo "==> Compiling arm64 binary…"
 SRC=$(find Candela -name '*.swift')
 swiftc -O -parse-as-library -target "arm64-apple-macos26.0" \
   -import-objc-header Candela/Candela-Bridging-Header.h \
+  -F "$ROOT/vendor" -framework Sparkle \
+  -Xlinker -rpath -Xlinker @executable_path/../Frameworks \
   -Xlinker -U -Xlinker _SLSConfigureDisplayEnabled \
   -Xlinker -U -Xlinker _SLSGetDisplayList \
   $SRC -o "$APP/Contents/MacOS/Candela"
@@ -114,9 +119,24 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 	<key>NSHumanReadableCopyright</key><string>Candela - Free &amp; Open Source</string>
 	<key>NSAppleEventsUsageDescription</key><string>Candela uses System Events to switch Dark Mode with the system's animated transition.</string>
 	<key>CFBundleSupportedPlatforms</key><array><string>MacOSX</string></array>
+	<!-- Sparkle. The feed is the appcast committed to this repository's main
+	     branch, and SUPublicEDKey is the public half of the EdDSA key the
+	     release signs the DMG with: an update that is not signed by that key is
+	     refused, so a compromised download host cannot ship anyone a new app. -->
+	<key>SUFeedURL</key><string>https://raw.githubusercontent.com/iamzifei/Candela/main/appcast.xml</string>
+	<key>SUPublicEDKey</key><string>CHSkSUupddRglHt3C2quzHtit8LMB29BMI44/O9aItg=</string>
+	<key>SUEnableAutomaticChecks</key><true/>
+	<key>SUScheduledCheckInterval</key><integer>86400</integer>
 </dict>
 </plist>
 PLIST
+
+# Sparkle rides in Contents/Frameworks, and its nested code is signed inside-out
+# below — the notary service rejects a bundle whose XPC services or updater app
+# are unsigned, or signed after their container.
+echo "==> Embedding Sparkle…"
+mkdir -p "$APP/Contents/Frameworks"
+ditto "$ROOT/vendor/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
 
 # Sign with a Developer ID + hardened runtime, falling back to ad hoc so dry runs
 # and contributor/CI builds still work without a cert. A notarizable build needs the
@@ -131,6 +151,24 @@ PLIST
 # the brightness keys were dead because TCC had bound the grant to a code hash that
 # changed on every build.
 xattr -cr "$APP"
+
+# Sparkle's nested code has to be signed inside-out — XPC services, then the
+# updater app and its helper, then the framework — before the app is sealed over
+# the top of them. `codesign --deep` on the app alone leaves them with the wrong
+# order and notarisation rejects the bundle.
+sign_sparkle() {
+    local id="$1" extra=("${@:2}")
+    local fw="$APP/Contents/Frameworks/Sparkle.framework"
+    [ -d "$fw" ] || return 0
+    local xpc
+    for xpc in "$fw"/Versions/B/XPCServices/*.xpc; do
+        [ -e "$xpc" ] && codesign --force "${extra[@]}" --sign "$id" "$xpc"
+    done
+    [ -e "$fw/Versions/B/Updater.app" ] && codesign --force "${extra[@]}" --sign "$id" "$fw/Versions/B/Updater.app"
+    [ -e "$fw/Versions/B/Autoupdate" ] && codesign --force "${extra[@]}" --sign "$id" "$fw/Versions/B/Autoupdate"
+    codesign --force "${extra[@]}" --sign "$id" "$fw"
+}
+
 if [ -z "${CANDELA_SIGN_ID:-}" ]; then
   # `|| true` is load-bearing: grep exits 1 when it matches nothing, and under
   # `set -e` that kills the script here. CI has no certificate, so this turned
@@ -140,6 +178,7 @@ if [ -z "${CANDELA_SIGN_ID:-}" ]; then
 fi
 if [ -n "${CANDELA_SIGN_ID:-}" ]; then
   echo "==> Signing (Developer ID: $CANDELA_SIGN_ID, hardened runtime)…"
+  sign_sparkle "$CANDELA_SIGN_ID" --options runtime --timestamp
   codesign --force --deep --options runtime --timestamp \
     --entitlements Candela/Candela.entitlements --sign "$CANDELA_SIGN_ID" "$APP"
 elif [ "$PUBLISH" = true ]; then
@@ -151,6 +190,7 @@ elif [ "$PUBLISH" = true ]; then
 else
   echo "==> WARNING: signing ad hoc, no Developer ID certificate found."
   echo "    This DMG is for local testing only — Gatekeeper will refuse it."
+  sign_sparkle -
   codesign --force --deep --sign - --entitlements Candela/Candela.entitlements "$APP"
 fi
 codesign --verify --deep --strict "$APP"
@@ -250,5 +290,33 @@ gh api -X PUT "repos/$TAP_REPO/contents/$TAP_CASK" \
   -f message="candela ${VERSION}" \
   -f content="$(base64 -i "$BUILD/candela.rb")" \
   ${SHA_FILE:+-f sha="$SHA_FILE"} --jq '.commit.sha' >/dev/null
+
+# The appcast is what installed copies poll, so it has to name the release that
+# now exists and carry an EdDSA signature over the exact DMG that was uploaded.
+# It runs after the release is public: signing a file nobody can download yet
+# would publish an update pointing at a 404.
+echo "==> Updating the Sparkle appcast…"
+SIGN_UPDATE="$(find "$ROOT/vendor" ~/Library/Developer/Xcode/DerivedData -name sign_update -type f 2>/dev/null | head -1)"
+if [ -z "$SIGN_UPDATE" ]; then
+    SIGN_UPDATE="$(command -v sign_update || true)"
+fi
+if [ -z "$SIGN_UPDATE" ]; then
+    echo "warning: Sparkle's sign_update not found — appcast NOT updated." >&2
+    echo "         Installed copies will not see ${TAG} until it is." >&2
+    echo "         Get it from the Sparkle release tarball (bin/sign_update)." >&2
+else
+    DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${TAG}/Candela.dmg"
+    python3 "$ROOT/scripts/update_appcast.py" \
+        --appcast "$ROOT/appcast.xml" --archive "$DMG" \
+        --version "$VERSION" --build "$VERSION" \
+        --url "$DOWNLOAD_URL" \
+        --sign-tool "$SIGN_UPDATE" \
+        ${SPARKLE_KEY_FILE:+--key-file "$SPARKLE_KEY_FILE"} \
+        --min-system 26.0
+    git -C "$ROOT" add appcast.xml
+    git -C "$ROOT" commit -m "chore: appcast for ${TAG}" >/dev/null
+    git -C "$ROOT" push >/dev/null
+    echo "    appcast committed and pushed"
+fi
 
 echo "==> Released ${TAG} and updated the tap."

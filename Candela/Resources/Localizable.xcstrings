@@ -1,3608 +1,3640 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "" : {
-
-    },
-    ", collapsed" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，已折叠"
+  "sourceLanguage": "en",
+  "strings": {
+    "": {},
+    ", collapsed": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，已折叠"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，已收合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，已收合"
           }
         }
       }
     },
-    ", expanded" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，已展开"
+    ", expanded": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，已展开"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，已展開"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，已展開"
           }
         }
       }
     },
-    ", main display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，主显示器"
+    ", main display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，主显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，主顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，主顯示器"
           }
         }
       }
     },
-    ", selected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，已选中"
+    ", selected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，已选中"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "，已選取"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "，已選取"
           }
         }
       }
     },
-    "%@ (Default)" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@（默认）"
+    "%@ (Default)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@（默认）"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@（預設）"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@（預設）"
           }
         }
       }
     },
-    "%@ (low resolution)" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@（低分辨率）"
+    "%@ (low resolution)": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@（低分辨率）"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@（低解析度）"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@（低解析度）"
           }
         }
       }
     },
-    "%@ brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 亮度"
+    "%@ brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 亮度"
           }
         }
       }
     },
-    "%@ color" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
+    "%@ color": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
           }
         }
       }
     },
-    "%@ volume" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 音量"
+    "%@ volume": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 音量"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 音量"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 音量"
           }
         }
       }
     },
-    "%@, collapsed" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已折叠"
+    "%@, collapsed": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已折叠"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已收合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已收合"
           }
         }
       }
     },
-    "%@, disconnected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已断开"
+    "%@, disconnected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已断开"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已中斷連線"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已中斷連線"
           }
         }
       }
     },
-    "%@, expanded" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已展开"
+    "%@, expanded": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已展开"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已展開"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已展開"
           }
         }
       }
     },
-    "%@, off" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已关闭"
+    "%@, off": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已关闭"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已關閉"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已關閉"
           }
         }
       }
     },
-    "%@, on" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已开启"
+    "%@, on": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已开启"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@，已開啟"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，已開啟"
           }
         }
       }
     },
-    "%lld" : {
-      "shouldTranslate" : false
+    "%lld": {
+      "shouldTranslate": false
     },
-    "%lld%%" : {
-      "shouldTranslate" : false
+    "%lld%%": {
+      "shouldTranslate": false
     },
-    "×" : {
-      "shouldTranslate" : false
+    "×": {
+      "shouldTranslate": false
     },
-    "∞" : {
-      "shouldTranslate" : false
+    "∞": {
+      "shouldTranslate": false
     },
-    "Activate" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "启用"
+    "Activate": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启用"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟用"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟用"
           }
         }
       }
     },
-    "Active" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "活动"
+    "Active": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "活动"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "使用中"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用中"
           }
         }
       }
     },
-    "Adds finer in-between steps for how large everything looks" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增加更精细的中间缩放档位，用于微调界面大小"
+    "Adds finer in-between steps for how large everything looks": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增加更精细的中间缩放档位，用于微调界面大小"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增加更細緻的中間縮放級距，用於微調介面大小"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增加更細緻的中間縮放級距，用於微調介面大小"
           }
         }
       }
     },
-    "Adds finer in-between steps for how large everything looks. Enabling asks for an administrator password and briefly flashes the screen" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增加更精细的中间缩放档位，用于微调界面大小。启用需要管理员密码，并会短暂闪烁屏幕"
+    "Adds finer in-between steps for how large everything looks. Enabling asks for an administrator password and briefly flashes the screen": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增加更精细的中间缩放档位，用于微调界面大小。启用需要管理员密码，并会短暂闪烁屏幕"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增加更細緻的中間縮放級距，用於微調介面大小。啟用時需要管理者密碼，並會短暫閃爍螢幕"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增加更細緻的中間縮放級距，用於微調介面大小。啟用時需要管理者密碼，並會短暫閃爍螢幕"
           }
         }
       }
     },
-    "Adjustments may affect HDR content!" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "调整可能影响 HDR 内容！"
+    "Adjustments may affect HDR content!": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "调整可能影响 HDR 内容！"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "調整可能影響 HDR 內容！"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "調整可能影響 HDR 內容！"
           }
         }
       }
     },
-    "Administrator authorization failed: %@" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理员授权失败：%@"
+    "Administrator authorization failed: %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "管理员授权失败：%@"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理者授權失敗：%@"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "管理者授權失敗：%@"
           }
         }
       }
     },
-    "All connected displays" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有已连接的显示器"
+    "All connected displays": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有已连接的显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有已連接的顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有已連接的顯示器"
           }
         }
       }
     },
-    "All displays together" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有显示器一起"
+    "All displays together": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有显示器一起"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有顯示器一起"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有顯示器一起"
           }
         }
       }
     },
-    "All Profiles" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全部配置文件"
+    "All Profiles": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部配置文件"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有描述檔"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有描述檔"
           }
         }
       }
     },
-    "Are you sure you want to delete this virtual display configuration?" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "确定要删除此虚拟显示器配置吗？"
+    "Are you sure you want to delete this virtual display configuration?": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确定要删除此虚拟显示器配置吗？"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "確定要刪除此虛擬顯示器設定嗎？"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確定要刪除此虛擬顯示器設定嗎？"
           }
         }
       }
     },
-    "Arrange Displays" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排列显示器"
+    "Arrange Displays": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "排列显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排列顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "排列顯示器"
           }
         }
       }
     },
-    "Arrangement" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排列"
+    "Arrangement": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "排列"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排列"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "排列"
           }
         }
       }
     },
-    "Auto" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自动"
+    "Auto": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自動"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動"
           }
         }
       }
     },
-    "Auto Brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自动亮度"
+    "Auto Brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自動亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動亮度"
           }
         }
       }
     },
-    "Automatically adjust brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自动调节亮度"
+    "Automatically adjust brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动调节亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自動調整亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動調整亮度"
           }
         }
       }
     },
-    "Beta" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "测试版"
+    "Beta": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "测试版"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "測試版"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "測試版"
           }
         }
       }
     },
-    "blue" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "蓝色"
+    "blue": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蓝色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "藍色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "藍色"
           }
         }
       }
     },
-    "Brightness" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度"
+    "Brightness": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度"
           }
         }
       }
     },
-    "Brightness control mode: DDC hardware" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度控制模式：DDC 硬件"
+    "Brightness control mode: DDC hardware": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度控制模式：DDC 硬件"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度控制模式：DDC 硬體"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度控制模式：DDC 硬體"
           }
         }
       }
     },
-    "Brightness control mode: Software emulation" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度控制模式：软件模拟"
+    "Brightness control mode: Software emulation": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度控制模式：软件模拟"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度控制模式：軟體模擬"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度控制模式：軟體模擬"
           }
         }
       }
     },
-    "Brightness control mode: System" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度控制模式：系统"
+    "Brightness control mode: System": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度控制模式：系统"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度控制模式：系統"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度控制模式：系統"
           }
         }
       }
     },
-    "Brightness Keys" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度键"
+    "Brightness Keys": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度键"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度鍵"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度鍵"
           }
         }
       }
     },
-    "Brightness keys need Accessibility access to redirect them to external displays. Grant it once and they start working, no restart." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度键需要辅助功能权限才能重定向到外接显示器。授权一次即可使用，无需重启。"
+    "Brightness keys need Accessibility access to redirect them to external displays. Grant it once and they start working, no restart.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度键需要辅助功能权限才能重定向到外接显示器。授权一次即可使用，无需重启。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "亮度鍵需要「輔助使用」權限，才能轉送到外接顯示器。授權一次即可使用，不需重新啟動。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度鍵需要「輔助使用」權限，才能轉送到外接顯示器。授權一次即可使用，不需重新啟動。"
           }
         }
       }
     },
-    "Built-in Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "内建显示器"
+    "Built-in Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "内建显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "內建顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "內建顯示器"
           }
         }
       }
     },
-    "Cancel" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消"
+    "Cancel": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
           }
         }
       }
     },
-    "Candela reads its language once at launch, so the new one applies after it restarts." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Candela 只在启动时读取一次语言设置，重启后新语言才会生效。"
+    "Candela reads its language once at launch, so the new one applies after it restarts.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 只在启动时读取一次语言设置，重启后新语言才会生效。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Candela 只在啟動時讀取一次語言設定，重新啟動後新語言才會生效。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 只在啟動時讀取一次語言設定，重新啟動後新語言才會生效。"
           }
         }
       }
     },
-    "Candela v%@" : {
-      "shouldTranslate" : false
+    "Candela v%@": {
+      "shouldTranslate": false
     },
-    "Candela Virtual" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Candela 虚拟显示器"
+    "Candela Virtual": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 虚拟显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Candela 虛擬顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 虛擬顯示器"
           }
         }
       }
     },
-    "Captures" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "包含项目"
+    "Captures": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含项目"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "包含項目"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含項目"
           }
         }
       }
     },
-    "Check for Updates at Launch" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "启动时检查更新"
+    "Check for Updates at Launch": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启动时检查更新"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟動時檢查更新"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟動時檢查更新"
           }
         }
       }
     },
-    "Choose icon and color" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择图标与颜色"
+    "Choose icon and color": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择图标与颜色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選擇圖像與顏色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇圖像與顏色"
           }
         }
       }
     },
-    "Click anywhere on the screen to pick a color…" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在屏幕上任意位置点击以选取颜色…"
+    "Click anywhere on the screen to pick a color…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在屏幕上任意位置点击以选取颜色…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在螢幕上任一位置點按以選取顏色…"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在螢幕上任一位置點按以選取顏色…"
           }
         }
       }
     },
-    "Click to expand or collapse this section" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "点击以展开或折叠此部分"
+    "Click to expand or collapse this section": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点击以展开或折叠此部分"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "點按以展開或收合此區塊"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點按以展開或收合此區塊"
           }
         }
       }
     },
-    "Click to expand the control panel" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "点击以展开控制面板"
+    "Click to expand the control panel": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点击以展开控制面板"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "點按以展開控制面板"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點按以展開控制面板"
           }
         }
       }
     },
-    "Click to open the release page" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "点击打开发布页面"
+    "Click to open the release page": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点击打开发布页面"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "點按以打開發行頁面"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點按以打開發行頁面"
           }
         }
       }
     },
-    "Color" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "颜色"
+    "Color": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "颜色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顏色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顏色"
           }
         }
       }
     },
-    "Color History" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "颜色历史"
+    "Color History": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "颜色历史"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顏色記錄"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顏色記錄"
           }
         }
       }
     },
-    "Color Profile" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "颜色配置文件"
+    "Color Profile": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "颜色配置文件"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顏色描述檔"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顏色描述檔"
           }
         }
       }
     },
-    "Color Temp" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "色温"
+    "Color Temp": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "色温"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "色溫"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "色溫"
           }
         }
       }
     },
-    "Combined" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合并亮度"
+    "Combined": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合并亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合併亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合併亮度"
           }
         }
       }
     },
-    "Combined brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合并亮度"
+    "Combined brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合并亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合併亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合併亮度"
           }
         }
       }
     },
-    "Combined brightness floor" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合并亮度下限"
+    "Combined brightness floor": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合并亮度下限"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合併亮度下限"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合併亮度下限"
           }
         }
       }
     },
-    "Confirm Deletion" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "确认删除"
+    "Confirm Deletion": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认删除"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "確認刪除"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認刪除"
           }
         }
       }
     },
-    "Connected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已连接"
+    "Connected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已连接"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已連接"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已連接"
           }
         }
       }
     },
-    "Connecting switched off another display, so it was undone." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "连接后另一块显示器被关闭，已自动撤销。"
+    "Connecting switched off another display, so it was undone.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "连接后另一块显示器被关闭，已自动撤销。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "連接後另一塊顯示器被關閉，已自動撤銷。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連接後另一塊顯示器被關閉，已自動撤銷。"
           }
         }
       }
     },
-    "Contrast" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "对比度"
+    "Contrast": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "对比度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "對比"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "對比"
           }
         }
       }
     },
-    "Copy Display Name" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "复制显示器名称"
+    "Copy Display Name": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "复制显示器名称"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "拷貝顯示器名稱"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷貝顯示器名稱"
           }
         }
       }
     },
-    "Create" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "创建"
+    "Create": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "建立"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立"
           }
         }
       }
     },
-    "Create at launch" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "启动时创建"
+    "Create at launch": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启动时创建"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟動時建立"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟動時建立"
           }
         }
       }
     },
-    "Create automatically at launch" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "启动时自动创建"
+    "Create automatically at launch": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启动时自动创建"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟動時自動建立"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟動時自動建立"
           }
         }
       }
     },
-    "Create Preset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "创建预设"
+    "Create Preset": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建预设"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "建立預設組合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立預設組合"
           }
         }
       }
     },
-    "Create Virtual Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "创建虚拟显示器"
+    "Create Virtual Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建虚拟显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "建立虛擬顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立虛擬顯示器"
           }
         }
       }
     },
-    "Creating…" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在创建…"
+    "Creating…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在创建…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在建立…"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在建立…"
           }
         }
       }
     },
-    "Current Main Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "当前主显示器"
+    "Current Main Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前主显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "目前的主顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前的主顯示器"
           }
         }
       }
     },
-    "Currently active" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "当前活动"
+    "Currently active": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前活动"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "目前使用中"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前使用中"
           }
         }
       }
     },
-    "Custom…" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自定义…"
+    "Custom…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自定义…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自訂…"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂…"
           }
         }
       }
     },
-    "Dark Mode" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "深色模式"
+    "Dark Mode": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "深色模式"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "深色模式"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "深色模式"
           }
         }
       }
     },
-    "Day" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日间"
+    "Day": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日间"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日間"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日間"
           }
         }
       }
     },
-    "DDC" : {
-      "shouldTranslate" : false
+    "DDC": {
+      "shouldTranslate": false
+    },
+    "Deactivate": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "停用"
+          }
+        }
+      }
     },
-    "Deactivate" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "停用"
+    "Delete": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "停用"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除"
           }
         }
       }
     },
-    "Delete" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "删除"
+    "Disconnect Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "断开显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刪除"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中斷顯示器連線"
           }
         }
       }
     },
-    "Disconnect Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "断开显示器"
+    "Disconnected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已断开"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中斷顯示器連線"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已中斷連線"
           }
         }
       }
     },
-    "Disconnected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已断开"
+    "Display": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已中斷連線"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示器"
           }
         }
       }
     },
-    "Display" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示器"
+    "Display %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示器 %@"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示器 %@"
           }
         }
       }
     },
-    "Display %@" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示器 %@"
+    "Display brightness": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示器亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示器 %@"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示器亮度"
           }
         }
       }
     },
-    "Display brightness" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示器亮度"
+    "Display configuration failed (CGError %@).": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示器配置失败（CGError %@）。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示器亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示器設定失敗（CGError %@）。"
           }
         }
       }
     },
-    "Display configuration failed (CGError %@)." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示器配置失败（CGError %@）。"
+    "Display Mode": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示模式"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示器設定失敗（CGError %@）。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示模式"
           }
         }
       }
     },
-    "Display Mode" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示模式"
+    "Display Name": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示器名称"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示模式"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示器名稱"
           }
         }
       }
     },
-    "Display Name" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示器名称"
+    "Display not found.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到显示器。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示器名稱"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "找不到顯示器。"
           }
         }
       }
     },
-    "Display not found." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未找到显示器。"
+    "Edit…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "编辑…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "找不到顯示器。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編輯…"
           }
         }
       }
     },
-    "Edit…" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "编辑…"
+    "Enable high-resolution scaling": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "启用高分辨率缩放"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "編輯…"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟用高解析度縮放"
           }
         }
       }
     },
-    "Enable high-resolution scaling" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "启用高分辨率缩放"
+    "External displays follow the built-in but keep the difference you set": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外接显示器跟随内建显示器，但保持你设置的亮度差异"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟用高解析度縮放"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外接顯示器跟隨內建顯示器，但保持你設定的亮度差異"
           }
         }
       }
     },
-    "External displays follow the built-in but keep the difference you set" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "外接显示器跟随内建显示器，但保持你设置的亮度差异"
+    "External displays follow the built-in display's brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外接显示器跟随内建显示器的亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "外接顯示器跟隨內建顯示器，但保持你設定的亮度差異"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外接顯示器跟隨內建顯示器的亮度"
           }
         }
       }
     },
-    "External displays follow the built-in display's brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "外接显示器跟随内建显示器的亮度"
+    "Extra Brightness": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "额外亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "外接顯示器跟隨內建顯示器的亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "額外亮度"
           }
         }
       }
     },
-    "Extra Brightness" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "额外亮度"
+    "Failed to activate virtual display. Please try again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "激活虚拟显示器失败，请重试。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "額外亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "啟用虛擬顯示器失敗，請重試。"
           }
         }
       }
     },
-    "Failed to activate virtual display. Please try again." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "激活虚拟显示器失败，请重试。"
+    "Failed to apply. Please try again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用失败，请重试。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟用虛擬顯示器失敗，請重試。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "套用失敗，請重試。"
           }
         }
       }
     },
-    "Failed to apply. Please try again." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "应用失败，请重试。"
+    "Failed to arrange displays. Please try again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "排列显示器失败，请重试。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "套用失敗，請重試。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "排列顯示器失敗，請重試。"
           }
         }
       }
     },
-    "Failed to arrange displays. Please try again." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排列显示器失败，请重试。"
+    "Failed to create AppleScript": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建 AppleScript 失败"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "排列顯示器失敗，請重試。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立 AppleScript 失敗"
           }
         }
       }
     },
-    "Failed to create AppleScript" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "创建 AppleScript 失败"
+    "Failed to create virtual display. Please try again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建虚拟显示器失败，请重试。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "建立 AppleScript 失敗"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立虛擬顯示器失敗，請重試。"
           }
         }
       }
     },
-    "Failed to create virtual display. Please try again." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "创建虚拟显示器失败，请重试。"
+    "Failed to generate plist data": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "生成 plist 数据失败"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "建立虛擬顯示器失敗，請重試。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "產生 plist 資料失敗"
           }
         }
       }
     },
-    "Failed to generate plist data" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "生成 plist 数据失败"
+    "Failed to set main display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置主显示器失败"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "產生 plist 資料失敗"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定主顯示器失敗"
           }
         }
       }
     },
-    "Failed to set main display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置主显示器失败"
+    "Failed to update virtual display. Please try again.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新虚拟显示器失败，请重试。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定主顯示器失敗"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新虛擬顯示器失敗，請重試。"
           }
         }
       }
     },
-    "Failed to update virtual display. Please try again." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新虚拟显示器失败，请重试。"
+    "Failed to write temp file: %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "写入临时文件失败：%@"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新虛擬顯示器失敗，請重試。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "寫入暫存檔失敗：%@"
           }
         }
       }
     },
-    "Failed to write temp file: %@" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "写入临时文件失败：%@"
+    "Follow the pointer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟随指针"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "寫入暫存檔失敗：%@"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟隨指標"
           }
         }
       }
     },
-    "Follow the pointer" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "跟随指针"
+    "Gain": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "跟隨指標"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益"
           }
         }
       }
     },
-    "Gain" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益"
+    "Gain B": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益 B"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益 B"
           }
         }
       }
     },
-    "Gain B" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益 B"
+    "Gain G": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益 G"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益 B"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益 G"
           }
         }
       }
     },
-    "Gain G" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益 G"
+    "Gain R": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益 R"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益 G"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "增益 R"
           }
         }
       }
     },
-    "Gain R" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益 R"
+    "Gaming": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "游戏"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "增益 R"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "遊戲"
           }
         }
       }
     },
-    "Gaming" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "游戏"
+    "Gamma": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽马"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "遊戲"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽瑪"
           }
         }
       }
     },
-    "Gamma" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽马"
+    "Gamma B": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽马 B"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽瑪"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽瑪 B"
           }
         }
       }
     },
-    "Gamma B" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽马 B"
+    "Gamma G": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽马 G"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽瑪 B"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽瑪 G"
           }
         }
       }
     },
-    "Gamma G" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽马 G"
+    "Gamma R": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽马 R"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽瑪 G"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伽瑪 R"
           }
         }
       }
     },
-    "Gamma R" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽马 R"
+    "Goes back": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伽瑪 R"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
           }
         }
       }
     },
-    "Goes back" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "返回"
+    "gray": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "灰色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "返回"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "灰色"
           }
         }
       }
     },
-    "gray" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "灰色"
+    "green": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "绿色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "灰色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "綠色"
           }
         }
       }
     },
-    "green" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "绿色"
+    "HDR": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HDR"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "綠色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HDR"
           }
         }
       }
     },
-    "HDR" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HDR"
+    "Height": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HDR"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高度"
           }
         }
       }
     },
-    "Height" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "高度"
+    "Hide Notch Area": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏刘海区域"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "高度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱藏瀏海區域"
           }
         }
       }
     },
-    "Hide Notch Area" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "隐藏刘海区域"
+    "HiDPI": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HiDPI"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "隱藏瀏海區域"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HiDPI"
           }
         }
       }
     },
-    "HiDPI" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HiDPI"
+    "Highest": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HiDPI"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高"
           }
         }
       }
     },
-    "Highest" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最高"
+    "Icon": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图标"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最高"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖像"
           }
         }
       }
     },
-    "Icon" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "图标"
+    "Icon & color": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图标与颜色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "圖像"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖像與顏色"
           }
         }
       }
     },
-    "Icon & color" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "图标与颜色"
+    "Image Adjustment": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图像调整"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "圖像與顏色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "影像調整"
           }
         }
       }
     },
-    "Image Adjustment" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "图像调整"
+    "indigo": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "靛蓝色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "影像調整"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "靛藍色"
           }
         }
       }
     },
-    "indigo" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "靛蓝色"
+    "Invert Colors": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "反转颜色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "靛藍色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "反轉顏色"
           }
         }
       }
     },
-    "Invert Colors" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "反转颜色"
+    "iPad Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPad 显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "反轉顏色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPad 顯示器"
           }
         }
       }
     },
-    "iPad Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iPad 显示器"
+    "Keep Awake": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防止睡眠"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iPad 顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "防止睡眠"
           }
         }
       }
     },
-    "Keep Awake" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "防止睡眠"
+    "Keep display offsets": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保持亮度偏移"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "防止睡眠"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保持亮度差異"
           }
         }
       }
     },
-    "Keep display offsets" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保持亮度偏移"
+    "Language": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "语言"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保持亮度差異"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "語言"
           }
         }
       }
     },
-    "Language" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "语言"
+    "Larger Text": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更大文本"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "語言"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "較大文字"
           }
         }
       }
     },
-    "Larger Text" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更大文本"
+    "Later": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "稍后"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "較大文字"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "稍後"
           }
         }
       }
     },
-    "Later" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "稍后"
+    "Launch at Login": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录时启动"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "稍後"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入時啟動"
           }
         }
       }
     },
-    "Launch at Login" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录时启动"
+    "Loading profiles…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在加载配置文件…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登入時啟動"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在載入描述檔…"
           }
         }
       }
     },
-    "Loading profiles…" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在加载配置文件…"
+    "Lowest": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最低"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在載入描述檔…"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最低"
           }
         }
       }
     },
-    "Lowest" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最低"
+    "Main": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "主显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最低"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "主顯示器"
           }
         }
       }
     },
-    "Main" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "主显示器"
+    "Mirror": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "镜像"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "主顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鏡像"
           }
         }
       }
     },
-    "Mirror" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "镜像"
+    "More Space": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多空间"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "鏡像"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多空間"
           }
         }
       }
     },
-    "More Space" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更多空间"
+    "Most sizes are scaled and look slightly soft": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "多数尺寸经过缩放，会略显模糊"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更多空間"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "多數尺寸經過縮放，看起來會略為模糊"
           }
         }
       }
     },
-    "Most sizes are scaled and look slightly soft" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "多数尺寸经过缩放，会略显模糊"
+    "My Preset": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的预设"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "多數尺寸經過縮放，看起來會略為模糊"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的預設組合"
           }
         }
       }
     },
-    "My Preset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "我的预设"
+    "Name": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名称"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "我的預設組合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名稱"
           }
         }
       }
     },
-    "Name" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "名称"
+    "New Preset": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新建预设"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "名稱"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增預設組合"
           }
         }
       }
     },
-    "New Preset" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新建预设"
+    "Night": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜间"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新增預設組合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜間"
           }
         }
       }
     },
-    "Night" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "夜间"
+    "Night Shift": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜览"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "夜間"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "夜覽"
           }
         }
       }
     },
-    "Night Shift" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "夜览"
+    "No built-in display detected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未检测到内建显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "夜覽"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未偵測到內建顯示器"
           }
         }
       }
     },
-    "No built-in display detected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未检测到内建显示器"
+    "No display modes available": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无可用显示模式"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未偵測到內建顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有可用的顯示模式"
           }
         }
       }
     },
-    "No display modes available" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无可用显示模式"
+    "No iPad nearby": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附近没有 iPad"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "沒有可用的顯示模式"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附近沒有 iPad"
           }
         }
       }
     },
-    "No iPad nearby" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "附近没有 iPad"
+    "No virtual displays yet": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂无虚拟显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "附近沒有 iPad"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無虛擬顯示器"
           }
         }
       }
     },
-    "No virtual displays yet" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "暂无虚拟显示器"
+    "Non-HiDPI": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "非 HiDPI"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "尚無虛擬顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "非 HiDPI"
           }
         }
       }
     },
-    "Non-HiDPI" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "非 HiDPI"
+    "Not connected": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未连接"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "非 HiDPI"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未連接"
           }
         }
       }
     },
-    "Not connected" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未连接"
+    "Notch": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刘海"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未連接"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瀏海"
           }
         }
       }
     },
-    "Notch" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刘海"
+    "Off": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "瀏海"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關"
           }
         }
       }
     },
-    "Off" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "关"
+    "Off mirrors this Mac instead": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭则改为镜像此 Mac"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "關"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉則改為鏡像此 Mac"
           }
         }
       }
     },
-    "Off mirrors this Mac instead" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "关闭则改为镜像此 Mac"
+    "OK": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "關閉則改為鏡像此 Mac"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
           }
         }
       }
     },
-    "OK" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "好"
+    "On": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "好"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開"
           }
         }
       }
     },
-    "On" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "开"
+    "Open in System Settings": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在系统设置中打开"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「系統設定」中打開"
           }
         }
       }
     },
-    "Open in System Settings" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在系统设置中打开"
+    "Opens a page where you can buy me a coffee": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开可以请我喝咖啡的页面"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在「系統設定」中打開"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打開可以請我喝杯咖啡的頁面"
           }
         }
       }
     },
-    "Opens a page where you can buy me a coffee" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "打开可以请我喝咖啡的页面"
+    "Options": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选项"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "打開可以請我喝杯咖啡的頁面"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選項"
           }
         }
       }
     },
-    "Options" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选项"
+    "orange": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "橙色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選項"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "橘色"
           }
         }
       }
     },
-    "orange" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "橙色"
+    "Pause Adjustments": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂停调整"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "橘色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暫停調整"
           }
         }
       }
     },
-    "Pause Adjustments" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "暂停调整"
+    "Personal": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "个人"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "暫停調整"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "個人"
           }
         }
       }
     },
-    "Personal" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "个人"
+    "Physical display disconnect requires Apple Silicon (macOS 13+).": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "断开物理显示器需要 Apple 芯片（macOS 13+）。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "個人"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中斷實體顯示器連線需要 Apple 晶片（macOS 13 以上）。"
           }
         }
       }
     },
-    "Physical display disconnect requires Apple Silicon (macOS 13+)." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "断开物理显示器需要 Apple 芯片（macOS 13+）。"
+    "Pick Color from Screen": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从屏幕选取颜色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中斷實體顯示器連線需要 Apple 晶片（macOS 13 以上）。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從螢幕選取顏色"
           }
         }
       }
     },
-    "Pick Color from Screen" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "从屏幕选取颜色"
+    "pink": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "粉色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "從螢幕選取顏色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "粉紅色"
           }
         }
       }
     },
-    "pink" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "粉色"
+    "Preset": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "预设"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "粉紅色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設組合"
           }
         }
       }
     },
-    "Preset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预设"
+    "Preset name": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "预设名称"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "預設組合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設組合名稱"
           }
         }
       }
     },
-    "Preset name" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预设名称"
+    "Preset options": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "预设选项"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "預設組合名稱"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設組合選項"
           }
         }
       }
     },
-    "Preset options" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预设选项"
+    "Presets": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "预设"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "預設組合選項"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設組合"
           }
         }
       }
     },
-    "Presets" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预设"
+    "Profile": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "配置文件"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "預設組合"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "描述檔"
           }
         }
       }
     },
-    "Profile" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "配置文件"
+    "purple": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "紫色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "描述檔"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "紫色"
           }
         }
       }
     },
-    "purple" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "紫色"
+    "Quantization": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "量化"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "紫色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "量化"
           }
         }
       }
     },
-    "Quantization" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "量化"
+    "Quit": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退出"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "量化"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "結束"
           }
         }
       }
     },
-    "Quit" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "退出"
+    "Quit Candela": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退出 Candela"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "結束"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "結束 Candela"
           }
         }
       }
     },
-    "Quit Candela" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "退出 Candela"
+    "Recommended": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "推荐"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "結束 Candela"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建議"
           }
         }
       }
     },
-    "Recommended" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "推荐"
+    "Reconnect": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新连接"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "建議"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新連接"
           }
         }
       }
     },
-    "Reconnect" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新连接"
+    "Reconnect this display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新连接此显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新連接"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新連接此顯示器"
           }
         }
       }
     },
-    "Reconnect this display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新连接此显示器"
+    "red": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "红色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新連接此顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "紅色"
           }
         }
       }
     },
-    "red" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "红色"
+    "Refresh Rate": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刷新率"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "紅色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新頻率"
           }
         }
       }
     },
-    "Refresh Rate" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刷新率"
+    "Refusing to disconnect: it would leave no active display.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法断开：这会导致没有可用的显示器。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新頻率"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法中斷連線：這會導致沒有任何可用的顯示器。"
           }
         }
       }
     },
-    "Refusing to disconnect: it would leave no active display." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法断开：这会导致没有可用的显示器。"
+    "Relaunch": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新启动"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無法中斷連線：這會導致沒有任何可用的顯示器。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新啟動"
           }
         }
       }
     },
-    "Relaunch" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新启动"
+    "Relaunch to change the language?": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新启动以切换语言？"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新啟動"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新啟動以切換語言？"
           }
         }
       }
     },
-    "Relaunch to change the language?" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新启动以切换语言？"
+    "Replace the stored values above with this display's current settings": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用该显示器的当前设置替换上方存储的值"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重新啟動以切換語言？"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以此顯示器目前的設定取代上方儲存的數值"
           }
         }
       }
     },
-    "Replace the stored values above with this display's current settings" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用该显示器的当前设置替换上方存储的值"
+    "Reset All": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部重置"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "以此顯示器目前的設定取代上方儲存的數值"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部重設"
           }
         }
       }
     },
-    "Reset All" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全部重置"
+    "Reset combined brightness floor": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重置合并亮度下限"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全部重設"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重置合併亮度下限"
           }
         }
       }
     },
-    "Reset combined brightness floor" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重置合并亮度下限"
+    "Resolution": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分辨率"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重置合併亮度下限"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "解析度"
           }
         }
       }
     },
-    "Resolution" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分辨率"
+    "Resume Adjustments": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复调整"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "解析度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "繼續調整"
           }
         }
       }
     },
-    "Resume Adjustments" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "恢复调整"
+    "Save": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "繼續調整"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存"
           }
         }
       }
     },
-    "Save" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存"
+    "Saving…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在保存…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "儲存"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在儲存…"
           }
         }
       }
     },
-    "Saving…" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在保存…"
+    "Selected displays only": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅所选显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在儲存…"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅限所選顯示器"
           }
         }
       }
     },
-    "Selected displays only" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "仅所选显示器"
+    "Set %@ as Main Display": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将 %@ 设为主显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "僅限所選顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "將 %@ 設為主顯示器"
           }
         }
       }
     },
-    "Set %@ as Main Display" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "将 %@ 设为主显示器"
+    "Set as Main Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设为主显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "將 %@ 設為主顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設為主顯示器"
           }
         }
       }
     },
-    "Set as Main Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设为主显示器"
+    "Settings": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "设置"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設為主顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定"
           }
         }
       }
     },
-    "Settings" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置"
+    "Show all resolutions": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示所有分辨率"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示所有解析度"
           }
         }
       }
     },
-    "Show all resolutions" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示所有分辨率"
+    "Show Combined Brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示合并亮度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示所有解析度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示合併亮度"
           }
         }
       }
     },
-    "Show Combined Brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示合并亮度"
+    "Show sidebar": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示边栏"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示合併亮度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示側邊欄"
           }
         }
       }
     },
-    "Show sidebar" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示边栏"
+    "Show Touch Bar": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示触控栏"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示側邊欄"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示觸控列"
           }
         }
       }
     },
-    "Show Touch Bar" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示触控栏"
+    "Show Volume Sliders": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示音量滑块"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示觸控列"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示音量滑桿"
           }
         }
       }
     },
-    "Show Volume Sliders" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "显示音量滑块"
+    "Smooth scaling": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "平滑缩放"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "顯示音量滑桿"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "平滑縮放"
           }
         }
       }
     },
-    "Smooth scaling" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "平滑缩放"
+    "Software": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "软件"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "平滑縮放"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "軟體"
           }
         }
       }
     },
-    "Software" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "软件"
+    "Speaker volume": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扬声器音量"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "軟體"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "揚聲器音量"
           }
         }
       }
     },
-    "Speaker volume" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "扬声器音量"
+    "Support Candela": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支持 Candela"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "揚聲器音量"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支持 Candela"
           }
         }
       }
     },
-    "Support Candela" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "支持 Candela"
+    "Switch failed, please try again": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换失败，请重试"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "支持 Candela"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切換失敗，請重試"
           }
         }
       }
     },
-    "Switch failed, please try again" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "切换失败，请重试"
+    "Syncing with built-in display brightness": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在与内建显示器亮度同步"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "切換失敗，請重試"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在與內建顯示器的亮度同步"
           }
         }
       }
     },
-    "Syncing with built-in display brightness" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在与内建显示器亮度同步"
+    "System": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在與內建顯示器的亮度同步"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統"
           }
         }
       }
     },
-    "System" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "系统"
+    "System Color": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统颜色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "系統"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統顏色"
           }
         }
       }
     },
-    "System Color" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "系统颜色"
+    "teal": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "蓝绿色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "系統顏色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "藍綠色"
           }
         }
       }
     },
-    "teal" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "蓝绿色"
+    "The sidebar and Touch Bar apply the next time you connect": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "边栏与触控栏在下次连接时生效"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "藍綠色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "側邊欄與觸控列在下次連接時生效"
           }
         }
       }
     },
-    "The sidebar and Touch Bar apply the next time you connect" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "边栏与触控栏在下次连接时生效"
+    "This display stops at %lld%% when the combined slider is at the bottom.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合并滑条拉到最低时，这块屏幕停在 %lld%%。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "側邊欄與觸控列在下次連接時生效"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合併滑桿拉到最低時，這塊螢幕停在 %lld%%。"
           }
         }
       }
     },
-    "This display stops at %lld%% when the combined slider is at the bottom." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合并滑条拉到最低时，这块屏幕停在 %lld%%。"
+    "This virtual display is currently active. Deleting it will disable it immediately.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此虚拟显示器当前处于活动状态。删除它会立即禁用。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合併滑桿拉到最低時，這塊螢幕停在 %lld%%。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此虛擬顯示器目前使用中。刪除後會立即停用。"
           }
         }
       }
     },
-    "This virtual display is currently active. Deleting it will disable it immediately." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此虚拟显示器当前处于活动状态。删除它会立即禁用。"
+    "Tools": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工具"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此虛擬顯示器目前使用中。刪除後會立即停用。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工具"
           }
         }
       }
     },
-    "Tools" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工具"
+    "True Tone": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "原彩显示"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工具"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "原彩顯示"
           }
         }
       }
     },
-    "True Tone" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "原彩显示"
+    "Unable to switch to %@, please try again": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法切换到 %@，请重试"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "原彩顯示"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法切換至 %@，請重試"
           }
         }
       }
     },
-    "Unable to switch to %@, please try again" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法切换到 %@，请重试"
+    "Update Available": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有可用更新"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無法切換至 %@，請重試"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有可用的更新"
           }
         }
       }
     },
-    "Update Available" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有可用更新"
+    "Update available, version %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有可用更新，版本 %@"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有可用的更新"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有可用的更新，版本 %@"
           }
         }
       }
     },
-    "Update available, version %@" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有可用更新，版本 %@"
+    "Update to Current Settings": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新为当前设置"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有可用的更新，版本 %@"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新為目前設定"
           }
         }
       }
     },
-    "Update to Current Settings" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新为当前设置"
+    "Update to current values": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新为当前值"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新為目前設定"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新為目前數值"
           }
         }
       }
     },
-    "Update to current values" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新为当前值"
+    "Use as separate display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作为独立显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "更新為目前數值"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作為獨立顯示器"
           }
         }
       }
     },
-    "Use as separate display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "作为独立显示器"
+    "Use brightness keys on external displays": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用亮度键控制外接显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "作為獨立顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用亮度鍵控制外接顯示器"
           }
         }
       }
     },
-    "Use brightness keys on external displays" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用亮度键控制外接显示器"
+    "User canceled authorization": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已取消授权"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用亮度鍵控制外接顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已取消授權"
           }
         }
       }
     },
-    "User canceled authorization" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已取消授权"
+    "v%@": {
+      "shouldTranslate": false
+    },
+    "Variable (%@-%@)": {
+      "comment": "External VRR refresh-rate row, full range",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可变（%@-%@）"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已取消授權"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可變（%@-%@）"
           }
         }
       }
     },
-    "v%@" : {
-      "shouldTranslate" : false
+    "Variable (up to %@)": {
+      "comment": "External VRR refresh-rate row",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可变（最高 %@）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可變（最高 %@）"
+          }
+        }
+      }
     },
-    "Variable (%@-%@)" : {
-      "comment" : "External VRR refresh-rate row, full range",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "可变（%@-%@）"
+    "Virtual Display": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "虚拟显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "可變（%@-%@）"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "虛擬顯示器"
           }
         }
       }
     },
-    "Variable (up to %@)" : {
-      "comment" : "External VRR refresh-rate row",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "可变（最高 %@）"
+    "Virtual display options": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "虚拟显示器选项"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "可變（最高 %@）"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "虛擬顯示器選項"
           }
         }
       }
     },
-    "Virtual Display" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "虚拟显示器"
+    "Virtual Displays": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "虚拟显示器"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "虛擬顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "虛擬顯示器"
           }
         }
       }
     },
-    "Virtual display options" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "虚拟显示器选项"
+    "Where this display sits when the combined slider is at the bottom. Drag until it matches the displays beside it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合并滑条拉到最低时，这块屏幕停在的亮度。拖动到与旁边的屏幕看起来一致为止。"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "虛擬顯示器選項"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合併滑桿拉到最低時，這塊螢幕停在的亮度。拖曳到與旁邊的螢幕看起來一致為止。"
           }
         }
       }
     },
-    "Virtual Displays" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "虚拟显示器"
+    "Width": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "宽度"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "虛擬顯示器"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "寬度"
           }
         }
       }
     },
-    "Where this display sits when the combined slider is at the bottom. Drag until it matches the displays beside it." : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合并滑条拉到最低时，这块屏幕停在的亮度。拖动到与旁边的屏幕看起来一致为止。"
+    "Work": {
+      "extractionState": "stale",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工作"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "合併滑桿拉到最低時，這塊螢幕停在的亮度。拖曳到與旁邊的螢幕看起來一致為止。"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "工作"
           }
         }
       }
     },
-    "Width" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "宽度"
+    "yellow": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "黄色"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "寬度"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "黃色"
           }
         }
       }
     },
-    "Work" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工作"
+    "Check for Updates…": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查更新…"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工作"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢查更新…"
           }
         }
       }
     },
-    "yellow" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "黄色"
+    "Check for Updates": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查更新"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "黃色"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢查更新"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

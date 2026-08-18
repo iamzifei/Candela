@@ -328,6 +328,47 @@ struct UpdateRow: View {
     }
 }
 
+// MARK: - CheckForUpdatesRow
+
+/// Manual update check, styled as a normal menu row so it sits beside Support
+/// rather than announcing itself. Disabled when the app is not running from a
+/// bundle Sparkle can replace — `dev.sh` swaps a bare binary into an installed
+/// app, and a button that silently does nothing is worse than one that is
+/// visibly unavailable.
+struct CheckForUpdatesRow: View {
+    @State private var isHovered = false
+
+    private var enabled: Bool { UpdaterService.shared.canCheckForUpdates }
+
+    var body: some View {
+        HStack(spacing: 8) {
+            MenuItemIcon(systemName: "arrow.triangle.2.circlepath", color: .blue, active: enabled)
+                .accessibilityHidden(true)
+            Text("Check for Updates…")
+                .font(.body)
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 5)
+        .menuRowHover(isHovered && enabled)
+        .opacity(enabled ? 1 : 0.5)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard enabled else { return }
+            UpdaterService.shared.checkForUpdates()
+        }
+        .onHover { hovering in
+            isHovered = hovering
+            if enabled {
+                if hovering { NSCursor.pointingHand.push() } else { NSCursor.pop() }
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("Check for Updates"))
+        .accessibilityAddTraits(.isButton)
+    }
+}
+
 // MARK: - SupportRow
 
 /// Optional "buy me a coffee" link at the bottom of Settings, styled as a normal
@@ -622,6 +663,11 @@ struct SettingsView: View {
                 .font(.caption)
                 .foregroundColor(.secondaryReadable)
                 .padding(.horizontal, 12)
+
+            // A manual check, for the person who does not want to wait for the
+            // daily background one. Sparkle answers "you are up to date" as well
+            // as offering an update, which is what someone pressing it is asking.
+            CheckForUpdatesRow()
 
             // Optional support link, tucked next to the version stamp where
             // "about" info lives. Muted, but with a link affordance so it doesn't

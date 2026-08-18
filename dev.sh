@@ -23,9 +23,15 @@ fi
 VERSION=$(grep -E '^[[:space:]]*MARKETING_VERSION:' project.yml | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
 BUILD=$(grep -E '^[[:space:]]*CURRENT_PROJECT_VERSION:' project.yml | head -1 | sed -E 's/.*"([^"]+)".*/\1/')
 
+# Sparkle is vendored rather than declared: this app builds with bare swiftc, so
+# there is no package manifest to put a dependency in.
+"$ROOT/scripts/fetch-sparkle.sh" >/dev/null
+
 echo "==> Compiling Candela $VERSION ($BUILD)..."
 swiftc -O -target arm64-apple-macos26.0 -swift-version 5 -strict-concurrency=minimal -parse-as-library \
     -import-objc-header Candela/Candela-Bridging-Header.h \
+    -F "$ROOT/vendor" -framework Sparkle \
+    -Xlinker -rpath -Xlinker @executable_path/../Frameworks \
     -framework AppKit -framework SwiftUI -framework IOKit -framework CoreAudio \
     -Xlinker -undefined -Xlinker dynamic_lookup \
     Candela/App/*.swift Candela/Models/*.swift Candela/Services/*.swift \
@@ -36,6 +42,12 @@ echo "==> Swapping into ${APP}..."
 pkill -x Candela 2>/dev/null || true
 sleep 1
 cp Candela-bin "$APP/Contents/MacOS/Candela"
+# The swapped-in binary links Sparkle, so the bundle it lands in needs the
+# framework — otherwise dyld kills the app at launch with a missing library.
+mkdir -p "$APP/Contents/Frameworks"
+if [ ! -d "$APP/Contents/Frameworks/Sparkle.framework" ]; then
+    ditto "$ROOT/vendor/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
+fi
 # Keep the installed bundle's reported version in step with project.yml,
 # since the binary swap doesn't regenerate Info.plist.
 # Refresh the compiled localizations too, not just the binary. Swapping only the

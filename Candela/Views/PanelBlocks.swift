@@ -324,7 +324,18 @@ struct UpdateBlockView: View {
 
     var body: some View {
         if updateService.hasUpdate, let ver = updateService.latestVersion {
-            UpdateRow(version: ver) { updateService.openReleasePage() }
+            // The banner comes from the GitHub release list, which is what tells
+            // us a version exists at all; the tap hands over to Sparkle, which
+            // downloads it, checks the EdDSA signature and installs in place.
+            // Falling back to the release page keeps the button useful in an
+            // unbundled build, where Sparkle has nothing to replace.
+            UpdateRow(version: ver) {
+                if UpdaterService.shared.canCheckForUpdates {
+                    UpdaterService.shared.checkForUpdates()
+                } else {
+                    updateService.openReleasePage()
+                }
+            }
         }
     }
 }
