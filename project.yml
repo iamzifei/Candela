@@ -31,8 +31,8 @@ targets:
         # Without an explicit MARKETING_VERSION the generated Info.plist omits
         # CFBundleShortVersionString and the app self-reports 1.0.0 forever,
         # which keeps the update banner visible even on the latest release.
-        MARKETING_VERSION: "0.1.1"
-        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "0.1.2"
+        CURRENT_PROJECT_VERSION: "2"
         INFOPLIST_KEY_LSUIElement: true
         INFOPLIST_KEY_NSHumanReadableCopyright: "Candela - Free & Open Source"
         INFOPLIST_KEY_NSAppleEventsUsageDescription: "Candela uses System Events to switch Dark Mode with the system's animated transition."
