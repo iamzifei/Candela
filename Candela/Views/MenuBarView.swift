@@ -339,7 +339,7 @@ struct SupportRow: View {
     /// reveal one row. The GitHub Sponsors and Afdian rows are gone: they were
     /// carried over from the fork's own set, and offering a channel that is not
     /// actually set up sends a supporter to a page that cannot take their money.
-    private let kofi = "https://ko-fi.com/iamzifei"
+    private let kofi = "https://ko-fi.com/james_ai/tip"
 
     @State private var isHovered = false
 

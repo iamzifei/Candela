@@ -46,7 +46,7 @@ SITE = "https://getcandela.app"
 CUSTOM_DOMAIN = re.match(r"https://([^/]+)$", SITE)
 REPO = "https://github.com/iamzifei/Candela"
 DOWNLOAD = f"{REPO}/releases/latest/download/Candela.dmg"
-KOFI = "https://ko-fi.com/iamzifei"
+KOFI = "https://ko-fi.com/james_ai/tip"
 UPSTREAM = "https://github.com/didriksg/Crisp"
 # The other menu bar app. Someone who liked one is the likeliest person to want the
 # other, so each site carries a link to its sibling.

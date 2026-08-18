@@ -11,7 +11,7 @@ DDC brightness, brightness keys that work on any display, presets and virtual sc
 
 [<img src="docs/download-macos.png" alt="Download Candela for macOS" width="200">](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg)
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/iamzifei)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/james_ai/tip)
 
 [![Platform](https://img.shields.io/badge/macOS-26%2B-blue)](#requirements)
 [![Apple silicon](https://img.shields.io/badge/Apple%20silicon-required-lightgrey)](#requirements)
@@ -105,7 +105,7 @@ Candela is and will stay completely free — no Pro tier, no licence key, no lim
 one running cost is the $99/year Apple Developer Program, which is what makes signing
 and notarising possible so the app installs without warnings.
 
-- [Ko-fi](https://ko-fi.com/iamzifei)
+- [Ko-fi](https://ko-fi.com/james_ai/tip)
 
 Entirely optional. Nothing in the app changes either way.
 

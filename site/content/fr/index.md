@@ -24,7 +24,7 @@ fonctionnent partout.
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Télécharger pour macOS</a>
-<a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">Soutenir sur Ko-fi</a>
+<a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Soutenir sur Ko-fi</a>
 </div>
 
 <p class="note">macOS 26 · Apple silicon · licence MIT · pas de version Pro, pas de clé de licence</p>
@@ -178,6 +178,6 @@ ni clic droit.
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>
 
-[Ko-fi]: https://ko-fi.com/iamzifei
+[Ko-fi]: https://ko-fi.com/james_ai/tip
 [BetterDisplay]: https://betterdisplay.pro/
 [Lunar]: https://lunar.fyi/

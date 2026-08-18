@@ -23,7 +23,7 @@ macOS 只留給內建螢幕的那些能力，還給你桌上的每一塊螢幕 �
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下載 macOS 版</a>
-<a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">在 Ko-fi 支持</a>
+<a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">在 Ko-fi 支持</a>
 </div>
 
 <p class="note">macOS 26 · Apple 晶片 · MIT 授權 · 沒有 Pro 版，也沒有序號</p>
@@ -167,6 +167,6 @@ Candela 使用 Developer ID 簽署並經過 Apple 公證，打開時不會有「
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>
 
-[Ko-fi]: https://ko-fi.com/iamzifei
+[Ko-fi]: https://ko-fi.com/james_ai/tip
 [BetterDisplay]: https://betterdisplay.pro/
 [Lunar]: https://lunar.fyi/

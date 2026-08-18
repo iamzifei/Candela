@@ -31,7 +31,7 @@ macOS 只留给内置屏幕的那些控制，还给桌上的每一块显示器�
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
-<a class="btn btn-kofi" href="https://ko-fi.com/iamzifei" rel="noopener">在 Ko-fi 支持</a>
+<a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">在 Ko-fi 支持</a>
 </div>
 
 <p class="note">macOS 26 · Apple 芯片 · MIT 许可 · 没有 Pro 版，不需要激活码</p>
@@ -173,6 +173,6 @@ Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>
 
-[Ko-fi]: https://ko-fi.com/iamzifei
+[Ko-fi]: https://ko-fi.com/james_ai/tip
 [BetterDisplay]: https://betterdisplay.pro/
 [Lunar]: https://lunar.fyi/

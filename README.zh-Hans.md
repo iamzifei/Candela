@@ -11,7 +11,7 @@
 
 [<img src="docs/download-macos.png" alt="下载 macOS 版 Candela" width="200">](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg)
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/iamzifei)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/james_ai/tip)
 
 [![Platform](https://img.shields.io/badge/macOS-26%2B-blue)](#系统要求)
 [![Apple silicon](https://img.shields.io/badge/Apple%20silicon-required-lightgrey)](#系统要求)
@@ -99,7 +99,7 @@ Candela 现在免费，以后也会一直免费——没有 Pro 版、没有激�
 它唯一的持续成本是每年 99 美元的 Apple 开发者计划，
 正是它让签名与公证成为可能，你安装时才不会看到警告。
 
-- [Ko-fi](https://ko-fi.com/iamzifei)
+- [Ko-fi](https://ko-fi.com/james_ai/tip)
 
 完全自愿。给或不给，app 都不会有任何区别。
 
