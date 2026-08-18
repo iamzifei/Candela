@@ -169,6 +169,19 @@ right-click warnings.
   on-screen menu. Most monitors ship with it on; a few, and some USB-C docks, do not
   pass it through
 
+<div class="sect-label">06 · Also from me</div>
+
+## The other menu bar app
+
+<a class="sibling" href="https://audioswitch.dev" rel="noopener">
+<img src="audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">AudioSwitch</span>
+<span class="sibling-desc">Every audio input and output in one panel — switch devices, set volume, mute, watch a live microphone meter, and kill the mic outright. Free, MIT, Apple silicon.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
 [Ko-fi]: https://ko-fi.com/iamzifei
 [BetterDisplay]: https://betterdisplay.pro/
 [Lunar]: https://lunar.fyi/

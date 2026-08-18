@@ -687,3 +687,27 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
   body { background: #fff; font-size: 11pt; }
   .wrap { max-width: none; padding: 0; }
 }
+
+/* Sibling app ---------------------------------------------------------------
+   The other menu bar app, as a ruled row rather than a card: kami has no drop
+   shadows and nothing that floats. The whole row is the target, which also
+   satisfies the 44px minimum. */
+.sibling {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s5) 0;
+  margin-top: var(--s4);
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  min-height: 44px;
+}
+
+.sibling img { width: 44px; height: 44px; border-radius: var(--radius); flex: none; }
+.sibling-text { min-width: 0; }
+.sibling-name { display: block; font-weight: 500; color: var(--ink); }
+.sibling-desc { display: block; color: var(--ink-3); font-size: 0.94em; }
+.sibling-go { margin-left: auto; flex: none; color: var(--ink-4); }
+.sibling:hover .sibling-name,
+.sibling:hover .sibling-go { color: var(--blue-light); }

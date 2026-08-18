@@ -128,6 +128,13 @@ Candela handles badly? [Open an issue](https://github.com/iamzifei/Candela/issue
 start a [discussion](https://github.com/iamzifei/Candela/discussions). Translations are
 as welcome as code.
 
+## Also from me
+
+**[AudioSwitch](https://audioswitch.dev)** — every audio input and output in one
+menu bar panel: switch devices, set volume, mute, watch a live microphone meter,
+and kill the mic outright. Same idea as Candela, one menu bar over: the controls
+macOS makes you dig for, one click away. Free, MIT, Apple silicon.
+
 ## Origin
 
 Candela is a fork of [Crisp](https://github.com/didriksg/Crisp) by Didrik Galteland,

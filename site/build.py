@@ -48,6 +48,9 @@ REPO = "https://github.com/iamzifei/Candela"
 DOWNLOAD = f"{REPO}/releases/latest/download/Candela.dmg"
 KOFI = "https://ko-fi.com/iamzifei"
 UPSTREAM = "https://github.com/didriksg/Crisp"
+# The other menu bar app. Someone who liked one is the likeliest person to want the
+# other, so each site carries a link to its sibling.
+SIBLING = "https://audioswitch.dev"
 
 # Language codes are BCP 47 because that is what hreflang takes; the directory for
 # the default language is the site root, so its URLs have no prefix at all.
@@ -64,6 +67,7 @@ UI = {
         "nav_compare": "Compare",
         "nav_guides": "Guides",
         "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
         "free": "Free and open source",
         "requires": "Requires macOS 26 · Apple silicon",
         "footer_built": "Candela is free software under the MIT licence.",
@@ -77,6 +81,7 @@ UI = {
         "nav_compare": "对比",
         "nav_guides": "指南",
         "nav_github": "GitHub",
+        "nav_sibling": "AudioSwitch",
         "free": "免费且开源",
         "requires": "需要 macOS 26 · Apple 芯片",
         "footer_built": "Candela 是 MIT 许可下的自由软件。",
@@ -406,6 +411,7 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     <a href="{up}{LANGS[page.lang]['dir']}candela-vs-betterdisplay.html">{t['nav_compare']}</a>
     <a href="{up}{LANGS[page.lang]['dir']}fix-blurry-external-monitor-macos.html">{t['nav_guides']}</a>
     <a href="{REPO}" rel="noopener">{t['nav_github']}</a>
+    <a href="{SIBLING}" rel="noopener">{t['nav_sibling']}</a>
     <a href="{KOFI}" rel="noopener">Ko-fi</a>
     <a class="lang" href="{SITE}/{footer_counterpart.path}" hreflang="{LANGS[other]['hreflang']}">{LANGS[page.lang]['switch']}</a>
   </nav>
@@ -450,7 +456,7 @@ def build(out: Path) -> None:
     # scripts/capture-screenshots.sh. Copying rather than symlinking, because
     # GitHub Pages serves the tree as-is and does not follow links.
     shutil.copyfile(ROOT / "site" / "styles.css", out / "styles.css")
-    for asset in ("icon.png", "og-card.png", "og-card-zh.png", "download-macos.png"):
+    for asset in ("icon.png", "og-card.png", "og-card-zh.png", "download-macos.png", "audioswitch.png"):
         src = OUT / asset
         if src.exists() and out != OUT:
             shutil.copyfile(src, out / asset)

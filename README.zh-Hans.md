@@ -121,6 +121,12 @@ open Candela.xcodeproj
 [discussion](https://github.com/iamzifei/Candela/discussions)。
 翻译和代码一样欢迎。
 
+## 我的其他 App
+
+**[AudioSwitch](https://audioswitch.dev)** —— 所有音频输入和输出在同一个菜单栏面板里：
+切换设备、调音量、静音、实时麦克风电平，还有一个麦克风硬开关。和 Candela 是同一个念头，
+只是隔了一条菜单栏：macOS 让你翻半天才找得到的控制，一键就到。免费、MIT、Apple 芯片原生。
+
 ## 来源
 
 Candela fork 自 Didrik Galteland 的 [Crisp](https://github.com/didriksg/Crisp)，
