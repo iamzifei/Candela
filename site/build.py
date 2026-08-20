@@ -52,6 +52,7 @@ UPSTREAM = "https://github.com/didriksg/Crisp"
 # another, so each of the three sites links to the other two.
 SIBLING = "https://audioswitch.dev"
 SIBLING_2 = "https://getclipstack.app"
+SIBLING_3 = "https://inkslab.app"
 
 # Language codes are BCP 47 because that is what hreflang takes; the directory for
 # the default language is the site root, so its URLs have no prefix at all.
@@ -564,6 +565,7 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     <a href="{REPO}" rel="noopener">{t['nav_github']}</a>
     <a href="{SIBLING}" rel="noopener">{t['nav_sibling']}</a>
     <a href="{SIBLING_2}" rel="noopener">ClipStack</a>
+    <a href="{SIBLING_3}" rel="noopener">Inkstone</a>
     <a href="{KOFI}" rel="noopener">Ko-fi</a>
   </nav>
   {lang_picker(page, by_slug, "footer-langs")}
