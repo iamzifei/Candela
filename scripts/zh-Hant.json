@@ -221,5 +221,20 @@
   "purple": "紫色",
   "red": "紅色",
   "teal": "藍綠色",
-  "yellow": "黃色"
+  "yellow": "黃色",
+  "Welcome to Candela": "歡迎使用 Candela",
+  "Candela lives in your menu bar. Click its icon to open the panel: every connected display gets its own brightness slider. A Software tag means that display has no DDC support, so Candela dims it in software.": "Candela 常駐在選單列。點一下它的圖示開啟面板：每台已連接的顯示器都有自己的亮度滑桿。帶有「軟體」標記的顯示器不支援 DDC，Candela 會以軟體方式調暗它。",
+  "One slider for the whole desk": "一個滑桿，管整張桌面",
+  "Combined moves every display together. Below it, switch Dark Mode, Night Shift and True Tone, or save your current setup as a preset.": "「合併亮度」會讓所有顯示器一起調整。下方可以切換深色模式、夜覽和原彩顯示，也可以把目前的設定儲存為預設組合。",
+  "Sharp, readable resolution": "清晰又好讀的解析度",
+  "Open a display to change its resolution and refresh rate. Candela lists the sharp 2× modes macOS hides on third-party monitors. Combined brightness sets where this display sits when the combined slider is at the bottom, so two panels can match.": "開啟某台顯示器，可以修改它的解析度和更新頻率。Candela 會列出 macOS 在第三方顯示器上隱藏的清晰 2× 模式。「合併亮度」用來設定合併滑桿拉到最低時這台顯示器的位置，讓兩塊螢幕的亮度對得上。",
+  "Tools for your desk": "桌面工具",
+  "Tools holds Keep Awake, Virtual Displays, iPad Display and Arrange Displays.": "「工具」裡有防止睡眠、虛擬顯示器、iPad 顯示器和排列顯示器。",
+  "Brightness keys and settings": "亮度鍵與設定",
+  "Settings is where you choose what the brightness keys control. Sending them to external displays needs Accessibility access: turn on the switch under Brightness Keys and macOS asks once. Language and Launch at Login are here too.": "在「設定」裡選擇亮度鍵控制哪些顯示器。要讓亮度鍵作用於外接顯示器，需要「輔助使用」權限：開啟「亮度鍵」下的開關，macOS 會詢問一次。語言和登入時啟動也在這裡。",
+  "Skip": "略過",
+  "Back": "上一步",
+  "Next": "下一步",
+  "Open Candela": "開啟 Candela",
+  "Show Welcome Guide": "顯示新手引導"
 }

@@ -95,6 +95,11 @@ LANGS=$(python3 "$ROOT/scripts/xcstrings-compile.py" Candela/Resources/Localizab
 LOC_XML=""; for l in $LANGS; do LOC_XML="${LOC_XML}<string>${l}</string>"; done
 echo "    languages: $LANGS"
 
+# Welcome-guide screenshots (cropped from docs/shots, demo data). The catalog
+# build above does not touch them, and this script compiles no asset catalog,
+# so they are copied in as plain resources; Bundle.main finds them by name.
+cp "$ROOT"/Candela/Resources/Guide/guide-*.jpg "$APP/Contents/Resources/"
+
 echo "==> Writing Info.plist / PkgInfo…"
 printf 'APPL????' > "$APP/Contents/PkgInfo"
 cat > "$APP/Contents/Info.plist" <<PLIST

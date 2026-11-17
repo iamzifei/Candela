@@ -669,6 +669,8 @@ struct SettingsView: View {
             // as offering an update, which is what someone pressing it is asking.
             CheckForUpdatesRow()
 
+            WelcomeGuideRow()
+
             // Optional support link, tucked next to the version stamp where
             // "about" info lives. Muted, but with a link affordance so it doesn't
             // read as static text, no popup, no launch nag; every feature stays free.

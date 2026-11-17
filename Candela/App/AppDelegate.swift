@@ -38,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private let _defaultsMigrated = AppDelegate.migrateLegacyDefaultsNamespace()
 
     let displayManager = DisplayManager()
+    private let onboarding = OnboardingWindowController()
     private var statusItem: NSStatusItem?
     /// Drives the menu-bar Keep Awake indicator (keep-awake indicator).
     private var keepAwakeCancellable: AnyCancellable?
@@ -203,6 +204,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // the split-canvas migration.
         Task { await UpdateService.shared.checkForUpdates() }
 
+        // First-run welcome guide (once per Onboarding.currentVersion), plus the
+        // Settings row that reopens it.
+        onboarding.onOpenPanel = { [weak self] in
+            guard let self, !self.isPanelShown else { return }
+            self.togglePanel()
+        }
+        NotificationCenter.default.addObserver(
+            forName: .candelaShowWelcomeGuide, object: nil, queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated {
+                if self?.isPanelShown == true { self?.togglePanel() }
+                self?.onboarding.show()
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { [weak self] in
+            self?.onboarding.showIfNeeded()
+        }
     }
 
     /// One-shot re-sync of everything that can drift while the panel is closed

@@ -59,6 +59,8 @@ fi
 # against the catalog's 207).
 python3 "$ROOT/scripts/xcstrings-compile.py" \
   Candela/Resources/Localizable.xcstrings "$APP/Contents/Resources" >/dev/null
+# Welcome-guide screenshots, same as release.sh.
+cp "$ROOT"/Candela/Resources/Guide/guide-*.jpg "$APP/Contents/Resources/"
 
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $VERSION" "$APP/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD" "$APP/Contents/Info.plist"

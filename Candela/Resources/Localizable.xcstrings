@@ -3634,6 +3634,246 @@
           }
         }
       }
+    },
+    "Back": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上一步"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上一步"
+          }
+        }
+      }
+    },
+    "Brightness keys and settings": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度键与设置"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "亮度鍵與設定"
+          }
+        }
+      }
+    },
+    "Candela lives in your menu bar. Click its icon to open the panel: every connected display gets its own brightness slider. A Software tag means that display has no DDC support, so Candela dims it in software.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 常驻在菜单栏。点一下它的图标打开面板：每台已连接的显示器都有自己的亮度滑块。带“软件”标记的显示器不支持 DDC，Candela 会用软件方式调暗它。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 常駐在選單列。點一下它的圖示開啟面板：每台已連接的顯示器都有自己的亮度滑桿。帶有「軟體」標記的顯示器不支援 DDC，Candela 會以軟體方式調暗它。"
+          }
+        }
+      }
+    },
+    "Combined moves every display together. Below it, switch Dark Mode, Night Shift and True Tone, or save your current setup as a preset.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“合并亮度”会让所有显示器一起调节。下方可以切换深色模式、夜览和原彩显示，也可以把当前设置存为预设。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「合併亮度」會讓所有顯示器一起調整。下方可以切換深色模式、夜覽和原彩顯示，也可以把目前的設定儲存為預設組合。"
+          }
+        }
+      }
+    },
+    "Next": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步"
+          }
+        }
+      }
+    },
+    "One slider for the whole desk": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一个滑块，管整张桌面"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一個滑桿，管整張桌面"
+          }
+        }
+      }
+    },
+    "Open Candela": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开 Candela"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟 Candela"
+          }
+        }
+      }
+    },
+    "Open a display to change its resolution and refresh rate. Candela lists the sharp 2× modes macOS hides on third-party monitors. Combined brightness sets where this display sits when the combined slider is at the bottom, so two panels can match.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开某台显示器，可以修改它的分辨率和刷新率。Candela 会列出 macOS 在第三方显示器上隐藏的清晰 2× 模式。“合并亮度”用来设定合并滑块拉到最低时这台显示器的位置，让两块屏幕亮度对得上。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟某台顯示器，可以修改它的解析度和更新頻率。Candela 會列出 macOS 在第三方顯示器上隱藏的清晰 2× 模式。「合併亮度」用來設定合併滑桿拉到最低時這台顯示器的位置，讓兩塊螢幕的亮度對得上。"
+          }
+        }
+      }
+    },
+    "Settings is where you choose what the brightness keys control. Sending them to external displays needs Accessibility access: turn on the switch under Brightness Keys and macOS asks once. Language and Launch at Login are here too.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在“设置”里选择亮度键控制哪些显示器。要让亮度键作用于外接显示器，需要“辅助功能”权限：打开“亮度键”下的开关，macOS 会询问一次。语言和登录时启动也在这里。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「設定」裡選擇亮度鍵控制哪些顯示器。要讓亮度鍵作用於外接顯示器，需要「輔助使用」權限：開啟「亮度鍵」下的開關，macOS 會詢問一次。語言和登入時啟動也在這裡。"
+          }
+        }
+      }
+    },
+    "Sharp, readable resolution": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清晰又好读的分辨率"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清晰又好讀的解析度"
+          }
+        }
+      }
+    },
+    "Show Welcome Guide": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示新手引导"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示新手引導"
+          }
+        }
+      }
+    },
+    "Skip": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跳过"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "略過"
+          }
+        }
+      }
+    },
+    "Tools for your desk": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "桌面工具"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "桌面工具"
+          }
+        }
+      }
+    },
+    "Tools holds Keep Awake, Virtual Displays, iPad Display and Arrange Displays.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“工具”里有防止睡眠、虚拟显示器、iPad 显示器和排列显示器。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「工具」裡有防止睡眠、虛擬顯示器、iPad 顯示器和排列顯示器。"
+          }
+        }
+      }
+    },
+    "Welcome to Candela": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "欢迎使用 Candela"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "歡迎使用 Candela"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
