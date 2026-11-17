@@ -129,6 +129,10 @@ open Candela.xcodeproj
 切换设备、调音量、静音、实时麦克风电平，还有一个麦克风硬开关。和 Candela 是同一个念头，
 只是隔了一条菜单栏：macOS 让你翻半天才找得到的控制，一键就到。免费、MIT、Apple 芯片原生。
 
+**[Veil](https://jamesai.dev/veil/)** —— 正在用的窗口保持清晰，后面的一切柔和地模糊掉。免费，MIT 开源。（[源码](https://github.com/iamzifei/veil)）
+
+**[敲黑板 Tapper](https://jamesai.dev/tapper/)** —— 把鼠标指针变成长杆上的卡通手套，演示和录屏时一眼看清你指哪儿。免费，MIT 开源。（[源码](https://github.com/iamzifei/tapper)）
+
 ## 来源
 
 Candela fork 自 Didrik Galteland 的 [Crisp](https://github.com/didriksg/Crisp)，
