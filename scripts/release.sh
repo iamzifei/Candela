@@ -167,11 +167,11 @@ sign_sparkle() {
     [ -d "$fw" ] || return 0
     local xpc
     for xpc in "$fw"/Versions/B/XPCServices/*.xpc; do
-        [ -e "$xpc" ] && codesign --force "${extra[@]}" --sign "$id" "$xpc"
+        [ -e "$xpc" ] && codesign --force ${extra[@]+"${extra[@]}"} --sign "$id" "$xpc"
     done
-    [ -e "$fw/Versions/B/Updater.app" ] && codesign --force "${extra[@]}" --sign "$id" "$fw/Versions/B/Updater.app"
-    [ -e "$fw/Versions/B/Autoupdate" ] && codesign --force "${extra[@]}" --sign "$id" "$fw/Versions/B/Autoupdate"
-    codesign --force "${extra[@]}" --sign "$id" "$fw"
+    [ -e "$fw/Versions/B/Updater.app" ] && codesign --force ${extra[@]+"${extra[@]}"} --sign "$id" "$fw/Versions/B/Updater.app"
+    [ -e "$fw/Versions/B/Autoupdate" ] && codesign --force ${extra[@]+"${extra[@]}"} --sign "$id" "$fw/Versions/B/Autoupdate"
+    codesign --force ${extra[@]+"${extra[@]}"} --sign "$id" "$fw"
 }
 
 if [ -z "${CANDELA_SIGN_ID:-}" ]; then
