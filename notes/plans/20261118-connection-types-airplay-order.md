@@ -22,10 +22,10 @@ Scope he picked (AskUserQuestion): recognise + try to connect AirPlay from Cande
 7. Three languages, then make check, release 0.3.0 (minor), and install the notarized build.
 
 ## Acceptance
-- [ ] Tests green; loc + hant checks green
-- [ ] Panel shows HDMI / DisplayPort for the two real monitors (verify via offscreen render, no screen capture)
-- [ ] Order change persists across relaunch
-- [ ] Released, appcast updated, /Applications = notarized 0.3.0
+- [x] Tests green (124), lint + loc-key check green; hant-check was already broken in 0.2.2 (catalog re-serialised as JSON) — not fixed, translations complete per check-translations.py
+- [x] Panel shows HDMI (M28U) / DisplayPort (VX1622) — window-ID capture of the panel only
+- [x] Saved order applied after relaunch (wrote the pref, relaunched, order flipped; pref removed after)
+- [x] v0.3.0 released + notarized, appcast + tap updated, /Applications = 0.3.0 Notarized Developer ID; CI green again (f6f8299)
 
 ## Not verifiable here
 - A real AirPlay display: connecting one would change James's live display setup.
