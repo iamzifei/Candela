@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: pip install -r site/requirements.txt
       - name: docs/ matches site/content
         run: |
           if ! python3 site/build.py --check; then
