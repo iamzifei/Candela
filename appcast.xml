@@ -6,6 +6,14 @@
     <description>Most recent Candela updates.</description>
     <language>en</language>
     <item>
+      <title>0.2.1</title>
+      <pubDate>Wed, 18 Nov 2026 00:07:05 -0000</pubDate>
+      <sparkle:version>0.2.1</sparkle:version>
+      <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+      <enclosure url="https://github.com/iamzifei/Candela/releases/download/v0.2.1/Candela.dmg" sparkle:edSignature="SykqeQxf7ZL0J3IcXZys32W2xrK0R45DN1gkdCZdrL+gHuzluwFbQqb1CM/S+6BxQseTrJ9pnaqyNGF/4HBSCg==" length="4880534" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>0.2.0</title>
       <pubDate>Tue, 17 Nov 2026 23:42:08 -0000</pubDate>
       <sparkle:version>0.2.0</sparkle:version>
