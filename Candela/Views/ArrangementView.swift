@@ -436,7 +436,7 @@ struct DisplayThumbnailView: View {
             if let wallpaper {
                 Image(nsImage: wallpaper)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .scaledToFill()
             } else {
                 Rectangle().fill(fallbackFill)
             }

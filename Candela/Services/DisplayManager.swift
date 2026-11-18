@@ -93,6 +93,14 @@ class DisplayManager: ObservableObject {
     /// detail and Resolution section, landing the user back where they were. Cleared once applied.
     @Published var pendingResolutionExpandUUID: String?
 
+    /// The user's panel order as display UUIDs, persisted. Empty means automatic
+    /// (screen the panel opened on, then built-in, then physical arrangement).
+    /// Includes displays that are not connected right now, so they return to their
+    /// place when plugged back in.
+    @Published private(set) var savedPanelOrder: [String] =
+        UserDefaults.standard.stringArray(forKey: DisplayManager.panelOrderKey) ?? []
+    private static let panelOrderKey = "candela.panelDisplayOrder"
+
     // nonisolated(unsafe) allows deinit (which is nonisolated in Swift 6) to access this value.
     nonisolated(unsafe) private var callbackContext: UnsafeMutableRawPointer?
     nonisolated(unsafe) private var screenParamsObserver: NSObjectProtocol?
@@ -109,7 +117,7 @@ class DisplayManager: ObservableObject {
             forName: NSApplication.didChangeScreenParametersNotification,
             object: nil,
             queue: .main
-        ) { _ in
+        ) { [weak self] _ in
             Task { @MainActor [weak self] in self?.refreshDisplayNames() }
         }
     }
@@ -128,6 +136,10 @@ class DisplayManager: ObservableObject {
     /// any "Display N" fallback a connect-time race left behind (and tracking
     /// renames macOS applies to its own list).
     private func refreshDisplayNames() {
+        for display in displays {
+            let connection = DisplayConnectionService.connection(for: display.displayID)
+            if connection != display.connection { display.connection = connection }
+        }
         for display in displays where !display.isBuiltin {
             if let real = NSScreen.screen(for: display.displayID)?.localizedName,
                real != display.name {
@@ -318,6 +330,55 @@ class DisplayManager: ObservableObject {
         refreshDisplays()
         if case .success = result { return true }
         return false
+    }
+
+    // MARK: - Panel order
+
+    /// Displays that get their own section in the panel, in panel order.
+    ///
+    /// Automatic order first (the screen the panel was opened on, then built-in,
+    /// then physical arrangement top-left to bottom-right); a saved user order, if
+    /// any, then overrides it via `DisplayOrder.apply`.
+    func panelDisplays() -> [DisplayInfo] {
+        let active = activePanelDisplayID
+        let automatic = displays
+            .filter { !VirtualDisplayService.shared.isVirtualDisplay($0.displayID) }
+            .sorted {
+                if ($0.displayID == active) != ($1.displayID == active) { return $0.displayID == active }
+                if $0.isBuiltin != $1.isBuiltin { return $0.isBuiltin }
+                let a = CGDisplayBounds($0.displayID), b = CGDisplayBounds($1.displayID)
+                return a.minY != b.minY ? a.minY < b.minY : a.minX < b.minX
+            }
+        let byUUID = Dictionary(automatic.map { ($0.displayUUID, $0) }, uniquingKeysWith: { a, _ in a })
+        return DisplayOrder.apply(saved: savedPanelOrder, to: automatic.map(\.displayUUID))
+            .compactMap { byUUID[$0] }
+    }
+
+    /// Whether `display` can move one place up (-1) or down (+1) in the panel.
+    func canMoveInPanel(_ display: DisplayInfo, by offset: Int) -> Bool {
+        DisplayOrder.move(display.displayUUID, by: offset,
+                          in: panelDisplays().map(\.displayUUID)) != nil
+    }
+
+    /// Moves a display one place in the panel and remembers the new order.
+    func moveInPanel(_ display: DisplayInfo, by offset: Int) {
+        let visible = panelDisplays().map(\.displayUUID)
+        guard let moved = DisplayOrder.move(display.displayUUID, by: offset, in: visible) else { return }
+        setSavedPanelOrder(DisplayOrder.merge(visible: moved, into: savedPanelOrder))
+    }
+
+    /// Back to the automatic order.
+    func resetPanelOrder() { setSavedPanelOrder([]) }
+
+    var hasCustomPanelOrder: Bool { !savedPanelOrder.isEmpty }
+
+    private func setSavedPanelOrder(_ order: [String]) {
+        savedPanelOrder = order
+        if order.isEmpty {
+            UserDefaults.standard.removeObject(forKey: Self.panelOrderKey)
+        } else {
+            UserDefaults.standard.set(order, forKey: Self.panelOrderKey)
+        }
     }
 
     /// Makes the target display the main display by repositioning it to origin (0, 0).

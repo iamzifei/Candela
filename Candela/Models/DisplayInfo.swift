@@ -28,6 +28,10 @@ class DisplayInfo: ObservableObject, Identifiable {
     @Published var availableModes: [DisplayMode]
     @Published var currentDisplayMode: DisplayMode?
     @Published var ddcValues: [UInt8: UInt16?] = [:]
+    /// How the display is attached (HDMI, DisplayPort, AirPlay, ...). Re-read when
+    /// screens change, since a Sidecar session only reports its display a beat
+    /// after the display appears.
+    @Published var connection: DisplayConnection = .external
     let vendorNumber: UInt32
     let modelNumber: UInt32
     let serialNumber: UInt32
@@ -95,6 +99,7 @@ class DisplayInfo: ObservableObject, Identifiable {
             // numeric-specifier key that never matches the catalog's "Display %@" entry.
             self.name = NSScreen.screen(for: displayID)?.localizedName ?? String(localized: "Display \(String(displayID))")
         }
+        self.connection = DisplayConnectionService.connection(for: displayID)
 
     }
 

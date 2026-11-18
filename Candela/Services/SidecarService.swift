@@ -258,6 +258,13 @@ final class SidecarService: ObservableObject, @unchecked Sendable {
         }
     }
 
+    /// Whether `displayID` is the display a connected iPad is running on. Used to
+    /// label the display "Sidecar" in the panel instead of a generic wireless one.
+    func isSidecarDisplay(_ displayID: CGDirectDisplayID) -> Bool {
+        guard isAvailable else { return false }
+        return connectedIDs.contains { sidecarDisplayID(forDeviceID: $0) == displayID }
+    }
+
     /// The CGDirectDisplayID a connected device is running on, if it has one yet.
     private func sidecarDisplayID(forDeviceID id: String) -> CGDirectDisplayID? {
         guard let manager,

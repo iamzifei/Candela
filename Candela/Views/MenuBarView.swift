@@ -711,6 +711,15 @@ struct DisplayRowView: View {
     let isExpanded: Bool
     let onToggleExpand: () -> Void
 
+    /// "HDMI · 2560 × 1440": how the display is attached, then its mode. The
+    /// built-in panel's name already says what it is, so it shows the mode alone.
+    private var subtitle: String {
+        var parts: [String] = []
+        if display.connection != .builtin { parts.append(display.connection.label) }
+        if let mode = display.currentDisplayMode { parts.append(mode.resolutionString) }
+        return parts.joined(separator: " · ")
+    }
+
     var body: some View {
         // Native Display panel style: bold name, gray subtitle, trailing chevron.
         // No icon chip, no leading chevron, no badge (matches the system panel).
@@ -720,8 +729,8 @@ struct DisplayRowView: View {
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                if let mode = display.currentDisplayMode {
-                    Text(mode.resolutionString)
+                if !subtitle.isEmpty {
+                    Text(subtitle)
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
@@ -762,6 +771,30 @@ struct DisplayRowView: View {
                 NSPasteboard.general.setString(display.name, forType: .string)
             } label: {
                 Label("Copy Display Name", systemImage: "doc.on.doc")
+            }
+
+            // Panel order. Only meaningful with more than one display section.
+            if displayManager.panelDisplays().count > 1 {
+                Divider()
+                Button {
+                    displayManager.moveInPanel(display, by: -1)
+                } label: {
+                    Label("Move Up", systemImage: "arrow.up")
+                }
+                .disabled(!displayManager.canMoveInPanel(display, by: -1))
+                Button {
+                    displayManager.moveInPanel(display, by: 1)
+                } label: {
+                    Label("Move Down", systemImage: "arrow.down")
+                }
+                .disabled(!displayManager.canMoveInPanel(display, by: 1))
+                if displayManager.hasCustomPanelOrder {
+                    Button {
+                        displayManager.resetPanelOrder()
+                    } label: {
+                        Label("Reset Display Order", systemImage: "arrow.counterclockwise")
+                    }
+                }
             }
         }
         // Combined, for the same reason as ExpandableRow: the row was announced twice.

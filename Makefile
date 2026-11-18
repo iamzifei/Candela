@@ -62,11 +62,15 @@ compile:
 # introduces one fails make check and CI. `make compile` stays permissive for
 # mid-iteration builds.
 test:
+	./scripts/fetch-sparkle.sh >/dev/null
 	xcodegen generate
 	xcodebuild -quiet test -project Candela.xcodeproj -scheme Candela \
 		-destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO \
 		SWIFT_VERSION=5 SWIFT_STRICT_CONCURRENCY=minimal \
-		SWIFT_TREAT_WARNINGS_AS_ERRORS=YES
+		SWIFT_TREAT_WARNINGS_AS_ERRORS=YES \
+		FRAMEWORK_SEARCH_PATHS="$(CURDIR)/vendor" \
+		'OTHER_LDFLAGS=$$(inherited) -framework Sparkle' \
+		LD_RUNPATH_SEARCH_PATHS="$(CURDIR)/vendor @executable_path/../Frameworks"
 
 lint:
 	@command -v swiftlint >/dev/null || { echo "SwiftLint not installed: brew install swiftlint"; exit 1; }
@@ -78,7 +82,8 @@ loc-check:
 	xcodegen generate
 	xcodebuild -quiet -exportLocalizations -project Candela.xcodeproj \
 		-localizationPath build/loc CODE_SIGNING_ALLOWED=NO \
-		SWIFT_EMIT_LOC_STRINGS=YES SWIFT_VERSION=5 SWIFT_STRICT_CONCURRENCY=minimal
+		SWIFT_EMIT_LOC_STRINGS=YES SWIFT_VERSION=5 SWIFT_STRICT_CONCURRENCY=minimal \
+		FRAMEWORK_SEARCH_PATHS="$(CURDIR)/vendor"
 	python3 scripts/check-localization-keys.py build/loc/en.xcloc \
 		Candela/Resources/Localizable.xcstrings scripts/i18n-missing-allowlist.txt
 

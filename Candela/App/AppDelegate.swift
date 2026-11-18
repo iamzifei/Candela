@@ -537,18 +537,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         canvas.parkSpring()
     }
 
-    /// Displays that get their own section, in panel order (screen the panel
-    /// was opened on first, then builtin, then physical arrangement).
+    /// Displays that get their own section, in panel order (DisplayManager.panelDisplays).
     private func visibleDisplays() -> [DisplayInfo] {
-        let active = displayManager.activePanelDisplayID
-        return displayManager.displays
-            .filter { !VirtualDisplayService.shared.isVirtualDisplay($0.displayID) }
-            .sorted {
-                if ($0.displayID == active) != ($1.displayID == active) { return $0.displayID == active }
-                if $0.isBuiltin != $1.isBuiltin { return $0.isBuiltin }
-                let a = CGDisplayBounds($0.displayID), b = CGDisplayBounds($1.displayID)
-                return a.minY != b.minY ? a.minY < b.minY : a.minX < b.minX
-            }
+        displayManager.panelDisplays()
     }
 
     /// Builds the block list when its identity changed: the display set, or the
@@ -612,6 +603,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 guard let self else { return }
                 let validIDs = Set(newDisplays.map { $0.displayID })
                 self.sectionState.retainDisplays(validIDs)
+                self.rebuildBlocksIfNeeded()
+                self.canvas.requestApply()
+            }
+            .store(in: &canvasCancellables)
+        // A reorder changes the block signature (UUIDs in order): rebuild snaps cards.
+        displayManager.$savedPanelOrder
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
                 self.rebuildBlocksIfNeeded()
                 self.canvas.requestApply()
             }
@@ -1079,7 +1080,11 @@ private struct PanelBlockFactory {
             self.block("gap-\(id)-\(uuid)") { PanelGroupGap() }
         }
 
-        return [header, gap("head")]
+        let connection = block("connection-\(uuid)") { [displayManager] in
+            DisplayConnectionCard(display: display, displayManager: displayManager)
+        }
+
+        return [header, gap("head"), connection, gap("conn")]
             + modeBlocks(for: display, detailOpen: open)
             + (calibration.isEmpty ? [gap("mode")] : [gap("mode")] + calibration)
             + [gap("cal")]
@@ -1257,6 +1262,16 @@ private struct PanelBlockFactory {
                 }
             })
         }
+        // macOS keeps AirPlay discovery/connect to its own apps (private entitlements),
+        // so this opens Displays settings, whose "+" menu connects one.
+        blocks.append(block("tools-airplay") {
+            PanelPushRow(icon: "airplayvideo",
+                         label: String(localized: "AirPlay Display…")) {
+                if let url = URL(string: "x-apple.systempreferences:com.apple.Displays-Settings") {
+                    NSWorkspace.shared.open(url)
+                }
+            }
+        })
         // Arranging needs something to arrange.
         if displayManager.displays.count > 1 {
             blocks.append(block("tools-arrange") {
