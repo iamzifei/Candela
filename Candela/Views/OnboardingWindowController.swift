@@ -11,7 +11,7 @@ struct GuidePage {
     let icon: String   // SF Symbol name
     let title: String
     let body: String
-    /// Cropped screenshot (Resources/Guide/guide-N.jpg, demo data), nil when running unbundled.
+    /// Screenshot of the panel page (Resources/Guide/guide-N-<lang>.jpg, demo data), nil when running unbundled.
     var image: NSImage?
 }
 
@@ -148,8 +148,16 @@ final class OnboardingWindowController: NSObject, NSWindowDelegate {
 
     // MARK: content
 
-    private static func screenshot(_ n: Int) -> NSImage? {
-        Bundle.main.url(forResource: "guide-\(n)", withExtension: "jpg").flatMap(NSImage.init(contentsOf:))
+    /// Screenshot for page `n` (1-based) in the guide's language: guide-<n>-<lang>.jpg,
+    /// falling back to the English set. They are rendered from the app's own views by
+    /// scripts/guide-render/build.sh, so the UI in the picture is in the same language
+    /// as the text beside it.
+    private static func screenshot(_ n: Int, _ code: String) -> NSImage? {
+        for name in ["guide-\(n)-\(code)", "guide-\(n)-en"] {
+            if let url = Bundle.main.url(forResource: name, withExtension: "jpg"),
+               let image = NSImage(contentsOf: url) { return image }
+        }
+        return nil
     }
 
     /// The .lproj bundle for a language code, or the main bundle when there is none
@@ -183,7 +191,7 @@ final class OnboardingWindowController: NSObject, NSWindowDelegate {
         // swiftlint:enable line_length
         return pages.enumerated().map { i, page in
             var page = page
-            page.image = screenshot(i + 1)
+            page.image = screenshot(i + 1, code)
             return page
         }
     }
