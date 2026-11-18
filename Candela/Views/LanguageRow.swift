@@ -84,12 +84,18 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     /// app to today's system language if the system's changed later.
     static func select(_ language: AppLanguage) {
         guard language != current else { return }
+        store(language)
+        offerRelaunch()
+    }
+
+    /// Writes the choice without asking to relaunch (the welcome guide's picker
+    /// uses this: it re-renders itself and says the rest follows on next launch).
+    static func store(_ language: AppLanguage) {
         if language == .system {
             UserDefaults.standard.removeObject(forKey: key)
         } else {
             UserDefaults.standard.set([language.rawValue], forKey: key)
         }
-        offerRelaunch()
     }
 
     private static func offerRelaunch() {

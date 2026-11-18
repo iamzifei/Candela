@@ -236,5 +236,6 @@
   "Back": "上一步",
   "Next": "下一步",
   "Open Candela": "開啟 Candela",
-  "Show Welcome Guide": "顯示新手引導"
+  "Show Welcome Guide": "顯示新手引導",
+  "The rest of Candela switches language the next time it launches.": "Candela 的其餘介面會在下次啟動時切換語言。"
 }

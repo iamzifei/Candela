@@ -3874,6 +3874,22 @@
           }
         }
       }
+    },
+    "The rest of Candela switches language the next time it launches.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 的其余界面会在下次启动时切换语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Candela 的其餘介面會在下次啟動時切換語言。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
