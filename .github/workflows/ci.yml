@@ -54,7 +54,8 @@ jobs:
         run: |
           xcodebuild -quiet -exportLocalizations -project Candela.xcodeproj \
             -localizationPath build/loc CODE_SIGNING_ALLOWED=NO \
-            SWIFT_EMIT_LOC_STRINGS=YES SWIFT_VERSION=5 SWIFT_STRICT_CONCURRENCY=minimal
+            SWIFT_EMIT_LOC_STRINGS=YES SWIFT_VERSION=5 SWIFT_STRICT_CONCURRENCY=minimal \
+            FRAMEWORK_SEARCH_PATHS="$PWD/vendor"
           python3 scripts/check-localization-keys.py build/loc/en.xcloc \
             Candela/Resources/Localizable.xcstrings scripts/i18n-missing-allowlist.txt
       # Blocking on pushes to main, advisory on pull requests. A contributor
