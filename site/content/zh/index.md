@@ -1,17 +1,7 @@
 ---
-title: "Candela — macOS 免费显示器控制工具"
-description: "开源的 macOS 菜单栏工具：外接显示器的 HiDPI 清晰缩放、DDC 硬件亮度、多屏亮度同步、预设与虚拟显示器。全部功能免费，没有 Pro 版。"
+title: "Candela — Mac 外接显示器亮度调节与 HiDPI 免费工具"
+description: "免费开源的 Mac 菜单栏工具：外接显示器 DDC 硬件亮度、亮度键控制任意屏幕、HiDPI 清晰缩放、多屏亮度同步。全部功能免费，没有 Pro 版，可用 Homebrew 安装。"
 schema: |
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
-   "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
-   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"{{SITE}}/zh/",
-   "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"{{SITE}}/shots/panel-root.webp",
-   "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
-   "isAccessibleForFree":true}
-  </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"VideoObject",
    "name":"Candela 六十秒演示",
@@ -26,13 +16,15 @@ schema: |
 
 # macOS 藏起来的显示器设置
 
-macOS 只留给内置屏幕的那些控制，还给桌上的每一块显示器：真正的 DDC 硬件亮度、
+Candela 是一款免费开源的 Mac 菜单栏工具，给接了外接显示器的人用。macOS 只留给内置屏幕的那些控制，还给桌上的每一块显示器：真正的 DDC 硬件亮度、
 清晰的 HiDPI 缩放，以及在任意屏幕上都管用的亮度键。
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下载 macOS 版</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">在 Ko-fi 支持</a>
 </div>
+
+{{BREW}}
 
 <p class="note">macOS 26 · Apple 芯片 · MIT 许可 · 没有 Pro 版，不需要激活码</p>
 </div>
@@ -144,9 +136,7 @@ Candela 对「我能用到哪些功能」的回答就一个字：全部。
 
 下载 DMG 拖进「应用程序」，或者用 Homebrew：
 
-```
-brew install --cask iamzifei/tap/candela
-```
+{{BREW_BOX}}
 
 Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「无法验证开发者」的拦截。
 
@@ -159,10 +149,11 @@ Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「
 - 亮度键需要一个「辅助功能」权限，第一次启用该功能时 macOS 会主动询问
 - 外接显示器的硬件亮度需要显示器自身的 OSD 菜单里开启 DDC/CI。
   多数显示器出厂即开启；少数机型以及部分 USB-C 扩展坞不会透传这个通道
+- 当前版本 Candela {{VERSION}}：免费下载，约 5 MB，MIT 许可
 
-<div class="sect-label">06 · 我的另外两个</div>
+<div class="sect-label">06 · 我的其他 App</div>
 
-## 同一条菜单栏上的另外两个 App
+## 我做的其他 Mac App
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
@@ -178,6 +169,33 @@ Candela 使用 Developer ID 签名并经过 Apple 公证，打开时不会有「
 <span class="sibling-text">
 <span class="sibling-name">ClipStack</span>
 <span class="sibling-desc">复制过的内容都还在：⇧⌘V 呼出、可搜索的剪贴板历史，文字、图片、文件都能翻回来，常用的可以置顶。全部只留在本机。免费、MIT、Apple 芯片原生。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://inkslab.app" rel="noopener">
+<img src="../inkstone.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Inkstone</span>
+<span class="sibling-desc">笔记就是你自己文件夹里的 Markdown 文件——双链、关系图谱、白板。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/veil/" rel="noopener">
+<img src="../veil.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Veil</span>
+<span class="sibling-desc">正在用的窗口保持清晰，后面的一切柔和地模糊掉。免费，MIT 开源。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/tapper/" rel="noopener">
+<img src="../tapper.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">敲黑板</span>
+<span class="sibling-desc">把鼠标指针变成长杆上的卡通手套，演示和录屏时一眼看清你指哪儿。免费，MIT 开源。</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

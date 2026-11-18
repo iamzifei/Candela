@@ -3,26 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mac 多显示器亮度同步</title>
+<title>Mac 多显示器亮度同步 | Candela</title>
 <meta name="description" content="一条滑条调所有屏幕——以及为什么把同一个百分比发给两块显示器并不会让它们看起来一样，和那一次能解决问题的校准。">
 <link rel="canonical" href="https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html">
 <link rel="alternate" hreflang="en" href="https://getcandela.app/sync-brightness-multiple-monitors-mac.html">
 <link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html">
 <link rel="alternate" hreflang="x-default" href="https://getcandela.app/sync-brightness-multiple-monitors-mac.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mac 多显示器亮度同步">
+<meta property="og:title" content="Mac 多显示器亮度同步 | Candela">
 <meta property="og:description" content="一条滑条调所有屏幕——以及为什么把同一个百分比发给两块显示器并不会让它们看起来一样，和那一次能解决问题的校准。">
 <meta property="og:url" content="https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html">
 <meta property="og:image" content="https://getcandela.app/og-card-zh.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="Candela">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mac 多显示器亮度同步">
+<meta name="twitter:creator" content="@JamesAI">
+<meta name="twitter:title" content="Mac 多显示器亮度同步 | Candela">
 <meta name="twitter:description" content="一条滑条调所有屏幕——以及为什么把同一个百分比发给两块显示器并不会让它们看起来一样，和那一次能解决问题的校准。">
 <meta name="twitter:image" content="https://getcandela.app/og-card-zh.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=ff38ea65">
+<link rel="stylesheet" href="../styles.css?v=df7acc7a">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Mac 多显示器亮度同步", "description": "一条滑条调所有屏幕——以及为什么把同一个百分比发给两块显示器并不会让它们看起来一样，和那一次能解决问题的校准。", "url": "https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html", "inLanguage": "zh-Hans", "image": "https://getcandela.app/og-card-zh.png", "author": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "publisher": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "about": {"@type": "SoftwareApplication", "name": "Candela", "url": "https://getcandela.app/", "operatingSystem": "macOS 26.0 or later"}}</script>
 
 
 </head>
@@ -134,6 +137,36 @@ Candela 有一个自动亮度跟随模式，但没有环境光传感器曲线、
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The Homebrew copy buttons. The clipboard API needs a secure context, which the
+// site is; the fallback selects the command so a manual Cmd-C still works.
+document.querySelectorAll('.brew-copy').forEach(function (btn) {
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function done() {
+      btn.textContent = btn.getAttribute('data-copied');
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+    function select() {
+      var code = btn.parentNode.querySelector('.brew-cmd');
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, select);
+    } else {
+      select();
+    }
   });
 });
 // The demo autoplays, because a silent hero loop that waits for a click is a hero

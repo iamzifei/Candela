@@ -1,6 +1,6 @@
 ---
 title: "Fix a blurry external monitor on macOS"
-description: "Text looks soft on your external display and the built-in screen looks perfect. Here is why macOS does that on 1440p and 4K monitors, and the four things that actually sharpen it."
+description: "Text looks soft on your external display but sharp on the built-in screen. Why macOS does that on 1440p and 4K monitors, and four fixes that work."
 ---
 
 # Fix a blurry external monitor on macOS

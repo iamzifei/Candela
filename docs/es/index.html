@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Candela — control de pantalla gratuito para macOS</title>
-<meta name="description" content="Una app de código abierto para la barra de menús de macOS pensada para monitores externos: escalado HiDPI, brillo por DDC, brillo sincronizado entre pantallas, ajustes guardados y pantallas virtuales. Todo gratis, sin versión Pro.">
+<title>Candela — brillo y HiDPI para monitores externos en Mac</title>
+<meta name="description" content="App gratuita y de código abierto para monitores externos en Mac: brillo por DDC, teclas de brillo, HiDPI nítido y pantallas sincronizadas. Sin versión Pro.">
 <link rel="canonical" href="https://getcandela.app/es/">
 <link rel="alternate" hreflang="de" href="https://getcandela.app/de/">
 <link rel="alternate" hreflang="en" href="https://getcandela.app/">
@@ -16,29 +16,22 @@
 <link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/">
 <link rel="alternate" hreflang="x-default" href="https://getcandela.app/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Candela — control de pantalla gratuito para macOS">
-<meta property="og:description" content="Una app de código abierto para la barra de menús de macOS pensada para monitores externos: escalado HiDPI, brillo por DDC, brillo sincronizado entre pantallas, ajustes guardados y pantallas virtuales. Todo gratis, sin versión Pro.">
+<meta property="og:title" content="Candela — brillo y HiDPI para monitores externos en Mac">
+<meta property="og:description" content="App gratuita y de código abierto para monitores externos en Mac: brillo por DDC, teclas de brillo, HiDPI nítido y pantallas sincronizadas. Sin versión Pro.">
 <meta property="og:url" content="https://getcandela.app/es/">
-<meta property="og:image" content="https://getcandela.app/og-card-zh.png">
+<meta property="og:image" content="https://getcandela.app/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Candela">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Candela — control de pantalla gratuito para macOS">
-<meta name="twitter:description" content="Una app de código abierto para la barra de menús de macOS pensada para monitores externos: escalado HiDPI, brillo por DDC, brillo sincronizado entre pantallas, ajustes guardados y pantallas virtuales. Todo gratis, sin versión Pro.">
-<meta name="twitter:image" content="https://getcandela.app/og-card-zh.png">
+<meta name="twitter:creator" content="@JamesAI">
+<meta name="twitter:title" content="Candela — brillo y HiDPI para monitores externos en Mac">
+<meta name="twitter:description" content="App gratuita y de código abierto para monitores externos en Mac: brillo por DDC, teclas de brillo, HiDPI nítido y pantallas sincronizadas. Sin versión Pro.">
+<meta name="twitter:image" content="https://getcandela.app/og-card.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=ff38ea65">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
- "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
- "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
- "url":"https://getcandela.app/es/",
- "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
- "screenshot":"https://getcandela.app/shots/panel-root.webp",
- "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
- "isAccessibleForFree":true}
-</script>
+<link rel="stylesheet" href="../styles.css?v=df7acc7a">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Candela", "description": "App gratuita y de código abierto para monitores externos en Mac: brillo por DDC, teclas de brillo, HiDPI nítido y pantallas sincronizadas. Sin versión Pro.", "url": "https://getcandela.app/es/", "inLanguage": "es", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 26.0 or later", "processorRequirements": "Apple silicon (arm64)", "softwareVersion": "0.3.0", "downloadUrl": "https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg", "installUrl": "https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg", "image": "https://getcandela.app/icon.png", "screenshot": "https://getcandela.app/shots/panel-root.webp", "softwareLicense": "https://github.com/iamzifei/Candela/blob/main/LICENSE", "codeRepository": "https://github.com/iamzifei/Candela", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "featureList": ["Hardware brightness over DDC/CI, with gamma dimming as a fallback", "Brightness keys that control external monitors", "HiDPI (2x) scaling on third-party displays", "One combined brightness slider with a per-display floor", "Presets, display arrangement, virtual displays and Sidecar"]}</script>
 
 
 </head>
@@ -63,12 +56,14 @@
 <div class="hero">
 
 <h1 id="todos-los-controles-de-pantalla-que-macos-esconde-en-un-panel-de-la-barra-de-men-s">Todos los controles de pantalla que macOS esconde, en un panel de la barra de menús</h1>
-<p>Todo lo que macOS reserva para la pantalla integrada, devuelto a cada monitor de tu escritorio
+<p>Candela es una app gratuita y de código abierto para la barra de menús, pensada para quien usa monitores externos con su Mac. Todo lo que macOS reserva para la pantalla integrada, devuelto a cada monitor de tu escritorio
 — brillo real por DDC, escalado HiDPI nítido y teclas de brillo que funcionan en cualquier parte.</p>
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Descargar para macOS</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Apoyar en Ko-fi</a>
 </div>
+
+<div class="brew"><span class="brew-label">O instalar con Homebrew</span><div class="brew-box"><code class="brew-cmd">brew install --cask iamzifei/tap/candela</code><button type="button" class="brew-copy" data-copy="brew install --cask iamzifei/tap/candela" data-label="Copiar" data-copied="Copiado" aria-label="Copiar: brew install --cask iamzifei/tap/candela">Copiar</button></div></div>
 
 <p class="note">macOS 26 · Apple silicon · licencia MIT · sin versión Pro, sin clave de licencia</p>
 </div>
@@ -185,8 +180,8 @@ Ambos son buen software. La respuesta de Candela a «¿qué funciones me llevo?�
 
 <h2 id="dos-formas">Dos formas</h2>
 <p>Descarga el DMG y arrastra Candela a Aplicaciones, o usa Homebrew:</p>
-<pre><code>brew install --cask iamzifei/tap/candela
-</code></pre>
+<div class="brew"><div class="brew-box"><code class="brew-cmd">brew install --cask iamzifei/tap/candela</code><button type="button" class="brew-copy" data-copy="brew install --cask iamzifei/tap/candela" data-label="Copiar" data-copied="Copiado" aria-label="Copiar: brew install --cask iamzifei/tap/candela">Copiar</button></div></div>
+
 <p>Candela está firmada con un Developer ID y notarizada por Apple, así que se abre sin avisos ni
 clic derecho.</p>
 <div class="sect-label">05 · Requisitos</div>
@@ -200,6 +195,7 @@ activas la función</li>
 <li>Para el brillo por hardware en una pantalla externa: DDC/CI activado en el menú en pantalla
 del propio monitor. La mayoría vienen con él activado; unos pocos, y algunos docks USB-C, no
 lo dejan pasar</li>
+<li>Versión actual: Candela 0.3.0, una descarga gratuita de unos 5 MB con licencia MIT</li>
 </ul>
 <div class="sect-label">06 · También mío</div>
 
@@ -273,6 +269,36 @@ lo dejan pasar</li>
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The Homebrew copy buttons. The clipboard API needs a secure context, which the
+// site is; the fallback selects the command so a manual Cmd-C still works.
+document.querySelectorAll('.brew-copy').forEach(function (btn) {
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function done() {
+      btn.textContent = btn.getAttribute('data-copied');
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+    function select() {
+      var code = btn.parentNode.querySelector('.brew-cmd');
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, select);
+    } else {
+      select();
+    }
   });
 });
 // The demo autoplays, because a silent hero loop that waits for a click is a hero

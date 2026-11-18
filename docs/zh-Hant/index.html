@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Candela — macOS 免費顯示器控制工具</title>
-<meta name="description" content="開源的 macOS 選單列工具：外接顯示器的 HiDPI 清晰縮放、DDC 硬體亮度、多螢幕亮度同步、預設集與虛擬螢幕。全部功能免費，沒有 Pro 版。">
+<title>Candela — Mac 外接螢幕亮度調整與 HiDPI 免費工具</title>
+<meta name="description" content="免費開源的 Mac 選單列工具：外接螢幕 DDC 硬體亮度、亮度鍵控制任何螢幕、HiDPI 清晰縮放、多螢幕亮度同步。全部功能免費，沒有 Pro 版，可用 Homebrew 安裝。">
 <link rel="canonical" href="https://getcandela.app/zh-Hant/">
 <link rel="alternate" hreflang="de" href="https://getcandela.app/de/">
 <link rel="alternate" hreflang="en" href="https://getcandela.app/">
@@ -16,29 +16,22 @@
 <link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/">
 <link rel="alternate" hreflang="x-default" href="https://getcandela.app/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Candela — macOS 免費顯示器控制工具">
-<meta property="og:description" content="開源的 macOS 選單列工具：外接顯示器的 HiDPI 清晰縮放、DDC 硬體亮度、多螢幕亮度同步、預設集與虛擬螢幕。全部功能免費，沒有 Pro 版。">
+<meta property="og:title" content="Candela — Mac 外接螢幕亮度調整與 HiDPI 免費工具">
+<meta property="og:description" content="免費開源的 Mac 選單列工具：外接螢幕 DDC 硬體亮度、亮度鍵控制任何螢幕、HiDPI 清晰縮放、多螢幕亮度同步。全部功能免費，沒有 Pro 版，可用 Homebrew 安裝。">
 <meta property="og:url" content="https://getcandela.app/zh-Hant/">
 <meta property="og:image" content="https://getcandela.app/og-card-zh.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="Candela">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Candela — macOS 免費顯示器控制工具">
-<meta name="twitter:description" content="開源的 macOS 選單列工具：外接顯示器的 HiDPI 清晰縮放、DDC 硬體亮度、多螢幕亮度同步、預設集與虛擬螢幕。全部功能免費，沒有 Pro 版。">
+<meta name="twitter:creator" content="@JamesAI">
+<meta name="twitter:title" content="Candela — Mac 外接螢幕亮度調整與 HiDPI 免費工具">
+<meta name="twitter:description" content="免費開源的 Mac 選單列工具：外接螢幕 DDC 硬體亮度、亮度鍵控制任何螢幕、HiDPI 清晰縮放、多螢幕亮度同步。全部功能免費，沒有 Pro 版，可用 Homebrew 安裝。">
 <meta name="twitter:image" content="https://getcandela.app/og-card-zh.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=ff38ea65">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
- "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
- "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
- "url":"https://getcandela.app/zh-Hant/",
- "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
- "screenshot":"https://getcandela.app/shots/panel-root.webp",
- "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
- "isAccessibleForFree":true}
-</script>
+<link rel="stylesheet" href="../styles.css?v=df7acc7a">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Candela", "description": "免費開源的 Mac 選單列工具：外接螢幕 DDC 硬體亮度、亮度鍵控制任何螢幕、HiDPI 清晰縮放、多螢幕亮度同步。全部功能免費，沒有 Pro 版，可用 Homebrew 安裝。", "url": "https://getcandela.app/zh-Hant/", "inLanguage": "zh-Hant", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 26.0 or later", "processorRequirements": "Apple silicon (arm64)", "softwareVersion": "0.3.0", "downloadUrl": "https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg", "installUrl": "https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg", "image": "https://getcandela.app/icon.png", "screenshot": "https://getcandela.app/shots/panel-root.webp", "softwareLicense": "https://github.com/iamzifei/Candela/blob/main/LICENSE", "codeRepository": "https://github.com/iamzifei/Candela", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "featureList": ["Hardware brightness over DDC/CI, with gamma dimming as a fallback", "Brightness keys that control external monitors", "HiDPI (2x) scaling on third-party displays", "One combined brightness slider with a per-display floor", "Presets, display arrangement, virtual displays and Sidecar"]}</script>
 
 
 </head>
@@ -63,12 +56,14 @@
 <div class="hero">
 
 <h1 id="macos-藏起來的顯示器控制-全都放進一個選單列面板">macOS 藏起來的顯示器控制，全都放進一個選單列面板</h1>
-<p>macOS 只留給內建螢幕的那些能力，還給你桌上的每一塊螢幕 —— 透過 DDC 調真實亮度、
+<p>Candela 是一款免費開源的 Mac 選單列工具，給接了外接螢幕的人用。macOS 只留給內建螢幕的那些能力，還給你桌上的每一塊螢幕 —— 透過 DDC 調真實亮度、
 清晰的 HiDPI 縮放，以及在任何螢幕上都有效的亮度鍵。</p>
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">下載 macOS 版</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">在 Ko-fi 支持</a>
 </div>
+
+<div class="brew"><span class="brew-label">或者用 Homebrew 安裝</span><div class="brew-box"><code class="brew-cmd">brew install --cask iamzifei/tap/candela</code><button type="button" class="brew-copy" data-copy="brew install --cask iamzifei/tap/candela" data-label="複製" data-copied="已複製" aria-label="複製: brew install --cask iamzifei/tap/candela">複製</button></div></div>
 
 <p class="note">macOS 26 · Apple 晶片 · MIT 授權 · 沒有 Pro 版，也沒有序號</p>
 </div>
@@ -179,8 +174,8 @@
 
 <h2 id="兩種方式">兩種方式</h2>
 <p>下載 DMG 把 Candela 拖進「應用程式」，或者用 Homebrew：</p>
-<pre><code>brew install --cask iamzifei/tap/candela
-</code></pre>
+<div class="brew"><div class="brew-box"><code class="brew-cmd">brew install --cask iamzifei/tap/candela</code><button type="button" class="brew-copy" data-copy="brew install --cask iamzifei/tap/candela" data-label="複製" data-copied="已複製" aria-label="複製: brew install --cask iamzifei/tap/candela">複製</button></div></div>
+
 <p>Candela 使用 Developer ID 簽署並經過 Apple 公證，打開時不會有「無法驗證開發者」的攔截。</p>
 <div class="sect-label">05 · 系統需求</div>
 
@@ -191,6 +186,7 @@
 <li>亮度鍵需要一個「輔助使用」權限，第一次啟用該功能時 macOS 會主動詢問</li>
 <li>外接螢幕的硬體亮度需要在螢幕自己的 OSD 選單裡開啟 DDC/CI。
 多數螢幕出廠即開啟；少數機型以及部分 USB-C 擴充座不會傳遞這個通道</li>
+<li>目前版本 Candela 0.3.0：免費下載，約 5 MB，MIT 授權</li>
 </ul>
 <div class="sect-label">06 · 我的其他 App</div>
 
@@ -264,6 +260,36 @@
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The Homebrew copy buttons. The clipboard API needs a secure context, which the
+// site is; the fallback selects the command so a manual Cmd-C still works.
+document.querySelectorAll('.brew-copy').forEach(function (btn) {
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function done() {
+      btn.textContent = btn.getAttribute('data-copied');
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+    function select() {
+      var code = btn.parentNode.querySelector('.brew-cmd');
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, select);
+    } else {
+      select();
+    }
   });
 });
 // The demo autoplays, because a silent hero loop that waits for a click is a hero

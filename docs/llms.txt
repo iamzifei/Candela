@@ -1,0 +1,52 @@
+# Candela
+
+> Candela is a free, open-source macOS menu bar app that gives external monitors the controls macOS keeps for the built-in screen: hardware brightness over DDC/CI, brightness keys on any display, sharp HiDPI scaling, and one slider for every display.
+
+Candela is for Mac users who work with one or more external monitors. It is free, has no Pro tier, licence key or usage limit, and is released under the MIT licence. It is a fork of Crisp (also MIT) by didriksg.
+
+Facts:
+- Current version: 0.3.0
+- Requires macOS 26 or later on Apple silicon (arm64 only; there is no Intel build)
+- Price: free (USD 0); optional tips on Ko-fi
+- Licence: MIT; source code on GitHub
+- Signed with a Developer ID and notarised by Apple
+- Install: download the DMG, or run `brew install --cask iamzifei/tap/candela`
+- Author: James (GitHub iamzifei, X @JamesAI)
+
+Features:
+- Brightness over DDC/CI, the same channel a monitor's own buttons use; displays that refuse DDC fall back to gamma dimming, marked "Software"
+- Volume control on monitors that support it over DDC
+- Brightness keys (F1/F2) that follow the pointer, drive every display, drive all as one, or drive only chosen displays; needs one Accessibility permission
+- HiDPI (2x-rendered) modes on third-party 1440p and 4K monitors, with refresh rate on the same page
+- A combined brightness slider with a per-display floor calibrated by eye
+- Presets that save resolutions, brightness and arrangement; display arrangement; virtual displays; Sidecar
+
+Hardware brightness needs DDC/CI enabled in the monitor's on-screen menu; most monitors ship with it on, but some monitors and USB-C docks do not pass it through.
+
+Compared with alternatives: BetterDisplay has a free tier and keeps flexible HiDPI scaling, virtual screens and some other features for its paid Pro version; Lunar's free build limits daily brightness adjustments. Candela includes every feature for free.
+
+## Links
+
+- [Homepage](https://getcandela.app/)
+- [Download the DMG](https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg)
+- [Source code and issues on GitHub](https://github.com/iamzifei/Candela)
+- [Releases and changelog](https://github.com/iamzifei/Candela/releases)
+- [Homebrew cask](https://github.com/iamzifei/homebrew-tap): `brew install --cask iamzifei/tap/candela`
+
+## Guides
+
+- [Candela vs BetterDisplay vs Lunar (2026)](https://getcandela.app/candela-vs-betterdisplay.html): Candela, BetterDisplay and Lunar compared: what each costs, what the free tiers hold back, and which fits HiDPI, DDC brightness and multi-monitor use.
+- [How to enable HiDPI on a Mac](https://getcandela.app/enable-hidpi-mac.html): What HiDPI scaling is, why macOS hides it on third-party monitors, and how to turn it on so a 1440p or 4K display renders text at Retina sharpness.
+- [Fix a blurry external monitor on macOS](https://getcandela.app/fix-blurry-external-monitor-macos.html): Text looks soft on your external display but sharp on the built-in screen. Why macOS does that on 1440p and 4K monitors, and four fixes that work.
+- [Brightness keys for an external monitor on Mac](https://getcandela.app/mac-brightness-keys-external-monitor.html): F1 and F2 do nothing when your Mac drives an external display. Why, how to make them control any monitor, and what to check when they still don't.
+- [Sync brightness across multiple monitors on Mac](https://getcandela.app/sync-brightness-multiple-monitors-mac.html): One slider for every display on your Mac, why the same percentage doesn't make two monitors match, and the one calibration that fixes it.
+
+## Other languages
+
+- [简体中文](https://getcandela.app/zh/)
+- [繁體中文](https://getcandela.app/zh-Hant/)
+- [日本語](https://getcandela.app/ja/)
+- [한국어](https://getcandela.app/ko/)
+- [Deutsch](https://getcandela.app/de/)
+- [Français](https://getcandela.app/fr/)
+- [Español](https://getcandela.app/es/)

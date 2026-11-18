@@ -1,6 +1,6 @@
 ---
 title: "Sync brightness across multiple monitors on Mac"
-description: "One slider for every display on your Mac — and why sending two monitors the same percentage does not make them look the same, plus the one calibration that fixes it."
+description: "One slider for every display on your Mac, why the same percentage doesn't make two monitors match, and the one calibration that fixes it."
 ---
 
 # Sync brightness across multiple monitors

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Candela — kostenlose Display-Steuerung für macOS</title>
-<meta name="description" content="Eine quelloffene macOS-Menüleisten-App für externe Monitore: HiDPI-Skalierung, DDC-Helligkeit, synchrone Helligkeit über mehrere Displays, Presets und virtuelle Bildschirme. Alles kostenlos, ohne Pro-Version.">
+<title>Candela — Helligkeit &amp; HiDPI für externe Monitore am Mac</title>
+<meta name="description" content="Kostenlose Open-Source-Menüleisten-App für externe Monitore am Mac: DDC-Helligkeit, Helligkeitstasten, HiDPI, synchrone Displays. Ohne Pro-Version.">
 <link rel="canonical" href="https://getcandela.app/de/">
 <link rel="alternate" hreflang="de" href="https://getcandela.app/de/">
 <link rel="alternate" hreflang="en" href="https://getcandela.app/">
@@ -16,29 +16,22 @@
 <link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/">
 <link rel="alternate" hreflang="x-default" href="https://getcandela.app/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Candela — kostenlose Display-Steuerung für macOS">
-<meta property="og:description" content="Eine quelloffene macOS-Menüleisten-App für externe Monitore: HiDPI-Skalierung, DDC-Helligkeit, synchrone Helligkeit über mehrere Displays, Presets und virtuelle Bildschirme. Alles kostenlos, ohne Pro-Version.">
+<meta property="og:title" content="Candela — Helligkeit &amp; HiDPI für externe Monitore am Mac">
+<meta property="og:description" content="Kostenlose Open-Source-Menüleisten-App für externe Monitore am Mac: DDC-Helligkeit, Helligkeitstasten, HiDPI, synchrone Displays. Ohne Pro-Version.">
 <meta property="og:url" content="https://getcandela.app/de/">
-<meta property="og:image" content="https://getcandela.app/og-card-zh.png">
+<meta property="og:image" content="https://getcandela.app/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Candela">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Candela — kostenlose Display-Steuerung für macOS">
-<meta name="twitter:description" content="Eine quelloffene macOS-Menüleisten-App für externe Monitore: HiDPI-Skalierung, DDC-Helligkeit, synchrone Helligkeit über mehrere Displays, Presets und virtuelle Bildschirme. Alles kostenlos, ohne Pro-Version.">
-<meta name="twitter:image" content="https://getcandela.app/og-card-zh.png">
+<meta name="twitter:creator" content="@JamesAI">
+<meta name="twitter:title" content="Candela — Helligkeit &amp; HiDPI für externe Monitore am Mac">
+<meta name="twitter:description" content="Kostenlose Open-Source-Menüleisten-App für externe Monitore am Mac: DDC-Helligkeit, Helligkeitstasten, HiDPI, synchrone Displays. Ohne Pro-Version.">
+<meta name="twitter:image" content="https://getcandela.app/og-card.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=ff38ea65">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
- "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
- "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
- "url":"https://getcandela.app/de/",
- "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
- "screenshot":"https://getcandela.app/shots/panel-root.webp",
- "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
- "isAccessibleForFree":true}
-</script>
+<link rel="stylesheet" href="../styles.css?v=df7acc7a">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Candela", "description": "Kostenlose Open-Source-Menüleisten-App für externe Monitore am Mac: DDC-Helligkeit, Helligkeitstasten, HiDPI, synchrone Displays. Ohne Pro-Version.", "url": "https://getcandela.app/de/", "inLanguage": "de", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 26.0 or later", "processorRequirements": "Apple silicon (arm64)", "softwareVersion": "0.3.0", "downloadUrl": "https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg", "installUrl": "https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg", "image": "https://getcandela.app/icon.png", "screenshot": "https://getcandela.app/shots/panel-root.webp", "softwareLicense": "https://github.com/iamzifei/Candela/blob/main/LICENSE", "codeRepository": "https://github.com/iamzifei/Candela", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "featureList": ["Hardware brightness over DDC/CI, with gamma dimming as a fallback", "Brightness keys that control external monitors", "HiDPI (2x) scaling on third-party displays", "One combined brightness slider with a per-display floor", "Presets, display arrangement, virtual displays and Sidecar"]}</script>
 
 
 </head>
@@ -63,13 +56,15 @@
 <div class="hero">
 
 <h1 id="jede-display-einstellung-die-macos-versteckt-in-einem-men-leisten-panel">Jede Display-Einstellung, die macOS versteckt, in einem Menüleisten-Panel</h1>
-<p>Alles, was macOS dem eingebauten Bildschirm vorbehält, zurückgegeben an jeden Monitor auf
+<p>Candela ist eine kostenlose Open-Source-Menüleisten-App für alle, die am Mac mit externen Monitoren arbeiten. Alles, was macOS dem eingebauten Bildschirm vorbehält, zurückgegeben an jeden Monitor auf
 Ihrem Schreibtisch — echte Helligkeit über DDC, scharfe HiDPI-Skalierung und
 Helligkeitstasten, die überall funktionieren.</p>
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Für macOS laden</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Auf Ko-fi unterstützen</a>
 </div>
+
+<div class="brew"><span class="brew-label">Oder mit Homebrew installieren</span><div class="brew-box"><code class="brew-cmd">brew install --cask iamzifei/tap/candela</code><button type="button" class="brew-copy" data-copy="brew install --cask iamzifei/tap/candela" data-label="Kopieren" data-copied="Kopiert" aria-label="Kopieren: brew install --cask iamzifei/tap/candela">Kopieren</button></div></div>
 
 <p class="note">macOS 26 · Apple Silicon · MIT-Lizenz · keine Pro-Version, kein Lizenzschlüssel</p>
 </div>
@@ -189,8 +184,8 @@ ist quelloffen und kostet 23 $ für eine lebenslange Lizenz, wobei die kostenlos
 
 <h2 id="zwei-wege">Zwei Wege</h2>
 <p>Laden Sie das DMG und ziehen Sie Candela in „Programme&quot;, oder nehmen Sie Homebrew:</p>
-<pre><code>brew install --cask iamzifei/tap/candela
-</code></pre>
+<div class="brew"><div class="brew-box"><code class="brew-cmd">brew install --cask iamzifei/tap/candela</code><button type="button" class="brew-copy" data-copy="brew install --cask iamzifei/tap/candela" data-label="Kopieren" data-copied="Kopiert" aria-label="Kopieren: brew install --cask iamzifei/tap/candela">Kopieren</button></div></div>
+
 <p>Candela ist mit einer Developer ID signiert und von Apple notarisiert und öffnet sich daher
 ohne Rechtsklick-Umweg.</p>
 <div class="sect-label">05 · Voraussetzungen</div>
@@ -204,10 +199,11 @@ Aktivieren der Funktion fragt</li>
 <li>Für Hardware-Helligkeit an einem externen Display: DDC/CI muss im OSD-Menü des Monitors
 aktiviert sein. Die meisten Monitore werden so ausgeliefert; einige wenige und manche
 USB-C-Docks reichen den Kanal nicht durch</li>
+<li>Aktuelle Version: Candela 0.3.0, ein kostenloser Download von etwa 5 MB unter MIT-Lizenz</li>
 </ul>
 <div class="sect-label">06 · Auch von mir</div>
 
-<h2 id="weitere-mac-apps">Weitere Mac-Apps von mir</h2>
+<h2 id="weitere-mac-apps-von-mir">Weitere Mac-Apps von mir</h2>
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
 <span class="sibling-text">
@@ -277,6 +273,36 @@ USB-C-Docks reichen den Kanal nicht durch</li>
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The Homebrew copy buttons. The clipboard API needs a secure context, which the
+// site is; the fallback selects the command so a manual Cmd-C still works.
+document.querySelectorAll('.brew-copy').forEach(function (btn) {
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function done() {
+      btn.textContent = btn.getAttribute('data-copied');
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+    function select() {
+      var code = btn.parentNode.querySelector('.brew-cmd');
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, select);
+    } else {
+      select();
+    }
   });
 });
 // The demo autoplays, because a silent hero loop that waits for a click is a hero

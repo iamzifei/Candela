@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import html
+import json
 import re
 import shutil
 import sys
@@ -47,12 +48,32 @@ CUSTOM_DOMAIN = re.match(r"https://([^/]+)$", SITE)
 REPO = "https://github.com/iamzifei/Candela"
 DOWNLOAD = f"{REPO}/releases/latest/download/Candela.dmg"
 KOFI = "https://ko-fi.com/james_ai/tip"
+# The Homebrew cask lives in the author's own tap. scripts/release.sh bumps its
+# version and checksum on every release, so this one command always installs the
+# current build.
+BREW = "brew install --cask iamzifei/tap/candela"
+
+# The version shown on the site and in the structured data is read from the same
+# line dev.sh reads, so the website cannot advertise a release the app does not
+# report itself as. Bumping MARKETING_VERSION and rebuilding updates both.
+_VERSION_LINE = re.search(r'^\s*MARKETING_VERSION:\s*"([^"]+)"',
+                          (Path(__file__).resolve().parent.parent / "project.yml")
+                          .read_text(encoding="utf-8"), re.M)
+VERSION = _VERSION_LINE.group(1) if _VERSION_LINE else ""
+
+# The sitemap's <lastmod>. A constant rather than today's date or a git timestamp,
+# because `build.py --check` must produce byte-identical output in CI; a value
+# computed at build time would differ between the commit and the check. Bump it
+# when the published content changes in a way worth a recrawl.
+LASTMOD = "2026-11-18"
 UPSTREAM = "https://github.com/didriksg/Crisp"
 # The other two menu bar apps. Someone who liked one is the likeliest person to want
 # another, so each of the three sites links to the other two.
 SIBLING = "https://audioswitch.dev"
 SIBLING_2 = "https://getclipstack.app"
 SIBLING_3 = "https://inkslab.app"
+VEIL = "https://jamesai.dev/veil/"
+TAPPER = "https://jamesai.dev/tapper/"
 
 # Language codes are BCP 47 because that is what hreflang takes; the directory for
 # the default language is the site root, so its URLs have no prefix at all.
@@ -87,6 +108,9 @@ UI = {
         "footer_fork": "Forked from Crisp, which is also MIT.",
         "toc": "On this page",
         "updated": "Updated",
+        "brew_label": "Or install with Homebrew",
+        "copy": "Copy",
+        "copied": "Copied",
     },
     "zh": {
         "download": "下载 macOS 版",
@@ -95,12 +119,16 @@ UI = {
         "nav_guides": "指南",
         "nav_github": "GitHub",
         "nav_sibling": "AudioSwitch",
+        "tapper": "敲黑板",
         "free": "免费且开源",
         "requires": "需要 macOS 26 · Apple 芯片",
         "footer_built": "Candela 是 MIT 许可下的自由软件。",
         "footer_fork": "Fork 自同为 MIT 许可的 Crisp。",
         "toc": "本页内容",
         "updated": "更新于",
+        "brew_label": "或者用 Homebrew 安装",
+        "copy": "复制",
+        "copied": "已复制",
     },
     "zh-Hant": {
         "download": "下載 macOS 版",
@@ -109,12 +137,16 @@ UI = {
         "nav_guides": "指南",
         "nav_github": "GitHub",
         "nav_sibling": "AudioSwitch",
+        "tapper": "敲黑板",
         "free": "免費且開源",
         "requires": "需要 macOS 26 · Apple 晶片",
         "footer_built": "Candela 是 MIT 授權下的自由軟體。",
         "footer_fork": "Fork 自同為 MIT 授權的 Crisp。",
         "toc": "本頁內容",
         "updated": "更新於",
+        "brew_label": "或者用 Homebrew 安裝",
+        "copy": "複製",
+        "copied": "已複製",
     },
     "ja": {
         "download": "macOS 版をダウンロード",
@@ -129,6 +161,9 @@ UI = {
         "footer_fork": "同じく MIT の Crisp からの派生です。",
         "toc": "このページの内容",
         "updated": "更新日",
+        "brew_label": "または Homebrew でインストール",
+        "copy": "コピー",
+        "copied": "コピーしました",
     },
     "ko": {
         "download": "macOS용 다운로드",
@@ -143,6 +178,9 @@ UI = {
         "footer_fork": "같은 MIT 라이선스의 Crisp에서 갈라져 나왔습니다.",
         "toc": "이 페이지의 내용",
         "updated": "업데이트",
+        "brew_label": "또는 Homebrew로 설치",
+        "copy": "복사",
+        "copied": "복사됨",
     },
     "de": {
         "download": "Für macOS laden",
@@ -157,6 +195,9 @@ UI = {
         "footer_fork": "Abgeleitet von Crisp, das ebenfalls MIT-lizenziert ist.",
         "toc": "Auf dieser Seite",
         "updated": "Aktualisiert",
+        "brew_label": "Oder mit Homebrew installieren",
+        "copy": "Kopieren",
+        "copied": "Kopiert",
     },
     "fr": {
         "download": "Télécharger pour macOS",
@@ -171,6 +212,9 @@ UI = {
         "footer_fork": "Dérivé de Crisp, également sous MIT.",
         "toc": "Sur cette page",
         "updated": "Mis à jour",
+        "brew_label": "Ou installer avec Homebrew",
+        "copy": "Copier",
+        "copied": "Copié",
     },
     "es": {
         "download": "Descargar para macOS",
@@ -185,6 +229,9 @@ UI = {
         "footer_fork": "Derivado de Crisp, también con licencia MIT.",
         "toc": "En esta página",
         "updated": "Actualizado",
+        "brew_label": "O instalar con Homebrew",
+        "copy": "Copiar",
+        "copied": "Copiado",
     },
 }
 
@@ -428,12 +475,110 @@ def css_version() -> str:
     return hashlib.sha256(data).hexdigest()[:8]
 
 
+def brew_html(page: Page, label: bool) -> str:
+    """The Homebrew install line: the command in a box with a copy button.
+
+    Generated rather than written into each Markdown file so the eight languages
+    share one markup and one command; only the label and button text are looked up
+    per language. The copy behaviour is wired up by the script at the end of the
+    page, which reads data-copy and swaps the button text for data-copied briefly.
+    """
+    t = UI[page.lang]
+    lead = f'<span class="brew-label">{t["brew_label"]}</span>' if label else ""
+    return (f'<div class="brew">{lead}<div class="brew-box">'
+            f'<code class="brew-cmd">{html.escape(BREW)}</code>'
+            f'<button type="button" class="brew-copy" data-copy="{html.escape(BREW)}"'
+            f' data-label="{t["copy"]}" data-copied="{t["copied"]}"'
+            f' aria-label="{t["copy"]}: {html.escape(BREW)}">{t["copy"]}</button>'
+            f'</div></div>')
+
+
+AUTHOR = {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}
+
+
+def structured_data(page: Page) -> str:
+    """JSON-LD for the page, built from the same values as the visible meta tags.
+
+    Serialised with json.dumps so it is always valid JSON — the hand-written blocks
+    this replaces were one stray comma away from being silently ignored. The home
+    page in every language describes the app; every other page is a guide.
+    """
+    m = page.meta
+    lang = LANGS[page.lang]["hreflang"]
+    if page.slug == "index":
+        data = {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Candela",
+            "description": m["description"],
+            "url": page.url,
+            "inLanguage": lang,
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "macOS 26.0 or later",
+            "processorRequirements": "Apple silicon (arm64)",
+            "softwareVersion": VERSION,
+            "downloadUrl": DOWNLOAD,
+            "installUrl": DOWNLOAD,
+            "image": f"{SITE}/icon.png",
+            "screenshot": f"{SITE}/shots/panel-root.webp",
+            "softwareLicense": f"{REPO}/blob/main/LICENSE",
+            "codeRepository": REPO,
+            "isAccessibleForFree": True,
+            "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+            "author": AUTHOR,
+            "featureList": [
+                "Hardware brightness over DDC/CI, with gamma dimming as a fallback",
+                "Brightness keys that control external monitors",
+                "HiDPI (2x) scaling on third-party displays",
+                "One combined brightness slider with a per-display floor",
+                "Presets, display arrangement, virtual displays and Sidecar",
+            ],
+        }
+    else:
+        data = {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "headline": m["title"],
+            "description": m["description"],
+            "url": page.url,
+            "inLanguage": lang,
+            "image": f"{SITE}/{og_image(page)}",
+            "author": AUTHOR,
+            "publisher": AUTHOR,
+            "about": {"@type": "SoftwareApplication", "name": "Candela",
+                      "url": f"{SITE}/", "operatingSystem": "macOS 26.0 or later"},
+        }
+    return ('<script type="application/ld+json">'
+            + json.dumps(data, ensure_ascii=False)
+            + "</script>")
+
+
+def og_image(page: Page) -> str:
+    # The Chinese card for the two Chinese pages; every other language gets the
+    # English one, which reads better to a German or Japanese visitor than Hanzi.
+    return page.meta.get("og", "og-card-zh.png" if page.lang in ("zh", "zh-Hant")
+                         else "og-card.png")
+
+
+def page_title(page: Page) -> str:
+    """The <title>: front matter as written, plus the brand on guide pages.
+
+    A guide's title is a question someone searches for; adding "| Candela" tells
+    them whose answer it is. Skipped when it would push past 60 characters, where
+    search results start cutting titles off.
+    """
+    title = page.meta["title"]
+    if "Candela" not in title and len(title) + len(" | Candela") <= 60:
+        title += " | Candela"
+    return title
+
+
 def head(page: Page, by_slug: dict) -> str:
     m = page.meta
     up = "../" if page.depth else ""
-    title = html.escape(m["title"])
+    title = html.escape(page_title(page))
     desc = html.escape(m["description"])
-    og = m.get("og", "og-card.png" if page.lang == "en" else "og-card-zh.png")
+    og = og_image(page)
     alts = "\n".join(
         f'<link rel="alternate" hreflang="{LANGS[l]["hreflang"]}" href="{p.url}">'
         for (l, s), p in sorted(by_slug.items()) if s == page.slug
@@ -444,7 +589,7 @@ def head(page: Page, by_slug: dict) -> str:
     # carried a literal zifei.info address, which a change of domain would have
     # left pointing at the old site while every other tag moved. {{SITE}} is
     # substituted here so the structured data cannot disagree with the canonical.
-    schema = m.get("schema", "").replace("{{SITE}}", SITE)
+    schema = structured_data(page) + "\n" + m.get("schema", "").replace("{{SITE}}", SITE)
     return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
@@ -460,7 +605,9 @@ def head(page: Page, by_slug: dict) -> str:
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="{LANGS[page.lang]['locale']}">
+<meta property="og:site_name" content="Candela">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@JamesAI">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{SITE}/{og}">
@@ -503,7 +650,13 @@ ROW_FIGURE = re.compile(r'(<figure class="row-figure">\s*<img )')
 
 def render(page: Page, by_slug: dict) -> str:
     t = UI[page.lang]
-    body = make_markdown(page.depth)(page.body_md)
+    # Placeholders the Markdown can use, each on a line of its own so it renders
+    # as an HTML block rather than inside a paragraph.
+    md_src = (page.body_md
+              .replace("{{BREW}}", brew_html(page, label=True))
+              .replace("{{BREW_BOX}}", brew_html(page, label=False))
+              .replace("{{VERSION}}", VERSION))
+    body = make_markdown(page.depth)(md_src)
     # Mark the row images so add_srcset can tell them apart; the class lives on the
     # figure, and a regex over <img> alone cannot see its parent.
     body = ROW_FIGURE.sub(r'\1data-row="1" ', body)
@@ -527,6 +680,36 @@ def render(page: Page, by_slug: dict) -> str:
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The Homebrew copy buttons. The clipboard API needs a secure context, which the
+// site is; the fallback selects the command so a manual Cmd-C still works.
+document.querySelectorAll('.brew-copy').forEach(function (btn) {
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function done() {
+      btn.textContent = btn.getAttribute('data-copied');
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+    function select() {
+      var code = btn.parentNode.querySelector('.brew-cmd');
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, select);
+    } else {
+      select();
+    }
   });
 });
 // The demo autoplays, because a silent hero loop that waits for a click is a hero
@@ -566,6 +749,8 @@ document.querySelectorAll('a.lang').forEach(function (a) {
     <a href="{SIBLING}" rel="noopener">{t['nav_sibling']}</a>
     <a href="{SIBLING_2}" rel="noopener">ClipStack</a>
     <a href="{SIBLING_3}" rel="noopener">Inkstone</a>
+    <a href="{VEIL}" rel="noopener">Veil</a>
+    <a href="{TAPPER}" rel="noopener">{t.get('tapper', 'Tapper')}</a>
     <a href="{KOFI}" rel="noopener">Ko-fi</a>
   </nav>
   {lang_picker(page, by_slug, "footer-langs")}
@@ -581,11 +766,99 @@ document.querySelectorAll('a.lang').forEach(function (a) {
 
 
 def sitemap(pages: list[Page]) -> str:
-    entries = "\n".join(
-        f"  <url><loc>{p.url}</loc><changefreq>monthly</changefreq></url>"
-        for p in sorted(pages, key=lambda p: p.url)
-    )
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n'
+    """Every page, each listing its translations as hreflang alternates.
+
+    The same alternates are in each page's <head>; repeating them here lets a
+    crawler learn the language set without fetching every page first.
+    """
+    by_slug: dict[str, list[Page]] = {}
+    for p in pages:
+        by_slug.setdefault(p.slug, []).append(p)
+    entries = []
+    for p in sorted(pages, key=lambda p: p.url):
+        group = sorted(by_slug[p.slug], key=lambda q: q.url)
+        default = next((q for q in group if q.lang == DEFAULT_LANG), p)
+        links = "".join(
+            f'\n    <xhtml:link rel="alternate" hreflang="{LANGS[q.lang]["hreflang"]}" href="{q.url}"/>'
+            for q in group)
+        links += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{default.url}"/>'
+        entries.append(f"  <url>\n    <loc>{p.url}</loc>\n    <lastmod>{LASTMOD}</lastmod>"
+                       f"\n    <changefreq>monthly</changefreq>{links}\n  </url>")
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+            ' xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+            + "\n".join(entries) + "\n</urlset>\n")
+
+
+# Crawlers named explicitly as well as covered by `*`. Several AI crawlers treat
+# an explicit Allow as the opt-in signal, and naming them documents the intent:
+# this site wants to be quoted.
+CRAWLERS = ("Googlebot", "Bingbot", "GPTBot", "OAI-SearchBot", "ChatGPT-User",
+            "ClaudeBot", "Claude-SearchBot", "anthropic-ai", "PerplexityBot",
+            "Google-Extended", "Applebot", "CCBot")
+
+
+def robots() -> str:
+    named = "".join(f"User-agent: {c}\nAllow: /\n\n" for c in CRAWLERS)
+    return f"User-agent: *\nAllow: /\n\n{named}Sitemap: {SITE}/sitemap.xml\n"
+
+
+def llms_txt(pages: list[Page]) -> str:
+    """/llms.txt in the llmstxt.org format: a plain summary an AI engine can quote.
+
+    Every sentence here is checkable against the app: the requirements come from
+    project.yml and the release script, the price from there being no paid tier.
+    """
+    guides = sorted((p for p in pages if p.lang == DEFAULT_LANG and p.slug != "index"),
+                    key=lambda p: p.slug)
+    guide_lines = "\n".join(f"- [{p.meta['title']}]({p.url}): {p.meta['description']}"
+                             for p in guides)
+    langs = "\n".join(f"- [{LANGS[p.lang]['label']}]({p.url})"
+                       for p in sorted(pages, key=lambda p: list(LANGS).index(p.lang))
+                       if p.slug == "index" and p.lang != DEFAULT_LANG)
+    return f"""# Candela
+
+> Candela is a free, open-source macOS menu bar app that gives external monitors the controls macOS keeps for the built-in screen: hardware brightness over DDC/CI, brightness keys on any display, sharp HiDPI scaling, and one slider for every display.
+
+Candela is for Mac users who work with one or more external monitors. It is free, has no Pro tier, licence key or usage limit, and is released under the MIT licence. It is a fork of Crisp (also MIT) by didriksg.
+
+Facts:
+- Current version: {VERSION}
+- Requires macOS 26 or later on Apple silicon (arm64 only; there is no Intel build)
+- Price: free (USD 0); optional tips on Ko-fi
+- Licence: MIT; source code on GitHub
+- Signed with a Developer ID and notarised by Apple
+- Install: download the DMG, or run `{BREW}`
+- Author: James (GitHub iamzifei, X @JamesAI)
+
+Features:
+- Brightness over DDC/CI, the same channel a monitor's own buttons use; displays that refuse DDC fall back to gamma dimming, marked "Software"
+- Volume control on monitors that support it over DDC
+- Brightness keys (F1/F2) that follow the pointer, drive every display, drive all as one, or drive only chosen displays; needs one Accessibility permission
+- HiDPI (2x-rendered) modes on third-party 1440p and 4K monitors, with refresh rate on the same page
+- A combined brightness slider with a per-display floor calibrated by eye
+- Presets that save resolutions, brightness and arrangement; display arrangement; virtual displays; Sidecar
+
+Hardware brightness needs DDC/CI enabled in the monitor's on-screen menu; most monitors ship with it on, but some monitors and USB-C docks do not pass it through.
+
+Compared with alternatives: BetterDisplay has a free tier and keeps flexible HiDPI scaling, virtual screens and some other features for its paid Pro version; Lunar's free build limits daily brightness adjustments. Candela includes every feature for free.
+
+## Links
+
+- [Homepage]({SITE}/)
+- [Download the DMG]({DOWNLOAD})
+- [Source code and issues on GitHub]({REPO})
+- [Releases and changelog]({REPO}/releases)
+- [Homebrew cask](https://github.com/iamzifei/homebrew-tap): `{BREW}`
+
+## Guides
+
+{guide_lines}
+
+## Other languages
+
+{langs}
+"""
 
 
 def build(out: Path) -> None:
@@ -610,7 +883,7 @@ def build(out: Path) -> None:
     # scripts/capture-screenshots.sh. Copying rather than symlinking, because
     # GitHub Pages serves the tree as-is and does not follow links.
     shutil.copyfile(ROOT / "site" / "styles.css", out / "styles.css")
-    for asset in ("icon.png", "og-card.png", "og-card-zh.png", "download-macos.png", "audioswitch.png", "clipstack.png"):
+    for asset in ("icon.png", "og-card.png", "og-card-zh.png", "download-macos.png", "audioswitch.png", "clipstack.png", "inkstone.png", "veil.png", "tapper.png"):
         src = OUT / asset
         if src.exists() and out != OUT:
             shutil.copyfile(src, out / asset)
@@ -629,8 +902,8 @@ def build(out: Path) -> None:
             shutil.copyfile(src, video_out / name)
 
     (out / "sitemap.xml").write_text(sitemap(pages), encoding="utf-8")
-    (out / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
+    (out / "robots.txt").write_text(robots(), encoding="utf-8")
+    (out / "llms.txt").write_text(llms_txt(pages), encoding="utf-8")
     # GitHub Pages runs Jekyll by default, which ignores files starting with an
     # underscore and can rewrite things unpredictably. This turns it off.
     (out / ".nojekyll").write_text("", encoding="utf-8")

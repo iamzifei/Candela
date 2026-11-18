@@ -1,17 +1,7 @@
 ---
-title: "Candela — free display control for macOS"
-description: "A free, open-source menu bar app for external monitors on macOS: HiDPI scaling, DDC brightness, synced brightness across displays, presets and virtual displays. No Pro tier."
+title: "Candela — Free External Monitor Brightness & HiDPI for Mac"
+description: "Free, open-source Mac menu bar app for external monitors: DDC brightness, brightness keys, sharp HiDPI and synced displays. No Pro tier. Download free."
 schema: |
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
-   "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
-   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"{{SITE}}/",
-   "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"{{SITE}}/shots/panel-root.webp",
-   "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
-   "isAccessibleForFree":true}
-  </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"VideoObject",
    "name":"Candela — a sixty-second tour",
@@ -24,16 +14,18 @@ schema: |
 
 <div class="hero">
 
-# Every display control macOS hides, in one menu bar panel
+# Every external-monitor control macOS hides, in one menu bar panel
 
-Everything macOS keeps for the built-in screen, given back to every monitor on your
-desk — real brightness over DDC, sharp HiDPI scaling, and brightness keys that work
-anywhere.
+Candela is a free, open-source menu bar app for Mac users with external monitors.
+It gives every monitor on your desk what macOS keeps for the built-in screen — real
+brightness over DDC, sharp HiDPI scaling, and brightness keys that work anywhere.
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Download for macOS</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Support on Ko-fi</a>
 </div>
+
+{{BREW}}
 
 <p class="note">macOS 26 · Apple silicon · MIT licence · no Pro tier, no licence key</p>
 </div>
@@ -150,9 +142,7 @@ day. Both are good software. Candela's answer to "which features do I get" is si
 
 Download the DMG and drag Candela to Applications, or use Homebrew:
 
-```
-brew install --cask iamzifei/tap/candela
-```
+{{BREW_BOX}}
 
 Candela is signed with a Developer ID and notarised by Apple, so it opens without
 right-click warnings.
@@ -168,10 +158,11 @@ right-click warnings.
 - For hardware brightness on an external display: DDC/CI enabled in the monitor's own
   on-screen menu. Most monitors ship with it on; a few, and some USB-C docks, do not
   pass it through
+- Current version: Candela {{VERSION}}, a free download of about 5 MB under the MIT licence
 
 <div class="sect-label">06 · Also from me</div>
 
-## The other two menu bar apps
+## More Mac apps from me
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
@@ -187,6 +178,33 @@ right-click warnings.
 <span class="sibling-text">
 <span class="sibling-name">ClipStack</span>
 <span class="sibling-desc">Every clipboard entry kept and searchable, a ⇧⌘V away — text, images and files, with the ones you keep reaching for pinned. Nothing leaves the Mac. Free, MIT, Apple silicon.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://inkslab.app" rel="noopener">
+<img src="inkstone.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Inkstone</span>
+<span class="sibling-desc">Markdown notes that stay plain files in a folder you choose — wikilinks, a graph and a canvas.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/veil/" rel="noopener">
+<img src="veil.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Veil</span>
+<span class="sibling-desc">Keeps the window you're working in sharp and softly blurs everything behind it. Free, MIT.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/tapper/" rel="noopener">
+<img src="tapper.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Tapper</span>
+<span class="sibling-desc">Turns your pointer into a cartoon glove on a long stick, for demos and screen recordings. Free, MIT.</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

@@ -1,30 +1,21 @@
 ---
-title: "Candela — macOS のディスプレイ設定を無料で取り戻す"
-description: "外部モニタのための macOS メニューバーアプリ（オープンソース）: くっきりした HiDPI スケーリング、DDC によるハードウェア輝度、複数ディスプレイの輝度同期、プリセットと仮想ディスプレイ。すべて無料で、Pro 版はありません。"
-schema: |
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
-   "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
-   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"{{SITE}}/ja/",
-   "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"{{SITE}}/shots/panel-root.webp",
-   "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
-   "isAccessibleForFree":true}
-  </script>
+title: "Candela — Mac の外部モニタ輝度調整と HiDPI を無料で"
+description: "外部モニタ向けの無料・オープンソースの Mac メニューバーアプリ。DDC による輝度調整、どの画面でも効く輝度キー、くっきりした HiDPI、複数画面の輝度同期。Pro 版はありません。"
 ---
 
 <div class="hero">
 
 # macOS が隠しているディスプレイ設定を、1 つのメニューバーパネルに
 
-macOS が内蔵ディスプレイのためだけに残している機能を、机の上のすべてのモニタへ —— DDC による
+Candela は、外部モニタをつないで Mac を使う人のための、無料でオープンソースのメニューバーアプリです。macOS が内蔵ディスプレイのためだけに残している機能を、机の上のすべてのモニタへ —— DDC による
 実際の輝度調整、くっきりした HiDPI スケーリング、そしてどこでも効く輝度キー。
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">macOS 版をダウンロード</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Ko-fi で支援</a>
 </div>
+
+{{BREW}}
 
 <p class="note">macOS 26 · Apple シリコン · MIT ライセンス · Pro 版なし、ライセンスキーなし</p>
 </div>
@@ -142,9 +133,7 @@ Pro 版もライセンスキーも 1 日あたりの回数制限もなく、出�
 
 DMG をダウンロードして Candela を「アプリケーション」にドラッグするか、Homebrew を使います:
 
-```
-brew install --cask iamzifei/tap/candela
-```
+{{BREW_BOX}}
 
 Candela は Developer ID で署名され Apple の公証を受けているので、右クリックでの回避操作なしに開きます。
 
@@ -157,10 +146,11 @@ Candela は Developer ID で署名され Apple の公証を受けているので
 - 輝度キーには「アクセシビリティ」の許可が 1 つ必要です。機能を初めて有効にするときに macOS が尋ねます
 - 外部ディスプレイのハードウェア輝度には、モニタ側の OSD メニューで DDC/CI が有効になっている
   必要があります。多くのモニタは初期状態で有効ですが、一部の機種や USB-C ドックは通しません
+- 現行バージョンは Candela {{VERSION}}。無料ダウンロード（約 5 MB）、MIT ライセンス
 
-<div class="sect-label">06 · 私のもう 2 つのアプリ</div>
+<div class="sect-label">06 · 私のほかのアプリ</div>
 
-## 同じメニューバーのもう 2 つ
+## ほかの Mac アプリ
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
@@ -176,6 +166,33 @@ Candela は Developer ID で署名され Apple の公証を受けているので
 <span class="sibling-text">
 <span class="sibling-name">ClipStack</span>
 <span class="sibling-desc">コピーしたものはすべて残ります。⇧⌘V で開く検索可能なクリップボード履歴 —— テキストも画像もファイルも、よく使うものはピン留めできます。Mac の外には出ません。無料、MIT、Apple シリコンネイティブ。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://inkslab.app" rel="noopener">
+<img src="../inkstone.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Inkstone</span>
+<span class="sibling-desc">ノートは自分で選んだフォルダの素の Markdown のまま。ウィキリンク、グラフ、キャンバス。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/veil/" rel="noopener">
+<img src="../veil.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Veil</span>
+<span class="sibling-desc">作業中のウィンドウだけをくっきり残し、背後をやわらかくぼかします。無料・MIT。</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/tapper/" rel="noopener">
+<img src="../tapper.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Tapper</span>
+<span class="sibling-desc">マウスポインタを長い棒の先のマンガ風グローブに。デモや画面収録で、指す場所がひと目でわかります。無料・MIT。</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

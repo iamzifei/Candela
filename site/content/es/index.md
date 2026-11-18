@@ -1,30 +1,21 @@
 ---
-title: "Candela — control de pantalla gratuito para macOS"
-description: "Una app de código abierto para la barra de menús de macOS pensada para monitores externos: escalado HiDPI, brillo por DDC, brillo sincronizado entre pantallas, ajustes guardados y pantallas virtuales. Todo gratis, sin versión Pro."
-schema: |
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
-   "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
-   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"{{SITE}}/es/",
-   "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"{{SITE}}/shots/panel-root.webp",
-   "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
-   "isAccessibleForFree":true}
-  </script>
+title: "Candela — brillo y HiDPI para monitores externos en Mac"
+description: "App gratuita y de código abierto para monitores externos en Mac: brillo por DDC, teclas de brillo, HiDPI nítido y pantallas sincronizadas. Sin versión Pro."
 ---
 
 <div class="hero">
 
 # Todos los controles de pantalla que macOS esconde, en un panel de la barra de menús
 
-Todo lo que macOS reserva para la pantalla integrada, devuelto a cada monitor de tu escritorio
+Candela es una app gratuita y de código abierto para la barra de menús, pensada para quien usa monitores externos con su Mac. Todo lo que macOS reserva para la pantalla integrada, devuelto a cada monitor de tu escritorio
 — brillo real por DDC, escalado HiDPI nítido y teclas de brillo que funcionan en cualquier parte.
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">Descargar para macOS</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Apoyar en Ko-fi</a>
 </div>
+
+{{BREW}}
 
 <p class="note">macOS 26 · Apple silicon · licencia MIT · sin versión Pro, sin clave de licencia</p>
 </div>
@@ -144,9 +135,7 @@ Estas guías están por ahora en inglés y en chino simplificado:
 
 Descarga el DMG y arrastra Candela a Aplicaciones, o usa Homebrew:
 
-```
-brew install --cask iamzifei/tap/candela
-```
+{{BREW_BOX}}
 
 Candela está firmada con un Developer ID y notarizada por Apple, así que se abre sin avisos ni
 clic derecho.
@@ -162,10 +151,11 @@ clic derecho.
 - Para el brillo por hardware en una pantalla externa: DDC/CI activado en el menú en pantalla
   del propio monitor. La mayoría vienen con él activado; unos pocos, y algunos docks USB-C, no
   lo dejan pasar
+- Versión actual: Candela {{VERSION}}, una descarga gratuita de unos 5 MB con licencia MIT
 
 <div class="sect-label">06 · También mío</div>
 
-## Las otras dos apps de la barra de menús
+## Otras apps para Mac
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
@@ -181,6 +171,33 @@ clic derecho.
 <span class="sibling-text">
 <span class="sibling-name">ClipStack</span>
 <span class="sibling-desc">Todo lo que copiaste se conserva y se busca, en ⇧⌘V — texto, imágenes y archivos, con lo habitual fijado. Nada sale del Mac. Gratis, MIT, Apple silicon.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://inkslab.app" rel="noopener">
+<img src="../inkstone.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Inkstone</span>
+<span class="sibling-desc">Notas que siguen siendo archivos Markdown: wikienlaces, grafo y lienzo.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/veil/" rel="noopener">
+<img src="../veil.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Veil</span>
+<span class="sibling-desc">Mantiene nítida la ventana en la que trabajas y difumina suavemente todo lo demás. Gratis, MIT.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/tapper/" rel="noopener">
+<img src="../tapper.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Tapper</span>
+<span class="sibling-desc">Convierte tu puntero en un guante de dibujos animados en un palo largo, para demos y grabaciones de pantalla. Gratis, MIT.</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>

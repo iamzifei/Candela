@@ -317,6 +317,10 @@ pre {
   line-height: 1.5;
 }
 pre code { background: none; border: 0; padding: 0; }
+/* A long path in running text, like /Library/Displays/Contents/Resources/Overrides,
+   has no break opportunity and pushed the HiDPI guide 34px wider than a phone.
+   Inline code may break anywhere; code blocks keep scrolling instead. */
+:not(pre) > code { overflow-wrap: anywhere; }
 
 hr {
   border: 0;
@@ -431,7 +435,63 @@ tbody tr:last-child td { border-bottom: 1px solid var(--border); }
 .hero .actions .btn-dl:hover { background: var(--blue-light); }
 .hero .actions .btn-kofi { color: var(--ink-3); border: 1px solid var(--border); }
 .hero .actions .btn-kofi:hover { background: var(--sand); color: var(--ink); }
-.hero .note { font-size: 12px; color: var(--ink-4); margin: 0; }
+.hero .note { font-size: 12px; color: var(--ink-4); margin: 0 auto; }
+
+/* ---------- the Homebrew line ---------- */
+
+/* The second way to install, set as a quiet line under the buttons rather than a
+   third button: the DMG stays the obvious action. The command sits in its own box
+   so a long command scrolls inside the box on a phone instead of widening the page,
+   and the copy button is a full 44px target. */
+.brew { margin: 0 0 var(--s4); }
+.brew-label {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-4);
+  margin-bottom: var(--s2);
+}
+.brew-box {
+  display: flex;
+  align-items: stretch;
+  max-width: 30rem;
+  background: var(--ivory);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: left;
+}
+.hero .brew-box { margin-inline: auto; }
+.brew-box .brew-cmd {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0 var(--s4);
+  font-size: 13px;
+  line-height: 44px;
+  color: var(--ink-2);
+}
+.brew-copy {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--s4);
+  border: 0;
+  border-left: 1px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: none;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.brew-copy:hover { background: var(--sand); color: var(--ink); }
+.brew-copy:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+.brew-copy.is-copied { color: var(--good); }
+.wrap > .brew { margin: 0 0 var(--s5); }
 
 /* ---------- the film ---------- */
 

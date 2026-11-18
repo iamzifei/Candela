@@ -1,21 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://getcandela.app/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/candela-vs-betterdisplay.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/de/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/enable-hidpi-mac.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/es/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/fix-blurry-external-monitor-macos.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/fr/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/ja/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/ko/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/mac-brightness-keys-external-monitor.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/sync-brightness-multiple-monitors-mac.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh-Hant/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh/</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh/candela-vs-betterdisplay.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh/enable-hidpi-mac.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh/fix-blurry-external-monitor-macos.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh/mac-brightness-keys-external-monitor.html</loc><changefreq>monthly</changefreq></url>
-  <url><loc>https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html</loc><changefreq>monthly</changefreq></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://getcandela.app/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/candela-vs-betterdisplay.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/candela-vs-betterdisplay.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/candela-vs-betterdisplay.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/candela-vs-betterdisplay.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/de/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/enable-hidpi-mac.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/enable-hidpi-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/enable-hidpi-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/enable-hidpi-mac.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/es/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/fix-blurry-external-monitor-macos.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/fix-blurry-external-monitor-macos.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/fix-blurry-external-monitor-macos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/fix-blurry-external-monitor-macos.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/fr/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/ja/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/ko/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/mac-brightness-keys-external-monitor.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/mac-brightness-keys-external-monitor.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/mac-brightness-keys-external-monitor.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/mac-brightness-keys-external-monitor.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/sync-brightness-multiple-monitors-mac.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/sync-brightness-multiple-monitors-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/sync-brightness-multiple-monitors-mac.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh-Hant/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://getcandela.app/de/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://getcandela.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://getcandela.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://getcandela.app/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://getcandela.app/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://getcandela.app/zh-Hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh/candela-vs-betterdisplay.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/candela-vs-betterdisplay.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/candela-vs-betterdisplay.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/candela-vs-betterdisplay.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh/enable-hidpi-mac.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/enable-hidpi-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/enable-hidpi-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/enable-hidpi-mac.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh/fix-blurry-external-monitor-macos.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/fix-blurry-external-monitor-macos.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/fix-blurry-external-monitor-macos.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/fix-blurry-external-monitor-macos.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh/mac-brightness-keys-external-monitor.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/mac-brightness-keys-external-monitor.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/mac-brightness-keys-external-monitor.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/mac-brightness-keys-external-monitor.html"/>
+  </url>
+  <url>
+    <loc>https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://getcandela.app/sync-brightness-multiple-monitors-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/sync-brightness-multiple-monitors-mac.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://getcandela.app/sync-brightness-multiple-monitors-mac.html"/>
+  </url>
 </urlset>

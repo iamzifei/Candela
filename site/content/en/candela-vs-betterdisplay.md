@@ -1,6 +1,6 @@
 ---
 title: "Candela vs BetterDisplay vs Lunar (2026)"
-description: "An honest comparison of three macOS display utilities: what each one costs, what the free tiers hold back, and which is the right fit for HiDPI scaling, DDC brightness and multi-monitor setups."
+description: "Candela, BetterDisplay and Lunar compared: what each costs, what the free tiers hold back, and which fits HiDPI, DDC brightness and multi-monitor use."
 ---
 
 # Candela vs BetterDisplay vs Lunar

@@ -1,6 +1,6 @@
 ---
 title: "Brightness keys for an external monitor on Mac"
-description: "F1 and F2 do nothing when your Mac is driving an external display. Here is why, how to make them control any monitor, and what to do when the keys still will not respond."
+description: "F1 and F2 do nothing when your Mac drives an external display. Why, how to make them control any monitor, and what to check when they still don't."
 ---
 
 # Make the brightness keys work on an external monitor

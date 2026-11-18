@@ -3,26 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mac 如何开启 HiDPI</title>
+<title>Mac 如何开启 HiDPI | Candela</title>
 <meta name="description" content="HiDPI 缩放到底是什么、macOS 为什么对第三方显示器隐藏它，以及怎么打开它让 1440p 或 4K 显示器达到 Retina 级的文字锐度。">
 <link rel="canonical" href="https://getcandela.app/zh/enable-hidpi-mac.html">
 <link rel="alternate" hreflang="en" href="https://getcandela.app/enable-hidpi-mac.html">
 <link rel="alternate" hreflang="zh-Hans" href="https://getcandela.app/zh/enable-hidpi-mac.html">
 <link rel="alternate" hreflang="x-default" href="https://getcandela.app/enable-hidpi-mac.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mac 如何开启 HiDPI">
+<meta property="og:title" content="Mac 如何开启 HiDPI | Candela">
 <meta property="og:description" content="HiDPI 缩放到底是什么、macOS 为什么对第三方显示器隐藏它，以及怎么打开它让 1440p 或 4K 显示器达到 Retina 级的文字锐度。">
 <meta property="og:url" content="https://getcandela.app/zh/enable-hidpi-mac.html">
 <meta property="og:image" content="https://getcandela.app/og-card-zh.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="Candela">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mac 如何开启 HiDPI">
+<meta name="twitter:creator" content="@JamesAI">
+<meta name="twitter:title" content="Mac 如何开启 HiDPI | Candela">
 <meta name="twitter:description" content="HiDPI 缩放到底是什么、macOS 为什么对第三方显示器隐藏它，以及怎么打开它让 1440p 或 4K 显示器达到 Retina 级的文字锐度。">
 <meta name="twitter:image" content="https://getcandela.app/og-card-zh.png">
 <link rel="icon" href="../icon.png">
-<link rel="stylesheet" href="../styles.css?v=ff38ea65">
+<link rel="stylesheet" href="../styles.css?v=df7acc7a">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Mac 如何开启 HiDPI", "description": "HiDPI 缩放到底是什么、macOS 为什么对第三方显示器隐藏它，以及怎么打开它让 1440p 或 4K 显示器达到 Retina 级的文字锐度。", "url": "https://getcandela.app/zh/enable-hidpi-mac.html", "inLanguage": "zh-Hans", "image": "https://getcandela.app/og-card-zh.png", "author": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "publisher": {"@type": "Person", "name": "James", "url": "https://github.com/iamzifei"}, "about": {"@type": "SoftwareApplication", "name": "Candela", "url": "https://getcandela.app/", "operatingSystem": "macOS 26.0 or later"}}</script>
 
 
 </head>
@@ -155,6 +158,36 @@ macOS 会悄悄降到更低的刷新率。改完分辨率后，回头确认一�
 document.querySelectorAll('a.lang').forEach(function (a) {
   a.addEventListener('click', function () {
     try { localStorage.setItem('candela-lang', a.getAttribute('hreflang')); } catch (e) {}
+  });
+});
+// The Homebrew copy buttons. The clipboard API needs a secure context, which the
+// site is; the fallback selects the command so a manual Cmd-C still works.
+document.querySelectorAll('.brew-copy').forEach(function (btn) {
+  var timer;
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function done() {
+      btn.textContent = btn.getAttribute('data-copied');
+      btn.classList.add('is-copied');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+    function select() {
+      var code = btn.parentNode.querySelector('.brew-cmd');
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, select);
+    } else {
+      select();
+    }
   });
 });
 // The demo autoplays, because a silent hero loop that waits for a click is a hero

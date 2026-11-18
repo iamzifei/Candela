@@ -1,30 +1,21 @@
 ---
-title: "Candela — macOS를 위한 무료 디스플레이 제어"
-description: "외장 모니터를 위한 오픈 소스 macOS 메뉴 막대 앱: 또렷한 HiDPI 스케일링, DDC 하드웨어 밝기, 여러 디스플레이 밝기 동기화, 프리셋과 가상 디스플레이. 전부 무료이며 Pro 등급이 없습니다."
-schema: |
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Candela",
-   "operatingSystem":"macOS 26","applicationCategory":"UtilitiesApplication",
-   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-   "url":"{{SITE}}/ko/",
-   "downloadUrl":"https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg",
-   "screenshot":"{{SITE}}/shots/panel-root.webp",
-   "softwareLicense":"https://github.com/iamzifei/Candela/blob/main/LICENSE",
-   "isAccessibleForFree":true}
-  </script>
+title: "Candela — Mac 외장 모니터 밝기 조절과 HiDPI, 무료"
+description: "외장 모니터를 위한 무료 오픈 소스 Mac 메뉴 막대 앱. DDC 밝기 조절, 어느 화면에서나 작동하는 밝기 키, 또렷한 HiDPI, 여러 화면 밝기 동기화. Pro 등급이 없습니다."
 ---
 
 <div class="hero">
 
 # macOS가 숨겨 둔 디스플레이 제어를, 메뉴 막대 패널 하나에
 
-macOS가 내장 화면에만 남겨 둔 기능을 책상 위 모든 모니터로 —— DDC를 통한 실제 밝기 조절,
+Candela는 외장 모니터를 쓰는 Mac 사용자를 위한 무료 오픈 소스 메뉴 막대 앱입니다. macOS가 내장 화면에만 남겨 둔 기능을 책상 위 모든 모니터로 —— DDC를 통한 실제 밝기 조절,
 또렷한 HiDPI 스케일링, 그리고 어디서나 작동하는 밝기 키.
 
 <div class="actions">
 <a class="btn btn-dl" href="https://github.com/iamzifei/Candela/releases/latest/download/Candela.dmg">macOS용 다운로드</a>
 <a class="btn btn-kofi" href="https://ko-fi.com/james_ai/tip" rel="noopener">Ko-fi에서 후원</a>
 </div>
+
+{{BREW}}
 
 <p class="note">macOS 26 · Apple 실리콘 · MIT 라이선스 · Pro 등급도, 라이선스 키도 없음</p>
 </div>
@@ -140,9 +131,7 @@ Pro 등급도, 라이선스 키도, 하루 사용 제한도, 잠가 둔 기능�
 
 DMG를 내려받아 Candela를 응용 프로그램으로 끌어다 놓거나 Homebrew를 씁니다:
 
-```
-brew install --cask iamzifei/tap/candela
-```
+{{BREW_BOX}}
 
 Candela는 Developer ID로 서명되고 Apple의 공증을 받았기 때문에 오른쪽 클릭으로 우회할 필요 없이 열립니다.
 
@@ -155,10 +144,11 @@ Candela는 Developer ID로 서명되고 Apple의 공증을 받았기 때문에 �
 - 밝기 키에는 손쉬운 사용 권한 하나가 필요하며, 기능을 처음 켤 때 macOS가 묻습니다
 - 외장 디스플레이의 하드웨어 밝기에는 모니터 자체 OSD 메뉴에서 DDC/CI가 켜져 있어야 합니다.
   대부분의 모니터는 기본으로 켜져 있지만, 일부 기종과 일부 USB-C 독은 이 채널을 전달하지 않습니다
+- 현재 버전 Candela {{VERSION}}: 무료 다운로드(약 5MB), MIT 라이선스
 
-<div class="sect-label">06 · 제가 만든 다른 두 앱</div>
+<div class="sect-label">06 · 제가 만든 다른 앱</div>
 
-## 같은 메뉴 막대의 다른 두 앱
+## 제가 만든 다른 Mac 앱
 
 <a class="sibling" href="https://audioswitch.dev" rel="noopener">
 <img src="../audioswitch.png" width="44" height="44" alt="" loading="lazy" decoding="async">
@@ -174,6 +164,33 @@ Candela는 Developer ID로 서명되고 Apple의 공증을 받았기 때문에 �
 <span class="sibling-text">
 <span class="sibling-name">ClipStack</span>
 <span class="sibling-desc">복사한 것은 모두 남습니다. ⇧⌘V로 여는 검색 가능한 클립보드 기록 —— 텍스트, 이미지, 파일, 자주 쓰는 항목은 고정. 아무것도 Mac을 떠나지 않습니다. 무료, MIT, Apple 실리콘 네이티브.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://inkslab.app" rel="noopener">
+<img src="../inkstone.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Inkstone</span>
+<span class="sibling-desc">노트가 직접 고른 폴더의 순수 Markdown 파일로 남습니다. 위키링크, 그래프, 캔버스.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/veil/" rel="noopener">
+<img src="../veil.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Veil</span>
+<span class="sibling-desc">작업 중인 창만 선명하게 두고 뒤쪽은 부드럽게 흐리게 합니다. 무료, MIT.</span>
+</span>
+<svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
+</a>
+
+<a class="sibling" href="https://jamesai.dev/tapper/" rel="noopener">
+<img src="../tapper.png" width="44" height="44" alt="" loading="lazy" decoding="async">
+<span class="sibling-text">
+<span class="sibling-name">Tapper</span>
+<span class="sibling-desc">마우스 포인터를 긴 막대 끝의 만화 장갑으로 바꿔, 데모와 화면 녹화에서 가리키는 곳이 한눈에 보입니다. 무료, MIT.</span>
 </span>
 <svg class="sibling-go" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg>
 </a>
